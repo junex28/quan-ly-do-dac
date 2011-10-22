@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\DropDownMenu\arrows-ffffff.png" />
+    <Content Include="Content\Images\DropDownMenu\menu-left-border.png" />
     <Content Include="Content\Images\DropDownMenu\shadow.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\superfish.css" />
