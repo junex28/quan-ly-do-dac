@@ -35,11 +35,11 @@ p, ul {
     line-height: 1.6em;
 }
 
-header,
-footer,
-nav,
-section {
+#header #header-top {
     display: block;
+    position: relative;
+    overflow: auto;
+    vertical-align:bottom;
 }
 
 /* HEADINGS   
@@ -82,14 +82,12 @@ page width. Or, you can specify an exact pixel width. */
     margin-right: auto;
 }
 
-header, #header {
+#header {
     position: relative;
-    margin-bottom: 0px;
-    color: #000;
-    padding: 0;
+    background-color: rgb(79, 129, 189)
 }
 
-header h1, #header h1 {
+#header h1 {
     font-weight: bold;
     padding: 5px 0;
     margin: 0;
@@ -100,16 +98,34 @@ header h1, #header h1 {
     text-shadow: 1px 1px 2px #111;
 }
 
-#main {
-    padding: 30px 30px 15px 30px;
-    background-color: #fff;
-    border-radius: 4px 0 0 0;
-    -webkit-border-radius: 4px 0 0 0;
-    -moz-border-radius: 4px 0 0 0;
+#main 
+{
+    margin-left: 275px;
+    padding: 10px;
+    background-color: rgb(253, 233, 217);
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
 }
 
-footer, 
-#footer {
+#middle
+{
+    margin: 5px 0;
+}
+
+#side-bar
+{
+    float: left;
+    width : 270px;
+    background-color: rgb(253, 233, 217);
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    height:400px;
+}
+
+#footer
+{
     background-color: #fff;
     color: #999;
     padding: 10px 0;
@@ -124,6 +140,7 @@ footer,
 
 /* TAB MENU   
 ----------------------------------------------------------*/
+/*
 ul#menu {
     border-bottom: 1px #5C87B2 solid;
     padding: 0 0 2px;
@@ -171,6 +188,7 @@ ul#menu li.selected a {
     background-color: #fff;
     color: #000;
 }
+*/
 
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
@@ -241,22 +259,25 @@ table th {
     color: Red;
 }
 
-nav, 
-#menucontainer {
-    margin-top: 40px;
+#logo {
+    float: left;
 }
 
-div#title {
+div#title 
+{
     display: block;
     float: left;
-    text-align: left;
+    top: 0;
+    bottom: 0;
 }
 
-#logindisplay {
-    font-size: 1.1em;
+#logindisplay 
+{
     display: block;
-    text-align: right;
+    float: right;
+    font-size: 1.1em;
     margin: 10px;
+    padding: 10px;
     color: White;
 }
 

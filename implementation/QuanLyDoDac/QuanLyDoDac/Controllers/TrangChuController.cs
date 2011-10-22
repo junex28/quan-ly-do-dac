@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace QuanLyDoDac.Controllers
 {
-    public class HomeController : Controller
+    public class TrangChuController : Controller
     {
         public ActionResult Index()
         {
