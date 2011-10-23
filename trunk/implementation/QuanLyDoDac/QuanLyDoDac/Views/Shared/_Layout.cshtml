@@ -18,20 +18,26 @@
     <script src="@Url.Content("~/Scripts/DropDownMenu/hoverIntent.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/DropDownMenu/superfish.js")" type="text/javascript"></script>
     <!-- initialise Superfish -->
+    
+    @RenderSection("HeadScript", required: false)
     <script type="text/javascript">
         $(document).ready(function () {
-            $("a.side-link").button();
             $("ul.sf-menu").superfish();
+            $("a.side-link").button();
+            $(".tabs").tabs();
+            $("input[type=submit], input[type=button], input[type=reset]").button();
 
             var sideBar = $("#side-bar");
             if (sideBar != null) {
                 $("#main").css("margin-left", sideBar.width() + 5 + "px");
                 $("#main").css("min-height", sideBar.height() - 20 + "px");
             }
+
+            if ($("#main").height() < 380) {
+                $("#main").css("min-height", 380 + "px");
+            }
         });
     </script>
-
-    @RenderSection("HeadScript", required: false)
 </head>
 <body>
     <div class="page">
@@ -58,15 +64,12 @@
                                 className = "selected";
                             }
                         }
-                        @Html.ActionLink("Trang Chủ", "Index", "TrangChu", new { @class = className })</li>
+                        @Html.ActionLink("Trang Chủ", "Index", "TrangChu", null, new { @class = className })</li>
                     <li>
-                        @Html.ActionLink("WebGIS", "Index", "WebGIS", new { @class = "WebGIS".Equals(controller) ? "selected" : "" })
-                        <ul>
-                            <li>@Html.ActionLink("Đăng Ký Giấy Phép Mới", "DangKyMoi", "WebGIS")</li>
-                        </ul>
+                        @Html.ActionLink("WebGIS", "Index", "WebGIS", null, new { @class = "WebGIS".Equals(controller) ? "selected" : "" })
                     </li>
                     <li>
-                        @Html.ActionLink("Đăng Ký Giấy Phép", "Index", "GiayPhep", new { @class = "GiayPhep".Equals(controller) ? "selected" : "" })
+                        @Html.ActionLink("Đăng Ký Giấy Phép", "Index", "GiayPhep", null, new { @class = "GiayPhep".Equals(controller) ? "selected" : "" })
                         <ul>
                             <li>@Html.ActionLink("Đăng Ký Giấy Phép Mới", "DangKyMoi", "GiayPhep")</li>
                             <li>@Html.ActionLink("Đăng Ký Gia Hạn", "DangKyGiaHan", "GiayPhep")</li>
@@ -85,10 +88,10 @@
                 <div>
                     <div>
                         <div class="side-menu">
-                            <div>@Html.ActionLink("Trang Chủ", "Index", "TrangChu", new { @class = "side-link" })</div>
-                            <div>@Html.ActionLink("Trang Chủ", "Index", "TrangChu", new { @class = "side-link" })</div>
-                            <div>@Html.ActionLink("Trang Chủ", "Index", "TrangChu", new { @class = "side-link" })</div>
-                            <div>@Html.ActionLink("Trang Chủ", "Index", "TrangChu", new { @class = "side-link" })</div>
+                            <div>@Html.ActionLink("Trang Chủ", "Index", "TrangChu", null, new { @class = "side-link" })</div>
+                            <div>@Html.ActionLink("Trang Chủ", "Index", "TrangChu", null, new { @class = "side-link" })</div>
+                            <div>@Html.ActionLink("Trang Chủ", "Index", "TrangChu", null, new { @class = "side-link" })</div>
+                            <div>@Html.ActionLink("Trang Chủ", "Index", "TrangChu", null, new { @class = "side-link" })</div>
                         </div>
                     </div>
                 </div>
