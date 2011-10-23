@@ -13,7 +13,6 @@ namespace QuanLyDoDac.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Menu = "Đăng Ký Gia Hạn";
             return View();
         }
 
@@ -22,7 +21,6 @@ namespace QuanLyDoDac.Controllers
 
         public ActionResult DangKyMoi()
         {
-            ViewBag.Menu = "Đăng Ký Gia Hạn";
             return View();
         }
 
@@ -31,7 +29,13 @@ namespace QuanLyDoDac.Controllers
 
         public ActionResult DangKyGiaHan()
         {
-            ViewBag.Menu = "Đăng Ký Gia Hạn";
+            return View();
+        }
+
+        // Get: /GiayPhep/BoSungThongTin
+
+        public ActionResult BoSungThongTin()
+        {
             return View();
         }
     }
