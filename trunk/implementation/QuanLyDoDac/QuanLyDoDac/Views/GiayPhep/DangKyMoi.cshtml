@@ -3,6 +3,40 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section HeadScript {
+    <script src="@Url.Content("~/Scripts/jquery.tableSelect.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var tableMany = $("#tableSelectListeners").tableSelectMany({
+                listeners: {
+                    beforerowselect: function (event) {
+                        this.preventChange = (this.target === "a") ? true : false;
+                    },
+                    beforerowdeselect: function (event) {
+                        this.preventChange = (this.target === "a") ? true : false;
+                    },
+                    afterrowselect: function (event) {
+                        if (this.parentThis.allSelected()) $("input#tableSelectListenersCbAll").attr('checked', 'checked');
+                        var toggle = $(this).find('input');
+                        if (toggle.not(":checked")) toggle.attr('checked', 'checked');
+                    },
+                    afterrowdeselect: function (event) {
+                        if (!this.parentThis.allSelected()) $("input#tableSelectListenersCbAll").removeAttr('checked');
+                        var toggle = $(this).find('input');
+                        if (toggle.is(":checked")) toggle.removeAttr('checked');
+                    }
+                }
+            });
+            $("#tableSelectListeners input").each(function () { this.checked = null; });
+
+            // Select/Deselect all rows
+            $("input#tableSelectListenersCbAll").bind("click", function () {
+                this.checked ? tableMany.selectAll() : tableMany.clearSelections();
+            });
+        });
+    </script>
+}
+
 <div class="tabs">
 	<ul>
 		<li><a href="#tabs-1">Thông tin chung</a></li>
@@ -11,34 +45,76 @@
 	</ul>
 	<div id="tabs-1">
 		<h3>Danh sách thiết bị</h3>
-        <div class="right">
-            <input type="button" value="Thêm" />
-            <input type="button" value="Sửa" />
-            <input type="button" value="Xóa" />
+        <div class="table-button">
+            <button class="img" title="Thêm"><img alt="Thêm" src="@Url.Content("~/Content/Images/buttons/new.png")" /></button>
+            <button class="img"><img alt="Sửa" src="@Url.Content("~/Content/Images/buttons/edit.png")" /></button>
+            <button class="img"><img alt="Xóa" src="@Url.Content("~/Content/Images/buttons/delete.png")" /></button>
         </div>
-        <table class="list">
-            <tr>
-                <th>Mã TB</th>
-                <th>Tên thiết bị</th>
-                <th>Số lượng</th>
-                <th>Hãng sản xuất</th>
-                <th>Tình trạng</th>
-            </tr>
-            <tr class="odd">
-                <td>TB1</td>
-                <td>Thiết bị 1</td>
-                <td>5</td>
-                <td>Hãng 1</td>
-                <td>Tốt</td>
-            </tr>
-            <tr class="even">
-                <td>TB2</td>
-                <td>Thiết bị 2</td>
-                <td>5</td>
-                <td>Hãng 2</td>
-                <td>Tốt</td>
-            </tr>
+        <table class="select-list" id="tableSelectListeners">
+            <thead>
+                <tr>
+                    <th><input id="tableSelectListenersCbAll" type="checkbox" name="all" /></th>
+                    <th>Mã TB</th>
+                    <th>Tên thiết bị</th>
+                    <th>Số lượng</th>
+                    <th>Hãng sản xuất</th>
+                    <th>Tình trạng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="odd">
+                    <td><input type="checkbox" name="one" /></td>
+                    <td>TB1</td>
+                    <td>Thiết bị 1</td>
+                    <td>5</td>
+                    <td>Hãng 1</td>
+                    <td>Tốt</td>
+                </tr>
+                <tr class="even">
+                    <td><input type="checkbox" name="one" /></td>
+                    <td>TB2</td>
+                    <td>Thiết bị 2</td>
+                    <td>5</td>
+                    <td>Hãng 2</td>
+                    <td>Tốt</td>
+                </tr>
+            </tbody>
         </table>
+        <div id="dialog-form" title="Thiết bị">
+	        <p class="validateTips">All form fields are required.</p>
+
+	        <fieldset>
+                <table>
+                    <tr>
+                        <td class="label">Mã thiết bị</td>
+                        <td><input type="text" name="tbMaThietBi" id="tbMaThietBi" class="text ui-widget-content ui-corner-all" /></td>
+                        <td class="label">Công nghệ</td>
+                        <td><input type="text" name="tbCongNghe" id="tbCongNghe" class="text ui-widget-content ui-corner-all" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Tên thiết bị</td>
+                        <td><input type="text" name="tbTenThietBi" id="tbTenThietBi" class="text ui-widget-content ui-corner-all" /></td>
+                        <td class="label">Tình trạng</td>
+                        <td><input type="text" name="tbTinhTrang" id="tbTinhTrang" class="text ui-widget-content ui-corner-all" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Số lượng</td>
+                        <td><input type="text" name="tbSoLuong" id="tbSoLuong" class="text ui-widget-content ui-corner-all" /></td>
+                        <td class="label">Hãng sản xuất</td>
+                        <td><input type="text" name="tbHangSanXuat" id="tbHangSanXuat" class="text ui-widget-content ui-corner-all" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Giấy chứng nhận sở hữu thiết bị</td>
+                        <td colspan="3"><input type="file" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Ghi chú</td>
+                        <td colspan="3"><textarea rows="3" cols="30" name="tbGhiChu" id="tbGhiChu"  class="text ui-widget-content ui-corner-all"></textarea></td>
+                    </tr>
+                </table>
+	        </fieldset>
+        </div>
+
 	</div>
 	<div id="tabs-2">
 		<table>

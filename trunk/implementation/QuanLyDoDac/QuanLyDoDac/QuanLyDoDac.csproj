@@ -14,6 +14,7 @@
     <AssemblyName>QuanLyDoDac</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -90,6 +91,9 @@
     <Content Include="Content\Images\base\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\Images\base\ui-icons_eeeeee_256x240.png" />
     <Content Include="Content\Images\base\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\Images\buttons\delete.png" />
+    <Content Include="Content\Images\buttons\edit.png" />
+    <Content Include="Content\Images\buttons\new.png" />
     <Content Include="Content\Images\DropDownMenu\arrows-ffffff.png" />
     <Content Include="Content\Images\DropDownMenu\menu-left-border.png" />
     <Content Include="Content\Images\DropDownMenu\shadow.png" />
@@ -101,6 +105,7 @@
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.16.custom.min.js" />
+    <Content Include="Scripts\jquery.tableSelect.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

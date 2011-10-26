@@ -206,13 +206,13 @@ table th {
     border: solid 1px #e8eef4;
 }
 
-table.list
+table.select-list
 {
     width: 100%;
     border-collapse: collapse;
 }
 
-table.list th
+table.select-list th
 {
     padding: 5px;
     text-align: center;
@@ -221,7 +221,7 @@ table.list th
     color: #ffffff;
 }
 
-table.list td 
+table.select-list td 
 {
     padding: 5px;
     text-align: left;
@@ -229,15 +229,21 @@ table.list td
     color: #333333;
 }
 
-table.list tr.even td
+table.select-list tr.even td
 {
     background-color: rgb(227, 177, 176);
     
 }
 
-table.list tr.odd td
+table.select-list tr.odd td
 {
     background-color: rgb(237, 206, 205);
+}
+
+table.select-list tr td:first-child
+{
+    width: 10px;
+    text-align: center;
 }
 
 /* MISC  
@@ -349,4 +355,23 @@ div#title
 .center
 {
     text-align: center;
+}
+
+.table-button {
+    text-align: right;
+    margin: 5px 0;
+}
+
+.table-button input[type="button"] {
+    
+    width: 50px;
+    font-size: 1em;
+    padding: 5px;
+}
+
+button.img img
+{
+    display: block;
+    width: 24px;
+    height: 24px;
 }
