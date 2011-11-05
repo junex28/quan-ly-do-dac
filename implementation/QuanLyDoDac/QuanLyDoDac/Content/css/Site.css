@@ -3,13 +3,15 @@ The base color for this template is #5c87b2. If you'd like
 to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
-body 
+*
 {
-    background-color: #EEEEEE;
-    font-size: .85em;
-    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
+}
+
+body 
+{
+    font: 12px Arial,Tahoma,Sans-serif;
     color: #696969;
 }
 
@@ -31,18 +33,6 @@ a:active {
     color: #12eb87;
 }
 
-p, ul {
-    margin-bottom: 20px;
-    line-height: 1.6em;
-}
-
-#header #header-top {
-    display: block;
-    position: relative;
-    overflow: auto;
-    vertical-align:bottom;
-}
-
 /* HEADINGS   
 ----------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6 {
@@ -52,8 +42,6 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 2em;
-    padding-bottom: 0;
-    margin-bottom: 0;
 }
 
 h2 {
@@ -78,30 +66,43 @@ h5, h6 {
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
 .page {
-    width: 90%;
+    width: 957px;
     margin-left: auto;
     margin-right: auto;
 }
 
 #header {
     position: relative;
-    background-color: rgb(79, 129, 189)
+    height: 35px;
+    padding: 25px 0;
 }
 
 #header h1 {
-    font-weight: bold;
-    padding: 5px 0;
-    margin: 0 20px;
-    color: #fff;
-    border: none;
-    line-height: 2em;
-    font-size: 32px !important;
-    text-shadow: 1px 1px 2px #111;
+    float: left;
+    line-height: 35px;
 }
 
-#middle
+#header h1 a {
+    color: #459E00;
+    text-decoration: none;
+}
+
+#logindisplay {
+    display: block;
+    float: right;
+    font-size: 1.1em;
+    color: #459E00;
+
+    line-height: 35px;
+}
+
+#logindisplay a {
+    color: #459E00;
+    text-decoration: none;
+}
+
+#container
 {
-    position: relative;
     margin: 5px 0;
 }
 
@@ -109,9 +110,6 @@ page width. Or, you can specify an exact pixel width. */
 {
     padding: 10px;
     background-color: rgb(253, 233, 217);
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
 }
 
 #side-bar
@@ -129,9 +127,6 @@ page width. Or, you can specify an exact pixel width. */
     line-height: normal;
     margin: 0 0 30px 0;
     font-size: .9em;
-    border-radius: 0 0 4px 4px;
-    -webkit-border-radius: 0 0 4px 4px;
-    -moz-border-radius: 0 0 4px 4px;
 }
 
 /* SIDE MENU   
@@ -266,31 +261,6 @@ div#title
     float: left;
     top: 0;
     bottom: 0;
-}
-
-#logindisplay 
-{
-    display: block;
-    float: right;
-    font-size: 1.1em;
-    margin: 10px;
-    padding: 10px;
-    color: White;
-}
-
-#logindisplay a:link {
-    color: white;
-    text-decoration: underline;
-}
-
-#logindisplay a:visited {
-    color: white;
-    text-decoration: underline;
-}
-
-#logindisplay a:hover {
-    color: white;
-    text-decoration: none;
 }
 
 /* Styles for validation helpers
