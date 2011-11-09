@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="26fa318f-21a6-4ff2-8a81-683377550cba" name="NTT@NTT-PC 2011-11-08 23:46:35" runUser="NTT-PC\NTT" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Default Run Configuration" id="c3cc1a2c-d2fd-4145-aa29-9686f01c6c4b">
+    <Deployment runDeploymentRoot="E:\Coding\VisualStudio\WebSites\GIS\TestResults\NTT_NTT-PC 2011-11-08 23_46_35">
+      <DeploymentItem filename="E:\Coding\VisualStudio\WebSites\GIS\GIS\obj\Debug\GIS.dll" />
+    </Deployment>
+    <Hosts skipUnhostableTests="false" />
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Completed">
+    <Counters total="17" executed="17" passed="17" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2011-11-08T23:46:35.5171360+07:00" queuing="2011-11-08T23:46:37.9502752+07:00" start="2011-11-08T23:46:38.2612930+07:00" finish="2011-11-08T23:46:39.4903633+07:00" />
+  <TestDefinitions>
+    <UnitTest name="About" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="eba8b42c-a23d-9d21-ec08-e2516b6f83e4">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="828b43a9-b21b-452d-90a0-8d356966b1bb" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.HomeControllerTest, GIS.Tests" name="About" />
+    </UnitTest>
+    <UnitTest name="Register_Post_ReturnsViewIfRegistrationFails" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="98db5e07-97cd-f742-5bf1-859263315430">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="b0144f79-9398-4fd0-b390-bccfb8e033d7" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="Register_Post_ReturnsViewIfRegistrationFails" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Get_ReturnsView" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="cf7258aa-c5ce-d82f-49f9-08c65cef8acc">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="18285255-cd84-47ec-8e47-e5673b847f13" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="ChangePassword_Get_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsRedirectOnSuccess_WithReturnUrl" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="1897664c-5474-5f91-9399-39ba59a951af">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="3c1edfda-3d4a-4300-8a9c-1038f917369f" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="LogOn_Post_ReturnsRedirectOnSuccess_WithReturnUrl" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="14adaf29-d112-6af9-f9cd-67d9346cad8f">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="f1cfa677-4e0c-46df-8532-81180bef1a33" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl" />
+    </UnitTest>
+    <UnitTest name="Register_Post_ReturnsRedirectOnSuccess" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="8b0809f8-78cc-4b68-c6b6-5db366c32b95">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="8c2e7f0d-7e01-4a5c-9fca-70db1167bf1c" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="Register_Post_ReturnsRedirectOnSuccess" />
+    </UnitTest>
+    <UnitTest name="Register_Post_ReturnsViewIfModelStateIsInvalid" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="2decd836-78d8-c9e7-7b07-904d63f1bf3e">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="54dc466e-c40e-4f54-a2fa-03f111f8dab5" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="Register_Post_ReturnsViewIfModelStateIsInvalid" />
+    </UnitTest>
+    <UnitTest name="Register_Get_ReturnsView" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="4bcd9c7e-6b9a-3df0-5c20-b61ea09881b3">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="961723e3-5397-47db-b9f2-c9b484759891" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="Register_Get_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="LogOff_LogsOutAndRedirects" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="92374a84-32f6-a2b4-82d7-981e8b392c27">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="b7bba320-a97b-44a8-99c7-889c11286484" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="LogOff_LogsOutAndRedirects" />
+    </UnitTest>
+    <UnitTest name="LogOn_Get_ReturnsView" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="90903a93-2a52-0115-b5d4-56f57a9fd9fe">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="c789bfa9-a18d-42be-8af5-0b10adb6bc6d" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="LogOn_Get_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsViewIfModelStateIsInvalid" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="79b5d47e-eda1-1278-2756-8819d0a274eb">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="2c998882-72c5-443b-948c-fce86995f50b" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="LogOn_Post_ReturnsViewIfModelStateIsInvalid" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Post_ReturnsViewIfChangePasswordFails" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="28622edd-60c0-06cd-cba5-18e1a355914c">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="9c46c038-b3ac-412d-acf6-93dbc6f12670" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="ChangePassword_Post_ReturnsViewIfChangePasswordFails" />
+    </UnitTest>
+    <UnitTest name="Index" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="893c0748-ad02-8172-0b13-264abbffd4ec">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="d41a4bc3-f443-459f-a1d5-b87c9d7072d2" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.HomeControllerTest, GIS.Tests" name="Index" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Post_ReturnsViewIfModelStateIsInvalid" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="c7179f77-d18f-5931-0485-e77c142aaf99">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="99e63d4e-84c7-420b-893c-20d0d6c5dd07" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="ChangePassword_Post_ReturnsViewIfModelStateIsInvalid" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Post_ReturnsRedirectOnSuccess" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="2d5e24d6-aaf1-0598-a336-f76a6b20c6e2">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="08146aca-4f4e-4efa-b726-d8dd679ec23c" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="ChangePassword_Post_ReturnsRedirectOnSuccess" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordSuccess_ReturnsView" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="e29b8c91-fba2-883b-64bd-3e18fe752280">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="b1c13275-4972-40ea-b56e-58bd08f60cbc" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="ChangePasswordSuccess_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsViewIfValidateUserFails" storage="e:\coding\visualstudio\websites\gis\gis.tests\bin\debug\gis.tests.dll" id="82c97f92-22bb-7787-14f7-f2218663fcdb">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="05a099a7-64ec-416c-aa3e-6c2a1de7d888" />
+      <TestMethod codeBase="E:\Coding\VisualStudio\WebSites\GIS\GIS.Tests\bin\Debug\GIS.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="GIS.Tests.Controllers.AccountControllerTest, GIS.Tests" name="LogOn_Post_ReturnsViewIfValidateUserFails" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="14adaf29-d112-6af9-f9cd-67d9346cad8f" executionId="f1cfa677-4e0c-46df-8532-81180bef1a33" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1897664c-5474-5f91-9399-39ba59a951af" executionId="3c1edfda-3d4a-4300-8a9c-1038f917369f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="28622edd-60c0-06cd-cba5-18e1a355914c" executionId="9c46c038-b3ac-412d-acf6-93dbc6f12670" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2d5e24d6-aaf1-0598-a336-f76a6b20c6e2" executionId="08146aca-4f4e-4efa-b726-d8dd679ec23c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2decd836-78d8-c9e7-7b07-904d63f1bf3e" executionId="54dc466e-c40e-4f54-a2fa-03f111f8dab5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4bcd9c7e-6b9a-3df0-5c20-b61ea09881b3" executionId="961723e3-5397-47db-b9f2-c9b484759891" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="79b5d47e-eda1-1278-2756-8819d0a274eb" executionId="2c998882-72c5-443b-948c-fce86995f50b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="82c97f92-22bb-7787-14f7-f2218663fcdb" executionId="05a099a7-64ec-416c-aa3e-6c2a1de7d888" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="893c0748-ad02-8172-0b13-264abbffd4ec" executionId="d41a4bc3-f443-459f-a1d5-b87c9d7072d2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8b0809f8-78cc-4b68-c6b6-5db366c32b95" executionId="8c2e7f0d-7e01-4a5c-9fca-70db1167bf1c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="90903a93-2a52-0115-b5d4-56f57a9fd9fe" executionId="c789bfa9-a18d-42be-8af5-0b10adb6bc6d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="92374a84-32f6-a2b4-82d7-981e8b392c27" executionId="b7bba320-a97b-44a8-99c7-889c11286484" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="98db5e07-97cd-f742-5bf1-859263315430" executionId="b0144f79-9398-4fd0-b390-bccfb8e033d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c7179f77-d18f-5931-0485-e77c142aaf99" executionId="99e63d4e-84c7-420b-893c-20d0d6c5dd07" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cf7258aa-c5ce-d82f-49f9-08c65cef8acc" executionId="18285255-cd84-47ec-8e47-e5673b847f13" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e29b8c91-fba2-883b-64bd-3e18fe752280" executionId="b1c13275-4972-40ea-b56e-58bd08f60cbc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eba8b42c-a23d-9d21-ec08-e2516b6f83e4" executionId="828b43a9-b21b-452d-90a0-8d356966b1bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="f1cfa677-4e0c-46df-8532-81180bef1a33" testId="14adaf29-d112-6af9-f9cd-67d9346cad8f" testName="LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl" computerName="NTT-PC" duration="00:00:00.1529677" startTime="2011-11-08T23:46:38.3973008+07:00" endTime="2011-11-08T23:46:39.0803398+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3c1edfda-3d4a-4300-8a9c-1038f917369f" testId="1897664c-5474-5f91-9399-39ba59a951af" testName="LogOn_Post_ReturnsRedirectOnSuccess_WithReturnUrl" computerName="NTT-PC" duration="00:00:00.0016481" startTime="2011-11-08T23:46:39.1053413+07:00" endTime="2011-11-08T23:46:39.1163419+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9c46c038-b3ac-412d-acf6-93dbc6f12670" testId="28622edd-60c0-06cd-cba5-18e1a355914c" testName="ChangePassword_Post_ReturnsViewIfChangePasswordFails" computerName="NTT-PC" duration="00:00:00.0569848" startTime="2011-11-08T23:46:39.1173419+07:00" endTime="2011-11-08T23:46:39.1823457+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="08146aca-4f4e-4efa-b726-d8dd679ec23c" testId="2d5e24d6-aaf1-0598-a336-f76a6b20c6e2" testName="ChangePassword_Post_ReturnsRedirectOnSuccess" computerName="NTT-PC" duration="00:00:00.0012306" startTime="2011-11-08T23:46:39.1833457+07:00" endTime="2011-11-08T23:46:39.1923462+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="54dc466e-c40e-4f54-a2fa-03f111f8dab5" testId="2decd836-78d8-c9e7-7b07-904d63f1bf3e" testName="Register_Post_ReturnsViewIfModelStateIsInvalid" computerName="NTT-PC" duration="00:00:00.0024180" startTime="2011-11-08T23:46:39.1933463+07:00" endTime="2011-11-08T23:46:39.2063470+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="961723e3-5397-47db-b9f2-c9b484759891" testId="4bcd9c7e-6b9a-3df0-5c20-b61ea09881b3" testName="Register_Get_ReturnsView" computerName="NTT-PC" duration="00:00:00.0013968" startTime="2011-11-08T23:46:39.2063470+07:00" endTime="2011-11-08T23:46:39.2183477+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2c998882-72c5-443b-948c-fce86995f50b" testId="79b5d47e-eda1-1278-2756-8819d0a274eb" testName="LogOn_Post_ReturnsViewIfModelStateIsInvalid" computerName="NTT-PC" duration="00:00:00.0013069" startTime="2011-11-08T23:46:39.2193478+07:00" endTime="2011-11-08T23:46:39.2283483+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="05a099a7-64ec-416c-aa3e-6c2a1de7d888" testId="82c97f92-22bb-7787-14f7-f2218663fcdb" testName="LogOn_Post_ReturnsViewIfValidateUserFails" computerName="NTT-PC" duration="00:00:00.0014596" startTime="2011-11-08T23:46:39.2293483+07:00" endTime="2011-11-08T23:46:39.2543498+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d41a4bc3-f443-459f-a1d5-b87c9d7072d2" testId="893c0748-ad02-8172-0b13-264abbffd4ec" testName="Index" computerName="NTT-PC" duration="00:00:00.0016681" startTime="2011-11-08T23:46:39.2553498+07:00" endTime="2011-11-08T23:46:39.2663505+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8c2e7f0d-7e01-4a5c-9fca-70db1167bf1c" testId="8b0809f8-78cc-4b68-c6b6-5db366c32b95" testName="Register_Post_ReturnsRedirectOnSuccess" computerName="NTT-PC" duration="00:00:00.0025743" startTime="2011-11-08T23:46:39.2693506+07:00" endTime="2011-11-08T23:46:39.2783511+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c789bfa9-a18d-42be-8af5-0b10adb6bc6d" testId="90903a93-2a52-0115-b5d4-56f57a9fd9fe" testName="LogOn_Get_ReturnsView" computerName="NTT-PC" duration="00:00:00.0003956" startTime="2011-11-08T23:46:39.2793512+07:00" endTime="2011-11-08T23:46:39.2963522+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b7bba320-a97b-44a8-99c7-889c11286484" testId="92374a84-32f6-a2b4-82d7-981e8b392c27" testName="LogOff_LogsOutAndRedirects" computerName="NTT-PC" duration="00:00:00.0015061" startTime="2011-11-08T23:46:39.2973522+07:00" endTime="2011-11-08T23:46:39.3133531+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b0144f79-9398-4fd0-b390-bccfb8e033d7" testId="98db5e07-97cd-f742-5bf1-859263315430" testName="Register_Post_ReturnsViewIfRegistrationFails" computerName="NTT-PC" duration="00:00:00.0017165" startTime="2011-11-08T23:46:39.3143532+07:00" endTime="2011-11-08T23:46:39.3243538+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="99e63d4e-84c7-420b-893c-20d0d6c5dd07" testId="c7179f77-d18f-5931-0485-e77c142aaf99" testName="ChangePassword_Post_ReturnsViewIfModelStateIsInvalid" computerName="NTT-PC" duration="00:00:00.0008648" startTime="2011-11-08T23:46:39.3243538+07:00" endTime="2011-11-08T23:46:39.3323542+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="18285255-cd84-47ec-8e47-e5673b847f13" testId="cf7258aa-c5ce-d82f-49f9-08c65cef8acc" testName="ChangePassword_Get_ReturnsView" computerName="NTT-PC" duration="00:00:00.0048285" startTime="2011-11-08T23:46:39.3323542+07:00" endTime="2011-11-08T23:46:39.3643561+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b1c13275-4972-40ea-b56e-58bd08f60cbc" testId="e29b8c91-fba2-883b-64bd-3e18fe752280" testName="ChangePasswordSuccess_ReturnsView" computerName="NTT-PC" duration="00:00:00.0049830" startTime="2011-11-08T23:46:39.3643561+07:00" endTime="2011-11-08T23:46:39.3743566+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="828b43a9-b21b-452d-90a0-8d356966b1bb" testId="eba8b42c-a23d-9d21-ec08-e2516b6f83e4" testName="About" computerName="NTT-PC" duration="00:00:00.0092763" startTime="2011-11-08T23:46:39.3773568+07:00" endTime="2011-11-08T23:46:39.3953578+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>
