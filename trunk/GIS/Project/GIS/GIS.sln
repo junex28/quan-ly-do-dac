@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIS", "GIS\GIS.csproj", "{24BE27CF-33D5-49EF-BF77-128C11117E56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIS.Tests", "GIS.Tests\GIS.Tests.csproj", "{F967AF05-F281-4091-A8A9-664B1D6F8582}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24BE27CF-33D5-49EF-BF77-128C11117E56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24BE27CF-33D5-49EF-BF77-128C11117E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24BE27CF-33D5-49EF-BF77-128C11117E56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24BE27CF-33D5-49EF-BF77-128C11117E56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F967AF05-F281-4091-A8A9-664B1D6F8582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F967AF05-F281-4091-A8A9-664B1D6F8582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F967AF05-F281-4091-A8A9-664B1D6F8582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F967AF05-F281-4091-A8A9-664B1D6F8582}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
