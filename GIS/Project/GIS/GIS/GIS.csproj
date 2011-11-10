@@ -100,7 +100,8 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\gisstyle.css" />
+    <Content Include="Content\map.css" />
+    <Content Include="Views\GIS\Code.aspx" />
     <Content Include="Views\GIS\Index.aspx" />
   </ItemGroup>
   <ItemGroup>
