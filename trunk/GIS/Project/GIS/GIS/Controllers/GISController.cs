@@ -14,5 +14,9 @@ namespace GIS.Controllers
             return View();
         }
 
+        public ActionResult Code()
+        {
+            return View();
+        }
     }
 }

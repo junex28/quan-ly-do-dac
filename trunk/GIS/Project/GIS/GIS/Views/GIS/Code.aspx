@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
@@ -11,7 +11,6 @@
     <link href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css" />    
     <link rel="stylesheet" type="text/css" href="../../Content/map.css" />
 
-    <!--
     <script type="text/javascript">
         dojo.require("esri.map");
         var map;
@@ -37,7 +36,6 @@
         dojo.addOnLoad(init);
 
     </script>
-    -->
 
     <style type="text/css">
       html, body {
@@ -64,23 +62,8 @@
 </head>
 
 <body class="soria">
-    <div id="page-border" dojotype="dijit.layout.BorderContainer" gutters="false" design="headline">           
-     <div id="main-content" dojotype="dijit.layout.BorderContainer" gutters="true" design="headline" region="center" style="padding:0 2px 1px 0;">
-           <div id="webmap-header" dojotype="dijit.layout.ContentPane" region="top"> Banner Header here
-                <div id="webmap-logo">He thong quan ly </div>
-                <div class="siteHeader">
-                     <ul id="header-controls" class="mapLinks dijitInline" style="padding-top:8px; padding-right:10px;">
-                        <li><a id="webmap-homeLink" href="#"></a></li>
-                         <li id="_signInOutLink"></li>
-
-                     </ul>
-                </div>
-           </div>
-     </div>    
-    </div>
-
+    <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div> 
 </body>
 </html>
- <!-- 
- <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div> 
- -->
+ 
+ 

@@ -1,0 +1,11 @@
+﻿body {
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
+body, textarea, input {
+    color: #444444;
+    font-family: Verdana,Helvetica,sans-serif !important;
+    font-size: 12px;
+}

@@ -3,14 +3,24 @@ The base color for this template is #5c87b2. If you'd like
 to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
+/* Add New Heading*/
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+}
+
+body, textarea, input {
+    color: #444444;
+    font-family: Verdana,Helvetica,sans-serif !important;
+    font-size: 12px;
+}
+
 body
 {
-    background-color: #5c87b2;
-    font-size: .75em;
-    font-family: Verdana, Helvetica, Sans-Serif;
-    margin: 0;
-    padding: 0;
-    color: #696969;
+    background-color: #ffffff;
 }
 
 a:link
@@ -37,6 +47,7 @@ p, ul
     margin-bottom: 20px;
     line-height: 1.6em;
 }
+
 
 /* HEADINGS   
 ----------------------------------------------------------*/
