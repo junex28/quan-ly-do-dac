@@ -23,31 +23,21 @@ body
     background-color: #ffffff;
 }
 
-a:link
-{
-    color: #034af3;
-    text-decoration: underline;
-}
-a:visited
-{
-    color: #505abc;
-}
-a:hover
-{
-    color: #1d60ff;
+a, a:hover, a:active, a:visited
+{    
+    color: #333333;
     text-decoration: none;
-}
-a:active
-{
-    color: #12eb87;
-}
+    }
 
 p, ul
 {
     margin-bottom: 20px;
-    line-height: 1.6em;
 }
 
+ol li, ul li {
+    font-size: 1em;
+    line-height: 1.5em;
+}
 
 /* HEADINGS   
 ----------------------------------------------------------*/

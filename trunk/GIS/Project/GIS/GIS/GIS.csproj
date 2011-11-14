@@ -100,15 +100,20 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\ESRI_Globe_normal.png" />
+    <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\logo_space_bg.gif" />
+    <Content Include="Content\images\map_icon.png" />
+    <Content Include="Content\images\top_header_md_tile.gif" />
     <Content Include="Content\map.css" />
+    <Content Include="Resources\config.js" />
+    <Content Include="Resources\project.js" />
     <Content Include="Views\GIS\Code.aspx" />
     <Content Include="Views\GIS\Index.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="arcgis\css\" />
-    <Folder Include="arcgis\images\" />
-    <Folder Include="arcgis\js\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -125,7 +130,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3923</DevelopmentServerPort>
+          <DevelopmentServerPort>1379</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
