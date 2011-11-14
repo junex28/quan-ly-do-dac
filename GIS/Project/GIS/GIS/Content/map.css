@@ -1,11 +1,170 @@
-﻿body {
+﻿/*
+Mau xanh nhat toolbar: #D0E0F0
+Xanh header:#19658b
+Xanh chu : #3366cc
+*/
+body, html { width:100%; height:100%; margin:0; padding:0; overflow:hidden; }
+
+body {
     background-color: #FFFFFF;
+}
+
+#mainContainer {
+    width: 100%;
+    height: 100%;
+    border-width: 0px;
+}
+
+#header
+{
+     background: url("../../Content/images/top_header_md_tile.gif");
+     height: 50px;
+    }
+
+#rightHeader
+{
+    height:50px;
+    }
+ 
+#title
+{
+    width:217px;
+    }
+    
+#toolbarPanel
+{
+    background: #D0E0F0;
+    height: 20px;
+    }
+        
+#leftPanel
+{
+    width:250px;
+    }
+    
+#mapPanel
+{
+    }
+        
+/* Banner */
+    /* Banner - Background */
+    
+#logo
+{
+    float: left;
+    height:50px;
+    width:217px;
+    position: absolute;
+    text-decoration: none; 
+}
+
+    /* End Banner - Background*/
+#siteLogin
+{
+    padding-right:10px; 
+    padding-top:3px; 
+    text-align:right;
+    height:22px;
+    }
+     
+#siteLogin a, #siteLogin a:hover
+{
+    color: #3366cc;    
+    }    
+    
+#siteLogin a:hover
+{
+    text-decoration: underline;
+    }     
+    
+    /* Menu */
+.siteMenu
+{
+    height:28px;
+
+    }
+        
+.siteMenu ul.mapLinks
+{
+    display: block;
+    list-style: none outside none;
     margin: 0;
     padding: 0;
 }
 
-body, textarea, input {
-    color: #444444;
-    font-family: Verdana,Helvetica,sans-serif !important;
-    font-size: 12px;
-}
+.siteMenu ul.mapLinks li
+{
+    display:inline;
+    }
+    
+.siteMenu ul.mapLinks li a
+{
+    margin-left:1.5em;
+    color:#ffffff;
+    }
+
+.siteMenu ul.mapLinks li a:hover
+{
+    text-decoration:underline;
+    }    
+    /* End Menu*/
+    /* Toolbar1 - Top : Save, Print...*/
+        
+
+    
+    
+   /* End Toolbar 1 */
+
+/* Map Toolbar 2 - Measure, Buffer 
+
+#toolbar .esriToolbar
+{
+    border-color: -moz-use-text-color -moz-use-text-color #BBBBBB;
+    border-style: none none solid;
+    border-width: medium medium 1px;
+    height: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding: 4px;
+    
+    } */
+    
+/* Toobar Icon 
+.mapToolbarButton .dijitButtonNode
+{
+    				background: rgb(96,96,96) !important;
+				color: white !important;
+				padding: 10px !important;
+				font-size: x-large !important;
+				padding-top: 10px !important;
+				padding-bottom: 10px !important;
+				border: 2px inset rgb(96,96,96);
+	}
+	
+.mapToolbarButtonHover .dijitButtonNode {
+		background-color: rgb(89,94,111) !important;
+		color: cyan !important;
+	}
+.mapToolbarButtonFocused .dijitButtonNode {
+		border: yellow inset 2px;
+	}
+.mapToolbarButtonActive .dijitButtonNode {
+		background-color: white !important;
+		color: black !important;
+		border: 2px solid black !important;
+	}
+*/
+
+.mapToolbarIcon
+{
+    background-image: url('../Content/images/map_icon.png'); /* editor icons sprite image for the enabled state */
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+	text-align: center;
+    } 
+    
+.mapToolbarIconMeasure 
+{
+    background-position: 0px; }    
