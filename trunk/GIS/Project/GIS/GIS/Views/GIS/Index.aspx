@@ -43,8 +43,8 @@
 //	        map.addLayer(basemap);
 
 
-	        var kmlUrl = 'http://localhost/ArcGIS/services/Moc/MapServer/KmlServer';
-	        var kml = new esri.layers.KMLLayer(kmlUrl);
+	        var mocUrl = 'http://localhost/ArcGIS/rest/services/Moc/MapServer';
+	        var moc = new esri.layers.KMLLayer(kmlUrl);
 	        map.addLayer(kml);
 	    }
 
