@@ -8,48 +8,19 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="fragment" content="!" />
     <title> WEB GIS</title>
-      
     <link rel="stylesheet" type="text/css" href="../../Content/map.css" />
-    <link rel="stylesheet" type="text/css" href="../../Content/Site.css" />
-	<link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/soria/soria.css"  />    
+    <link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/soria/soria.css"  />
+	<link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dojo/resources/dojo.css"  />    
     <%--<link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/claro/claro.css"  />--%>
    
     <script type="text/javascript">
-         var djConfig = { parseOnLoad: true};
+        var djConfig = { parseOnLoad: true };
+        var map;
     </script>
     
     <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.5"></script>
 	
-	<%--<script type="text/javascript" src="../../Resources/project.js"></script>--%>	
-	<script type="text/javascript">
-	    dojo.require("esri.map");
-	    dojo.require("esri.layers.KMLLayer");
-
-	    dojo.require("dijit.layout.BorderContainer");
-	    dojo.require("dijit.layout.TabContainer");
-	    dojo.require("dijit.layout.ContentPane");
-	    dojo.require("dijit.form.Button");
-	    dojo.require("dijit.Toolbar");
-
-
-	    function init() {
-	        var map;
-	       // var initExtent = new esri.geometry.Extent({ "xmin": 5.049902, "ymin": 10.819129611, "xmax": 5.514951094, "ymax": 10.716265511, "spatialReference": { "wkid": 3406} });
-	        // map = new esri.Map("mapPanel", { extent: initExtent });
-	        map = new esri.Map("mapPanel");
-	        /* Cached map */
-//	        var basemapURL = "http://localhost/ArcGIS/rest/services/final/MapServer"
-//	        var basemap = new esri.layers.ArcGISTiledMapServiceLayer(basemapURL);
-//	        map.addLayer(basemap);
-
-
-	        var mocUrl = 'http://localhost/ArcGIS/rest/services/Moc/MapServer';
-	        var moc = new esri.layers.KMLLayer(kmlUrl);
-	        map.addLayer(kml);
-	    }
-
-
-	    dojo.addOnLoad(init);</script>
+	<script type="text/javascript" src="../../Resources/project.js"></script>	
 	
 </head>
 
@@ -93,8 +64,20 @@
                     <div dojoType="dijit.layout.ContentPane" title="Tìm kiếm" selected="true">
                            Tìm kiếm
                     </div>
-                    <div dojoType="dijit.layout.ContentPane" title="Thêm Lớp" selected="true">
-                           Lớp 
+                    <div id="addLayer" dojoType="dijit.layout.ContentPane" title="Thêm Lớp" selected="true">                           	
+                           	<span> Lựa chọn các lớp bản đồ dưới đây để hiển thị trên bản đồ : </span>
+                           	<h2>Lớp Mốc</h2>
+			                        <fieldset style="padding-left:20px;">
+				                        <input id="check1" type="checkBox" dojoType="dijit.form.CheckBox">
+				                        <label for="check1">Mốc toạ dộ</label><br/>
+
+				                        <input id="check2" type="checkBox" dojoType="dijit.form.CheckBox" checked="checked">
+				                        <label for="check2">Mốc độ cao</label><br />
+
+				                        <input id="check3" type="checkBox" dojoType="dijit.form.CheckBox" disabled>
+				                        <label for="check3">Mốc trọng lực</label><br />
+			                        </fieldset>
+
                     </div>                
                 </div>
                 

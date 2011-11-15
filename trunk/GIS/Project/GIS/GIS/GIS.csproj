@@ -105,6 +105,7 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo_space_bg.gif" />
     <Content Include="Content\images\map_icon.png" />
+    <Content Include="Content\images\bodyBg.gif" />
     <Content Include="Content\images\top_header_md_tile.gif" />
     <Content Include="Content\map.css" />
     <Content Include="Resources\config.js" />
