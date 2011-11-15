@@ -15,12 +15,12 @@
    
     <script type="text/javascript">
         var djConfig = { parseOnLoad: true };
-        var map;
     </script>
     
     <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.5"></script>
-	
+    <script type="text/javascript" src="../../Resources/config.js"></script>
 	<script type="text/javascript" src="../../Resources/project.js"></script>	
+	
 	
 </head>
 
@@ -66,9 +66,9 @@
                     </div>
                     <div id="addLayer" dojoType="dijit.layout.ContentPane" title="Thêm Lớp" selected="true">                           	
                            	<span> Lựa chọn các lớp bản đồ dưới đây để hiển thị trên bản đồ : </span>
-                           	<h2>Lớp Mốc</h2>
 			                        <fieldset style="padding-left:20px;">
-				                        <input id="check1" type="checkBox" dojoType="dijit.form.CheckBox">
+				                        <span id="layer_list"></span>        
+				                   <%--     <input id="moctoado" type="checkBox" dojoType="dijit.form.CheckBox" onChange="addLayer">
 				                        <label for="check1">Mốc toạ dộ</label><br/>
 
 				                        <input id="check2" type="checkBox" dojoType="dijit.form.CheckBox" checked="checked">
@@ -76,7 +76,7 @@
 
 				                        <input id="check3" type="checkBox" dojoType="dijit.form.CheckBox" disabled>
 				                        <label for="check3">Mốc trọng lực</label><br />
-			                        </fieldset>
+			                       --%> </fieldset>
 
                     </div>                
                 </div>
