@@ -33,13 +33,13 @@ var layers, visible = [];
      
      // Load multiple list layer
      function loadLayers(){
-        layers = new esri.layers.ArcGISDynamicMapServiceLayer("http://localhost/ArcGIS/rest/services/Moc/MapServer");
+         layers = new esri.layers.ArcGISDynamicMapServiceLayer(appConfig.Services.mocMapService.url);
 
-        if (layer.loaded) {
-          buildLayerList(layer);
+        if (layers.loaded) {
+          buildLayerList(layers);
         }
         else {
-          dojo.connect(layer, "onLoad", buildLayerList);
+          dojo.connect(layers, "onLoad", buildLayerList);
         }
      }
      
@@ -47,14 +47,14 @@ var layers, visible = [];
         var items = dojo.map(layer.layerInfos,function(info,index){
           if (info.defaultVisibility) {
             visible.push(info.id);
-          }
-          return "<input type='checkbox' dojotype='dijit.form.CheckBox' class='list_item' checked='" + (info.defaultVisibility ? "checked" : "") + "' id='" + info.id + "' onclick='updateLayerVisibility();' />" + "<label for='" + info.id + "'>" + info.name + "</label>";
+        }          
+          return "<input type='checkbox' dojotype='dijit.form.CheckBox' class='list_item' checked='" + (info.defaultVisibility ? "checked" : "") + "' id='" + info.id + "' onclick='updateLayerVisibility();' />" + "<label for='" + info.id + "'>" + info.name + "</label> <br/>";
         });
 
-        dojo.byId("layer_list").innerHTML = items.join();
-
-        layer.setVisibleLayers(visible);
-        map.addLayer(layer);
+        dojo.forEach(items, function(item) { dojo.byId("layer_list").innerHTML += item; }); 
+        
+        layers.setVisibleLayers(visible);
+        map.addLayer(layers);
 
       }
      
@@ -72,7 +72,7 @@ var layers, visible = [];
             if(visible.length === 0){
               visible.push(-1);
             }
-            layer.setVisibleLayers(visible);
+            layers.setVisibleLayers(visible);
           }
      //End laod multiple layer 
      
@@ -82,32 +82,5 @@ var layers, visible = [];
              dojo.connect(dijit.byId('map'), 'resize', map, map.resize);
          });
      }
-
-//     function addLayer(visible) {
-//         if (moctoado) {
-//             if (visible) {
-//                 moctoado.show();
-//             } else {
-//             moctoado.hide();
-//             }
-//         } else { 
-//                var mocURL = 'http://localhost/ArcGIS/rest/services/Moc/MapServer';
-//                moctoado = new esri.layers.ArcGISDynamicMapServiceLayer(mocURL, {id:"moctoado", visible:visible, opacity: 0.5 });
-
-//                var loadHandler = function() {
-//                    map.addLayer(moctoado);
-//                }
-
-//                if (moctoado.loaded) {
-//                    loadHandler();
-//                }
-//                                
-//                else {
-//                    dojo.connect(moctoado, "onLoad", loadHandler);
-//                }
-//             
-//         }
-//         
-//     }
        
 dojo.addOnLoad(init);

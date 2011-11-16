@@ -12,10 +12,8 @@
                 "wkid": 4756
             }
             },
-            'mocMapService': [
-      { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer', 'id': 'moctoadoMapService', 'label': 'Mốc toạ độ' },
-      { 'url': 'http://localhost/ArcGIS/rest/services/MocDoCao/MapServer', 'id': 'mocdocaoMapService', 'label': 'Mốc Độ Cao' },
-      { 'url': 'http://localhost/ArcGIS/rest/services/MocTrongLuc/MapServer', 'id': 'moctronglucMapService', 'label': 'Mốc Trọng lực' }
-      ]
+         'mocMapService': 
+      { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer', 'id': 'moctoadoMapService', 'label': 'Mốc' }
+      
         }
     };
