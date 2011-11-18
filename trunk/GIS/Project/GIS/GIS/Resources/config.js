@@ -1,5 +1,7 @@
-﻿var appConfig = {
-    'Services': {
+﻿dojo.require("esri.layers.FeatureLayer");
+
+var appConfig = {
+    'service': {
         'baseMapService': {
             'url': 'http://localhost/ArcGIS/rest/services/final/MapServer'
         },
@@ -11,9 +13,18 @@
             "spatialReference": {
                 "wkid": 4756
             }
-            },
-         'mocMapService': 
-      { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer', 'id': 'moctoadoMapService', 'label': 'Mốc' }
-      
-        }
-    };
+        },
+        'layerServices':
+      { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer',
+          'id': 'moctoadoMapService',
+          'label': 'Mốc',
+          'enableLayers': [0]
+      },
+        'featureLayers':
+       [{ 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/0',
+          'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND 
+          'outFields': '*',
+          'infoTemplate': {'title':'Set title here','content': 'Set Content here'}}]
+
+    }
+};
