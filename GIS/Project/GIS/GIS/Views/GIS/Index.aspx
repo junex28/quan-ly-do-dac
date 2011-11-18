@@ -68,15 +68,7 @@
                            	<span> Lựa chọn các lớp bản đồ dưới đây để hiển thị trên bản đồ : </span>
 			                        <fieldset style="padding-left:20px;">
 				                        <span id="layer_list"></span>        
-				                   <%--     <input id="moctoado" type="checkBox" dojoType="dijit.form.CheckBox" onChange="addLayer">
-				                        <label for="check1">Mốc toạ dộ</label><br/>
-
-				                        <input id="check2" type="checkBox" dojoType="dijit.form.CheckBox" checked="checked">
-				                        <label for="check2">Mốc độ cao</label><br />
-
-				                        <input id="check3" type="checkBox" dojoType="dijit.form.CheckBox" disabled>
-				                        <label for="check3">Mốc trọng lực</label><br />
-			                       --%> </fieldset>
+				                    </fieldset>
 
                     </div>                
                 </div>
