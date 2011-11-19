@@ -16,14 +16,15 @@ dojo.require("dijit.Toolbar");
 
 var map;    // main map
 var basemap; 
-var defLayers, enableFeatureLayers= [], visible = [];
+var enableFeatureLayers= [], visible = [];
 
     // Initialiazation
     function init() {
-        //var initExtent = new esri.geometry.Extent({ "xmin": 5.049902, "ymin": 10.819129611, "xmax": 5.514951094, "ymax": 10.716265511, "spatialReference": { "wkid": 3406} });
-        // map = new esri.Map("mapPanel", { extent: initExtent });
-        map = new esri.Map("mapPanel");
+        var initExtent = new esri.geometry.Extent({ "xmin": appConfig.service.initialExtent.xmin, "ymin": appConfig.service.initialExtent.ymin, "xmax": appConfig.service.initialExtent.xmax, "ymax": appConfig.service.initialExtent.ymax, "spatialReference": { "wkid": appConfig.service.initialExtent.spatialReference.wkid} });
+        map = new esri.Map("mapPanel", { extent: initExtent });
+        
         loadBaseMap();
+        
         dojo.connect(map, "onLoad", loadFeatureLayers);
         //queryClickIdentityInit();
         dojo.connect(map, "onLoad", resizeBrowser); 
@@ -32,12 +33,14 @@ var defLayers, enableFeatureLayers= [], visible = [];
      function loadBaseMap() {
          basemap = new esri.layers.ArcGISTiledMapServiceLayer(appConfig.service.baseMapService.url);
          map.addLayer(basemap);
+         map.infoWindow.resize(150, 105);
      
      }
 
      function loadFeatureLayers() { 
             var featureLayer;
-
+            var i = 0;      
+         // Add Info Window to Feature Layer
             dojo.forEach(appConfig.service.layerServices.enableLayers, function(id) {
                 var url = appConfig.service.featureLayers[id].url;
                 var mode = appConfig.service.featureLayers[id].mode;
@@ -47,94 +50,39 @@ var defLayers, enableFeatureLayers= [], visible = [];
                 var templateContent = appConfig.service.featureLayers[id].infoTemplate.content;
                 var infoTemplate = new esri.InfoTemplate(templateTitle, templateContent);
 
-                //featureLayer = new esri.layers.FeatureLayer(url, { mode: esri.layers.FeatureLayer.MODE_ONDEMAND, outFields: ["*"], infoTemplate: infoTemplate });
                 featureLayer = new esri.layers.FeatureLayer(url, { mode: mode, outFields: ["*"], infoTemplate: infoTemplate });
-                    
                 map.addLayer(featureLayer);
-                map.infoWindow.resize(150, 105);
                 enableFeatureLayers.push(featureLayer);
+                
+                // All layer hide when initilized
+                enableFeatureLayers[i].hide();
+                // Initialize GUI checkbox
+                dojo.place("<br/><input type='checkbox' dojotype='dijit.form.Checkbox' class='list_item' id='" + i + "' onClick='updateLayerVisibility(" + i + ");' /><label for='" + i + "'> " + appConfig.service.featureLayers[id].title + "</label>", "layer_list", "last");
 
+                i++;
             });
-     }
-     // Load multiple list layer
-     /*
-     function loadFeatureLayers() {
-        defLayers = esri.layers.ArcGISDynamicMapServiceLayer(appConfig.service.layerServices.url); 
+    }
 
-        if (defLayers.loaded) {
-          buildLayerList(defLayers);
-        }
-        else {
-          dojo.connect(defLayers, "onLoad", buildLayerList);
-        }
-     }
+    
+    function updateLayerVisibility(layerIndex) {
+        var inputs = dojo.query(".list_item"), input;
 
-     function buildLayerList(defLayers) {
-         var featureLayer;
-         dojo.forEach(defLayers.layerInfos, function(defLayer) {
-             if (dojo.indexOf(appConfig.service.layerServices.enableLayers, defLayer.id) > -1) {
-                 var url = appConfig.service.featureLayers[defLayer.id].url;
-                 //var mode = appConfig.service.featureLayers[defLayer.id].mode;
-                 //var outFields ;
-                 //dojo.foreach(appConfig.service.featureLayers[defLayer.id].outFields, function(field) { outFields += "[" + field + "]"; });
-                 var templateTitle = appConfig.service.featureLayers[defLayer.id].infoTemplate.title;
-                 var templateContent = appConfig.service.featureLayers[defLayer.id].infoTemplate.content;
-                 var infoTemplate = new esri.InfoTemplate(templateTitle, templateContent);
+        visible = [];
 
-                 featureLayer = new esri.layers.FeatureLayer(url, { mode: esri.layers.FeatureLayer.MODE_ONDEMAND, outFields: ["*"], infoTemplate: infoTemplate });
-//                 featureLayer = new esri.layers.FeatureLayer("http://localhost/ArcGIS/rest/services/Moc/MapServer/0",
-//                 { mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
-//                    outFields: ["*"], 
-//                    infoTemplate: infoTemplate });
-                 
-                 map.addLayer(featureLayer);
-                 map.infoWindow.resize(150, 105);
-                 enableFeatureLayers.push(featureLayer);
-             }
-
-         });
-         
-         // Get list layer enable in config and set visible on default    
-//         var items = dojo.map(layer.layerInfos, function(info, index) {
-//             if (appConfig.Services.mocMapService.enableLayer.indexOf(index)) {
-//                 if (info.defaultVisibility) {
-//                     visible.push(info.id);
-//                 }
-//                 return "<input type='checkbox' dojotype='dijit.form.CheckBox' class='list_item' checked='" + (info.defaultVisibility ? "checked" : "") + "' id='" + info.id + "' onclick='updateLayerVisibility();' />" + "<label for='" + info.id + "'>" + info.name + "</label> <br/>";
-
-//             }
-//             return "";
-//         });
-
-//        dojo.forEach(items, function(item) {
-//            if (appConfig.Services.mocMapService.enableLayer.indexOf(item.id)) {
-//                dojo.byId("layer_list").innerHTML += item;
-//            }
-//        }
-//        ); 
-//        
-//        layers.setVisibleLayers(visible);
-//        map.addLayer(layers);
-
-      } */
-     
-      function updateLayerVisibility() {
-            var inputs = dojo.query(".list_item"), input;
-       
-            visible = [];
-
-            dojo.forEach(inputs,function(input){
-              if (input.checked) {
-                  visible.push(input.id);
-              }
-              });
-            //if there aren't any layers visible set the array to be -1
-            if(visible.length === 0){
-              visible.push(-1);
+        dojo.forEach(inputs, function(input) {
+            if (input.checked) {
+                visible.push(input.id);
             }
-            layers.setVisibleLayers(visible);
-          }
-     //End laod multiple layer 
+        });
+        //if there aren't any layers visible set the array to be -1
+        if (visible.length === 0) {
+            visible.push(-1);
+        }
+        
+        (enableFeatureLayers[layerIndex].visible) ? enableFeatureLayers[layerIndex].hide() : enableFeatureLayers[layerIndex].show();
+    }
+    
+     //End load multiple layer 
      
      function resizeBrowser() {
          dojo.connect(map, 'onLoad', function(theMap) {
@@ -143,9 +91,11 @@ var defLayers, enableFeatureLayers= [], visible = [];
          });
      }
 
+     dojo.addOnLoad(init);
+
      ///////////////////// IDENTIFY /////////////////////////
 
-        
+        /*
      // Build query task
      var queryClickTask, queryClick;
      var symbolClick, infoClickTemplate;
@@ -216,7 +166,8 @@ var defLayers, enableFeatureLayers= [], visible = [];
          map.infoWindow.setContent(content);
 
          (evt) ? map.infoWindow.show(evt.screenPoint, map.getInfoWindowAnchor(evt.screenPoint)) : null;
-     }
+     }*/
+     /*
 
      function showFeatureSet(fset, evt) {
          //remove all graphics on the maps graphics layer
@@ -240,6 +191,85 @@ var defLayers, enableFeatureLayers= [], visible = [];
          map.infoWindow.setContent(content);
          map.infoWindow.show(screenPoint, map.getInfoWindowAnchor(evt.screenPoint));
      }
+     */
+     // Load multiple list layer
+     /*
+     function loadFeatureLayers() {
+     defLayers = esri.layers.ArcGISDynamicMapServiceLayer(appConfig.service.layerServices.url); 
+
+        if (defLayers.loaded) {
+     buildLayerList(defLayers);
+     }
+     else {
+     dojo.connect(defLayers, "onLoad", buildLayerList);
+     }
+     }
+
+     function buildLayerList(defLayers) {
+     var featureLayer;
+     dojo.forEach(defLayers.layerInfos, function(defLayer) {
+     if (dojo.indexOf(appConfig.service.layerServices.enableLayers, defLayer.id) > -1) {
+     var url = appConfig.service.featureLayers[defLayer.id].url;
+     //var mode = appConfig.service.featureLayers[defLayer.id].mode;
+     //var outFields ;
+     //dojo.foreach(appConfig.service.featureLayers[defLayer.id].outFields, function(field) { outFields += "[" + field + "]"; });
+     var templateTitle = appConfig.service.featureLayers[defLayer.id].infoTemplate.title;
+     var templateContent = appConfig.service.featureLayers[defLayer.id].infoTemplate.content;
+     var infoTemplate = new esri.InfoTemplate(templateTitle, templateContent);
+
+                 featureLayer = new esri.layers.FeatureLayer(url, { mode: esri.layers.FeatureLayer.MODE_ONDEMAND, outFields: ["*"], infoTemplate: infoTemplate });
+     //                 featureLayer = new esri.layers.FeatureLayer("http://localhost/ArcGIS/rest/services/Moc/MapServer/0",
+     //                 { mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+     //                    outFields: ["*"], 
+     //                    infoTemplate: infoTemplate });
+                 
+     map.addLayer(featureLayer);
+     map.infoWindow.resize(150, 105);
+     enableFeatureLayers.push(featureLayer);
+     }
+
+         });
+         
+     // Get list layer enable in config and set visible on default    
+     //         var items = dojo.map(layer.layerInfos, function(info, index) {
+     //             if (appConfig.Services.mocMapService.enableLayer.indexOf(index)) {
+     //                 if (info.defaultVisibility) {
+     //                     visible.push(info.id);
+     //                 }
+     //                 return "<input type='checkbox' dojotype='dijit.form.CheckBox' class='list_item' checked='" + (info.defaultVisibility ? "checked" : "") + "' id='" + info.id + "' onclick='updateLayerVisibility();' />" + "<label for='" + info.id + "'>" + info.name + "</label> <br/>";
+
+//             }
+     //             return "";
+     //         });
+
+//        dojo.forEach(items, function(item) {
+     //            if (appConfig.Services.mocMapService.enableLayer.indexOf(item.id)) {
+     //                dojo.byId("layer_list").innerHTML += item;
+     //            }
+     //        }
+     //        ); 
+     //        
+     //        layers.setVisibleLayers(visible);
+     //        map.addLayer(layers);
+
+      } */
+
+     /*function updateLayerVisibility() {
+     var inputs = dojo.query(".list_item"), input;
+       
+     visible = [];
+
+            dojo.forEach(inputs,function(input){
+     if (input.checked) {
+     visible.push(input.id);
+     }
+     });
+     //if there aren't any layers visible set the array to be -1
+     if(visible.length === 0){
+     visible.push(-1);
+     }
+     layers.setVisibleLayers(visible);
+     }*/
+
      ///////////////////////// END IDENTITY ////////////////////////////////////
      
-dojo.addOnLoad(init);
