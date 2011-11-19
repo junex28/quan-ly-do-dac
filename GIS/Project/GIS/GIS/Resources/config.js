@@ -1,6 +1,4 @@
-﻿dojo.require("esri.layers.FeatureLayer");
-
-var appConfig = {
+﻿var appConfig = {
     'service': {
         'baseMapService': {
             'url': 'http://localhost/ArcGIS/rest/services/final/MapServer'
@@ -18,13 +16,19 @@ var appConfig = {
       { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer',
           'id': 'moctoadoMapService',
           'label': 'Mốc',
-          'enableLayers': [0]
+          'enableLayers': [0,1]
       },
         'featureLayers':
        [{ 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/0',
-          'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND 
+          'title':'Mốc trọng lực',
+          'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND
           'outFields': '*',
-          'infoTemplate': {'title':'Set title here','content': 'Set Content here'}}]
+          'infoTemplate': {'title':'Set title here','content': 'Set Content here'}},
+        { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/1',
+            'title': 'Mốc độ cao',
+            'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND 
+            'outFields': '*',
+            'infoTemplate': { 'title': 'Set title here', 'content': 'Set Content here'}}]
 
     }
 };

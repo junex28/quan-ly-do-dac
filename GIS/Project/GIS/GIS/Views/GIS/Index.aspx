@@ -67,7 +67,7 @@
                     <div id="addLayer" dojoType="dijit.layout.ContentPane" title="Thêm Lớp" selected="true">                           	
                            	<span> Lựa chọn các lớp bản đồ dưới đây để hiển thị trên bản đồ : </span>
 			                        <fieldset style="padding-left:20px;">
-				                        <span id="layer_list"></span>        
+				                        <div id="layer_list"></div>        
 				                    </fieldset>
 
                     </div>                
