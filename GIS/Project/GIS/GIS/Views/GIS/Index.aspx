@@ -1,32 +1,38 @@
 ﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server">
-    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9" />
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="fragment" content="!" />
-    <title> WEB GIS</title>
-    <link rel="stylesheet" type="text/css" href="../../Content/map.css" />
+<html>
+ 
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Web GIS</title>
     <link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/soria/soria.css"  />
 	<link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dojo/resources/dojo.css"  />    
-    <%--<link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/claro/claro.css"  />--%>
-   
+    <link rel="stylesheet" type="text/css" href="../../Content/map.css" />   
+    <style type="text/css">
+      html, body {
+        height: 100%; width: 100%; margin: 0; padding: 0;
+      }
+      
+    </style>
     <script type="text/javascript">
-        var djConfig = { parseOnLoad: true };
+        var djConfig = {
+            parseOnLoad: true
+        };
     </script>
-    
-    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.5"></script>
+    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.5">
+    </script>
     <script type="text/javascript" src="../../Resources/config.js"></script>
 	<script type="text/javascript" src="../../Resources/project.js"></script>	
-	
-	
-</head>
-
-<body class="soria">
-        <div id="mainContainer" dojotype="dijit.layout.BorderContainer" design="headline" gutters="false">
-             <div id="header" dojotype="dijit.layout.BorderContainer" design="sidebar" gutters="false" region="top">
+  </head>
+  <body class="soria">
+    <div dojotype="dijit.layout.BorderContainer" design="headline" gutters="false"
+    style="width: 100%; height: 100%; margin: 0;">
+                   <div id="header" dojotype="dijit.layout.BorderContainer" design="sidebar" gutters="false" region="top">
                 <div id="title" dojotype="dijit.layout.ContentPane" region="left">
                    <img id="logo" alt="HTQL do dac ban do" src="../../Content/images/logo.png" />
                    <img id="logoSwoosh" alt"swoosh" src="../../Content/images/logo_space_bg.gif" />
@@ -45,22 +51,14 @@
                 </div>
             
                 
- <%--               <div id="toolbar1" dojotype="dijit.layout.ContentPane" region="bottom">
-                        <div id="toolbar1.measure">
-                            Measure
-                        </div>                        
-                </div>    
-                
- --%>            </div>
-             <div id="mapViewer" dojotype="dijit.layout.BorderContainer" gutters="false" design="sidebar" region="center">
-                <div id="mapPanel" dojotype="dijit.layout.BorderContainer" region="center" gutters="false">                    
+       </div>
+        <div id="mapViewer" dojotype="dijit.layout.BorderContainer" gutters="false" design="sidebar" region="center">
+                <div id="mapPanel" dojotype="dijit.layout.ContentPane" region="center">
                 </div>
-                
-                <div id="toolbarPanel" dojotype="dijit.layout.BorderContainer" region="top" splitter="true">
+                 <div id="toolbarPanel" dojotype="dijit.layout.BorderContainer" region="top" splitter="true">
                     
                 </div>
-                
-                <div id="leftPanel" dojotype="dijit.layout.TabContainer" region="left" splitter="true" tabStrip="true">
+                 <div id="leftPanel" dojotype="dijit.layout.TabContainer" region="left" splitter="true" tabStrip="true">
                     <div dojoType="dijit.layout.ContentPane" title="Tìm kiếm" selected="true">
                            Tìm kiếm
                     </div>
@@ -74,7 +72,7 @@
                 </div>
                 
              </div>
-        </div>
-</body>
-</html>
-     
+      </div>
+  </body>
+
+</html> 

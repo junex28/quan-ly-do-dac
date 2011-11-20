@@ -1,8 +1,5 @@
-﻿dojo.require("esri.map");
-dojo.require("esri.tasks.query");
-dojo.require("esri.layers.FeatureLayer");
-
-// layout
+﻿// layout
+dojo.require("dijit.dijit"); 
 dojo.require("dijit.layout.BorderContainer");
 dojo.require("dijit.layout.TabContainer");
 dojo.require("dijit.layout.ContentPane");
@@ -13,7 +10,11 @@ dojo.require("dijit.form.CheckBox");
 
 dojo.require("dijit.Toolbar");
 
+dojo.require("esri.map");
+dojo.require("esri.tasks.query");
+dojo.require("esri.layers.FeatureLayer");
 
+var resizeTimer;
 var map;    // main map
 var basemap; 
 var enableFeatureLayers= [], visible = [];
@@ -26,11 +27,18 @@ var enableFeatureLayers= [], visible = [];
         loadBaseMap();
         
         dojo.connect(map, "onLoad", loadFeatureLayers);
-        //queryClickIdentityInit();
-        dojo.connect(map, "onLoad", resizeBrowser); 
+        
+        
+        dojo.connect(map, 'onLoad', function(map) {
+                // MAP RESIZE EVENT
+                //dojo.connect(dijit.byId("mapPanel"), "resize", resizeBrowser);
+            dojo.connect(dijit.byId('mapPanel'), 'resize', map, map.resize);
+        });
+
      }
 
      function loadBaseMap() {
+         
          basemap = new esri.layers.ArcGISTiledMapServiceLayer(appConfig.service.baseMapService.url);
          map.addLayer(basemap);
          map.infoWindow.resize(150, 105);
@@ -48,8 +56,14 @@ var enableFeatureLayers= [], visible = [];
                 //dojo.foreach(appConfig.service.featureLayers[defLayer.id].outFields, function(field) { outFields += "[" + field + "]"; });
                 var templateTitle = appConfig.service.featureLayers[id].infoTemplate.title;
                 var templateContent = appConfig.service.featureLayers[id].infoTemplate.content;
-                var infoTemplate = new esri.InfoTemplate(templateTitle, templateContent);
-
+                var infoTemplate = new esri.InfoTemplate(appConfig.service.featureLayers[id].infoTemplate);
+                // init symbol 
+                var symbol = new esri.symbol.PictureMarkerSymbol();
+                //symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
+                //symbol.setSize(8);
+                //symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
+                //censusBlockPointsLayer.setSelectionSymbol(symbol);
+                
                 featureLayer = new esri.layers.FeatureLayer(url, { mode: mode, outFields: ["*"], infoTemplate: infoTemplate });
                 map.addLayer(featureLayer);
                 enableFeatureLayers.push(featureLayer);
@@ -58,7 +72,8 @@ var enableFeatureLayers= [], visible = [];
                 enableFeatureLayers[i].hide();
                 // Initialize GUI checkbox
                 dojo.place("<br/><input type='checkbox' dojotype='dijit.form.Checkbox' class='list_item' id='" + i + "' onClick='updateLayerVisibility(" + i + ");' /><label for='" + i + "'> " + appConfig.service.featureLayers[id].title + "</label>", "layer_list", "last");
-
+                
+                
                 i++;
             });
     }
@@ -83,14 +98,7 @@ var enableFeatureLayers= [], visible = [];
     }
     
      //End load multiple layer 
-     
-     function resizeBrowser() {
-         dojo.connect(map, 'onLoad', function(theMap) {
-             //resize the map when the browser resizes
-             dojo.connect(dijit.byId('map'), 'resize', map, map.resize);
-         });
-     }
-
+    
      dojo.addOnLoad(init);
 
      ///////////////////// IDENTIFY /////////////////////////
