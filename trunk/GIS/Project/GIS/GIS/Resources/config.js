@@ -16,19 +16,21 @@
       { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer',
           'id': 'moctoadoMapService',
           'label': 'Mốc',
-          'enableLayers': [0,1]
+          'enableLayers': [0, 1]
       },
         'featureLayers':
        [{ 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/0',
-          'title':'Mốc trọng lực',
-          'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND
-          'outFields': '*',
-          'infoTemplate': {'title':'Set title here','content': 'Set Content here'}},
+           'title': 'Mốc trọng lực',
+           'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND
+           'outFields': '*',
+           'infoTemplate': { 'title': 'Set title here', 'content': 'Set Content here' }
+           //'symbol': {'url':'','width':,'height':}
+       },
         { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/1',
             'title': 'Mốc độ cao',
             'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND 
             'outFields': '*',
             'infoTemplate': { 'title': 'Set title here', 'content': 'Set Content here'}}]
 
-    }
-};
+        }
+    };

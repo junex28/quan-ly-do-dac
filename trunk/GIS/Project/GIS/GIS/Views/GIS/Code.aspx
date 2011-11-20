@@ -1,69 +1,78 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage" %>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9" />
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="fragment" content="!" />
-    <title> WEB GIS</title>
-    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.5"></script>
-    <link href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css" />    
-    <link rel="stylesheet" type="text/css" href="../../Content/map.css" />
-
-    <script type="text/javascript">
-        dojo.require("esri.map");
-        var map;
-        function init() {
-            map = new esri.Map("mapDiv");
-            /* Cached map */
-            var basemapURL = "http://localhost/ArcGIS/rest/services/tilebando/MapServer"
-            var basemap = new esri.layers.ArcGISTiledMapServiceLayer(basemapURL);
-            map.addLayer(basemap);
-           
-            
-            /*
-           var basemapURL = "http://localhost/ArcGIS/rest/services/bando/MapServer";
-           // var basemapURL = "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/MapServer";
-            var imageParameters = new esri.layers.ImageParameters();
-            imageParameters.format = "jpeg";  //set the image type to PNG24, note default is PNG8.
-            //Takes a URL to a non cached map service.
-            var dynamicMapServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer
-            (basemapURL, { "opacity": 0.5, "imageParameters": imageParameters });
-            map.addLayer(dynamicMapServiceLayer);
-            */
-        }
-        dojo.addOnLoad(init);
-
-    </script>
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+ 
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Full Map Layout</title>
+    <link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/soria/soria.css"  />
+	<link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dojo/resources/dojo.css"  />    
+    <link rel="stylesheet" type="text/css" href="../../Content/map.css" />   
     <style type="text/css">
       html, body {
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
+        height: 100%; width: 100%; margin: 0; padding: 0;
       }
       
-      body #page-border {
-        min-width: 1050px;
-        overflow: hidden;
-      }
-      
-      #appLayout {
-        height: 100%;
-        }
-        
-    #leftCol {
-        width: 14em;
-    }
-</style>
-</head>
+    </style>
+    <script type="text/javascript">
+        var djConfig = {
+            parseOnLoad: true
+        };
+    </script>
+    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.5">
+    </script>
+    <script type="text/javascript" src="../../Resources/config.js"></script>
+	<script type="text/javascript" src="../../Resources/project.js"></script>	
+  </head>
+  <body class="soria">
+    <div dojotype="dijit.layout.BorderContainer" design="headline" gutters="false"
+    style="width: 100%; height: 100%; margin: 0;">
+                   <div id="header" dojotype="dijit.layout.BorderContainer" design="sidebar" gutters="false" region="top">
+                <div id="title" dojotype="dijit.layout.ContentPane" region="left">
+                   <img id="logo" alt="HTQL do dac ban do" src="../../Content/images/logo.png" />
+                   <img id="logoSwoosh" alt"swoosh" src="../../Content/images/logo_space_bg.gif" />
+                </div>
+                              
+                <div id="siteLogin" dojotype="dijit.layout.ContentPane" region="top">
+                    <% Html.RenderPartial("LogOnUserControl"); %>                
+                </div>
+          
+                <div class="siteMenu" dojotype="dijit.layout.ContentPane" region="center">
+                    <ul class="mapLinks"> 
+                        <li><%= Html.ActionLink("Trang chủ", "Index", "Home")%></li>
+                        <li><%= Html.ActionLink("WebGIS", "Index", "GIS")%></li>
+                        <li><a href="">Đăng ký cấp phép</a></li>
+                    </ul>
+                </div>
+            
+                
+       </div>
+        <div id="mapViewer" dojotype="dijit.layout.BorderContainer" gutters="false" design="sidebar" region="center">
+                <div id="mapPanel" dojotype="dijit.layout.ContentPane" region="center">
+                </div>
+                 <div id="toolbarPanel" dojotype="dijit.layout.BorderContainer" region="top" splitter="true">
+                    
+                </div>
+                 <div id="leftPanel" dojotype="dijit.layout.TabContainer" region="left" splitter="true" tabStrip="true">
+                    <div dojoType="dijit.layout.ContentPane" title="Tìm kiếm" selected="true">
+                           Tìm kiếm
+                    </div>
+                    <div id="addLayer" dojoType="dijit.layout.ContentPane" title="Thêm Lớp" selected="true">                           	
+                           	<span> Lựa chọn các lớp bản đồ dưới đây để hiển thị trên bản đồ : </span>
+			                        <fieldset style="padding-left:20px;">
+				                        <div id="layer_list"></div>        
+				                    </fieldset>
 
-<body class="soria">
-    <div id="mapDiv" style="width:900px; height:600px; border:1px solid #000;"></div> 
-</body>
-</html>
- 
- 
+                    </div>                
+                </div>
+                
+             </div>
+      </div>
+  </body>
+
+</html> 

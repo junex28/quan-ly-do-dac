@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\ESRI_Globe_normal.png" />
+    <Content Include="Content\images\icon\Flag3RightBlue.png" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo_space_bg.gif" />

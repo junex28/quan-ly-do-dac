@@ -4,7 +4,7 @@ Xanh header:#19658b
 Xanh chu : #3366cc
 */
 
-body, html { width:100%; height:100%; margin:0; padding:0; overflow:hidden; }
+body, html { width:100%; height:100%; margin:0; padding:0;}
 
 body {
     background:#fff url("../../Content/images/bodyBg.gif") repeat-x top left;
