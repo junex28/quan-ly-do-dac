@@ -23,8 +23,8 @@
            'title': 'Mốc trọng lực',
            'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND
            'outFields': '*',
-           'infoTemplate': { 'title': 'Set title here', 'content': 'Set Content here' }
-           //'symbol': {'url':'','width':,'height':}
+           'infoTemplate': { 'title': 'Set title here', 'content': 'Set Content here' },
+           'symbol': {'url':'../../Content/images/icon/Flag3RightBlue.png','width':16,'height':16}
        },
         { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/1',
             'title': 'Mốc độ cao',

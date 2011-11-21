@@ -57,23 +57,24 @@ var enableFeatureLayers= [], visible = [];
                 var templateTitle = appConfig.service.featureLayers[id].infoTemplate.title;
                 var templateContent = appConfig.service.featureLayers[id].infoTemplate.content;
                 var infoTemplate = new esri.InfoTemplate(appConfig.service.featureLayers[id].infoTemplate);
-                // init symbol 
-                var symbol = new esri.symbol.PictureMarkerSymbol();
+                // init symbol
+                var symbol = new esri.symbol.PictureMarkerSymbol(appConfig.service.featureLayers[id].symbol.url, appConfig.service.featureLayers[id].symbol.width, appConfig.service.featureLayers[id].symbol.height);
                 //symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
                 //symbol.setSize(8);
                 //symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
                 //censusBlockPointsLayer.setSelectionSymbol(symbol);
-                
+
                 featureLayer = new esri.layers.FeatureLayer(url, { mode: mode, outFields: ["*"], infoTemplate: infoTemplate });
+                featureLayer.setRenderer(new esri.renderer.SimpleRenderer(symbol));
                 map.addLayer(featureLayer);
                 enableFeatureLayers.push(featureLayer);
-                
+
                 // All layer hide when initilized
                 enableFeatureLayers[i].hide();
                 // Initialize GUI checkbox
                 dojo.place("<br/><input type='checkbox' dojotype='dijit.form.Checkbox' class='list_item' id='" + i + "' onClick='updateLayerVisibility(" + i + ");' /><label for='" + i + "'> " + appConfig.service.featureLayers[id].title + "</label>", "layer_list", "last");
-                
-                
+
+
                 i++;
             });
     }
