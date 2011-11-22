@@ -110,6 +110,7 @@
     <Content Include="Content\images\top_header_md_tile.gif" />
     <Content Include="Content\map.css" />
     <Content Include="Resources\config.js" />
+    <Content Include="Resources\configT2.js" />
     <Content Include="Resources\project.js" />
     <Content Include="Views\GIS\Code.aspx" />
     <Content Include="Views\GIS\Index.aspx" />

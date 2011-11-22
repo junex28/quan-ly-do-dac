@@ -56,7 +56,10 @@
                 <div id="mapPanel" dojotype="dijit.layout.ContentPane" region="center">
                 </div>
                  <div id="toolbarPanel" dojotype="dijit.layout.BorderContainer" region="top" splitter="true">
-                    
+                   <%-- <button data-dojo-type="dijit.form.Button" data-dojo-props="onClick:function(){toolbar.activate(esri.toolbars.Draw.POINT);map.hideZoomSlider();}">Point</button>--%>
+                   <div dojoType="dijit.layout.ContentPane" id="toolbar" region="top" >
+                        <button data-dojo-type="dijit.form.Button" data-dojo-props="onClick:function(){toolbar.activate(esri.toolbars.Draw.EXTENT);map.hideZoomSlider();}">Rectangle</button>
+                   </div>
                 </div>
                  <div id="leftPanel" dojotype="dijit.layout.TabContainer" region="left" splitter="true" tabStrip="true">
                     <div dojoType="dijit.layout.ContentPane" title="Tìm kiếm" selected="true">

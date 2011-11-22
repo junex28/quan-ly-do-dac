@@ -10,6 +10,7 @@ dojo.require("dijit.form.CheckBox");
 
 dojo.require("dijit.Toolbar");
 
+dojo.require("esri.toolbars.draw");
 dojo.require("esri.map");
 dojo.require("esri.tasks.query");
 dojo.require("esri.layers.FeatureLayer");
@@ -18,6 +19,7 @@ var resizeTimer;
 var map;    // main map
 var basemap; 
 var enableFeatureLayers= [], visible = [];
+var toolbar, toolSymbol;
 
     // Initialiazation
     function init() {
@@ -27,7 +29,7 @@ var enableFeatureLayers= [], visible = [];
         loadBaseMap();
         
         dojo.connect(map, "onLoad", loadFeatureLayers);
-        
+        dojo.connect(map, "onLoad", createToolbar); 
         
         dojo.connect(map, 'onLoad', function(map) {
                 // MAP RESIZE EVENT
@@ -41,10 +43,11 @@ var enableFeatureLayers= [], visible = [];
          
          basemap = new esri.layers.ArcGISTiledMapServiceLayer(appConfig.service.baseMapService.url);
          map.addLayer(basemap);
-         map.infoWindow.resize(150, 105);
+         map.infoWindow.resize(appConfig.service.infoWindow.width, appConfig.service.infoWindow.height);
      
      }
 
+     //////////////////// LOAD FEATURE LAYER ////////////////////////
      function loadFeatureLayers() { 
             var featureLayer;
             var i = 0;      
@@ -59,11 +62,6 @@ var enableFeatureLayers= [], visible = [];
                 var infoTemplate = new esri.InfoTemplate(appConfig.service.featureLayers[id].infoTemplate);
                 // init symbol
                 var symbol = new esri.symbol.PictureMarkerSymbol(appConfig.service.featureLayers[id].symbol.url, appConfig.service.featureLayers[id].symbol.width, appConfig.service.featureLayers[id].symbol.height);
-                //symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
-                //symbol.setSize(8);
-                //symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
-                //censusBlockPointsLayer.setSelectionSymbol(symbol);
-
                 featureLayer = new esri.layers.FeatureLayer(url, { mode: mode, outFields: ["*"], infoTemplate: infoTemplate });
                 featureLayer.setRenderer(new esri.renderer.SimpleRenderer(symbol));
                 map.addLayer(featureLayer);
@@ -97,8 +95,40 @@ var enableFeatureLayers= [], visible = [];
         
         (enableFeatureLayers[layerIndex].visible) ? enableFeatureLayers[layerIndex].hide() : enableFeatureLayers[layerIndex].show();
     }
-    
-     //End load multiple layer 
+
+    //////////////////// END LOAD FEATURE LAYER ////////////////////////
+
+    //////////////////////////TOOLBAR/////////////////////////////////
+
+    function createToolbar(themap) {
+        toolbar = new esri.toolbars.Draw(map);
+        dojo.connect(toolbar, "onDrawEnd", addToMap);
+    }
+
+    function addToMap(geometry) {
+        toolbar.deactivate();
+        map.showZoomSlider();
+        switch (geometry.type) {
+            case "point":
+                var toolSymbol = new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE, 10, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255, 0, 0]), 1), new dojo.Color([0, 255, 0, 0.25]));
+                break;
+            case "polyline":
+                var toolSymbol = new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASH, new dojo.Color([255, 0, 0]), 1);
+                break;
+            case "polygon":
+                var toolSymbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASHDOT, new dojo.Color([255, 0, 0]), 2), new dojo.Color([255, 255, 0, 0.25]));
+                break;
+            case "extent":
+                var toolSymbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASHDOT, new dojo.Color([255, 0, 0]), 2), new dojo.Color([255, 255, 0, 0.25]));
+                break;
+            case "multipoint":
+                var toolSymbol = new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_DIAMOND, 20, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0]), 1), new dojo.Color([255, 255, 0, 0.5]));
+                break;
+        }
+        var graphic = new esri.Graphic(geometry, toolSymbol);
+        map.graphics.add(graphic);
+    }
+    /////////////////////////END TOOLBAR/////////////////////////////
     
      dojo.addOnLoad(init);
 
