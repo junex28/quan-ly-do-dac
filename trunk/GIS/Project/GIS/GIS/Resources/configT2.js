@@ -1,7 +1,8 @@
 ﻿var appConfig = {
     'service': {
         'baseMapService': {
-            'url': 'http://localhost/ArcGIS/rest/services/BanDoNew/MapServer'
+            'url': 'http://localhost/ArcGIS/rest/services/final/MapServer'
+            //'url': 'http://localhost/ArcGIS/rest/services/BanDoNew/MapServer'
         },
         'initialExtent': {
             "xmin": 5.327663718125301,
@@ -12,6 +13,12 @@
                 "wkid": 4756
             }
         },
+        'infoWindow': {
+            'width': 200,
+            'height': 200
+
+        }
+        ,
         'layerServices':
       { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer',
           'id': 'moctoadoMapService',
@@ -26,9 +33,10 @@
            'infoTemplate': { 'title': '${SoHieu}', 'content': '<b>Loại mốc: ${LoaiMoc:iLayerType}</b><br/>'
                                                    + '<b>Cấp hạng: ${CapHang:iLevel}</b><br/>'
                                                    + '<b>Tình trạng: ${TinhTrang:iState}</b><br/>'
-                                                   + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'}
+                                                   + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'
            },
-
+           'symbol': { 'url': '../../Content/images/icon/Flag3RightBlue.png', 'width': 16, 'height': 16 }
+       },
         { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/1',
             'title': 'Mốc độ cao',
             'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND 
@@ -36,35 +44,40 @@
             'infoTemplate': { 'title': '${SoHieu}', 'content': '<b>Loại mốc: ${LoaiMoc:iLayerType}</b><br/>'
                                                    + '<b>Cấp hạng: ${CapHang:iLevel}</b><br/>'
                                                    + '<b>Tình trạng: ${TinhTrang:iState}</b><br/>'
-                                                   + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'}}],
+                                                   + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'
+            },
+            'symbol': { 'url': '../../Content/images/icon/Flag3RightBlue.png', 'width': 16, 'height': 16 }
+}],
            'GeometryService':
             {
             'url' : 'http://localhost/ArcGIS/services/Geometry/GeometryServer'
             }
-            }
-        };
+            
+        }
+    };
 
-/////////////////////////////////
-function iLevel(value) {
-    switch (value) {
-        case 1: return "Cấp I"; break;
-        case 2: return "Cấp II"; break;
-        case 3: return "Cấp III"; break;
+    /////////////////////////////////
+    function iLevel(value) {
+        switch (value) {
+            case 1: return "Cấp I"; break;
+            case 2: return "Cấp II"; break;
+            case 3: return "Cấp III"; break;
+        }
     }
-}
 
-function iLayerType(value) {
-    switch (value) {
-        case 1: return "Mốc tọa độ"; break;
-        case 2: return "Mốc độ cao"; break;
-        case 3: return "Mốc trọng lực"; break;
+    function iLayerType(value) {
+        switch (value) {
+            case 1: return "Mốc tọa độ"; break;
+            case 2: return "Mốc độ cao"; break;
+            case 3: return "Mốc trọng lực"; break;
+        }
     }
-}
 
-function iState(value) {
-    switch (value) {
-        case 1: return "Còn tốt"; break;
-        case 2: return "Đang sửa chữa"; break;
-        case 3: return "Không còn sử dụng"; break;
+    function iState(value) {
+        switch (value) {
+            case 1: return "Còn tốt"; break;
+            case 2: return "Đang sửa chữa"; break;
+            case 3: return "Không còn sử dụng"; break;
+        }
     }
-}
+    

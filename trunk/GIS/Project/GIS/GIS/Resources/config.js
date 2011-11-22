@@ -1,7 +1,8 @@
 ﻿var appConfig = {
     'service': {
         'baseMapService': {
-            'url': 'http://localhost/ArcGIS/rest/services/final/MapServer'
+        'url': 'http://localhost/ArcGIS/rest/services/final/MapServer'
+        //'url': 'http://localhost/ArcGIS/rest/services/BanDoNew/MapServer'
         },
         'initialExtent': {
             "xmin": 5.327663718125301,
@@ -34,7 +35,7 @@
                                                    + '<b>Tình trạng: ${TinhTrang:iState}</b><br/>'
                                                    + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'
            },
-           'symbol': { 'url': '../../Content/images/icon/Flag3RightBlue.png', 'width': 16, 'height': 16 }
+           'symbol': { 'url': '../../Content/images/icon/Circle_Blue.png', 'width': 24, 'height': 24 }
        },
         { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/1',
             'title': 'Mốc độ cao',
@@ -45,7 +46,7 @@
                                                    + '<b>Tình trạng: ${TinhTrang:iState}</b><br/>'
                                                    + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'
             },
-            'symbol': { 'url': '../../Content/images/icon/Flag3RightBlue.png', 'width': 16, 'height': 16 }
+            'symbol': { 'url': '../../Content/images/icon/Circle_Orange.png', 'width': 24, 'height': 24 }
 }]
 
         }
