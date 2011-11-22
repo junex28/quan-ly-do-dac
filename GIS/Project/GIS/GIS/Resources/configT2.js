@@ -1,7 +1,7 @@
 ﻿var appConfig = {
     'service': {
         'baseMapService': {
-            'url': 'http://localhost/ArcGIS/rest/services/final/MapServer'
+            'url': 'http://localhost/ArcGIS/rest/services/BanDoNew/MapServer'
         },
         'initialExtent': {
             "xmin": 5.327663718125301,
@@ -16,32 +16,33 @@
       { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer',
           'id': 'moctoadoMapService',
           'label': 'Mốc',
-          'enableLayers': [0,1]
+          'enableLayers': [0, 1]
       },
         'featureLayers':
        [{ 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/0',
-          'title':'Mốc trọng lực',
-          'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND
-          'outFields': '*',
-          'infoTemplate': {'title': '${SoHieu}', 'content': '<b>Loại mốc: ${LoaiMoc:iLayerType}</b><br/>'
+           'title': 'Mốc trọng lực',
+           'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND
+           'outFields': '*',
+           'infoTemplate': { 'title': '${SoHieu}', 'content': '<b>Loại mốc: ${LoaiMoc:iLayerType}</b><br/>'
                                                    + '<b>Cấp hạng: ${CapHang:iLevel}</b><br/>'
                                                    + '<b>Tình trạng: ${TinhTrang:iState}</b><br/>'
-                                                   + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'}}]
+                                                   + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'}
+           },
 
-    }
         { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/1',
             'title': 'Mốc độ cao',
             'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND 
             'outFields': '*',
-            'infoTemplate': {'title': '${SoHieu}', 'content': '<b>Loại mốc: ${LoaiMoc:iLayerType}</b><br/>'
+            'infoTemplate': { 'title': '${SoHieu}', 'content': '<b>Loại mốc: ${LoaiMoc:iLayerType}</b><br/>'
                                                    + '<b>Cấp hạng: ${CapHang:iLevel}</b><br/>'
                                                    + '<b>Tình trạng: ${TinhTrang:iState}</b><br/>'
-                                                   + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'}}]
-
-    }
-
-    }
-};
+                                                   + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'}}],
+           'GeometryService':
+            {
+            'url' : 'http://localhost/ArcGIS/services/Geometry/GeometryServer'
+            }
+            }
+        };
 
 /////////////////////////////////
 function iLevel(value) {
