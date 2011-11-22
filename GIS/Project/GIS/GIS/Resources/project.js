@@ -7,8 +7,11 @@ dojo.require("dijit.layout.ContentPane");
 // various Form elements
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.CheckBox");
-
 dojo.require("dijit.Toolbar");
+dojo.require("dijit.Tree");
+dojo.require("dijit.Menu");
+dojo.require("dijit.MenuItem");
+dojo.require("dojo.data.ItemFileReadStore");
 
 dojo.require("esri.toolbars.draw");
 dojo.require("esri.map");
@@ -20,6 +23,7 @@ var map;    // main map
 var basemap; 
 var enableFeatureLayers= [], visible = [];
 var toolbar, toolSymbol;
+var result;
 
     // Initialiazation
     function init() {
@@ -71,7 +75,6 @@ var toolbar, toolSymbol;
                 enableFeatureLayers[i].hide();
                 // Initialize GUI checkbox
                 dojo.place("<br/><input type='checkbox' dojotype='dijit.form.Checkbox' class='list_item' id='" + i + "' onClick='updateLayerVisibility(" + i + ");' /><label for='" + i + "'> " + appConfig.service.featureLayers[id].title + "</label>", "layer_list", "last");
-
 
                 i++;
             });
@@ -128,187 +131,57 @@ var toolbar, toolSymbol;
         var graphic = new esri.Graphic(geometry, toolSymbol);
         map.graphics.add(graphic);
     }
-    /////////////////////////END TOOLBAR/////////////////////////////
+
     
-     dojo.addOnLoad(init);
+    /////////////////////////END TOOLBAR/////////////////////////////
+
+    ////////////////////////TREE VIEW RESULT ///////////////////////
+    
+    //test
+
+        function createTree() {
+            result = {
+                label: 'name',
+                identifier: 'sohieu',
+                items: [
+            { 'name': 'Mốc toạ độ', 'sohieu': '0', 'children': [
+            { 'name': 'XAZ', 'sohieu': 'XAZ', 'tinhtrang': 'con tot', 'Nam cong trinh': '1996' },
+            { 'name': 'XBZ', 'sohieu': 'XBZ', 'tinhtrang': 'con tot', 'Nam cong trinh': '2000' }
+            ]
+            },
+            { 'name': 'Mốc độ cao', 'sohieu': '1', 'children': [
+            { 'name': 'YAZ', 'sohieu': 'YAZ', 'tinhtrang': 'con tot', 'Nam cong trinh': '1996' },
+            { 'name': 'YBZ', 'sohieu': 'YBZ', 'tinhtrang': 'con tot', 'Nam cong trinh': '2000' }
+            ]}]
+        }
+            
+        var store = new dojo.data.ItemFileReadStore({
+        data: result
+        });
+      
+      var treeModel = new dijit.tree.ForestStoreModel({
+                store: store                
+            });
+            
+       new dijit.Tree({
+                model: treeModel,
+                showRoot: false,
+                _createTreeNode: function(
+                /*Object*/
+                    args) {
+                    var tnode = new dijit._TreeNode(args);
+                    tnode.labelNode.innerHTML = args.label;
+                    return tnode;
+                }
+           
+            },
+            "resultTree");
+        }
+    
+    
+        
+    //////////////////// END TREE RESULT //////////////////////////
+        dojo.addOnLoad(init);
+        dojo.addOnLoad(createTree);
 
      ///////////////////// IDENTIFY /////////////////////////
-
-        /*
-     // Build query task
-     var queryClickTask, queryClick;
-     var symbolClick, infoClickTemplate;
-
-     function queryClickIdentityInit() {
-               
-        //Listen for click event on the map, when the user clicks on the map call executeQueryTask function.
-        dojo.connect(map, "onClick", executeQueryClickTask);
-        //Listent for infoWindow onHide event
-        dojo.connect(map.infoWindow, "onHide", function() { map.graphics.clear(); });
-
-        queryClickTask = new esri.tasks.QueryTask("http://localhost/ArcGIS/rest/services/Moc/MapServer/0");
-
-
-        //build query filter
-        
-        queryClick = new esri.tasks.Query();
-        queryClick.outSpatialReference = { "wkid": 4756 };        
-        queryClick.returnGeometry = true;
-        //queryClick.outFields = ["LOAIMOC","SOHIEU", "CAPHANG", "HEQUYCHIEU", "NAMTHANHLAP", "TINHTRANG"];
-        queryClick.outFields = [];
-     }
-
-
-     function executeQueryClickTask(evt) {
-         map.infoWindow.hide();
-         map.graphics.clear();
-         featureSet = null;
-
-         //onClick event returns the evt point where the user clicked on the map.
-         //This is contains the mapPoint (esri.geometry.point) and the screenPoint (pixel xy where the user clicked).
-         //set query geometry = to evt.mapPoint Geometry
-         queryClick.geometry = evt.mapPoint;
-          
-         //Execute task and call showResults on completion
-         queryClickTask.execute(queryClick, function(fset) {
-             alert(dojo.toJson(fset.features));
-             if (fset.features.length === 1) {
-                 showFeature(fset.features[0], evt);
-             } else if (fset.features.length !== 0) {
-                 showFeatureSet(fset, evt);
-             }
-         });
-     }
-
-     function showFeature(feature, evt) {
-         map.graphics.clear();
-
-         alert("ok yeah");   
-         //set symbol
-         var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASHDOT, new dojo.Color([255, 0, 0]), 2), new dojo.Color([255, 255, 0, 0.25]));
-
-         feature.setSymbol(symbol);
-
-         //construct infowindow title and content
-         var attr = feature.attributes;
-//         var title = attr.FIELD_NAME;
-//         var content = "Field ID : " + attr.FIELD_KID
-//                    + "<br />Produces Gas : " + attr.PROD_GAS
-//                    + "<br />Produces Oil : " + attr.PROD_OIL
-//                    + "<br />Status : " + attr.STATUS;
-
-         var title = "title here";
-         var content = "Content here";
-         map.graphics.add(feature);
-
-         map.infoWindow.setTitle(title);
-         map.infoWindow.setContent(content);
-
-         (evt) ? map.infoWindow.show(evt.screenPoint, map.getInfoWindowAnchor(evt.screenPoint)) : null;
-     }*/
-     /*
-
-     function showFeatureSet(fset, evt) {
-         //remove all graphics on the maps graphics layer
-         map.graphics.clear();
-         var screenPoint = evt.screenPoint;
-
-         featureSet = fset;
-
-         var numFeatures = featureSet.features.length;
-
-         //QueryTask returns a featureSet.  Loop through features in the featureSet and add them to the infowindow.
-         var title = "You have selected " + numFeatures + " fields.";
-         var content = "Please select desired field from the list below.<br />";
-
-         for (var i = 0; i < numFeatures; i++) {
-             var graphic = featureSet.features[i];
-             content = content + " Field (<A href='#' onclick='showFeature(featureSet.features[" + i + "]);'>show</A>)<br/>";
-         }
-
-         map.infoWindow.setTitle(title);
-         map.infoWindow.setContent(content);
-         map.infoWindow.show(screenPoint, map.getInfoWindowAnchor(evt.screenPoint));
-     }
-     */
-     // Load multiple list layer
-     /*
-     function loadFeatureLayers() {
-     defLayers = esri.layers.ArcGISDynamicMapServiceLayer(appConfig.service.layerServices.url); 
-
-        if (defLayers.loaded) {
-     buildLayerList(defLayers);
-     }
-     else {
-     dojo.connect(defLayers, "onLoad", buildLayerList);
-     }
-     }
-
-     function buildLayerList(defLayers) {
-     var featureLayer;
-     dojo.forEach(defLayers.layerInfos, function(defLayer) {
-     if (dojo.indexOf(appConfig.service.layerServices.enableLayers, defLayer.id) > -1) {
-     var url = appConfig.service.featureLayers[defLayer.id].url;
-     //var mode = appConfig.service.featureLayers[defLayer.id].mode;
-     //var outFields ;
-     //dojo.foreach(appConfig.service.featureLayers[defLayer.id].outFields, function(field) { outFields += "[" + field + "]"; });
-     var templateTitle = appConfig.service.featureLayers[defLayer.id].infoTemplate.title;
-     var templateContent = appConfig.service.featureLayers[defLayer.id].infoTemplate.content;
-     var infoTemplate = new esri.InfoTemplate(templateTitle, templateContent);
-
-                 featureLayer = new esri.layers.FeatureLayer(url, { mode: esri.layers.FeatureLayer.MODE_ONDEMAND, outFields: ["*"], infoTemplate: infoTemplate });
-     //                 featureLayer = new esri.layers.FeatureLayer("http://localhost/ArcGIS/rest/services/Moc/MapServer/0",
-     //                 { mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
-     //                    outFields: ["*"], 
-     //                    infoTemplate: infoTemplate });
-                 
-     map.addLayer(featureLayer);
-     map.infoWindow.resize(150, 105);
-     enableFeatureLayers.push(featureLayer);
-     }
-
-         });
-         
-     // Get list layer enable in config and set visible on default    
-     //         var items = dojo.map(layer.layerInfos, function(info, index) {
-     //             if (appConfig.Services.mocMapService.enableLayer.indexOf(index)) {
-     //                 if (info.defaultVisibility) {
-     //                     visible.push(info.id);
-     //                 }
-     //                 return "<input type='checkbox' dojotype='dijit.form.CheckBox' class='list_item' checked='" + (info.defaultVisibility ? "checked" : "") + "' id='" + info.id + "' onclick='updateLayerVisibility();' />" + "<label for='" + info.id + "'>" + info.name + "</label> <br/>";
-
-//             }
-     //             return "";
-     //         });
-
-//        dojo.forEach(items, function(item) {
-     //            if (appConfig.Services.mocMapService.enableLayer.indexOf(item.id)) {
-     //                dojo.byId("layer_list").innerHTML += item;
-     //            }
-     //        }
-     //        ); 
-     //        
-     //        layers.setVisibleLayers(visible);
-     //        map.addLayer(layers);
-
-      } */
-
-     /*function updateLayerVisibility() {
-     var inputs = dojo.query(".list_item"), input;
-       
-     visible = [];
-
-            dojo.forEach(inputs,function(input){
-     if (input.checked) {
-     visible.push(input.id);
-     }
-     });
-     //if there aren't any layers visible set the array to be -1
-     if(visible.length === 0){
-     visible.push(-1);
-     }
-     layers.setVisibleLayers(visible);
-     }*/
-
-     ///////////////////////// END IDENTITY ////////////////////////////////////
-     

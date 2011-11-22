@@ -71,11 +71,48 @@
 				                        <div id="layer_list"></div>        
 				                    </fieldset>
 
-                    </div>                
+                    </div>
+                    <div dojoType="dijit.layout.ContentPane" title="Kết quả">
+                             <ul dojoType="dijit.Menu" id="tree_menu" style="display: none;">
+                                <li dojoType="dijit.MenuItem" onClick="alert('Hello world');">
+                                    Item #1
+                                </li>
+                                <li dojoType="dijit.MenuItem">
+                                    Item #2
+                                </li>
+                            </ul>
+				        <!-- tree widget -->
+				        <div id="resultTree" >
+			                    <script type="dojo/connect">
+			                    alert("come here");
+                                var menu = dijit.byId("tree_menu");
+                                // when we right-click anywhere on the tree, make sure we open the menu
+                                menu.bindDomNode(this.domNode);
+
+                                dojo.connect(menu, "_openMyself", this, function(e) {
+                                    // get a hold of, and log out, the tree node that was the source of this open event
+                                    var tn = dijit.getEnclosingWidget(e.target);
+                                    console.debug(tn);
+
+                                    // now inspect the data store item that backs the tree node:
+                                    console.debug(tn.item);
+
+                                    // contrived condition: if this tree node doesn't have any children, disable all of the menu items
+                                    menu.getChildren().forEach(function(i) {
+                                        i.attr('disabled', !tn.item.children);
+                                    });
+
+                                    // IMPLEMENT CUSTOM MENU BEHAVIOR HERE
+                                });
+                            </script>
+				        </div>
+			    </div>
+                
                 </div>
                 
              </div>
       </div>
+
   </body>
 
 </html> 
