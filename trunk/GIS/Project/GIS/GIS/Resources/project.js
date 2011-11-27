@@ -11,12 +11,14 @@ dojo.require("dijit.Toolbar");
 dojo.require("dijit.Tree");
 dojo.require("dijit.Menu");
 dojo.require("dijit.MenuItem");
+dojo.require("dijit.Toolbar");
 dojo.require("dojo.data.ItemFileReadStore");
 
 dojo.require("esri.toolbars.draw");
 dojo.require("esri.map");
 dojo.require("esri.tasks.query");
 dojo.require("esri.layers.FeatureLayer");
+dojo.require("esri.tasks.geometry");
 
 var resizeTimer;
 var map;    // main map
@@ -24,6 +26,7 @@ var basemap;
 var enableFeatureLayers= [], visible = [];
 var toolbar, toolSymbol;
 var result;
+var queryGraphics = [];
 
     // Initialiazation
     function init() {
@@ -129,59 +132,131 @@ var result;
                 break;
         }
         var graphic = new esri.Graphic(geometry, toolSymbol);
+        queryGraphics.push(graphic);
         map.graphics.add(graphic);
-    }
 
-    
+        selectFeature();
+        //todo: begin query task here
+    }
+            
     /////////////////////////END TOOLBAR/////////////////////////////
 
     ////////////////////////TREE VIEW RESULT ///////////////////////
-    
-    //test
 
-        function createTree() {
-            result = {
-                label: 'name',
-                identifier: 'sohieu',
-                items: [
-            { 'name': 'Mốc toạ độ', 'sohieu': '0', 'children': [
-            { 'name': 'XAZ', 'sohieu': 'XAZ', 'tinhtrang': 'con tot', 'Nam cong trinh': '1996' },
-            { 'name': 'XBZ', 'sohieu': 'XBZ', 'tinhtrang': 'con tot', 'Nam cong trinh': '2000' }
+    function createTree() {
+        result = {
+            label: 'name',
+            identifier: 'sohieu',
+            items: [
+            { name: 'Mốc toạ độ', sohieu: '0', type: 'directory', children: [
+            { type: 'kq', name: 'XAZ', sohieu: 'XAZ', tinhtrang: 'con tot', year: '1996' },
+            { type: 'kq', name: 'XBZ', sohieu: 'XBZ', tinhtrang: 'con tot', year: '2000' }
             ]
             },
-            { 'name': 'Mốc độ cao', 'sohieu': '1', 'children': [
-            { 'name': 'YAZ', 'sohieu': 'YAZ', 'tinhtrang': 'con tot', 'Nam cong trinh': '1996' },
-            { 'name': 'YBZ', 'sohieu': 'YBZ', 'tinhtrang': 'con tot', 'Nam cong trinh': '2000' }
+            { name: 'Mốc độ cao', sohieu: '1', 'children': [
+            { type: 'kq', name: 'YAZ', sohieu: 'YAZ', tinhtrang: 'con tot', year: '1996' },
+            { type: 'kq', name: 'YBZ', sohieu: 'YBZ', tinhtrang: 'con tot', year: '2000' }
             ]}]
-        }
-            
-        var store = new dojo.data.ItemFileReadStore({
-        data: result
-        });
-      
-      var treeModel = new dijit.tree.ForestStoreModel({
-                store: store                
+            }
+
+            var store = new dojo.data.ItemFileReadStore({
+                id: "treeStore",
+                data: result
             });
-            
-       new dijit.Tree({
+
+            var treeModel = new dijit.tree.ForestStoreModel({
+                id: "treeModel",
+                store: store
+            });
+
+            var tree = new dijit.Tree({
+                id: "resultTree",
                 model: treeModel,
                 showRoot: false,
+                onClick: function(item, node, evt) {
+                    if (store.getValue(item, 'type') == 'kq') {
+                        //                    var grid = dijit.byId('resDetailTable');                    
+                        //                    grid.setStore(store);
+                        //add info in thong tin table
+                        var data = store.getAttributes(item);
+                        alert(treeModel.getIdentity(item));
+                    }
+                },
                 _createTreeNode: function(
-                /*Object*/
-                    args) {
+                args) {
                     var tnode = new dijit._TreeNode(args);
                     tnode.labelNode.innerHTML = args.label;
                     return tnode;
                 }
-           
             },
-            "resultTree");
+        "resultDiv");
         }
-    
+
+        //////////////////////////QUERY TASK /////////////////////////////
+
+        var queryTask, query;
+        function selectFeature() {
+            var token = "7fmuCGAyVpoegLNpUF8JrLGH5_UBZQu-Ixjid4uJAOsQF0HpP3AEegdP8z18RHI9";
+            
+            queryTask = new esri.tasks.QueryTask("http://localhost/ArcGIS/rest/services/Moc/MapServer/0");
+
+            query = new esri.tasks.Query();
+            //query.text = "1";
+            query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
+            //queryGraphics[0].spatialReference = { "wkid": 4756 };
+            query.geometry = queryGraphics[0].geometry;            
+            query.outSpatialReference = {"wkid": 4756};
+            query.returnGeometry = true;
+            query.outFields = ['*'];
+
+            queryTask.execute(query, showResults);
+                                   
+            dojo.connect(queryTask, "onComplete", function(fset) {
+                var symbol = new esri.symbol.SimpleMarkerSymbol();
+                symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
+                symbol.setSize(8);
+                symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
+
+                var infoTemplate = new esri.InfoTemplate("title", "${*}");
+
+                var resultFeatures = fset.features;
+                for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                    var graphic = resultFeatures[i];
+                    graphic.setSymbol(symbol);
+                    graphic.setInfoTemplate(infoTemplate);
+                    map.graphics.add(graphic);
+                }
+            });
+            // Query
+            
+//            query.geometry = esri.geometry.webMercatorToGeographic(queryGraphics[0]);
+//            query.outSpatialReference = appConfig.service.initialExtent.spatialReference.wkid;
+//            try {
+//                queryTask.execute(query);
+//            } catch (err) {
+//            alert(err);
+//            }
+            dojo.byId('debug').innerHTML = "<b>Executing Query with Result Buffer Geometry...</b>";
+//
+
+        }
+
+        function showResults(results) {
+            var s = "";
+            alert("sdf");
+            for (var i = 0, il = results.features.length; i < il; i++) {
+                var featureAttributes = results.features[i].attributes;
+                for (att in featureAttributes) {
+                    s = s + "<b>" + att + ":</b>  " + featureAttributes[att] + "<br />";
+                }
+            }
+            dojo.byId("debug").innerHTML = s;
+        }
+        //////////////////////////END QUERY TASK /////////////////////////////
     
         
     //////////////////// END TREE RESULT //////////////////////////
         dojo.addOnLoad(init);
         dojo.addOnLoad(createTree);
 
-     ///////////////////// IDENTIFY /////////////////////////
+     ///////////////////// IDENTIFY ///////////////////keejchayj 
