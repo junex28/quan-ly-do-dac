@@ -55,11 +55,16 @@
         <div id="mapViewer" dojotype="dijit.layout.BorderContainer" gutters="false" design="sidebar" region="center">
                 <div id="mapPanel" dojotype="dijit.layout.ContentPane" region="center">
                 </div>
-                 <div id="toolbarPanel" dojotype="dijit.layout.BorderContainer" region="top" splitter="true">
-                   <%-- <button data-dojo-type="dijit.form.Button" data-dojo-props="onClick:function(){toolbar.activate(esri.toolbars.Draw.POINT);map.hideZoomSlider();}">Point</button>--%>
-                   <div dojoType="dijit.layout.ContentPane" id="toolbar" region="top" >
-                        <button data-dojo-type="dijit.form.Button" data-dojo-props="onClick:function(){toolbar.activate(esri.toolbars.Draw.EXTENT);map.hideZoomSlider();}">Rectangle</button>
-                   </div>
+                 <div id="toolbarPane" dojotype="dijit.layout.ContentPane" region="top" splitter="true">
+                     <div id="toolbar1" dojotype="dijit.Toolbar">
+                         <div data-dojo-type="dijit.form.Button" id="toolbar1.cut" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconCut', showLabel:false,onClick:function(){toolbar.activate(esri.toolbars.Draw.EXTENT);map.hideZoomSlider();}">
+                             Cut</div>
+                         <div data-dojo-type="dijit.form.Button" id="toolbar1.copy" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconCopy', showLabel:false,onClick:function(){toolbar.activate(esri.toolbars.Draw.POLYGON);map.hideZoomSlider();}">
+                             Copy</div>
+                         <div data-dojo-type="dijit.form.Button" id="toolbar1.paste" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconPaste', showLabel:false,onClick:function(){toolbar.activate(esri.toolbars.Draw.POINT);map.hideZoomSlider();}">
+                             Paste</div>
+                     </div>
+    
                 </div>
                  <div id="leftPanel" dojotype="dijit.layout.TabContainer" region="left" splitter="true" tabStrip="true">
                     <div dojoType="dijit.layout.ContentPane" title="Tìm kiếm" selected="true">
@@ -73,40 +78,13 @@
 
                     </div>
                     <div dojoType="dijit.layout.ContentPane" title="Kết quả">
-                             <ul dojoType="dijit.Menu" id="tree_menu" style="display: none;">
-                                <li dojoType="dijit.MenuItem" onClick="alert('Hello world');">
-                                    Item #1
-                                </li>
-                                <li dojoType="dijit.MenuItem">
-                                    Item #2
-                                </li>
-                            </ul>
-				        <!-- tree widget -->
-				        <div id="resultTree" >
-			                    <script type="dojo/connect">
-			                    alert("come here");
-                                var menu = dijit.byId("tree_menu");
-                                // when we right-click anywhere on the tree, make sure we open the menu
-                                menu.bindDomNode(this.domNode);
+			       <!-- tree widget -->
+			            <div id="debug"></div>
+                        <div id="resultDiv">
+                        </div>
 
-                                dojo.connect(menu, "_openMyself", this, function(e) {
-                                    // get a hold of, and log out, the tree node that was the source of this open event
-                                    var tn = dijit.getEnclosingWidget(e.target);
-                                    console.debug(tn);
+			         </div>
 
-                                    // now inspect the data store item that backs the tree node:
-                                    console.debug(tn.item);
-
-                                    // contrived condition: if this tree node doesn't have any children, disable all of the menu items
-                                    menu.getChildren().forEach(function(i) {
-                                        i.attr('disabled', !tn.item.children);
-                                    });
-
-                                    // IMPLEMENT CUSTOM MENU BEHAVIOR HERE
-                                });
-                            </script>
-				        </div>
-			    </div>
                 
                 </div>
                 
