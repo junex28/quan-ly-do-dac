@@ -30,7 +30,7 @@ var queryGraphics = [];
 
     // Initialiazation
     function init() {
-        var initExtent = new esri.geometry.Extent({ "xmin": appConfig.service.initialExtent.xmin, "ymin": appConfig.service.initialExtent.ymin, "xmax": appConfig.service.initialExtent.xmax, "ymax": appConfig.service.initialExtent.ymax, "spatialReference": { "wkid": appConfig.service.initialExtent.spatialReference.wkid} });
+        var initExtent = new esri.geometry.Extent({ "xmin": appConfig.service.initialExtent.xmin, "ymin": appConfig.service.initialExtent.ymin, "xmax": appConfig.service.initialExtent.xmax, "ymax": appConfig.service.initialExtent.ymax, "spatialReference": { "wkid": appConfig.service.initialExtent.spatialReference.wkid}});
         map = new esri.Map("mapPanel", { extent: initExtent });
         
         loadBaseMap();
@@ -64,8 +64,8 @@ var queryGraphics = [];
                 var mode = appConfig.service.featureLayers[id].mode;
                 //var outFields ;
                 //dojo.foreach(appConfig.service.featureLayers[defLayer.id].outFields, function(field) { outFields += "[" + field + "]"; });
-                var templateTitle = appConfig.service.featureLayers[id].infoTemplate.title;
-                var templateContent = appConfig.service.featureLayers[id].infoTemplate.content;
+                //var templateTitle = appConfig.service.featureLayers[id].infoTemplate.title;
+                //var templateContent = appConfig.service.featureLayers[id].infoTemplate.content;
                 var infoTemplate = new esri.InfoTemplate(appConfig.service.featureLayers[id].infoTemplate);
                 // init symbol
                 var symbol = new esri.symbol.PictureMarkerSymbol(appConfig.service.featureLayers[id].symbol.url, appConfig.service.featureLayers[id].symbol.width, appConfig.service.featureLayers[id].symbol.height);
@@ -192,71 +192,235 @@ var queryGraphics = [];
         "resultDiv");
         }
 
-        //////////////////////////QUERY TASK /////////////////////////////
-
+        //////////////////////////QUERY TASK ////////////////////////////
+        
         var queryTask, query;
         function selectFeature() {
-            var token = "7fmuCGAyVpoegLNpUF8JrLGH5_UBZQu-Ixjid4uJAOsQF0HpP3AEegdP8z18RHI9";
-            
             queryTask = new esri.tasks.QueryTask("http://localhost/ArcGIS/rest/services/Moc/MapServer/0");
 
             query = new esri.tasks.Query();
-            //query.text = "1";
             query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
-            //queryGraphics[0].spatialReference = { "wkid": 4756 };
             query.geometry = queryGraphics[0].geometry;            
             query.outSpatialReference = {"wkid": 4756};
             query.returnGeometry = true;
             query.outFields = ['*'];
 
             queryTask.execute(query, showResults);
-                                   
+
             dojo.connect(queryTask, "onComplete", function(fset) {
-                var symbol = new esri.symbol.SimpleMarkerSymbol();
-                symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
-                symbol.setSize(8);
-                symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
-
-                var infoTemplate = new esri.InfoTemplate("title", "${*}");
-
                 var resultFeatures = fset.features;
                 for (var i = 0, il = resultFeatures.length; i < il; i++) {
                     var graphic = resultFeatures[i];
-                    graphic.setSymbol(symbol);
-                    graphic.setInfoTemplate(infoTemplate);
+                    // todo : set symbol
+                    var symbolLink = appConfig.service.featureLayers[0].highlight;                                          
+                    graphic.setSymbol(getHighlightFromFeature(0));
+                    graphic.setInfoTemplate(getTemplateFromFeature(0));
                     map.graphics.add(graphic);
                 }
             });
-            // Query
-            
-//            query.geometry = esri.geometry.webMercatorToGeographic(queryGraphics[0]);
-//            query.outSpatialReference = appConfig.service.initialExtent.spatialReference.wkid;
-//            try {
-//                queryTask.execute(query);
-//            } catch (err) {
-//            alert(err);
-//            }
             dojo.byId('debug').innerHTML = "<b>Executing Query with Result Buffer Geometry...</b>";
-//
-
         }
-
+        
+        
         function showResults(results) {
             var s = "";
-            alert("sdf");
+
+            // String output
             for (var i = 0, il = results.features.length; i < il; i++) {
                 var featureAttributes = results.features[i].attributes;
                 for (att in featureAttributes) {
                     s = s + "<b>" + att + ":</b>  " + featureAttributes[att] + "<br />";
                 }
             }
-            dojo.byId("debug").innerHTML = s;
+
+            dojo.place(s, 'debug', 'after');
         }
+        ////////////////////////// END QUERY TASK /////////////////////////////
+/*
+        var queryTask, query;
+        var arrtypes = [];
+        
+        var treeresults = {
+            label: 'name',
+            identifier: 'sohieu',
+            items: arrtypes
+        }
+        
+        
+        function selectFeature() {
+           // for (v in visible) {
+                var url = appConfig.service.featureLayers[0].url;
+                queryTask = new esri.tasks.QueryTask(url);
+                query = new esri.tasks.Query();
+                query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
+                query.geometry = queryGraphics[0].geometry;
+                query.outSpatialReference = { "wkid": 4756 };
+                query.returnGeometry = true;
+                query.outFields = ['*'];
+
+                queryTask.execute(query, showResults);            
+                
+                dojo.connect(queryTask, "onComplete", function(fset) {
+                    var symbol = new esri.symbol.SimpleMarkerSymbol();
+                    symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
+                    symbol.setSize(8);
+                    symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
+
+                    var infoTemplate = new esri.InfoTemplate("title", "${*}");
+
+                    var resultFeatures = fset.features;
+                    for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                        var graphic = resultFeatures[i];
+                        graphic.setSymbol(symbol);
+                        graphic.setInfoTemplate(infoTemplate);
+                        map.graphics.add(graphic);
+                        queryGraphics.push(graphic);
+                    }
+                });
+
+                dojo.byId('debug').innerHTML = "<b>Executing Query with Result Buffer Geometry...</b>";
+          //  }
+
+           }*/
+
+
+
         //////////////////////////END QUERY TASK /////////////////////////////
-    
+
+  /////////////////SELECT QUERY//////////////////////////////////////
+     
+       //     String url : link to feature 1.
+       //     Feature-Graphics extent : filter .         
+        function selectFeatureByExtent(url, extent) 
+        {            
+            var queryTask, query;
+            
+            try {
+                queryTask = new esri.tasks.QueryTask(url);
+                query = new esri.tasks.Query();
+                query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
+                query.geometry = extent.geometry;
+                query.outSpatialReference = { "wkid": appConfig.service.initialExtent.spatialReference.wkid };
+                query.returnGeometry = true;
+                query.outFields = ['*'];    // Can edit
+
+                queryTask.execute(query, showResults);
+
+                dojo.connect(queryTask, "onComplete", function(fset) {
+                    var symbol = new esri.symbol.SimpleMarkerSymbol();
+                    symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
+                    symbol.setSize(8);
+                    symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
+
+                    var infoTemplate = new esri.InfoTemplate("title", "${*}");
+
+                    var resultFeatures = fset.features;
+                    for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                        var graphic = resultFeatures[i];
+                        graphic.setSymbol(symbol);
+                        graphic.setInfoTemplate(infoTemplate);
+                        map.graphics.add(graphic);
+                        queryGraphics.push(graphic);
+                    }
+                });
+
+                dojo.byId('debug').innerHTML = "<b>Executing Query with Result Buffer Geometry...</b>";
+
+
+            } catch (err) {            
+            alert("Error : selectFeatureByExtent is not run");
+            }
+           
+        }
+///////////////////////////////////////// UTILS ////////////////////////////////////////////////////////////
+        // Int Id : is the id in list features services on config
+        // Geometry 
+        function getSymbolFromFeature(id) {
+
+            var symbolLink = appConfig.service.featureLayers[id].symbol;
+            var symbol;
+
+            if (symbolLink.type == '' || symbolLink.type == 1)// Is marker symbol
+            {
+              switch (symbolLink.geometryType) {
+              case "point":                     
+                  symbol = new esri.symbol.SimpleMarkerSymbol();
+                  symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
+                  symbol.setSize(8);
+                  symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
+                  break;
+            case "polyline":
+                symbol = new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASH, new dojo.Color([255, 0, 0]), 1);
+                break;
+            case "polygon":
+                symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASHDOT, new dojo.Color([255, 0, 0]), 2), new dojo.Color([255, 255, 0, 0.25]));
+                break;
+            case "extent":
+                symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASHDOT, new dojo.Color([255, 0, 0]), 2), new dojo.Color([255, 255, 0, 0.25]));
+                break;
+            case "multipoint":
+                symbol = new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_DIAMOND, 20, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0]), 1), new dojo.Color([255, 255, 0, 0.5]));
+                break;
+                }
+            } else // Is Picture marker            
+            {
+                switch (symbolLink.geometryType) {
+                    case "point":
+
+                        symbol = new esri.symbol.PictureMarkerSymbol(symbolLink.url, symbolLink.width, symbolLink.height);
+                        break; 
+                }
+            }
+
+            return symbol;
+        }
+
+        function getHighlightFromFeature(id) {
+
+            var symbolLink = appConfig.service.featureLayers[id].highlight;
+            var symbol;
+
+            if (symbolLink.type == '' || symbolLink.type == 1)// Is marker symbol
+            {
+                switch (symbolLink.geometryType) {
+                    case "point":
+                        symbol = new esri.symbol.SimpleMarkerSymbol();
+                        symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
+                        symbol.setSize(8);
+                        symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
+                        break;
+                    case "polyline":
+                        symbol = new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASH, new dojo.Color([255, 0, 0]), 1);
+                        break;
+                    case "polygon":
+                        symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASHDOT, new dojo.Color([255, 0, 0]), 2), new dojo.Color([255, 255, 0, 0.25]));
+                        break;
+                    case "extent":
+                        symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASHDOT, new dojo.Color([255, 0, 0]), 2), new dojo.Color([255, 255, 0, 0.25]));
+                        break;
+                    case "multipoint":
+                        symbol = new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_DIAMOND, 20, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0]), 1), new dojo.Color([255, 255, 0, 0.5]));
+                        break;
+                }
+            } else // Is Picture marker            
+            {
+                switch (symbolLink.geometryType) {
+                    case "point":
+                        alert("here");                        
+                        symbol = new esri.symbol.PictureMarkerSymbol(symbolLink.url, symbolLink.width, symbolLink.height);
+                        break;
+                }
+            }
+            return symbol;
+        }
+        
+        function getTemplateFromFeature(id) {
+            var infoTemplate = new esri.InfoTemplate(appConfig.service.featureLayers[id].infoTemplate);
+            return infoTemplate;
+        }
         
     //////////////////// END TREE RESULT //////////////////////////
         dojo.addOnLoad(init);
         dojo.addOnLoad(createTree);
 
-     ///////////////////// IDENTIFY ///////////////////keejchayj 
+     ///////////////////// IDENTIFY ///////////////////
