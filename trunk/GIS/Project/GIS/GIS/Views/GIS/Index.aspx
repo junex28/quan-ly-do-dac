@@ -19,6 +19,26 @@
       }
       
     </style>
+	<style type="text/css">
+       #measureWindow {
+        position:absolute;
+        right:35px;
+        top:5px;
+        z-index:998;
+        width:220px;
+        text-align:center;
+        padding:20px;
+        background:#46472B;
+      }
+      .roundedCorners{
+        -moz-border-radius:6px;
+        -webkit-border-radius:6px;
+        border-radius:6px;
+      }
+      .innerDiv{
+        background:#F1F1DC; padding:4px;
+      }
+      </style>
     <script type="text/javascript">
         var djConfig = {
             parseOnLoad: true
@@ -52,8 +72,15 @@
             
                 
        </div>
-        <div id="mapViewer" dojotype="dijit.layout.BorderContainer" gutters="false" design="sidebar" region="center">
-                <div id="mapPanel" dojotype="dijit.layout.ContentPane" region="center">
+        <div id="mapViewer" dojotype="dijit.layout.BorderContainer" gutters="false" design="headline" region="center">
+                <div id="mapPanel" class="roundedCorners" dojotype="dijit.layout.ContentPane" region="center">
+				  <!--measure window-->
+                <div class="roundedCorners" id="measureWindow">
+                    <div class="innerDiv roundedCorners">
+                        <div id="measurementDiv">
+                        </div>
+                    </div>
+                </div>
                 </div>
                  <div id="toolbarPane" dojotype="dijit.layout.ContentPane" region="top" splitter="true">
                      <div id="toolbar1" dojotype="dijit.Toolbar">
