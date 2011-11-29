@@ -1,8 +1,8 @@
 ﻿var appConfig = {
     'service': {
         'baseMapService': {
-        'url': 'http://localhost/ArcGIS/rest/services/final/MapServer'
-        //'url': 'http://localhost/ArcGIS/rest/services/BanDoNew/MapServer'
+            'url': 'http://localhost/ArcGIS/rest/services/final/MapServer'
+            //'url': 'http://localhost/ArcGIS/rest/services/BanDoNew/MapServer'
         },
         'initialExtent': {
             "xmin": 5.327663718125301,
@@ -16,15 +16,17 @@
         'infoWindow': {
             'width': 200,
             'height': 200
-             
+
         }
         ,
+        // Bat tat nhung layer can thiet
         'layerServices':
       { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer',
           'id': 'moctoadoMapService',
           'label': 'Mốc',
           'enableLayers': [0, 1]
       },
+        // Danh sach layer
         'featureLayers':
        [{ 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/0',
            'title': 'Mốc trọng lực',
@@ -35,7 +37,20 @@
                                                    + '<b>Tình trạng: ${TinhTrang:iState}</b><br/>'
                                                    + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'
            },
-           'symbol': { 'url': '../../Content/images/icon/Circle_Blue.png', 'width': 24, 'height': 24 }
+           'symbol': {
+               'type': 2,      // 1: Marker symbol , 2: picture marker symbol
+               'geometryType': 'point',  // point,polyline,polygon,extent, multipoint 
+               'url': '../../Content/images/icon/Circle_Blue16x16.png',
+               'width': 16,
+               'height': 16
+           },
+           'highlight': {
+               'type': 2,      // 1: Marker symbol , 2: picture marker symbol
+               'geometryType': 'point',  // point,polyline,polygon,extent, multipoint 
+               'url': '../../Content/images/icon/Pin_Blue24x24.png',
+               'width': 24,
+               'height': 24
+            }
        },
         { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/1',
             'title': 'Mốc độ cao',
