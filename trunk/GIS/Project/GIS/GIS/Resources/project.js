@@ -28,7 +28,7 @@ var basemap;
 var enableFeatureLayers = [], visible = [];
 var toolbar, toolSymbol;
 var result;
-var queryGraphics = [];
+var queryGraphics = []; // store select query such as extent, polygon 
 
 // Initialiazation
 function init() {
@@ -197,39 +197,35 @@ function createTree() {
 }
 
 
-////////////////////OVERVIEW MAP ///////////////////////////////////
-function overviewMap() {
-    var overviewMapDijit = new esri.dijit.OverviewMap({
-        map: map,
-        visible: false
-    });
-    overviewMapDijit.startup();
-}
-////////////////// END OVERVIEW MAP/////////////////////////////////
 
-//////////////////////////MEASURE/////////////////////////////////
-function initMeasurement(mymap) {
-    var measurement = new esri.dijit.Measurement({
-        map: mymap
-    }, dojo.byId('measurementDiv'));
-    measurement.startup();
-}
-////////////////////////// END MEASURE////////////////////////////
 //////////////////////////QUERY TASK ////////////////////////////
 
-var queryTask, query;
+
 function selectFeature() {
+    var queryTask, query;
+    
+    //////////////////// Temporary
+    //reset();
+    ///////////////////
     queryTask = new esri.tasks.QueryTask("http://localhost/ArcGIS/rest/services/Moc/MapServer/0");
 
     query = new esri.tasks.Query();
     query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
+    alert(queryGraphics.length);    
+    if (queryGraphics.length > 0) {
+            
     query.geometry = queryGraphics[0].geometry;
+
     query.outSpatialReference = { "wkid": 4756 };
     query.returnGeometry = true;
     query.outFields = ['*'];
 
     queryTask.execute(query, showResults);
-
+    // finish query task : delete
+    map.graphics.remove(queryGraphics[0]);
+    queryGraphics.pop();
+    alert(queryGraphics.length);
+    // Callback event
     dojo.connect(queryTask, "onComplete", function(fset) {
         var resultFeatures = fset.features;
         for (var i = 0, il = resultFeatures.length; i < il; i++) {
@@ -240,8 +236,9 @@ function selectFeature() {
             graphic.setInfoTemplate(getTemplateFromFeature(0));
             map.graphics.add(graphic);
         }
-    });
-    dojo.byId('debug').innerHTML = "<b>Executing Query with Result Buffer Geometry...</b>";
+    });    
+
+    }
 }
 
 
@@ -257,6 +254,14 @@ function showResults(results) {
     }
 
     dojo.place(s, 'debug', 'after');
+}
+
+function toolbarDeactivate() {
+    toolbar.deactivate();
+}
+
+function reset() {
+    map.graphics.clear();
 }
 ////////////////////////// END QUERY TASK /////////////////////////////
 /*
@@ -354,6 +359,25 @@ function selectFeatureByExtent(url, extent) {
     }
 
 }
+
+////////////////////OVERVIEW MAP ///////////////////////////////////
+function overviewMap() {
+    var overviewMapDijit = new esri.dijit.OverviewMap({
+        map: map,
+        visible: false
+    });
+    overviewMapDijit.startup();
+}
+////////////////// END OVERVIEW MAP/////////////////////////////////
+
+//////////////////////////MEASURE/////////////////////////////////
+function initMeasurement(mymap) {
+    var measurement = new esri.dijit.Measurement({
+        map: mymap
+    }, dojo.byId('measurementDiv'));
+    measurement.startup();
+}
+////////////////////////// END MEASURE////////////////////////////
 ///////////////////////////////////////// UTILS ////////////////////////////////////////////////////////////
 // Int Id : is the id in list features services on config
 // Geometry 
@@ -428,7 +452,6 @@ function getHighlightFromFeature(id) {
     {
         switch (symbolLink.geometryType) {
             case "point":
-                alert("here");
                 symbol = new esri.symbol.PictureMarkerSymbol(symbolLink.url, symbolLink.width, symbolLink.height);
                 break;
         }
