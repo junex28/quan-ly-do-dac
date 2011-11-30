@@ -19,21 +19,22 @@
       }
       
     </style>
+    <!--css for measurement-->
 	<style type="text/css">
        #measureWindow {
         position:absolute;
         right:35px;
         top:5px;
         z-index:998;
-        width:220px;
-        text-align:center;
-        padding:20px;
+        width:240px;
+        text-align:left;
+        padding:5px;
         background:#46472B;
       }
       .roundedCorners{
-        -moz-border-radius:6px;
-        -webkit-border-radius:6px;
-        border-radius:6px;
+        -moz-border-radius:4px;
+        -webkit-border-radius:4px;
+        border-radius:4px;
       }
       .innerDiv{
         background:#F1F1DC; padding:4px;
@@ -72,7 +73,7 @@
             
                 
        </div>
-        <div id="mapViewer" dojotype="dijit.layout.BorderContainer" gutters="false" design="headline" region="center">
+        <div id="mapViewer" dojotype="dijit.layout.BorderContainer" gutters="false" design="sidebar" region="center">
                 <div id="mapPanel" class="roundedCorners" dojotype="dijit.layout.ContentPane" region="center">
 				  <!--measure window-->
                 <div class="roundedCorners" id="measureWindow">
@@ -84,11 +85,11 @@
                 </div>
                  <div id="toolbarPane" dojotype="dijit.layout.ContentPane" region="top" splitter="true">
                      <div id="toolbar1" dojotype="dijit.Toolbar">
+                         <div data-dojo-type="dijit.form.Button" id="toolbar1.copy" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconCopy', showLabel:false,onClick:function(){toolbar.deactivate;map.showZoomSlider();toolbarDeactivate();}">
+                             Copy</div>                             
                          <div data-dojo-type="dijit.form.Button" id="toolbar1.cut" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconCut', showLabel:false,onClick:function(){toolbar.activate(esri.toolbars.Draw.EXTENT);map.hideZoomSlider();}">
                              Cut</div>
-                         <div data-dojo-type="dijit.form.Button" id="toolbar1.copy" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconCopy', showLabel:false,onClick:function(){toolbar.activate(esri.toolbars.Draw.POLYGON);map.hideZoomSlider();}">
-                             Copy</div>
-                         <div data-dojo-type="dijit.form.Button" id="toolbar1.paste" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconPaste', showLabel:false,onClick:function(){toolbar.activate(esri.toolbars.Draw.POINT);map.hideZoomSlider();}">
+                         <div data-dojo-type="dijit.form.Button" id="toolbar1.paste" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconPaste', showLabel:false,onClick:function(){dojo.style('measureWindow','visible',true)}">
                              Paste</div>
                      </div>
     
