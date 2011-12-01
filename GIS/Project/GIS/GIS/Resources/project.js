@@ -136,65 +136,16 @@ function addToMap(geometry) {
             break;
     }
     var graphic = new esri.Graphic(geometry, toolSymbol);
-    queryGraphics.push(graphic);
+    //queryGraphics.push(graphic);
     map.graphics.add(graphic);
 
-    selectFeature();
+    //selectFeature();
+    var id = 0;
+    selectFeatureByExtent(id, graphic)
     //todo: begin query task here
 }
 
 /////////////////////////END TOOLBAR/////////////////////////////
-
-////////////////////////TREE VIEW RESULT ///////////////////////
-
-function createTree() {
-    result = {
-        label: 'name',
-        identifier: 'sohieu',
-        items: [
-            { name: 'Mốc toạ độ', sohieu: '0', type: 'directory', children: [
-            { type: 'kq', name: 'XAZ', sohieu: 'XAZ', tinhtrang: 'con tot', year: '1996' },
-            { type: 'kq', name: 'XBZ', sohieu: 'XBZ', tinhtrang: 'con tot', year: '2000' }
-            ]
-            },
-            { name: 'Mốc độ cao', sohieu: '1', 'children': [
-            { type: 'kq', name: 'YAZ', sohieu: 'YAZ', tinhtrang: 'con tot', year: '1996' },
-            { type: 'kq', name: 'YBZ', sohieu: 'YBZ', tinhtrang: 'con tot', year: '2000' }
-            ]}]
-    }
-
-    var store = new dojo.data.ItemFileReadStore({
-        id: "treeStore",
-        data: result
-    });
-
-    var treeModel = new dijit.tree.ForestStoreModel({
-        id: "treeModel",
-        store: store
-    });
-
-    var tree = new dijit.Tree({
-        id: "resultTree",
-        model: treeModel,
-        showRoot: false,
-        onClick: function(item, node, evt) {
-            if (store.getValue(item, 'type') == 'kq') {
-                //                    var grid = dijit.byId('resDetailTable');                    
-                //                    grid.setStore(store);
-                //add info in thong tin table
-                var data = store.getAttributes(item);
-                alert(treeModel.getIdentity(item));
-            }
-        },
-        _createTreeNode: function(
-                args) {
-            var tnode = new dijit._TreeNode(args);
-            tnode.labelNode.innerHTML = args.label;
-            return tnode;
-        }
-    },
-        "resultDiv");
-}
 
 
 
@@ -211,7 +162,6 @@ function selectFeature() {
 
     query = new esri.tasks.Query();
     query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
-    alert(queryGraphics.length);    
     if (queryGraphics.length > 0) {
             
     query.geometry = queryGraphics[0].geometry;
@@ -223,8 +173,7 @@ function selectFeature() {
     queryTask.execute(query, showResults);
     // finish query task : delete
     map.graphics.remove(queryGraphics[0]);
-    queryGraphics.pop();
-    alert(queryGraphics.length);
+    //queryGraphics.pop();
     // Callback event
     dojo.connect(queryTask, "onComplete", function(fset) {
         var resultFeatures = fset.features;
@@ -264,96 +213,49 @@ function reset() {
     map.graphics.clear();
 }
 ////////////////////////// END QUERY TASK /////////////////////////////
-/*
-var queryTask, query;
-var arrtypes = [];
-        
-var treeresults = {
-label: 'name',
-identifier: 'sohieu',
-items: arrtypes
-}
-        
-        
-function selectFeature() {
-// for (v in visible) {
-var url = appConfig.service.featureLayers[0].url;
-queryTask = new esri.tasks.QueryTask(url);
-query = new esri.tasks.Query();
-query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
-query.geometry = queryGraphics[0].geometry;
-query.outSpatialReference = { "wkid": 4756 };
-query.returnGeometry = true;
-query.outFields = ['*'];
 
-queryTask.execute(query, showResults);            
-                
-dojo.connect(queryTask, "onComplete", function(fset) {
-var symbol = new esri.symbol.SimpleMarkerSymbol();
-symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
-symbol.setSize(8);
-symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
-
-var infoTemplate = new esri.InfoTemplate("title", "${*}");
-
-var resultFeatures = fset.features;
-for (var i = 0, il = resultFeatures.length; i < il; i++) {
-var graphic = resultFeatures[i];
-graphic.setSymbol(symbol);
-graphic.setInfoTemplate(infoTemplate);
-map.graphics.add(graphic);
-queryGraphics.push(graphic);
-}
-});
-
-dojo.byId('debug').innerHTML = "<b>Executing Query with Result Buffer Geometry...</b>";
-//  }
-
-}*/
-
-
-
-//////////////////////////END QUERY TASK /////////////////////////////
 
 /////////////////SELECT QUERY//////////////////////////////////////
 
-//     String url : link to feature 1.
+//     String id : id in feature visible[].
 //     Feature-Graphics extent : filter .         
-function selectFeatureByExtent(url, extent) {
+function selectFeatureByExtent(id, extent) {
     var queryTask, query;
+    
+    //////////////////// Temporary
+    //reset();
+    ///////////////////
+    try{
+        queryTask = new esri.tasks.QueryTask(appConfig.service.featureLayers[id].url);
 
-    try {
-        queryTask = new esri.tasks.QueryTask(url);
-        query = new esri.tasks.Query();
-        query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
-        query.geometry = extent.geometry;
-        query.outSpatialReference = { "wkid": appConfig.service.initialExtent.spatialReference.wkid };
-        query.returnGeometry = true;
-        query.outFields = ['*'];    // Can edit
+    query = new esri.tasks.Query();
+    query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
+    if (extent !== null) {
+            
+    query.geometry = extent.geometry;
 
-        queryTask.execute(query, showResults);
+    query.outSpatialReference = { "wkid": appConfig.service.initialExtent.spatialReference.wkid };
+    query.returnGeometry = true;
+    query.outFields = [appConfig.service.featureLayers[id].outFields];
 
-        dojo.connect(queryTask, "onComplete", function(fset) {
-            var symbol = new esri.symbol.SimpleMarkerSymbol();
-            symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
-            symbol.setSize(8);
-            symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
+    queryTask.execute(query, showResults);
+    // finish query task : delete
+    map.graphics.remove(extent);
+    //queryGraphics.pop();
+    // Callback event
+    dojo.connect(queryTask, "onComplete", function(fset) {
+        var resultFeatures = fset.features;
+        for (var i = 0, il = resultFeatures.length; i < il; i++) {
+            var graphic = resultFeatures[i];
+            // todo : set symbol
+            var symbolLink = appConfig.service.featureLayers[id].highlight;
+            graphic.setSymbol(getHighlightFromFeature(id));
+            graphic.setInfoTemplate(getTemplateFromFeature(id));
+            map.graphics.add(graphic);
+        }
+    });    
 
-            var infoTemplate = new esri.InfoTemplate("title", "${*}");
-
-            var resultFeatures = fset.features;
-            for (var i = 0, il = resultFeatures.length; i < il; i++) {
-                var graphic = resultFeatures[i];
-                graphic.setSymbol(symbol);
-                graphic.setInfoTemplate(infoTemplate);
-                map.graphics.add(graphic);
-                queryGraphics.push(graphic);
-            }
-        });
-
-        dojo.byId('debug').innerHTML = "<b>Executing Query with Result Buffer Geometry...</b>";
-
-
+    }
     } catch (err) {
         alert("Error : selectFeatureByExtent is not run");
     }
@@ -469,3 +371,105 @@ dojo.addOnLoad(init);
 dojo.addOnLoad(createTree);
 
 ///////////////////// IDENTIFY ///////////////////
+
+
+////////////////////////TREE VIEW RESULT ///////////////////////
+/*
+function createTree() {
+result = {
+label: 'name',
+identifier: 'sohieu',
+items: [
+{ name: 'Mốc toạ độ', sohieu: '0', type: 'directory', children: [
+{ type: 'kq', name: 'XAZ', sohieu: 'XAZ', tinhtrang: 'con tot', year: '1996' },
+{ type: 'kq', name: 'XBZ', sohieu: 'XBZ', tinhtrang: 'con tot', year: '2000' }
+]
+},
+{ name: 'Mốc độ cao', sohieu: '1', 'children': [
+{ type: 'kq', name: 'YAZ', sohieu: 'YAZ', tinhtrang: 'con tot', year: '1996' },
+{ type: 'kq', name: 'YBZ', sohieu: 'YBZ', tinhtrang: 'con tot', year: '2000' }
+]}]
+}
+
+var store = new dojo.data.ItemFileReadStore({
+id: "treeStore",
+data: result
+});
+
+var treeModel = new dijit.tree.ForestStoreModel({
+id: "treeModel",
+store: store
+});
+
+var tree = new dijit.Tree({
+id: "resultTree",
+model: treeModel,
+showRoot: false,
+onClick: function(item, node, evt) {
+if (store.getValue(item, 'type') == 'kq') {
+//                    var grid = dijit.byId('resDetailTable');                    
+//                    grid.setStore(store);
+//add info in thong tin table
+var data = store.getAttributes(item);
+alert(treeModel.getIdentity(item));
+}
+},
+_createTreeNode: function(
+args) {
+var tnode = new dijit._TreeNode(args);
+tnode.labelNode.innerHTML = args.label;
+return tnode;
+}
+},
+"resultDiv");
+}
+
+
+*/
+
+/*
+var queryTask, query;
+var arrtypes = [];
+        
+var treeresults = {
+label: 'name',
+identifier: 'sohieu',
+items: arrtypes
+}
+        
+        
+function selectFeature() {
+// for (v in visible) {
+var url = appConfig.service.featureLayers[0].url;
+queryTask = new esri.tasks.QueryTask(url);
+query = new esri.tasks.Query();
+query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
+query.geometry = queryGraphics[0].geometry;
+query.outSpatialReference = { "wkid": 4756 };
+query.returnGeometry = true;
+query.outFields = ['*'];
+
+queryTask.execute(query, showResults);            
+                
+dojo.connect(queryTask, "onComplete", function(fset) {
+var symbol = new esri.symbol.SimpleMarkerSymbol();
+symbol.style = esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE;
+symbol.setSize(8);
+symbol.setColor(new dojo.Color([255, 255, 0, 0.5]));
+
+var infoTemplate = new esri.InfoTemplate("title", "${*}");
+
+var resultFeatures = fset.features;
+for (var i = 0, il = resultFeatures.length; i < il; i++) {
+var graphic = resultFeatures[i];
+graphic.setSymbol(symbol);
+graphic.setInfoTemplate(infoTemplate);
+map.graphics.add(graphic);
+queryGraphics.push(graphic);
+}
+});
+
+dojo.byId('debug').innerHTML = "<b>Executing Query with Result Buffer Geometry...</b>";
+//  }
+
+}*/
