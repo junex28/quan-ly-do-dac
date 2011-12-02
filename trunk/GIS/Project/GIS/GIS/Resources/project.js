@@ -28,12 +28,14 @@ var basemap;
 var enableFeatureLayers = [], visible = [];
 var toolbar, toolSymbol;
 var result;
-var queryGraphics = []; // store select query such as extent, polygon 
-
+var queryGraphics = []; // store select query such as extent, polygon
+var loading;
 // Initialiazation
 function init() {
     var initExtent = new esri.geometry.Extent({ "xmin": appConfig.service.initialExtent.xmin, "ymin": appConfig.service.initialExtent.ymin, "xmax": appConfig.service.initialExtent.xmax, "ymax": appConfig.service.initialExtent.ymax, "spatialReference": { "wkid": appConfig.service.initialExtent.spatialReference.wkid} });
     map = new esri.Map("mapPanel", { extent: initExtent });
+    loading = dojo.byId("loadingImg");  //loading im~age. id
+	
 	dojo.connect(map, "onUpdateStart", showLoading);
     dojo.connect(map, "onUpdateEnd", hideLoading);
     loadBaseMap();
@@ -156,6 +158,9 @@ function addToMap(geometry) {
 
     //selectFeature();
     var id = 0;
+    // for(id;id<visible.length;id++){
+    // selectFeatureByExtent(id, graphic);
+    //}
     selectFeatureByExtent(id, graphic)
     //todo: begin query task here
 }
