@@ -368,7 +368,6 @@ function getTemplateFromFeature(id) {
 
 //////////////////// END TREE RESULT //////////////////////////
 dojo.addOnLoad(init);
-dojo.addOnLoad(createTree);
 
 ///////////////////// IDENTIFY ///////////////////
 
