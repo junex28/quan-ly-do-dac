@@ -10,8 +10,10 @@
       on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
     <title>Web GIS</title>
-    <link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/soria/soria.css"  />
-	<link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dojo/resources/dojo.css"  />    
+    <!--link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/soria/soria.css"  /-->
+	<!--link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dojo/resources/dojo.css"  /-->    
+	<link type="text/css" rel="Stylesheet" href="../../Content/dojo.css" />
+	<link type="text/css" rel="Stylesheet" href="../../Content/template/soria/soria.css" />
     <link rel="stylesheet" type="text/css" href="../../Content/map.css" />   
     <style type="text/css">
       html, body {
@@ -75,22 +77,28 @@
        </div>
         <div id="mapViewer" dojotype="dijit.layout.BorderContainer" gutters="false" design="sidebar" region="center">
                 <div id="mapPanel" class="roundedCorners" dojotype="dijit.layout.ContentPane" region="center">
+                <!--Loanding icon-->
+                <img id="loadingImg" src="../../Content/images/loading.gif" style="position:absolute; right:512px; top:256px; z-index:100;" />
 				  <!--measure window-->
-                <div class="roundedCorners" id="measureWindow">
+				  <div id="test" visible="false">
+                <div class="roundedCorners" id="measureWindow" visible=false>
                     <div class="innerDiv roundedCorners">
                         <div id="measurementDiv">
                         </div>
                     </div>
                 </div>
                 </div>
+                </div>
                  <div id="toolbarPane" dojotype="dijit.layout.ContentPane" region="top" splitter="true">
                      <div id="toolbar1" dojotype="dijit.Toolbar">
                          <div data-dojo-type="dijit.form.Button" id="toolbar1.copy" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconCopy', showLabel:false,onClick:function(){toolbar.deactivate;map.showZoomSlider();toolbarDeactivate();}">
-                             Copy</div>                             
+                             select</div>                             
                          <div data-dojo-type="dijit.form.Button" id="toolbar1.cut" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconCut', showLabel:false,onClick:function(){toolbar.activate(esri.toolbars.Draw.EXTENT);map.hideZoomSlider();}">
-                             Cut</div>
-                         <div data-dojo-type="dijit.form.Button" id="toolbar1.paste" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconPaste', showLabel:false,onClick:function(){dojo.style('measureWindow','visible',true)}">
-                             Paste</div>
+                             rectangle</div>
+                         <!--div data-dojo-type="dijit.form.Button" id="toolbar1.paste" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconPaste', showLabel:false,onClick:function(){dojo.style('measureWindow','visible',true)}">
+                             Paste</div-->
+                            <div data-dojo-type="dijit.form.Button" id="toolbar1.measure" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconPaste', showLabel:false,onClick:function(){document.getElementById('measureWindow').style.display = 'inherit';}">
+                             Measure</div>
                      </div>
     
                 </div>
