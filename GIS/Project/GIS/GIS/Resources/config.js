@@ -1,7 +1,7 @@
 ﻿var appConfig = {
     'service': {
         'baseMapService': {
-            'url': 'http://localhost/ArcGIS/rest/services/final/MapServer'
+            'url': 'http://localhost/ArcGIS/rest/services/bandonen/MapServer'
             //'url': 'http://localhost/ArcGIS/rest/services/BanDoNew/MapServer'
         },
         'initialExtent': {
@@ -24,7 +24,7 @@
       { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer',
           'id': 'moctoadoMapService',
           'label': 'Mốc',
-          'enableLayers': [0, 1]
+          'enableLayers': [0, 1, 2]
       },
         // Danh sach layer
         'featureLayers':
@@ -53,7 +53,7 @@
             }
        },
         { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/1',
-            'title': 'Mốc độ cao',
+            'title': 'Mốc toạ độ',
             'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND 
             'outFields': '*',
             'infoTemplate': { 'title': '${SoHieu}', 'content': '<b>Loại mốc: ${LoaiMoc:iLayerType}</b><br/>'
@@ -61,8 +61,45 @@
                                                    + '<b>Tình trạng: ${TinhTrang:iState}</b><br/>'
                                                    + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'
             },
-            'symbol': { 'url': '../../Content/images/icon/Circle_Orange.png', 'width': 24, 'height': 24 }
-}]
+            'symbol': {
+                'type': 2,      // 1: Marker symbol , 2: picture marker symbol
+                'geometryType': 'point',  // point,polyline,polygon,extent, multipoint 
+                'url': '../../Content/images/icon/Circle_Orange16x16.png',
+                'width': 16,
+                'height': 16
+            },
+            'highlight': {
+                'type': 2,      // 1: Marker symbol , 2: picture marker symbol
+                'geometryType': 'point',  // point,polyline,polygon,extent, multipoint 
+                'url': '../../Content/images/icon/Pin_Orange24x24.png',
+                'width': 24,
+                'height': 24
+            }
+        }, { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/2',
+            'title': 'Mốc Độ cao',
+            'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND
+            'outFields': '*',
+            'infoTemplate': { 'title': '${SoHieu}', 'content': '<b>Loại mốc: ${LoaiMoc:iLayerType}</b><br/>'
+                                                   + '<b>Cấp hạng: ${CapHang:iLevel}</b><br/>'
+                                                   + '<b>Tình trạng: ${TinhTrang:iState}</b><br/>'
+                                                   + '<b>Năm thành lập: ${NamThanhLap}</b><br/>'
+            },
+            'symbol': {
+                'type': 2,      // 1: Marker symbol , 2: picture marker symbol
+                'geometryType': 'point',  // point,polyline,polygon,extent, multipoint 
+                'url': '../../Content/images/icon/Circle_Red16x16.png',
+                'width': 16,
+                'height': 16
+            },
+            'highlight': {
+                'type': 2,      // 1: Marker symbol , 2: picture marker symbol
+                'geometryType': 'point',  // point,polyline,polygon,extent, multipoint 
+                'url': '../../Content/images/icon/Pin_Red32x32.png',
+                'width': 24,
+                'height': 24
+            }
+        }
+]
 
         }
     };
