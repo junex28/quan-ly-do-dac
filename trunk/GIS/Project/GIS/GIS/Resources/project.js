@@ -34,7 +34,8 @@ var queryGraphics = []; // store select query such as extent, polygon
 function init() {
     var initExtent = new esri.geometry.Extent({ "xmin": appConfig.service.initialExtent.xmin, "ymin": appConfig.service.initialExtent.ymin, "xmax": appConfig.service.initialExtent.xmax, "ymax": appConfig.service.initialExtent.ymax, "spatialReference": { "wkid": appConfig.service.initialExtent.spatialReference.wkid} });
     map = new esri.Map("mapPanel", { extent: initExtent });
-
+	dojo.connect(map, "onUpdateStart", showLoading);
+    dojo.connect(map, "onUpdateEnd", hideLoading);
     loadBaseMap();
 
     dojo.connect(map, "onLoad", loadFeatureLayers);
@@ -49,6 +50,20 @@ function init() {
     });
 
 }
+
+/*+++++++++++++++++++++LOADING ICON++++++++++++++++++++++++++++++++++++++++++++*/
+function showLoading() {
+    esri.show(loading);
+    //map.disableMapNavigation();
+    map.hideZoomSlider();
+}
+
+function hideLoading(error) {
+    esri.hide(loading);
+    //map.enableMapNavigation();
+    map.showZoomSlider();
+}
+/*+++++++++++++++++++++END LOADING ICON++++++++++++++++++++++++++++++++++++++++*/
 
 function loadBaseMap() {
 
