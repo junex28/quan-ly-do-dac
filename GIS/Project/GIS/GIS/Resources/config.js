@@ -76,7 +76,7 @@
                 'height': 24
             }
         }, { 'url': 'http://localhost/ArcGIS/rest/services/Moc/MapServer/2',
-            'title': 'Mốc Độ cao',
+            'title': 'Mốc độ cao',
             'mode': 1,    // esri.layers.FeatureLayer.MODE_ONDEMAND
             'outFields': '*',
             'infoTemplate': { 'title': '${SoHieu}', 'content': '<b>Loại mốc: ${LoaiMoc:iLayerType}</b><br/>'
