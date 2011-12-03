@@ -284,7 +284,7 @@ create table GIAYPHEPHOATDONG
 create table HOATDONG 
 (
    MAHOATDONG           int              identity(1,1)               not null,
-   TENHOATDONG          varchar(250),
+   TENHOATDONG          nvarchar(500),
    constraint PK_HOATDONG primary key clustered (MAHOATDONG)
 );
 
