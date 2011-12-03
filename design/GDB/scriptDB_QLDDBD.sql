@@ -202,11 +202,11 @@ create table BAOCAOHOATDONG
 (
    MABAOCAOHOATDONG     int                            not null,
    MATOCHUC             int,
-   NAM                  varchar(4),
+   NAM                  int,
    DOANHTHU             money,
    NOPNGANSACH          money,
-   DANHSACHCONGTRINH    xml,
-   TEPDINHKEM           varchar(500),
+   DANHSACHCONGTRINH    nvarchar(2000),
+   TEPDINHKEM           nvarchar(500),
    constraint PK_BAOCAOHOATDONG primary key clustered (MABAOCAOHOATDONG)
 );
 
@@ -216,7 +216,7 @@ create table BAOCAOHOATDONG
 create table CONGDOANTHUCHIEN 
 (
    MACONGDOAN           int                            not null,
-   SOGIAYPHEP           varchar(20)						not null,
+   SOGIAYPHEP           nvarchar(50)						not null,
    MACONGTRINH          int,
    NGAYBATDAU           date,
    NGAYKETTHUC          date,
@@ -229,12 +229,12 @@ create table CONGDOANTHUCHIEN
 create table CONGTRINH 
 (
    MACONGTRINH          int                            not null,
-   TENCONGTRINH         varchar(250),
-   CHUDAUTU             varchar(250),
-   DONVINGHIEMTHU       varchar(250),
+   TENCONGTRINH         nvarchar(500),
+   CHUDAUTU             nvarchar(500),
+   DONVINGHIEMTHU       nvarchar(500),
    THOIGIANBATDAU       date,
    THOIGIANKETTHUC      date,
-   GHICHU              text,
+   GHICHU              nvarchar(2000),
    DADUYET              bit,
    constraint PK_CONGTRINH primary key clustered (MACONGTRINH)
 );
@@ -260,18 +260,18 @@ create table GIAYPHEPHOATDONG
 (
    MAGIAYPHEPHOATDONG   int                            not null,
    MATOCHUC             int,
-   SOGIAYPHEP           varchar(20)        unique    ,
+   SOGIAYPHEP           nvarchar(50)        unique    ,
    NGAYCAPPHEP          date,
    NGAYHETHAN           date,
    NGAYGIAHAN           date,
    DAGIAHAN             bit,
    DABOSUNG             bit,
-   LYDOXINPHEP          text,
-   LYDOGIAHAN           text,
-   LYDOCAPPHEP          text,
-   CAMKETXINPHEP        text,
-   CAMKETGIAHAN         text,
-   CAMKETBOSUNG         text,
+   LYDOXINPHEP          nvarchar(2000),
+   LYDOGIAHAN           nvarchar(2000),
+   LYDOCAPPHEP          nvarchar(2000),
+   CAMKETXINPHEP        nvarchar(2000),
+   CAMKETGIAHAN         nvarchar(2000),
+   CAMKETBOSUNG         nvarchar(2000),
    TINHTRANG            int,
    MATHAMDINH           int,
    constraint PK_GIAYPHEPHOATDONG primary key clustered (MAGIAYPHEPHOATDONG),
@@ -294,7 +294,7 @@ create table HOATDONG
 create table LOAIHINHTOCHUC 
 (
    MALOAIHINHTOCHUC     int                            not null,
-   TENLOAIHINHTOCHUC    varchar(50),
+   TENLOAIHINHTOCHUC    nvarchar(50),
    constraint PK_LOAIHINHTOCHUC primary key clustered (MALOAIHINHTOCHUC)
 );
 
@@ -304,9 +304,9 @@ create table LOAIHINHTOCHUC
 create table LOAISANPHAM 
 (
    MALOAISANPHAM        int                            not null,
-   TENLOAISANPHAM       varchar(250),
+   TENLOAISANPHAM       nvarchar(500),
    KIEUSANPHAM          int,
-   DIENGIAI             text,
+   DIENGIAI             nvarchar(2000),
    constraint PK_LOAISANPHAM primary key clustered (MALOAISANPHAM)
 );
 
@@ -317,18 +317,18 @@ create table NHANLUC
 (
    MANHANVIEN           int                            not null,
    MATOCHUC             int,
-   HOTEN                varchar(100),
-   CMND                 varchar(15),
-   CHUCVU               varchar(50),
-   DIACHI               text,
-   TRINHDOHV            varchar(50),
-   CHUYENNGANH          varchar(100),
+   HOTEN                nvarchar(50),
+   CMND                 nvarchar(15),
+   CHUCVU               nvarchar(50),
+   DIACHI               nvarchar(2000),
+   TRINHDOHV            nvarchar(50),
+   CHUYENNGANH          nvarchar(500),
    THAMNIEN             int,
    NGAYSINH             date,
-   QUATRINHHOCTAP       text,
-   QUATRINHCONGTAC      text,
+   QUATRINHHOCTAP       nvarchar(2000),
+   QUATRINHCONGTAC      nvarchar(2000),
    CHIUTRACHNHIEM       bit,
-   TEPDINHKEM           text,
+   TEPDINHKEM           nvarchar(500),
    constraint PK_NHANLUC primary key clustered (MANHANVIEN)
 );
 
@@ -338,7 +338,7 @@ create table NHANLUC
 create table QUANHUYEN 
 (
    MAQUANHUYEN          int                            not null,
-   TENQUANHUYEN         varchar(50),
+   TENQUANHUYEN         nvarchar(50),
    MATINHTHANH          int,
    constraint PK_QUANHUYEN primary key clustered (MAQUANHUYEN)
 );
@@ -348,7 +348,7 @@ create table QUANHUYEN
 /*==============================================================*/
 create table SANPHAM 
 (
-   MASANPHAM            varchar(50)                    not null,
+   MASANPHAM            nvarchar(50)                    not null,
    MALOAISANPHAM        int,
    MACONGTRINH          int,
    MAQUANHUYEN          int,
@@ -361,16 +361,16 @@ create table SANPHAM
 /*==============================================================*/
 create table THAMDINH 
 (
-   MATHAMDINH           varchar(50)                    not null,
+   MATHAMDINH           nvarchar(50)                    not null,
    MAGIAYPHEPHOATDONG   int,
-   NGUOITHAMDINH        text,
-   NGUOIPHIATOCHUC      text,
+   NGUOITHAMDINH        nvarchar(500),
+   NGUOIPHIATOCHUC      nvarchar(500),
    NGAYTHAMDINH         date,
-   TINHHOPLE            text,
-   NANGLUCNHANVIEN      text,
-   NANGLUCTHIETBI       text,
-   KETLUAN              text,
-   KIENNGHI             text,
+   TINHHOPLE            nvarchar(2000),
+   NANGLUCNHANVIEN      nvarchar(2000),
+   NANGLUCTHIETBI       nvarchar(2000),
+   KETLUAN              nvarchar(2000),
+   KIENNGHI             nvarchar(2000),
    LOAITHAMDINH         int,
    constraint PK_THAMDINH primary key clustered (MATHAMDINH)
 );
@@ -382,13 +382,13 @@ create table THIETBI
 (
    MATHIETBI            int                            not null,
    MATOCHUC             int,
-   TENTHIETBI           varchar(250),
+   TENTHIETBI           nvarchar(500),
    SOLUONG              int,
-   HANGSANXUAT          varchar(250),
-   CONGNGHE             varchar(250),
+   HANGSANXUAT          nvarchar(500),
+   CONGNGHE             nvarchar(500),
    TINHTRANG            bit,
-   GHICHU               text,
-   TEPDINHKEM           text,
+   GHICHU               nvarchar(2000),
+   TEPDINHKEM           nvarchar(500),
    constraint PK_THIETBI primary key clustered (MATHIETBI)
 );
 
@@ -398,7 +398,7 @@ create table THIETBI
 create table TINHTHANH 
 (
    MATINHTHANH          int                            not null,
-   TENTINHTHANH         varchar(50),
+   TENTINHTHANH         nvarchar(50),
    constraint PK_TINHTHANH primary key clustered (MATINHTHANH)
 );
 
@@ -409,18 +409,18 @@ create table TOCHUC
 (
    MATOCHUC             int                            not null,
    MALOAIHINHTOCHUC     int,
-   TENTOCHUC            varchar(250),
-   GIAYPHEPKINHDOANH    varchar(15),
-   NGUOIDAIDIEN         varchar(100),
-   TRUSOCHINH           text,
-   SOTAIKHOAN           varchar(15),
-   DIENTHOAI            varchar(15),
-   FAX                  varchar(15),
-   EMAIL                varchar(250),
+   TENTOCHUC            nvarchar(250),
+   GIAYPHEPKINHDOANH    nvarchar(15),
+   NGUOIDAIDIEN         nvarchar(50),
+   TRUSOCHINH           nvarchar(2000),
+   SOTAIKHOAN           nvarchar(15),
+   DIENTHOAI            nvarchar(15),
+   FAX                  nvarchar(15),
+   EMAIL                nvarchar(250),
    TONGSOCANBO          int,
    NGAYXINPHEP          date,
    KICHHOAT             bit,
-   TEPDINHKEM           text,
+   TEPDINHKEM           nvarchar(500),
    constraint PK_TOCHUC primary key clustered (MATOCHUC)
 );
 
