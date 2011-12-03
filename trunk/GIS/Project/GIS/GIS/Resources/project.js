@@ -3,8 +3,6 @@ dojo.require("dijit.dijit");
 dojo.require("dijit.layout.BorderContainer");
 dojo.require("dijit.layout.TabContainer");
 dojo.require("dijit.layout.ContentPane");
-
-// various Form elements
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.CheckBox");
 dojo.require("dijit.Toolbar");
@@ -12,15 +10,22 @@ dojo.require("dijit.Tree");
 dojo.require("dijit.Menu");
 dojo.require("dijit.MenuItem");
 dojo.require("dijit.Toolbar");
-dojo.require("esri.dijit.Measurement");
-dojo.require("dojo.data.ItemFileReadStore");
-dojo.require("esri.dijit.OverviewMap");
 
+dojo.require("dojox.grid.DataGrid");
+dojo.require("dojox.grid.cells.dijit");
+
+dojo.require("dojo.data.ItemFileReadStore");
+dojo.require("dojo.data.ItemFileWriteStore");
+dojo.require("dojo.number");
+
+dojo.require("esri.dijit.OverviewMap");
+dojo.require("esri.dijit.Measurement");
 dojo.require("esri.toolbars.draw");
 dojo.require("esri.map");
 dojo.require("esri.tasks.query");
 dojo.require("esri.layers.FeatureLayer");
 dojo.require("esri.tasks.geometry");
+
 
 var resizeTimer;
 var map;    // main map
@@ -28,15 +33,15 @@ var basemap;
 var enableFeatureLayers = [], visible = [];
 var toolbar, toolSymbol;
 var result;
-var queryGraphics = []; // store select query such as extent, polygon
+var queryGraphics = [], items = []; // store select query such as extent, polygon
 var loading;
 // Initialiazation
 function init() {
     var initExtent = new esri.geometry.Extent({ "xmin": appConfig.service.initialExtent.xmin, "ymin": appConfig.service.initialExtent.ymin, "xmax": appConfig.service.initialExtent.xmax, "ymax": appConfig.service.initialExtent.ymax, "spatialReference": { "wkid": appConfig.service.initialExtent.spatialReference.wkid} });
     map = new esri.Map("mapPanel", { extent: initExtent });
     loading = dojo.byId("loadingImg");  //loading im~age. id
-	
-	dojo.connect(map, "onUpdateStart", showLoading);
+
+    dojo.connect(map, "onUpdateStart", showLoading);
     dojo.connect(map, "onUpdateEnd", hideLoading);
     loadBaseMap();
 
@@ -83,10 +88,6 @@ function loadFeatureLayers() {
     dojo.forEach(appConfig.service.layerServices.enableLayers, function(id) {
         var url = appConfig.service.featureLayers[id].url;
         var mode = appConfig.service.featureLayers[id].mode;
-        //var outFields ;
-        //dojo.foreach(appConfig.service.featureLayers[defLayer.id].outFields, function(field) { outFields += "[" + field + "]"; });
-        //var templateTitle = appConfig.service.featureLayers[id].infoTemplate.title;
-        //var templateContent = appConfig.service.featureLayers[id].infoTemplate.content;
         var infoTemplate = new esri.InfoTemplate(appConfig.service.featureLayers[id].infoTemplate);
         // init symbol
         var symbol = new esri.symbol.PictureMarkerSymbol(appConfig.service.featureLayers[id].symbol.url, appConfig.service.featureLayers[id].symbol.width, appConfig.service.featureLayers[id].symbol.height);
@@ -156,13 +157,7 @@ function addToMap(geometry) {
     //queryGraphics.push(graphic);
     map.graphics.add(graphic);
 
-    //selectFeature();
-    var id = 0;
-    // for(id;id<visible.length;id++){
-    // selectFeatureByExtent(id, graphic);
-    //}
-    selectFeatureByExtent(id, graphic)
-    //todo: begin query task here
+    selectFeature(graphic);
 }
 
 /////////////////////////END TOOLBAR/////////////////////////////
@@ -171,59 +166,32 @@ function addToMap(geometry) {
 
 //////////////////////////QUERY TASK ////////////////////////////
 
+function selectFeature(graphic) {
+    dojo.forEach(visible, function(id) {
+        selectFeatureByExtent(id, graphic);
+    });
+}
 
-function selectFeature() {
-    var queryTask, query;
-    
-    //////////////////// Temporary
-    //reset();
-    ///////////////////
-    queryTask = new esri.tasks.QueryTask("http://localhost/ArcGIS/rest/services/Moc/MapServer/0");
+function displayInGrid() {
 
-    query = new esri.tasks.Query();
-    query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
-    if (queryGraphics.length > 0) {
-            
-    query.geometry = queryGraphics[0].geometry;
-
-    query.outSpatialReference = { "wkid": 4756 };
-    query.returnGeometry = true;
-    query.outFields = ['*'];
-
-    queryTask.execute(query, showResults);
-    // finish query task : delete
-    map.graphics.remove(queryGraphics[0]);
-    //queryGraphics.pop();
-    // Callback event
-    dojo.connect(queryTask, "onComplete", function(fset) {
-        var resultFeatures = fset.features;
-        for (var i = 0, il = resultFeatures.length; i < il; i++) {
-            var graphic = resultFeatures[i];
-            // todo : set symbol
-            var symbolLink = appConfig.service.featureLayers[0].highlight;
-            graphic.setSymbol(getHighlightFromFeature(0));
-            graphic.setInfoTemplate(getTemplateFromFeature(0));
-            map.graphics.add(graphic);
-        }
-    });    
-
+    var items = dojo.map(queryGraphics, function(res) {
+    return res.attributes;
+});
+        
+    var data = {
+        identifier: "OBJECTID",  //This field needs to have unique values
+        label: "SoHieu", //Name field for display. Not pertinent to a grid but may be used elsewhere.
+        items: items
     }
+
+    //Create data store and bind to grid.
+    var store = new dojo.data.ItemFileReadStore({ data: data });
+    var grid = dijit.byId('grid');
+    grid.setStore(store);
+    grid.update();
 }
 
 
-function showResults(results) {
-    var s = "";
-
-    // String output
-    for (var i = 0, il = results.features.length; i < il; i++) {
-        var featureAttributes = results.features[i].attributes;
-        for (att in featureAttributes) {
-            s = s + "<b>" + att + ":</b>  " + featureAttributes[att] + "<br />";
-        }
-    }
-
-    dojo.place(s, 'debug', 'after');
-}
 
 function toolbarDeactivate() {
     toolbar.deactivate();
@@ -241,46 +209,51 @@ function reset() {
 //     Feature-Graphics extent : filter .         
 function selectFeatureByExtent(id, extent) {
     var queryTask, query;
-    
     //////////////////// Temporary
     //reset();
     ///////////////////
-    try{
+    try {
         queryTask = new esri.tasks.QueryTask(appConfig.service.featureLayers[id].url);
 
-    query = new esri.tasks.Query();
-    query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
-    if (extent !== null) {
-            
-    query.geometry = extent.geometry;
+        query = new esri.tasks.Query();
+        query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
+        if (extent !== null) {
 
-    query.outSpatialReference = { "wkid": appConfig.service.initialExtent.spatialReference.wkid };
-    query.returnGeometry = true;
-    query.outFields = [appConfig.service.featureLayers[id].outFields];
+            query.geometry = extent.geometry;
 
-    queryTask.execute(query, showResults);
-    // finish query task : delete
-    map.graphics.remove(extent);
-    //queryGraphics.pop();
-    // Callback event
-    dojo.connect(queryTask, "onComplete", function(fset) {
-        var resultFeatures = fset.features;
-        for (var i = 0, il = resultFeatures.length; i < il; i++) {
-            var graphic = resultFeatures[i];
-            // todo : set symbol
-            var symbolLink = appConfig.service.featureLayers[id].highlight;
-            graphic.setSymbol(getHighlightFromFeature(id));
-            graphic.setInfoTemplate(getTemplateFromFeature(id));
-            map.graphics.add(graphic);
+            query.outSpatialReference = { "wkid": appConfig.service.initialExtent.spatialReference.wkid };
+            query.returnGeometry = true;
+            query.outFields = [appConfig.service.featureLayers[id].outFields];
+
+            ///queryTask.execute(query, showResults);
+            queryTask.execute(query);
+            // finish query task : delete
+            map.graphics.remove(extent);
+            //queryGraphics.pop();
+            // Callback event
+            dojo.connect(queryTask, "onComplete", function(fset) {
+
+                var resultFeatures = fset.features;
+                for (var i = 0, il = resultFeatures.length; i < il; i++) {
+                    var graphic = resultFeatures[i];
+                    // todo : set symbol
+                    var symbolLink = appConfig.service.featureLayers[id].highlight;
+                    graphic.setSymbol(getHighlightFromFeature(id));
+                    graphic.setInfoTemplate(getTemplateFromFeature(id));
+                    map.graphics.add(graphic);
+                    queryGraphics.push(graphic);
+                    displayInGrid();
+                }
+        
+            });
         }
-    });    
-
-    }
     } catch (err) {
         alert("Error : selectFeatureByExtent is not run");
     }
 
 }
+
+
 
 ////////////////////OVERVIEW MAP ///////////////////////////////////
 function overviewMap() {
@@ -385,6 +358,15 @@ function getTemplateFromFeature(id) {
     var infoTemplate = new esri.InfoTemplate(appConfig.service.featureLayers[id].infoTemplate);
     return infoTemplate;
 }
+
+function iLayerType(value) {
+    switch (value) {
+        case 1: return "Mốc tọa độ"; break;
+        case 2: return "Mốc độ cao"; break;
+        case 3: return "Mốc trọng lực"; break;
+    }
+}
+
 
 //////////////////// END TREE RESULT //////////////////////////
 dojo.addOnLoad(init);
@@ -491,4 +473,56 @@ queryGraphics.push(graphic);
 dojo.byId('debug').innerHTML = "<b>Executing Query with Result Buffer Geometry...</b>";
 //  }
 
-}*/
+}
+
+function selectFeature() {
+var queryTask, query;
+    
+//////////////////// Temporary
+//reset();
+///////////////////
+queryTask = new esri.tasks.QueryTask("http://localhost/ArcGIS/rest/services/Moc/MapServer/0");
+
+query = new esri.tasks.Query();
+query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
+if (queryGraphics.length > 0) {
+            
+query.geometry = queryGraphics[0].geometry;
+
+query.outSpatialReference = { "wkid": 4756 };
+query.returnGeometry = true;
+query.outFields = ['*'];
+
+queryTask.execute(query, showResults);
+// finish query task : delete
+map.graphics.remove(queryGraphics[0]);
+//queryGraphics.pop();
+// Callback event
+dojo.connect(queryTask, "onComplete", function(fset) {
+var resultFeatures = fset.features;
+for (var i = 0, il = resultFeatures.length; i < il; i++) {
+var graphic = resultFeatures[i];
+// todo : set symbol
+var symbolLink = appConfig.service.featureLayers[0].highlight;
+graphic.setSymbol(getHighlightFromFeature(0));
+graphic.setInfoTemplate(getTemplateFromFeature(0));
+map.graphics.add(graphic);
+}
+});    
+
+}
+}
+
+function showResults(results) {
+var s = "";
+
+// String output
+for (var i = 0, il = results.features.length; i < il; i++) {
+var featureAttributes = results.features[i].attributes;
+for (att in featureAttributes) {
+s = s + "<b>" + att + ":</b>  " + featureAttributes[att] + "<br />";
+}
+}
+dojo.place(s, 'debug', 'after');    
+}
+*/
