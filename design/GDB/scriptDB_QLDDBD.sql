@@ -200,7 +200,7 @@ end if;
 /*==============================================================*/
 create table BAOCAOHOATDONG 
 (
-   MABAOCAOHOATDONG     int                            not null,
+   MABAOCAOHOATDONG     int                 identity(1,1)            not null,
    MATOCHUC             int,
    NAM                  int,
    DOANHTHU             money,
@@ -215,7 +215,7 @@ create table BAOCAOHOATDONG
 /*==============================================================*/
 create table CONGDOANTHUCHIEN 
 (
-   MACONGDOAN           int                            not null,
+   MACONGDOAN           int                 identity(1,1)            not null,
    SOGIAYPHEP           nvarchar(50)						not null,
    MACONGTRINH          int,
    NGAYBATDAU           date,
@@ -228,7 +228,7 @@ create table CONGDOANTHUCHIEN
 /*==============================================================*/
 create table CONGTRINH 
 (
-   MACONGTRINH          int                            not null,
+   MACONGTRINH          int                identity(1,1)             not null,
    TENCONGTRINH         nvarchar(500),
    CHUDAUTU             nvarchar(500),
    DONVINGHIEMTHU       nvarchar(500),
@@ -244,7 +244,7 @@ create table CONGTRINH
 /*==============================================================*/
 create table DANGKYHOATDONG 
 (
-   MADANGKYHOATDONG     int                            not null,
+   MADANGKYHOATDONG     int           identity(1,1)                  not null,
    MAGIAYPHEPHOATDONG   int,
    LABOSUNG             bit,
    NGAYBOSUNG           date,
@@ -258,7 +258,7 @@ create table DANGKYHOATDONG
 /*==============================================================*/
 create table GIAYPHEPHOATDONG 
 (
-   MAGIAYPHEPHOATDONG   int                            not null,
+   MAGIAYPHEPHOATDONG   int             identity(1,1)                not null,
    MATOCHUC             int,
    SOGIAYPHEP           nvarchar(50)        unique    ,
    NGAYCAPPHEP          date,
@@ -283,7 +283,7 @@ create table GIAYPHEPHOATDONG
 /*==============================================================*/
 create table HOATDONG 
 (
-   MAHOATDONG           int                            not null,
+   MAHOATDONG           int              identity(1,1)               not null,
    TENHOATDONG          varchar(250),
    constraint PK_HOATDONG primary key clustered (MAHOATDONG)
 );
@@ -293,7 +293,7 @@ create table HOATDONG
 /*==============================================================*/
 create table LOAIHINHTOCHUC 
 (
-   MALOAIHINHTOCHUC     int                            not null,
+   MALOAIHINHTOCHUC     int           identity(1,1)                  not null,
    TENLOAIHINHTOCHUC    nvarchar(50),
    constraint PK_LOAIHINHTOCHUC primary key clustered (MALOAIHINHTOCHUC)
 );
@@ -303,7 +303,7 @@ create table LOAIHINHTOCHUC
 /*==============================================================*/
 create table LOAISANPHAM 
 (
-   MALOAISANPHAM        int                            not null,
+   MALOAISANPHAM        int             identity(1,1)                not null,
    TENLOAISANPHAM       nvarchar(500),
    KIEUSANPHAM          int,
    DIENGIAI             nvarchar(2000),
@@ -315,7 +315,7 @@ create table LOAISANPHAM
 /*==============================================================*/
 create table NHANLUC 
 (
-   MANHANVIEN           int                            not null,
+   MANHANVIEN           int           identity(1,1)                  not null,
    MATOCHUC             int,
    HOTEN                nvarchar(50),
    CMND                 nvarchar(15),
@@ -337,7 +337,7 @@ create table NHANLUC
 /*==============================================================*/
 create table QUANHUYEN 
 (
-   MAQUANHUYEN          int                            not null,
+   MAQUANHUYEN          int            identity(1,1)                 not null,
    TENQUANHUYEN         nvarchar(50),
    MATINHTHANH          int,
    constraint PK_QUANHUYEN primary key clustered (MAQUANHUYEN)
@@ -348,7 +348,8 @@ create table QUANHUYEN
 /*==============================================================*/
 create table SANPHAM 
 (
-   MASANPHAM            nvarchar(50)                    not null,
+   MASANPHAM            int            identity(1,1)        not null,
+   SOHIEU				nvarchar(50),
    MALOAISANPHAM        int,
    MACONGTRINH          int,
    MAQUANHUYEN          int,
@@ -361,7 +362,7 @@ create table SANPHAM
 /*==============================================================*/
 create table THAMDINH 
 (
-   MATHAMDINH           nvarchar(50)                    not null,
+   MATHAMDINH           int          identity(1,1)          not null,
    MAGIAYPHEPHOATDONG   int,
    NGUOITHAMDINH        nvarchar(500),
    NGUOIPHIATOCHUC      nvarchar(500),
@@ -380,7 +381,7 @@ create table THAMDINH
 /*==============================================================*/
 create table THIETBI 
 (
-   MATHIETBI            int                            not null,
+   MATHIETBI            int            identity(1,1)                 not null,
    MATOCHUC             int,
    TENTHIETBI           nvarchar(500),
    SOLUONG              int,
@@ -397,7 +398,7 @@ create table THIETBI
 /*==============================================================*/
 create table TINHTHANH 
 (
-   MATINHTHANH          int                            not null,
+   MATINHTHANH          int           identity(1,1)                  not null,
    TENTINHTHANH         nvarchar(50),
    constraint PK_TINHTHANH primary key clustered (MATINHTHANH)
 );
@@ -407,7 +408,7 @@ create table TINHTHANH
 /*==============================================================*/
 create table TOCHUC 
 (
-   MATOCHUC             int                            not null,
+   MATOCHUC             int             identity(1,1)                not null,
    MALOAIHINHTOCHUC     int,
    TENTOCHUC            nvarchar(250),
    GIAYPHEPKINHDOANH    nvarchar(15),
