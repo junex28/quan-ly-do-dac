@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace GIS.Controllers
 {
     [HandleError]
-    public class HomeController : Controller
+    public class TrangChuController : Controller
     {
         public ActionResult Index()
         {
