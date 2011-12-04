@@ -409,32 +409,13 @@ function queryRecordsByPage(pageNumber) {
 
     var begin = pageInfo.recordsPerPage * (pageNumber - 1);
     var end = begin + pageInfo.recordsPerPage;
-    alert(begin + " " + end);
     var queryGraphicsPage = queryGraphics.slice(begin, end);
-    alert(queryGraphicsPage.length);
     updateGrid(queryGraphicsPage, pageNumber);    
-//    // create the query
-//    var query = new esri.tasks.Query();
-//    query.objectIds = pageInfo.objectIds.slice(begin, end);
-//    query.outFields = ["*"];
 
-//    // Query for the records with the given object IDs and populate the grid
-//    featureLayer.queryFeatures(query, function(featureSet) {
-//        updateGrid(featureSet, pageNumber);
-//    });
 }
 
 function updateGrid(featureSet, pageNumber) {
-
-    alert("come here");
-    //    //Create data store and bind to grid.
-    //    gridStore = new dojo.data.ItemFileReadStore({ data: gridData });
-    //    var grid = dijit.byId('grid');
-    //    grid.setStore(gridStore);
-    //    grid.update();
-    // create the data store and add it to the grid
   
-
     var items = dojo.map(featureSet, function(res) {
         res.attributes.LoaiMoc = iLayerType(res.attributes.LoaiMoc);
             return res.attributes;
