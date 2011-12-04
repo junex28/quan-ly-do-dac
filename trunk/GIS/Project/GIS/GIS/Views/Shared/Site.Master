@@ -2,39 +2,47 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
     <link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
-</head>
 
+    <style type="text/css">
+        .content { height: 100%; width: 100%; }
+        .content div { overflow: auto; }
+        .vsplitbar { width: 3px; background: #aaa; }
+    </style>
+
+    <script src="../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/splitter.js" type="text/javascript"></script>
+</head>
 <body>
     <div class="page">
-
-        <div id="header">
-            <div id="title">
-                <h1>My MVC Application</h1>
+        <div class="header">
+            <div class="siteLogo">
+                <a href="<%= Url.Action("Index", "TrangChu") %>">
+                    <img alt="HTQL do dac ban do" src="../../Content/images/logo.png" /></a>
             </div>
-              
-            <div id="logindisplay">
-                <% Html.RenderPartial("LogOnUserControl"); %>
-            </div> 
-            
-            <div id="menucontainer">
-            
-                <ul id="menu">              
-                    <li><%= Html.ActionLink("Home", "Index", "Home")%></li>
-                    <li><%= Html.ActionLink("About", "About", "Home")%></li>
-                </ul>
-            
+            <div class="siteLogin"><% Html.RenderPartial("LogOnUserControl"); %></div>
+            <div class="siteMenu">
+                <div class="siteMenuContent">
+                    <%= Html.MvcSiteMap().Menu("TopMenu", 0, 2, false, false)%>
+                </div>
             </div>
         </div>
-
-        <div id="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-
-            <div id="footer">
-            </div>
+        <div class="content">
+            <div class="contentLeft">123</div>
+            <div class="contentRight"><asp:ContentPlaceHolder ID="MainContent" runat="server" /></div>
         </div>
     </div>
+    <script type="text/javascript">
+        $().ready(function () {
+            $(".content").splitter({
+                sizeLeft: 238,
+                minLeft: 200,
+                minRight: 600
+            });
+        });
+    </script>
 </body>
 </html>
