@@ -162,10 +162,6 @@ function addToMap(geometry) {
 
 /////////////////////////END TOOLBAR/////////////////////////////
 
-
-
-//////////////////////////QUERY TASK ////////////////////////////
-
 function selectFeature(graphic) {
     dojo.forEach(visible, function(id) {
         selectFeatureByExtent(id, graphic);
@@ -175,8 +171,9 @@ function selectFeature(graphic) {
 function displayInGrid() {
 
     var items = dojo.map(queryGraphics, function(res) {
-    return res.attributes;
-});
+    res.attributes.LoaiMoc = iLayerType(res.attributes.LoaiMoc);
+        return res.attributes;
+    });
         
     var data = {
         identifier: "OBJECTID",  //This field needs to have unique values
@@ -191,16 +188,9 @@ function displayInGrid() {
     grid.update();
 }
 
+function displayResultTool() {
 
-
-function toolbarDeactivate() {
-    toolbar.deactivate();
 }
-
-function reset() {
-    map.graphics.clear();
-}
-////////////////////////// END QUERY TASK /////////////////////////////
 
 
 /////////////////SELECT QUERY//////////////////////////////////////
@@ -209,9 +199,7 @@ function reset() {
 //     Feature-Graphics extent : filter .         
 function selectFeatureByExtent(id, extent) {
     var queryTask, query;
-    //////////////////// Temporary
-    //reset();
-    ///////////////////
+
     try {
         queryTask = new esri.tasks.QueryTask(appConfig.service.featureLayers[id].url);
 
@@ -224,13 +212,10 @@ function selectFeatureByExtent(id, extent) {
             query.outSpatialReference = { "wkid": appConfig.service.initialExtent.spatialReference.wkid };
             query.returnGeometry = true;
             query.outFields = [appConfig.service.featureLayers[id].outFields];
-
-            ///queryTask.execute(query, showResults);
+        
             queryTask.execute(query);
             // finish query task : delete
             map.graphics.remove(extent);
-            //queryGraphics.pop();
-            // Callback event
             dojo.connect(queryTask, "onComplete", function(fset) {
 
                 var resultFeatures = fset.features;
@@ -242,9 +227,9 @@ function selectFeatureByExtent(id, extent) {
                     graphic.setInfoTemplate(getTemplateFromFeature(id));
                     map.graphics.add(graphic);
                     queryGraphics.push(graphic);
-                    displayInGrid();
+                    displayInGrid();        // Display Grid Results
                 }
-        
+                selectLeftTab("resultTab");
             });
         }
     } catch (err) {
@@ -359,14 +344,31 @@ function getTemplateFromFeature(id) {
     return infoTemplate;
 }
 
+// get layer name by type
 function iLayerType(value) {
     switch (value) {
         case 1: return "Mốc tọa độ"; break;
         case 2: return "Mốc độ cao"; break;
         case 3: return "Mốc trọng lực"; break;
+        default: return value;
     }
 }
 
+// Return normal, not in selected
+function toolbarDeactivate() {
+    toolbar.deactivate();
+}
+
+// Clear all graphics selected
+function reset() {
+    map.graphics.clear();
+}
+
+function selectLeftTab(tabSelected) {
+    var tabs = dijit.byId("leftPanel");
+    var tabid = dijit.byId(tabSelected);
+    tabs.selectChild(tabid);
+}
 
 //////////////////// END TREE RESULT //////////////////////////
 dojo.addOnLoad(init);
