@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mvcSiteMap xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-2.0" enableLocalization="true">
-  <mvcSiteMapNode title="Trang Chu" controller="TrangChu" action="Index" changeFrequency="Always" updatePriority="Normal">
+  <mvcSiteMapNode title="Trang chủ" controller="TrangChu" action="Index" changeFrequency="Always" updatePriority="Normal">
     <mvcSiteMapNode title="WebGIS" controller="GIS" action="Index" changeFrequency="Always" updatePriority="Normal" />
-    <mvcSiteMapNode title="Dang ky cap phep" controller="GiayPhep" action="Index" changeFrequency="Always" updatePriority="Normal">
-      <mvcSiteMapNode title="Dang Ky Moi" controller="GiayPhep" action="DangKyMoi" />
+    <mvcSiteMapNode title="Đăng ký" controller="DangKy" action="Index" changeFrequency="Always" updatePriority="Normal">
+      <mvcSiteMapNode title="Đăng ký giấy phép mới" controller="DangKy" action="DangKyMoi" />
+      <mvcSiteMapNode title="Đăng ký gia hạn" controller="DangKy" action="DangKyGiaHan" />
+      <mvcSiteMapNode title="Đăng ký bổ sung hoạt động" controller="DangKy" action="DangKyBoSungHoatDong" />
+      <mvcSiteMapNode title="Bổ sung thông tin" controller="DangKy" action="BoSungThongTin" />
     </mvcSiteMapNode>
   </mvcSiteMapNode>
 </mvcSiteMap>
