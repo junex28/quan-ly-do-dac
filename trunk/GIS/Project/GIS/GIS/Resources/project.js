@@ -33,8 +33,10 @@ var basemap;
 var enableFeatureLayers = [], visible = [];
 var toolbar, toolSymbol;
 var result;
-var queryGraphics = [], items = []; // store select query such as extent, polygon
+var queryGraphics = []; // store select query such as extent, polygon
 var loading;
+var pageLength = 5, pageInfo;
+
 // Initialiazation
 function init() {
     var initExtent = new esri.geometry.Extent({ "xmin": appConfig.service.initialExtent.xmin, "ymin": appConfig.service.initialExtent.ymin, "xmax": appConfig.service.initialExtent.xmax, "ymax": appConfig.service.initialExtent.ymax, "spatialReference": { "wkid": appConfig.service.initialExtent.spatialReference.wkid} });
@@ -168,29 +170,9 @@ function selectFeature(graphic) {
     });
 }
 
-function displayInGrid() {
 
-    var items = dojo.map(queryGraphics, function(res) {
-    res.attributes.LoaiMoc = iLayerType(res.attributes.LoaiMoc);
-        return res.attributes;
-    });
-        
-    var data = {
-        identifier: "OBJECTID",  //This field needs to have unique values
-        label: "SoHieu", //Name field for display. Not pertinent to a grid but may be used elsewhere.
-        items: items
-    }
 
-    //Create data store and bind to grid.
-    var store = new dojo.data.ItemFileReadStore({ data: data });
-    var grid = dijit.byId('grid');
-    grid.setStore(store);
-    grid.update();
-}
 
-function displayResultTool() {
-
-}
 
 
 /////////////////SELECT QUERY//////////////////////////////////////
@@ -213,7 +195,7 @@ function selectFeatureByExtent(id, extent) {
             query.returnGeometry = true;
             query.outFields = [appConfig.service.featureLayers[id].outFields];
         
-            queryTask.execute(query);
+            queryTask.execute(query,displayInGrid);
             // finish query task : delete
             map.graphics.remove(extent);
             dojo.connect(queryTask, "onComplete", function(fset) {
@@ -227,7 +209,7 @@ function selectFeatureByExtent(id, extent) {
                     graphic.setInfoTemplate(getTemplateFromFeature(id));
                     map.graphics.add(graphic);
                     queryGraphics.push(graphic);
-                    displayInGrid();        // Display Grid Results
+                    //displayInGrid();        // Display Grid Results
                 }
                 selectLeftTab("resultTab");
             });
@@ -258,6 +240,7 @@ function initMeasurement(mymap) {
     measurement.startup();
 }
 ////////////////////////// END MEASURE////////////////////////////
+
 ///////////////////////////////////////// UTILS ////////////////////////////////////////////////////////////
 // Int Id : is the id in list features services on config
 // Geometry 
@@ -361,13 +344,120 @@ function toolbarDeactivate() {
 
 // Clear all graphics selected
 function reset() {
-    map.graphics.clear();
+    // Clear grid
+    clearDataGrid();
+    // Clear all result on queryGraphics
+    queryGraphics.splice(0, queryGraphics.length);
+    // Clear all highlight graphics on map
+        map.graphics.clear();
 }
 
 function selectLeftTab(tabSelected) {
     var tabs = dijit.byId("leftPanel");
     var tabid = dijit.byId(tabSelected);
     tabs.selectChild(tabid);
+}
+
+function clearDataGrid() {
+    var newStore = new dojo.data.ItemFileReadStore({ data: { identifier: "", items: []} });
+    var grid = dijit.byId("grid");
+    grid.setStore(newStore);
+    grid.update();
+}
+
+
+////////////////PAGINATION///////////////////////////////
+function displayInGrid() {
+    // if number results > 0 then display toolbol, paginations
+    if (queryGraphics.length > 0) {
+        updatePageInformation(queryGraphics);
+        queryRecordsByPage(1);
+    }
+    else {
+        grid.showMessage("Không có kết quả");
+        grid.setStore(null);
+    }
+
+}
+
+function updatePageInformation(objectIds, page) {
+    pageInfo = {
+        objectIds: objectIds,
+        totalRecords: objectIds.length,
+        totalPages: Math.ceil(objectIds.length / pageLength),
+        currentPage: page || 0,
+        recordsPerPage: pageLength
+    };
+
+    dojo.byId("pageInfo").innerHTML = pageInfo.currentPage + "/" + pageInfo.totalPages;
+    dojo.byId("recordsInfo").innerHTML = pageInfo.totalRecords;
+
+    if (pageInfo.currentPage > pageInfo.totalPages) {
+        queryRecordsByPage(pageInfo.currentPage - 1);
+    }
+}
+
+function queryRecordsByPage(pageNumber) {
+
+    // check if the page number is valid
+    if (pageNumber < 1 || pageNumber > pageInfo.totalPages) {
+        return;
+    }
+
+    var grid = dijit.byId('grid');
+    grid.showMessage("Đang cập nhật...");
+
+    var begin = pageInfo.recordsPerPage * (pageNumber - 1);
+    var end = begin + pageInfo.recordsPerPage;
+    alert(begin + " " + end);
+    var queryGraphicsPage = queryGraphics.slice(begin, end);
+    alert(queryGraphicsPage.length);
+    updateGrid(queryGraphicsPage, pageNumber);    
+//    // create the query
+//    var query = new esri.tasks.Query();
+//    query.objectIds = pageInfo.objectIds.slice(begin, end);
+//    query.outFields = ["*"];
+
+//    // Query for the records with the given object IDs and populate the grid
+//    featureLayer.queryFeatures(query, function(featureSet) {
+//        updateGrid(featureSet, pageNumber);
+//    });
+}
+
+function updateGrid(featureSet, pageNumber) {
+
+    alert("come here");
+    //    //Create data store and bind to grid.
+    //    gridStore = new dojo.data.ItemFileReadStore({ data: gridData });
+    //    var grid = dijit.byId('grid');
+    //    grid.setStore(gridStore);
+    //    grid.update();
+    // create the data store and add it to the grid
+  
+
+    var items = dojo.map(featureSet, function(res) {
+        res.attributes.LoaiMoc = iLayerType(res.attributes.LoaiMoc);
+            return res.attributes;
+        });
+    
+    var  data = {
+            identifier: "OBJECTID",  //This field needs to have unique values
+            label: "SoHieu", //Name field for display. Not pertinent to a grid but may be used elsewhere.
+            items: items
+        }
+
+    var store = new dojo.data.ItemFileReadStore({
+    data: data
+    });
+
+    var grid = dijit.byId('grid');
+    grid.setStore(store);
+    grid.setSortIndex(2, false); //descending sort on the magnitude field
+    grid.update();
+
+    // update application state
+    pageInfo.currentPage = pageNumber;
+    dojo.byId("pageInfo").innerHTML = pageInfo.currentPage + "/" + pageInfo.totalPages;
 }
 
 //////////////////// END TREE RESULT //////////////////////////
