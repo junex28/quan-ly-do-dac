@@ -48,7 +48,7 @@
             region="top">
             <div id="title" dojotype="dijit.layout.ContentPane" region="left">
                 <img id="logo" alt="HTQL do dac ban do" src="../../Content/images/logo.png" />
-                <img id="logoSwoosh" alt"swoosh" src="../../Content/images/logo_space_bg.gif" />
+                <img id="logoSwoosh" alt="swoosh" src="../../Content/images/logo_space_bg.gif" />
             </div>
             <div id="siteLogin" dojotype="dijit.layout.ContentPane" region="top">
                 <% Html.RenderPartial("LogOnUserControl"); %>
@@ -59,7 +59,8 @@
                         <%= Html.ActionLink("Trang chủ", "Index", "Home")%></li>
                     <li>
                         <%= Html.ActionLink("WebGIS", "Index", "GIS")%></li>
-                    <li><a href="">Đăng ký cấp phép</a></li>
+                    <li>
+                        <%= Html.ActionLink("Đăng ký cấp phép","Index", "CapPhep") %></li>
                 </ul>
             </div>
         </div>
@@ -96,7 +97,8 @@
                 <div class="lefttab" dojotype="dijit.layout.ContentPane" title="Tìm kiếm">
                     Tìm kiếm
                 </div>
-                <div class="lefttab" id="addLayer" dojotype="dijit.layout.ContentPane" title="Thêm Lớp" selected="true">
+                <div class="lefttab" id="addLayer" dojotype="dijit.layout.ContentPane" title="Thêm Lớp"
+                    selected="true">
                     <span>Lựa chọn các lớp bản đồ dưới đây để hiển thị trên bản đồ : </span>
                     <fieldset style="padding-left: 20px;">
                         <div id="layer_list">
@@ -104,9 +106,25 @@
                     </fieldset>
                 </div>
                 <div class="lefttab" id="resultTab" dojotype="dijit.layout.ContentPane" title="Kết quả">
-                    <div id="resultTool"><span><span><a href="#">Clear All</a> </span>
+                    <div id="resultTool">
+                        <span><a href="#" onclick="reset();">Xoá hết</a> </span>
+                        <br />
                     </div>
-                    <table data-dojo-type="dojox.grid.DataGrid" data-dojo-id="grid" id="grid" data-dojo-props="rowsPerPage:'5', rowSelector:'20px'"
+                    <div id="resultPage">
+                        <p>
+                            &nbsp;&nbsp;Kết quả = <span id="recordsInfo">0</span> &nbsp;&nbsp;|&nbsp;&nbsp;
+   <%--                         <button dojotype="dijit.form.Button" onclick="queryRecordsByPage(pageInfo.currentPage - 1);">
+                                Prev Page
+                            </button>--%>
+                            <a href="#" onclick="queryRecordsByPage(pageInfo.currentPage - 1);"> < </a>
+                            &nbsp;&nbsp <span id="pageInfo"></span>&nbsp;&nbsp
+                            <a href="#" onclick="queryRecordsByPage(pageInfo.currentPage + 1);"> > </a>
+                            <%--<button dojotype="dijit.form.Button" onclick="queryRecordsByPage(pageInfo.currentPage + 1);">
+                                Next Page
+                            </button>--%>
+                        </p>
+                    </div>
+                    <table data-dojo-type="dojox.grid.DataGrid" data-dojo-id="grid" id="grid" rowsPerPage="5" data-dojo-props="rowSelector:'20px'"
                         style="width: 200px; height: 425px; border: solid 1px #000;">
                         <thead>
                             <tr>
