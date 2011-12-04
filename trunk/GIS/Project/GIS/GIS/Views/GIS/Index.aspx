@@ -93,21 +93,18 @@
             </div>
             <div id="leftPanel" dojotype="dijit.layout.TabContainer" region="left" splitter="true"
                 tabstrip="true">
-                <div dojotype="dijit.layout.ContentPane" title="Tìm kiếm" selected="true">
+                <div class="lefttab" dojotype="dijit.layout.ContentPane" title="Tìm kiếm">
                     Tìm kiếm
                 </div>
-                <div id="addLayer" dojotype="dijit.layout.ContentPane" title="Thêm Lớp" selected="true">
+                <div class="lefttab" id="addLayer" dojotype="dijit.layout.ContentPane" title="Thêm Lớp" selected="true">
                     <span>Lựa chọn các lớp bản đồ dưới đây để hiển thị trên bản đồ : </span>
                     <fieldset style="padding-left: 20px;">
                         <div id="layer_list">
                         </div>
                     </fieldset>
                 </div>
-                <div dojotype="dijit.layout.ContentPane" title="Kết quả">
-                    <!-- tree widget -->
-                    <div id="debug">
-                    </div>
-                    <div id="resultDiv">
+                <div class="lefttab" id="resultTab" dojotype="dijit.layout.ContentPane" title="Kết quả">
+                    <div id="resultTool"><span><span><a href="#">Clear All</a> </span>
                     </div>
                     <table data-dojo-type="dojox.grid.DataGrid" data-dojo-id="grid" id="grid" data-dojo-props="rowsPerPage:'5', rowSelector:'20px'"
                         style="width: 200px; height: 425px; border: solid 1px #000;">
@@ -116,7 +113,7 @@
                                 <th field="SoHieu">
                                     Số Hiệu
                                 </th>
-                                <th field="LoaiMoc">
+                                <th field="LoaiMoc" width="100px">
                                     Loại Mốc
                                 </th>
                             </tr>
