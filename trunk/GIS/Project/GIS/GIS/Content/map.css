@@ -120,6 +120,16 @@ body
     text-decoration: underline;
 }
 
+/***************** TOOLBAR ICON *********************/
+ .pointerIcon { background-image:url("../../Content/images/pointer16x16.png"); 
+                   width:16px; 
+                   height:16px; }
+.rectangleIcon { background-image:url("../../Content/images/rectangle16x16.png"); 
+width:16px; 
+height:16px; }
+
+/**************** END TOOL ICON *********************/
+
 #measureWindow
 {
     position: absolute;
