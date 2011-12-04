@@ -1,25 +1,12 @@
-﻿/*----------------------------------------------------------
-The base color for this template is #5c87b2. If you'd like
-to use a different color start by replacing all instances of
-#5c87b2 with your new color.
-----------------------------------------------------------*/
-/* Add New Heading*/
-html, body {
+﻿* { margin: 0; padding: 0; }
+
+html, body, .page {
     height: 100%;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
     width: 100%;
 }
 
-body, textarea, input {
-    color: #444444;
-    font-family: Verdana,Helvetica,sans-serif !important;
-    font-size: 12px;
-}
-
-body
-{
+body {
+    font: 12px Myriad,Helvetica,Tahoma,Arial,clean,sans-serif;
     background-color: #ffffff;
 }
 
@@ -27,7 +14,7 @@ a, a:hover, a:active, a:visited
 {    
     color: #333333;
     text-decoration: none;
-    }
+}
 
 p, ul
 {
@@ -39,37 +26,18 @@ ol li, ul li {
     line-height: 1.5em;
 }
 
-/* HEADINGS   
-----------------------------------------------------------*/
-h1, h2, h3, h4, h5, h6
+img 
 {
-    font-size: 1.5em;
-    color: #000;
-    font-family: Arial, Helvetica, sans-serif;
+    border: 0 none
 }
 
-h1
-{
-    font-size: 2em;
-    padding-bottom: 0;
-    margin-bottom: 0;
-}
-h2
-{
-    padding: 0 0 10px 0;
-}
-h3
-{
-    font-size: 1.2em;
-}
-h4
-{
-    font-size: 1.1em;
-}
-h5, h6
-{
-    font-size: 1em;
-}
+/* HEADINGS   
+----------------------------------------------------------*/
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1.1em; }
+h5, h6 { font-size: 1em; }
 
 /* this rule styles <h2> tags that are the 
 first child of the left and right table columns */
@@ -83,31 +51,39 @@ first child of the left and right table columns */
 
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
-.page
+.header { position: relative; }
+
+.header .siteLogo
 {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    position: absolute;
+    height: 50px;
+    width: 217px;
 }
 
-#header
+.header .siteLogin
 {
-    position: relative;
-    margin-bottom: 0px;
-    color: #000;
-    padding: 0;
+    position: absolute;
+    left: 217px;
+    right: 0;
+    height: 20px;
+    padding-right: 10px;
+    padding-top: 3px;
+    text-align: right;
 }
 
-#header h1
+.header .siteMenu
 {
-    font-weight: bold;
-    padding: 5px 0;
-    margin: 0;
-    color: #fff;
-    border: none;
-    line-height: 2em;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 32px !important;
+    padding-left: 217px;
+    background: url("../../Content/images/logo_space_bg.gif") no-repeat scroll 0 0 transparent;
+    
+    height: 50px;
+}
+
+.header .siteMenu .siteMenuContent
+{
+    background: url("../../Content/images/top_header_md_tile.gif") repeat scroll 0 0 transparent;
+    padding-top: 23px;
+    height: 27px;
 }
 
 #main
