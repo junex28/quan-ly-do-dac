@@ -10,11 +10,11 @@
                 string cssClass;
                 if (child.IsCurrentNode)
                 {
-                    cssClass = "button selected";
+                    cssClass = "jui-button selected";
                 }
                 else
                 {
-                    cssClass = "button";
+                    cssClass = "jui-button";
                 }
                 Writer.Write("<li>");
                 Writer.Write(Html.ActionLink(child.Title, child.Action, child.Controller, null, new { @class = cssClass }));
