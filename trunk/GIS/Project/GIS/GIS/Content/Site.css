@@ -10,12 +10,6 @@ body {
     background-color: #ffffff;
 }
 
-a, a:hover, a:active, a:visited
-{    
-    color: #333333;
-    text-decoration: none;
-}
-
 p, ul
 {
     margin-bottom: 20px;
@@ -93,10 +87,10 @@ page width. Or, you can specify an exact pixel width. */
     height: 27px;
 }
 
-.content { position: absolute; top: 51px; bottom:0; left: 0; right: 0; }
-.splitContent { width: 100%; height: 100% }
-.splitContent div { overflow: auto; }
-.splitContent .vsplitbar { width: 3px; background: #aaa; }
+.content { position: absolute; top: 52px; bottom:0; left: 0; right: 0; }
+.content .contentLeft { position: absolute; top: 0; bottom: 0; left: 2px; width: 200px; overflow: auto }
+.content .contentRight { position: absolute; top: 0; bottom: 0; left: 204px; right: 2px; overflow: auto }
+
 
 /* LEFT MENU
 ----------------------------------------------------------*/
@@ -105,39 +99,9 @@ ul.leftMenu li
     list-style: none;
 }
 
-ul#menu li
+ul.leftMenu a
 {
-    padding: 10px 20px;
-    line-height: 2.8em;
-    color: #fff;
-}
-
-ul#menu li a
-{
-    padding: 10px 20px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
-}
-
-ul#menu li a:hover
-{
-    background-color: #fff;
-    text-decoration: none;
-}
-
-ul#menu li a:active
-{
-    background-color: #a6e2a6;
-    text-decoration: none;
-}
-
-ul#menu li.selected a
-{
-    background-color: #fff;
-    color: #000;
+    width: 198px;
 }
 
 /* FORM LAYOUT ELEMENTS   
@@ -160,18 +124,6 @@ legend
     font-size: 1.1em;
     font-weight: 600;
     padding: 2px 4px 8px 4px;
-}
-
-input[type="text"] 
-{
-    width: 200px;
-    border: 1px solid #CCC;
-}
-
-input[type="password"] 
-{
-    width: 200px;
-    border: 1px solid #CCC;
 }
 
 /* TABLE
