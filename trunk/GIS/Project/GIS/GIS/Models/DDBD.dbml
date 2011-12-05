@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="QLDDBD" Class="DDBDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=QLDDBD;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QLDDBDConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BAOCAOHOATDONG" Member="BaoCaoHoatDongs">
+    <Type Name="BaoCaoHoatDong">
+      <Column Name="MABAOCAOHOATDONG" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MATOCHUC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NAM" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DOANHTHU" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NOPNGANSACH" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="DANHSACHCONGTRINH" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="TEPDINHKEM" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="ToChuc_BaoCaoHoatDong" Member="ToChuc" Storage="_TOCHUC" ThisKey="MATOCHUC" OtherKey="MATOCHUC" Type="ToChuc" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CONGTRINH" Member="CongTrinhs">
+    <Type Name="CongTrinh">
+      <Column Name="MACONGTRINH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TENCONGTRINH" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CHUDAUTU" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="DONVINGHIEMTHU" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="THOIGIANBATDAU" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="THOIGIANKETTHUC" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GHICHU" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="DADUYET" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="CongTrinh_SanPham" Member="SanPhams" Storage="_SANPHAMs" ThisKey="MACONGTRINH" OtherKey="MACONGTRINH" Type="SanPham" />
+      <Association Name="CongTrinh_CongDoanThucHien" Member="CongDoanThucHiens" Storage="_CONGDOANTHUCHIENs" ThisKey="MACONGTRINH" OtherKey="MACONGTRINH" Type="CongDoanThucHien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.KIEUSANPHAM" Member="KieuSanPhams">
+    <Type Name="KieuSanPham">
+      <Column Name="MAKIEUSANPHAM" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DIENGIAI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LOAIHINHTOCHUC" Member="LoaiHinhToChucs">
+    <Type Name="LoaiHinhToChuc">
+      <Column Name="MALOAIHINHTOCHUC" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TENLOAIHINHTOCHUC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="LoaiHinhToChuc_ToChuc" Member="ToChucs" Storage="_TOCHUCs" ThisKey="MALOAIHINHTOCHUC" OtherKey="MALOAIHINHTOCHUC" Type="ToChuc" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LOAISANPHAM" Member="LoaiSanPhams">
+    <Type Name="LoaiSanPham">
+      <Column Name="MALOAISANPHAM" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TENLOAISANPHAM" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="KIEUSANPHAM" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DIENGIAI" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Association Name="LoaiSanPham_SanPham" Member="SanPhams" Storage="_SANPHAMs" ThisKey="MALOAISANPHAM" OtherKey="MALOAISANPHAM" Type="SanPham" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NHANLUC" Member="NhanLucs">
+    <Type Name="NhanLuc">
+      <Column Name="MANHANVIEN" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MATOCHUC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HOTEN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CMND" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="CHUCVU" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DIACHI" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="TRINHDOHV" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CHUYENNGANH" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="THAMNIEN" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NGAYSINH" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="QUATRINHHOCTAP" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="QUATRINHCONGTAC" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="CHIUTRACHNHIEM" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="TEPDINHKEM" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="ToChuc_NhanLuc" Member="ToChuc" Storage="_TOCHUC" ThisKey="MATOCHUC" OtherKey="MATOCHUC" Type="ToChuc" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.QUANHUYEN" Member="QuanHuyens">
+    <Type Name="QuanHuyen">
+      <Column Name="MAQUANHUYEN" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TENQUANHUYEN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MATINHTHANH" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="QuanHuyen_SanPham" Member="SanPhams" Storage="_SANPHAMs" ThisKey="MAQUANHUYEN" OtherKey="MAQUANHUYEN" Type="SanPham" />
+      <Association Name="TinhThanh_QuanHuyen" Member="TinhThanh" Storage="_TINHTHANH" ThisKey="MATINHTHANH" OtherKey="MATINHTHANH" Type="TinhThanh" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SANPHAM" Member="SanPhams">
+    <Type Name="SanPham">
+      <Column Name="MASANPHAM" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SOHIEU" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MALOAISANPHAM" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MACONGTRINH" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MAQUANHUYEN" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CAPHANHCHINH" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="CongTrinh_SanPham" Member="CongTrinh" Storage="_CONGTRINH" ThisKey="MACONGTRINH" OtherKey="MACONGTRINH" Type="CongTrinh" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="LoaiSanPham_SanPham" Member="LoaiSanPham" Storage="_LOAISANPHAM" ThisKey="MALOAISANPHAM" OtherKey="MALOAISANPHAM" Type="LoaiSanPham" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="QuanHuyen_SanPham" Member="QuanHuyen" Storage="_QUANHUYEN" ThisKey="MAQUANHUYEN" OtherKey="MAQUANHUYEN" Type="QuanHuyen" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TINHTHANH" Member="TinhThanhs">
+    <Type Name="TinhThanh">
+      <Column Name="MATINHTHANH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TENTINHTHANH" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="TinhThanh_QuanHuyen" Member="QuanHuyens" Storage="_QUANHUYENs" ThisKey="MATINHTHANH" OtherKey="MATINHTHANH" Type="QuanHuyen" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TINHTRANGGIAYPHEP" Member="TinhTrangGiayPheps">
+    <Type Name="TinhTrangGiayPhep">
+      <Column Name="MATINHTRANG" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DIENGIAI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TOCHUC" Member="ToChucs">
+    <Type Name="ToChuc">
+      <Column Name="MATOCHUC" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MALOAIHINHTOCHUC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TENTOCHUC" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="GIAYPHEPKINHDOANH" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="NGUOIDAIDIEN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TRUSOCHINH" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="SOTAIKHOAN" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="DIENTHOAI" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="FAX" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="EMAIL" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="TONGSOCANBO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NGAYXINPHEP" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="KICHHOAT" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="TEPDINHKEM" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="ToChuc_BaoCaoHoatDong" Member="BaoCaoHoatDongs" Storage="_BAOCAOHOATDONGs" ThisKey="MATOCHUC" OtherKey="MATOCHUC" Type="BaoCaoHoatDong" />
+      <Association Name="ToChuc_NhanLuc" Member="NhanLucs" Storage="_NHANLUCs" ThisKey="MATOCHUC" OtherKey="MATOCHUC" Type="NhanLuc" />
+      <Association Name="ToChuc_ThietBi" Member="ThietBis" Storage="_THIETBIs" ThisKey="MATOCHUC" OtherKey="MATOCHUC" Type="ThietBi" />
+      <Association Name="ToChuc_GIAYPHEPHOATDONG" Member="GiayPhepHoatDongs" ThisKey="MATOCHUC" OtherKey="MATOCHUC" Type="GiayPhepHoatDong" />
+      <Association Name="LoaiHinhToChuc_ToChuc" Member="LoaiHinhToChuc" Storage="_LOAIHINHTOCHUC" ThisKey="MALOAIHINHTOCHUC" OtherKey="MALOAIHINHTOCHUC" Type="LoaiHinhToChuc" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.THAMDINH" Member="ThamDinhs">
+    <Type Name="ThamDinh">
+      <Column Name="MATHAMDINH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MAGIAYPHEPHOATDONG" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NGUOITHAMDINH" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NGUOIPHIATOCHUC" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NGAYTHAMDINH" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TINHHOPLE" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="NANGLUCNHANVIEN" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="NANGLUCTHIETBI" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="KETLUAN" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="KIENNGHI" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="LOAITHAMDINH" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="GIAYPHEPHOATDONG_ThamDinh" Member="GiayPhepHoatDong" ThisKey="MAGIAYPHEPHOATDONG" OtherKey="MAGIAYPHEPHOATDONG" Type="GiayPhepHoatDong" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.THIETBI" Member="ThietBis">
+    <Type Name="ThietBi">
+      <Column Name="MATHIETBI" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MATOCHUC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TENTHIETBI" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SOLUONG" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HANGSANXUAT" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CONGNGHE" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TINHTRANG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="GHICHU" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="TEPDINHKEM" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="ToChuc_ThietBi" Member="ToChuc" Storage="_TOCHUC" ThisKey="MATOCHUC" OtherKey="MATOCHUC" Type="ToChuc" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CONGDOANTHUCHIEN" Member="CongDoanThucHiens">
+    <Type Name="CongDoanThucHien">
+      <Column Name="MACONGDOAN" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SOGIAYPHEP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MACONGTRINH" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NGAYBATDAU" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NGAYKETTHUC" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="CongTrinh_CongDoanThucHien" Member="CongTrinh" Storage="_CONGTRINH" ThisKey="MACONGTRINH" OtherKey="MACONGTRINH" Type="CongTrinh" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LOAITHAMDINH" Member="LoaiThamDinhs">
+    <Type Name="LoaiThamDinh">
+      <Column Name="MALOAITHAMDINH" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DIENGIAI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HOATDONG" Member="HoatDongs">
+    <Type Name="HoatDong">
+      <Column Name="MAHOATDONG" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TENHOATDONG" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="HOATDONG_DANGKYHOATDONG" Member="DangKyHoatDongs" ThisKey="MAHOATDONG" OtherKey="MAHOATDONG" Type="DangKyHoatDong" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DANGKYHOATDONG" Member="DangKyHoatDongs">
+    <Type Name="DangKyHoatDong">
+      <Column Name="MADANGKYHOATDONG" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MAGIAYPHEPHOATDONG" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LABOSUNG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NGAYBOSUNG" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DAXETDUYET" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="MAHOATDONG" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="HOATDONG_DANGKYHOATDONG" Member="HoatDong" ThisKey="MAHOATDONG" OtherKey="MAHOATDONG" Type="HoatDong" IsForeignKey="true" />
+      <Association Name="GIAYPHEPHOATDONG_DANGKYHOATDONG" Member="GiayPhepHoatDong" ThisKey="MAGIAYPHEPHOATDONG" OtherKey="MAGIAYPHEPHOATDONG" Type="GiayPhepHoatDong" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GIAYPHEPHOATDONG" Member="GiayPhepHoatDongs">
+    <Type Name="GiayPhepHoatDong">
+      <Column Name="MAGIAYPHEPHOATDONG" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MATOCHUC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SOGIAYPHEP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NGAYCAPPHEP" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NGAYHETHAN" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NGAYGIAHAN" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="LYDOXINPHEP" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="LYDOGIAHAN" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="LYDOCAPPHEP" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="CAMKETXINPHEP" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="CAMKETGIAHAN" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="CAMKETBOSUNG" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="TINHTRANG" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NGAYXINPHEP" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NGAYXINGIAHAN" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NGAYXINBOSUNG" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="GIAYPHEPHOATDONG_ThamDinh" Member="ThamDinhs" ThisKey="MAGIAYPHEPHOATDONG" OtherKey="MAGIAYPHEPHOATDONG" Type="ThamDinh" />
+      <Association Name="GIAYPHEPHOATDONG_DANGKYHOATDONG" Member="DangKyHoatDongs" ThisKey="MAGIAYPHEPHOATDONG" OtherKey="MAGIAYPHEPHOATDONG" Type="DangKyHoatDong" />
+      <Association Name="ToChuc_GIAYPHEPHOATDONG" Member="ToChuc" ThisKey="MATOCHUC" OtherKey="MATOCHUC" Type="ToChuc" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+</Database>
