@@ -17,10 +17,16 @@ namespace GIS
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "DSToChuc",
+                "ToChuc/Page/{page}",
+                new { controller = "ToChuc", action = "Index"});
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "TrangChu", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
+
 
         }
 

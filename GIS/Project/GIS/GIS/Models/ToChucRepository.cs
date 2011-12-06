@@ -7,68 +7,37 @@ using GIS.Models;
 
 namespace GIS.Models
 {
-    public class ToChucRepository : IToChucRepository,IDisposable
+    public class ToChucRepository : IToChucRepository
     {
-        private DDBDDataContext context;
-        
-        public ToChucRepository(DDBDDataContext context)
-        {
-            this.context = context;
-        }
+        DDBDDataContext db = new DDBDDataContext();
 
-        public IEnumerable<ToChuc> GetToChucs()
+        public IQueryable<ToChuc> GetToChucs()
         {
-            var tochucs = from m in context.ToChucs
-                         select m;
-
-            return tochucs.ToList();
+            return db.ToChucs;
         }
 
         public ToChuc GetToChucByID(int id)
         {
-            ToChuc tochuc = context.ToChucs.Single(m => m.MATOCHUC == id);
-            return tochuc;
+            return db.ToChucs.SingleOrDefault(d => d.MATOCHUC == id);
         }
 
-        public void InsertToChuc(ToChuc tochuc)
+        public void Add(ToChuc tochuc)
         {
-            context.ToChucs.InsertOnSubmit(tochuc);
+            db.ToChucs.InsertOnSubmit(tochuc);
         }
 
-        public void DeleteToChuc(int tochucID)
+        public void Delete(ToChuc tochuc)
         {
-            ToChuc tochuc = context.ToChucs.Single(m => m.MATOCHUC == tochucID);
-            context.ToChucs.DeleteOnSubmit(tochuc);
+            db.ThietBis.DeleteAllOnSubmit(tochuc.ThietBis);
+            db.GiayPhepHoatDongs.DeleteAllOnSubmit(tochuc.GiayPhepHoatDongs);
+            db.BaoCaoHoatDongs.DeleteAllOnSubmit(tochuc.BaoCaoHoatDongs);
+            db.NhanLucs.DeleteAllOnSubmit(tochuc.NhanLucs);
+            db.ToChucs.DeleteOnSubmit(tochuc);
         }
 
-        public void DeleteToChuc(ToChuc tochuc) {
-            context.ToChucs.DeleteOnSubmit(tochuc);
-        }
-
-        public void SubmitChanges()
+        public void Save()
         {
-            context.SubmitChanges();
+            db.SubmitChanges();
         }
-
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
     }
 }
