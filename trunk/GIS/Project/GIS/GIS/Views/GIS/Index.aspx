@@ -56,7 +56,7 @@
             <div class="siteMenu" dojotype="dijit.layout.ContentPane" region="center">
                 <ul class="mapLinks">
                     <li>
-                        <%= Html.ActionLink("Trang chủ", "Index", "Home")%></li>
+                        <%= Html.ActionLink("Trang chủ", "Index", "TrangChu")%></li>
                     <li>
                         <%= Html.ActionLink("WebGIS", "Index", "GIS")%></li>
                     <li>

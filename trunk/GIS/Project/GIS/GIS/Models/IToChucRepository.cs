@@ -5,13 +5,13 @@ using System.Web;
 
 namespace GIS.Models
 {
-    public interface IToChucRepository : IDisposable
-    {
-        IEnumerable<ToChuc> GetToChucs();
-        ToChuc GetToChucByID(int tochucID);
-        void InsertToChuc(ToChuc tochuc);
-        void DeleteToChuc(int tochucID);
-        void SubmitChanges();
+    public interface IToChucRepository
+    {        
+        IQueryable<ToChuc> GetToChucs();
+        ToChuc GetToChucByID(int id);
 
+        void Add(ToChuc tochuc);
+        void Delete(ToChuc tochuc);
+        void Save();
     }
 }
