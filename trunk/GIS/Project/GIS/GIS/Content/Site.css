@@ -129,25 +129,18 @@ legend
 /* TABLE
 ----------------------------------------------------------*/
 
-table 
-{
-  border: solid 1px #e8eef4;
-  border-collapse: collapse;
-}
+table { width: 100%; border: solid 1px #19638A; border-collapse: collapse; }
 
-table td 
-{
-  padding: 5px;   
-  border: solid 1px #e8eef4;
-}
+table td, table th { padding: 5px; border: 0 none; color: #222222; }
 
-table th
-{
-  padding: 6px 5px;
-  text-align: left;
-  background-color: #e8eef4; 
-  border: solid 1px #e8eef4;   
-}
+table th { text-align: center; background-color: #19638A;  color: #ffffff; }
+
+table tr td { background-color: #ffffff; }
+
+table tr.even td { background-color: #dddddd; }
+
+table tr:hover td { background-color: #cccccc; }
+
 
 /* MISC  
 ----------------------------------------------------------*/
