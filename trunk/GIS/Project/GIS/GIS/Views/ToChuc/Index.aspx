@@ -9,18 +9,42 @@
       Danh sách tổ chức
     </h2>
 
-    <ul class="tableToChucs">
-    
-        <% foreach (var tochuc in Model) { %>
-        
-            <li>     
-                <%= Html.ActionLink(tochuc.TENTOCHUC, "Details", new { id=tochuc.MATOCHUC }) %>
-            </li>
-        
-        <% } %>
 
-    </ul>
+    <p>
+    <%=Html.ActionLink("Tạo mới", "Create")%>
+    </p>
+<table>
+    <tr>
+        <th></th>
+        <th>Tên tổ chức</th>
+        <th>Giấy phép kinh doanh</th>
+        <th>Điện thoại</th>
+        <th>Email</th>
+        <th>Tổng số cán bộ</th>
+        <th>Tình trạng</th>        
+    </tr>
 
+    <%
+            foreach(var item in Model)
+            { 
+     %>
+                <tr>
+                    <td>
+                        <%=Html.ActionLink("Chi tiết", "Details", new { id = item.MaToChuc })%> | 
+                        <%=Html.ActionLink("Thay đổi", "Edit", new { id = item.MaToChuc })%> | 
+                        <%=Html.ActionLink("Xoá", "Delete", new { id = item.MaToChuc })%>
+                    </td>
+                    <td><%=item.TenToChuc%></td>
+                    <td><%=item.GiayPhepKinhDoanh %></td>
+                    <td><%=item.DienThoai %></td>
+                    <td><%=item.Email %></td>
+                    <td><%=item.TongSoCanBo %></td>
+                    <td><%=item.KichHoat %></td>
+                </tr>
+    <%       
+            }
+    %>
+</table>
     <div class="pagination">
 
         <% if (Model.HasPreviousPage) { %>
@@ -41,5 +65,7 @@
         <% } %>    
 
     </div>
+
+</table>
 
 </asp:Content>
