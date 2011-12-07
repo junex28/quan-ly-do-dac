@@ -13,12 +13,12 @@ namespace GIS.Models
 
         public IQueryable<ToChuc> GetToChucs()
         {
-            return db.ToChucs;
+            return db.ToChucs.AsQueryable();
         }
 
         public ToChuc GetToChucByID(int id)
         {
-            return db.ToChucs.SingleOrDefault(d => d.MATOCHUC == id);
+            return db.ToChucs.SingleOrDefault(d => d.MaToChuc == id);
         }
 
         public void Add(ToChuc tochuc)
