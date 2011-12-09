@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using GIS.Models;
 using GIS.Helpers;
+using System.Linq.Dynamic;
 
 namespace GIS.Controllers
 {
@@ -12,8 +13,9 @@ namespace GIS.Controllers
     {
         private IToChucRepository tochucRepository;
 
-        
-        public ToChucController(): this(new ToChucRepository()) 
+
+        public ToChucController()
+            : this(new ToChucRepository())
         {
         }
 
@@ -37,6 +39,66 @@ namespace GIS.Controllers
             return View(paginatedToChucs);
         }
 
+        public ViewResult List()
+        {
+            return View();
+        }
+
+        public ActionResult ListData(string sidx, string sord, int page, int rows)
+        {
+            var listToChucs = tochucRepository.GetToChucs();
+            var pageIndex = Convert.ToInt32(page) - 1;
+            var pageSize = rows;
+            var totalRecords = listToChucs.Count();
+            var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
+
+            // This is possible because I'm using the LINQ Dynamic Query Library
+            var models = listToChucs
+                    .OrderBy(sidx + " " + sord)
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize).AsQueryable();
+
+            var jsonData = new
+            {
+                total = totalPages,
+                page = page,
+                records = totalRecords,
+                rows = (
+                    from u in models
+                    select new
+                    {
+                        id = u.MaToChuc,
+                        cell = new String[]
+                       {   
+                           "<ul class='ui-widget icon-collection'>"+
+                           "<li class='ui-state-default ui-corner-all' title='Chi tiết'>"+
+                           "<a href='/ToChuc/Details/"+
+                           u.MaToChuc.ToString()+
+                           "'><span class='ui-icon ui-icon-document'></span></a>"+
+                           "</li>"+
+                           
+                           "<li class='ui-state-default ui-corner-all' title='Thay đổi'>"+
+                           "<a href='/ToChuc/Edit/"+
+                           u.MaToChuc.ToString()+
+                           "'><span class='ui-icon ui-icon-pencil'></span></a>"+
+                           "</li>"+
+                           
+                           "<li class='ui-state-default ui-corner-all' title='Xoá'>"+
+                           "<a href='/ToChuc/Delete/"+
+                           u.MaToChuc.ToString()+
+                           "'><span class='ui-icon ui-icon-trash'></span></a>"+
+                           "</li>"+
+                            "</ul>",
+                           u.MaToChuc.ToString(),
+                           //CategoryName = "<a href=''>" + entity.CategoryName + "</a>",
+                           u.TenToChuc.ToString(),
+                           u.TruSoChinh.ToString()
+                       }
+                    }).ToArray()
+            };
+
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+        }
 
         //
         // GET: /Dinners/Details/5
@@ -48,7 +110,7 @@ namespace GIS.Controllers
                 return new FileNotFoundResult { Message = "Không có tổ chức trên" };
             }
 
-            ToChuc tochuc= tochucRepository.GetToChucByID(id.Value);
+            ToChuc tochuc = tochucRepository.GetToChucByID(id.Value);
 
             if (tochuc == null)
             {
@@ -62,7 +124,6 @@ namespace GIS.Controllers
         //
         // GET: /Dinners/Edit/5
 
-        [Authorize]
         public ActionResult Edit(int id)
         {
 
@@ -211,3 +272,94 @@ namespace GIS.Controllers
 
     }
 }
+
+//public ActionResult Kaka(string sidx, string sord, int page, int rows)
+//{
+//    var listToChucs = tochucRepository.GetToChucs();
+//    var pageIndex = Convert.ToInt32(page) - 1;
+//    var pageSize = rows;
+//    var totalRecords = listToChucs.Count();
+//    var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
+
+//    // This is possible because I'm using the LINQ Dynamic Query Library
+//    var models = listToChucs
+//            .OrderBy(sidx + " " + sord)
+//            .Skip(pageIndex * pageSize)
+//            .Take(pageSize).AsQueryable();
+
+
+//    var jsonData = new
+//    {
+//        total = totalPages,
+//        page = page,
+//        records = totalRecords,
+//        rows = (
+//            from u in models
+//            select new
+//            {
+//                id = u.MaToChuc, 
+//                cell= new {
+//                    Edit = "<a style='color:#5c87b2' href='" + "ToChuc/Edit/" + u.MaToChuc + "'>Edit</a>",
+//                    Details = "<a style='color:#5c87b2' href='" + "ToChuc/Details/" + u.MaToChuc + "'>Details</a>",
+//                    MaToChuc = u.MaToChuc,
+//                    //CategoryName = "<a href=''>" + entity.CategoryName + "</a>",
+//                    TenToChuc = u.TenToChuc,
+//                    TruSoChinh = u.TruSoChinh}
+//            }).ToArray()
+//    };
+
+//    return Json(jsonData, JsonRequestBehavior.AllowGet);
+//}
+
+
+//public ActionResult GridData(string sidx, string sord, int? page, int? rows)
+//{
+//    var jsonData = new
+//    {
+//        total = 1, // we'll implement later 
+//        page = page,
+//        records = 3, // implement later 
+//        rows = new[]{
+//        new {id = 1, cell = new[] {"1", "-7", "Is this a good question?"}},
+//        new {id = 2, cell = new[] {"2", "15", "Is this a blatant ripoff?"}},
+//        new {id = 3, cell = new[] {"3", "23", "Why is the sky blue?"}}
+//    }
+//    };
+//    return Json(jsonData, JsonRequestBehavior.AllowGet);
+//}
+
+//public ActionResult LinqGridData(string sidx, string sord, int? page, int? rows) {
+//      var listToChucs = tochucRepository.GetToChucs();
+//      var jsonData = new {
+//        total = 1, //todo: calculate
+//        page = page,
+//        records = listToChucs.Count(),
+//        rows = (
+//          from tc in listToChucs
+//          select new {
+//            id = tc.MaToChuc,
+//            cell = new string[] { 
+//              tc.MaToChuc.ToString(), tc.TenToChuc.ToString(), tc.TruSoChinh.ToString() 
+//            }
+//          }).ToArray()
+//      };
+//      return Json(jsonData, JsonRequestBehavior.AllowGet);
+//    }
+
+//public ActionResult LinqGridList(int page, int rows, string search, string sidx, string sord)
+//{
+//    var listToChucs = tochucRepository.GetToChucs();
+//    var model = from entity in listToChucs.OrderBy(sidx + " " + sord)
+//                select new
+//                {
+//                    Edit = "<a style='color:#5c87b2' href='" + "ToChuc/Edit/" + entity.MaToChuc + "'>Edit</a>",
+//                    Details = "<a style='color:#5c87b2' href='" + "ToChuc/Details/" + entity.MaToChuc + "'>Details</a>",
+//                    MaToChuc = entity.MaToChuc,
+//                    //CategoryName = "<a href=''>" + entity.CategoryName + "</a>",
+//                    TenToChuc = entity.TenToChuc,
+//                    TruSoChinh = entity.TruSoChinh
+//                };
+//    return Json(model.ToJqGridData(page, rows, sidx, null, null));
+
+
+//}
