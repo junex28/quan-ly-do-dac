@@ -217,10 +217,14 @@ namespace GIS.Controllers
         //
         // HTTP GET: /Dinners/Delete/1
 
-        [Authorize]
+        //[Authorize]
         public ActionResult Delete(int id)
         {
+            ToChuc tochuc = tochucRepository.GetToChucByID(id);
 
+            //if (tochuc == null) {
+            //    return View();
+            //}
             //Dinner dinner = dinnerRepository.GetDinner(id);
 
             //if (dinner == null)
