@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage" %>
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<GIS.ViewModels.ToChucListViewModel>" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,7 +11,7 @@
     <script src="../../Scripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
     <script src="../../Scripts/i18n/grid.locale-en.js" type="text/javascript"></script>
     <script src="../../Scripts/jquery.jqGrid.min.js" type="text/javascript"></script>
-    <script src="../../Scripts/gridview/ToChucs.js" type="text/javascript"></script>
+<%--    <script src="../../Scripts/gridview/ToChucs.js" type="text/javascript"></script>--%>
     <script type="text/javascript">
 		$(function(){
 			$('.ui-state-default').hover(
@@ -19,7 +19,45 @@
 				function(){ $(this).removeClass('ui-state-hover'); }
 			);
 			$('.ui-state-default').click(function(){ $(this).toggleClass('ui-state-active'); });
-		});
+});
+$(document).ready(function() {
+    ToChucs.setupGrid($("#grid"), $("#pager"));
+});
+
+var ToChucs = {
+    setupGrid: function(grid, pager) {
+        grid.jqGrid({
+            url: '<%= Url.Action("ListData","ToChuc") %>',
+            mtype: "GET",
+            datatype: "json",
+            colNames: ['', 'Mã Tổ Chức', 'Tên Tổ Chức', 'Loại Hình Tổ Chức', 'Số Giấy Phép', 'Thời Gian Hết Hạn', 'Điện Thoại', 'Trụ Sở Chính'],
+            colModel: [
+                { name: 'Action', index: 'Action', width: 30, align: 'left', sortable: false, resizable: false },
+                { name: 'MaToChuc', index: 'MaToChuc', width: 10, align: 'left', sortable: false },
+                { name: 'TenToChuc', index: 'TenToChuc', width: 40, align: 'left', sortable: true },
+                { name: 'LoaiHinhToChuc', index: 'LoaiHinhToChuc', width: 40, align: 'left', sortable: true},
+                { name: 'SoGiayPhep', index: 'SoGiayPhep', width: 40, align: 'left', sortable: false},
+                { name: 'ThoiGianHetHan', index: 'ThoiGianHetHan', width: 40, align: 'left', sortable: true},
+                { name: 'DienThoai', index: 'DienThoai', width: 40, align: 'left', sortable: false},
+                { name: 'TruSoChinh', index: 'TruSoChinh', width: 50, align: 'left', sortable: false}] ,               
+            page: <%= Model.page%>,
+            rowNum: 10,
+            rowList: [10, 20, 50],
+            pager: pager,
+            sortname: 'MaToChuc',
+            sortorder: "asc",
+            viewrecords: true,
+            multiselect: false,
+            width: '100%',
+            height: '100%',
+            autowidth: true,
+            rownumbers: true,
+            caption: 'Quản Lý Tổ Chức'
+        });
+
+    }
+};
+
 	</script>
     <style type="text/css">
         span.ui-icon {float: left; margin: 0 4px;}
@@ -32,7 +70,7 @@
 		    }
 		.custom-fsize
 		{
-		    font-size: 0.8em; !important
+		    font-size: 0.8em !important;
 		    }
     </style>
 
