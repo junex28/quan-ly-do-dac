@@ -9,9 +9,9 @@ namespace GIS.Helpers {
 
     public static class ModelStateHelpers {
 
-        public static void AddModelErrors(this ModelStateDictionary modelState, IEnumerable<RuleViolation> errors) {
+        public static void AddModelErrors(this ModelStateDictionary modelState, IEnumerable<A_RuleViolation> errors) {
 
-            foreach (RuleViolation issue in errors) {
+            foreach (A_RuleViolation issue in errors) {
                 modelState.AddModelError(issue.PropertyName, issue.ErrorMessage);
             }
         }
