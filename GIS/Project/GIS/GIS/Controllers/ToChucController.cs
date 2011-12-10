@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using GIS.Models;
 using GIS.Helpers;
+using GIS.ViewModels;
 using System.Linq.Dynamic;
 
 namespace GIS.Controllers
@@ -24,24 +25,17 @@ namespace GIS.Controllers
             this.tochucRepository = tochucRepository;
         }
 
-        //
-        // GET: /ToChuc/
-        //      /ToChuc/Page/2
-
-        public ActionResult Index(int? page)
-        {
-
-            const int pageSize = 1;
-
-            var listToChucs = tochucRepository.GetToChucs();
-            var paginatedToChucs = new PaginatedList<ToChuc>(listToChucs, page ?? 0, pageSize);
-
-            return View(paginatedToChucs);
-        }
-
-        public ViewResult List()
+        public ActionResult Index()
         {
             return View();
+        }
+        //
+        // GET: /ToChuc/
+        //      /ToChuc/p/2
+
+        public ActionResult List(int page)
+        {
+            return View(new ToChucListViewModel(page));
         }
 
         public ActionResult ListData(string sidx, string sord, int page, int rows)
@@ -51,7 +45,11 @@ namespace GIS.Controllers
             var pageSize = rows;
             var totalRecords = listToChucs.Count();
             var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
-
+            
+            // Input page number greater than total page
+            //if(page >totalPages && page !=1){
+            //    pageIndex = 0;
+            //} 
             // This is possible because I'm using the LINQ Dynamic Query Library
             var models = listToChucs
                     .OrderBy(sidx + " " + sord)
@@ -84,7 +82,7 @@ namespace GIS.Controllers
                            "</li>"+
                            
                            "<li class='ui-state-default ui-corner-all' title='Xoá'>"+
-                           "<a href='/ToChuc/Delete/"+
+                           "<a href='/ToChuc/Xoa?id="+
                            u.MaToChuc.ToString()+
                            "'><span class='ui-icon ui-icon-trash'></span></a>"+
                            "</li>"+
@@ -92,7 +90,11 @@ namespace GIS.Controllers
                            u.MaToChuc.ToString(),
                            //CategoryName = "<a href=''>" + entity.CategoryName + "</a>",
                            u.TenToChuc.ToString(),
-                           u.TruSoChinh.ToString()
+                           "LoaiHinhToChuc",
+                           "Sogiayphep",
+                           "ThoiGianHetHan",
+                           u.DienThoai.ToString(),
+                           u.TruSoChinh.ToString()                            
                        }
                     }).ToArray()
             };
@@ -222,41 +224,30 @@ namespace GIS.Controllers
         {
             ToChuc tochuc = tochucRepository.GetToChucByID(id);
 
-            //if (tochuc == null) {
-            //    return View();
-            //}
-            //Dinner dinner = dinnerRepository.GetDinner(id);
+            if (tochuc == null)
+            {
+                return View("NotFound");
+            }
 
-            //if (dinner == null)
-            //    return View("NotFound");
-
-            //if (!dinner.IsHostedBy(User.Identity.Name))
-            //    return View("InvalidOwner");
-
-            //return View(dinner);
-            return View();
+            return View(tochuc);
         }
-
-        // 
+   
         // HTTP POST: /Dinners/Delete/1
 
-        [AcceptVerbs(HttpVerbs.Post), Authorize]
+        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(int id, string confirmButton)
         {
+            ToChuc tochuc = tochucRepository.GetToChucByID(id);
 
-            //Dinner dinner = dinnerRepository.GetDinner(id);
+            if (tochuc == null)
+            {
+                return View("NotFound");
+            }
 
-            //if (dinner == null)
-            //    return View("NotFound");
+            tochucRepository.Delete(tochuc);
+            tochucRepository.Save();
 
-            //if (!dinner.IsHostedBy(User.Identity.Name))
-            //    return View("InvalidOwner");
-
-            //dinnerRepository.Delete(dinner);
-            //dinnerRepository.Save();
-
-            //return View("Deleted");
-            return View();
+            return View("Deleted");
         }
 
         protected override void HandleUnknownAction(string actionName)
