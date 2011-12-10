@@ -45,9 +45,6 @@ namespace GIS.Models
     partial void InsertHoatDong(HoatDong instance);
     partial void UpdateHoatDong(HoatDong instance);
     partial void DeleteHoatDong(HoatDong instance);
-    partial void InsertKieuSanPham(KieuSanPham instance);
-    partial void UpdateKieuSanPham(KieuSanPham instance);
-    partial void DeleteKieuSanPham(KieuSanPham instance);
     partial void InsertLoaiHinhToChuc(LoaiHinhToChuc instance);
     partial void UpdateLoaiHinhToChuc(LoaiHinhToChuc instance);
     partial void DeleteLoaiHinhToChuc(LoaiHinhToChuc instance);
@@ -57,9 +54,6 @@ namespace GIS.Models
     partial void InsertLoaiSanPham(LoaiSanPham instance);
     partial void UpdateLoaiSanPham(LoaiSanPham instance);
     partial void DeleteLoaiSanPham(LoaiSanPham instance);
-    partial void InsertLoaiThamDinh(LoaiThamDinh instance);
-    partial void UpdateLoaiThamDinh(LoaiThamDinh instance);
-    partial void DeleteLoaiThamDinh(LoaiThamDinh instance);
     partial void InsertNhanLuc(NhanLuc instance);
     partial void UpdateNhanLuc(NhanLuc instance);
     partial void DeleteNhanLuc(NhanLuc instance);
@@ -84,12 +78,6 @@ namespace GIS.Models
     partial void InsertTinhThanh(TinhThanh instance);
     partial void UpdateTinhThanh(TinhThanh instance);
     partial void DeleteTinhThanh(TinhThanh instance);
-    partial void InsertTinhTrangGiayPhep(TinhTrangGiayPhep instance);
-    partial void UpdateTinhTrangGiayPhep(TinhTrangGiayPhep instance);
-    partial void DeleteTinhTrangGiayPhep(TinhTrangGiayPhep instance);
-    partial void InsertTinhTrangXetDuyet(TinhTrangXetDuyet instance);
-    partial void UpdateTinhTrangXetDuyet(TinhTrangXetDuyet instance);
-    partial void DeleteTinhTrangXetDuyet(TinhTrangXetDuyet instance);
     partial void InsertToChuc(ToChuc instance);
     partial void UpdateToChuc(ToChuc instance);
     partial void DeleteToChuc(ToChuc instance);
@@ -102,6 +90,18 @@ namespace GIS.Models
     partial void InsertGiayPhepHoatDong(GiayPhepHoatDong instance);
     partial void UpdateGiayPhepHoatDong(GiayPhepHoatDong instance);
     partial void DeleteGiayPhepHoatDong(GiayPhepHoatDong instance);
+    partial void InsertTinhTrangGiayPhep(TinhTrangGiayPhep instance);
+    partial void UpdateTinhTrangGiayPhep(TinhTrangGiayPhep instance);
+    partial void DeleteTinhTrangGiayPhep(TinhTrangGiayPhep instance);
+    partial void InsertTinhTrangXetDuyet(TinhTrangXetDuyet instance);
+    partial void UpdateTinhTrangXetDuyet(TinhTrangXetDuyet instance);
+    partial void DeleteTinhTrangXetDuyet(TinhTrangXetDuyet instance);
+    partial void InsertKieuSanPham(KieuSanPham instance);
+    partial void UpdateKieuSanPham(KieuSanPham instance);
+    partial void DeleteKieuSanPham(KieuSanPham instance);
+    partial void InsertLoaiThamDinh(LoaiThamDinh instance);
+    partial void UpdateLoaiThamDinh(LoaiThamDinh instance);
+    partial void DeleteLoaiThamDinh(LoaiThamDinh instance);
     #endregion
 		
 		public DDBDDataContext() : 
@@ -174,14 +174,6 @@ namespace GIS.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<KieuSanPham> KieuSanPhams
-		{
-			get
-			{
-				return this.GetTable<KieuSanPham>();
-			}
-		}
-		
 		public System.Data.Linq.Table<LoaiHinhToChuc> LoaiHinhToChucs
 		{
 			get
@@ -203,14 +195,6 @@ namespace GIS.Models
 			get
 			{
 				return this.GetTable<LoaiSanPham>();
-			}
-		}
-		
-		public System.Data.Linq.Table<LoaiThamDinh> LoaiThamDinhs
-		{
-			get
-			{
-				return this.GetTable<LoaiThamDinh>();
 			}
 		}
 		
@@ -278,22 +262,6 @@ namespace GIS.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<TinhTrangGiayPhep> TinhTrangGiayPheps
-		{
-			get
-			{
-				return this.GetTable<TinhTrangGiayPhep>();
-			}
-		}
-		
-		public System.Data.Linq.Table<TinhTrangXetDuyet> TinhTrangXetDuyets
-		{
-			get
-			{
-				return this.GetTable<TinhTrangXetDuyet>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ToChuc> ToChucs
 		{
 			get
@@ -323,6 +291,38 @@ namespace GIS.Models
 			get
 			{
 				return this.GetTable<GiayPhepHoatDong>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TinhTrangGiayPhep> TinhTrangGiayPheps
+		{
+			get
+			{
+				return this.GetTable<TinhTrangGiayPhep>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TinhTrangXetDuyet> TinhTrangXetDuyets
+		{
+			get
+			{
+				return this.GetTable<TinhTrangXetDuyet>();
+			}
+		}
+		
+		public System.Data.Linq.Table<KieuSanPham> KieuSanPhams
+		{
+			get
+			{
+				return this.GetTable<KieuSanPham>();
+			}
+		}
+		
+		public System.Data.Linq.Table<LoaiThamDinh> LoaiThamDinhs
+		{
+			get
+			{
+				return this.GetTable<LoaiThamDinh>();
 			}
 		}
 	}
@@ -1081,6 +1081,8 @@ namespace GIS.Models
 		
 		private EntityRef<GiayPhepHoatDong> _GiayPhepHoatDong;
 		
+		private EntityRef<TinhTrangXetDuyet> _TinhTrangXetDuyet;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1103,6 +1105,7 @@ namespace GIS.Models
 		{
 			this._HoatDong = default(EntityRef<HoatDong>);
 			this._GiayPhepHoatDong = default(EntityRef<GiayPhepHoatDong>);
+			this._TinhTrangXetDuyet = default(EntityRef<TinhTrangXetDuyet>);
 			OnCreated();
 		}
 		
@@ -1201,6 +1204,10 @@ namespace GIS.Models
 			{
 				if ((this._TinhTrang != value))
 				{
+					if (this._TinhTrangXetDuyet.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnTinhTrangChanging(value);
 					this.SendPropertyChanging();
 					this._TinhTrang = value;
@@ -1298,6 +1305,40 @@ namespace GIS.Models
 						this._MaGiayPhepHoatDong = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("GiayPhepHoatDong");
+				}
+			}
+		}
+		
+		[Association(Name="TinhTrangXetDuyet_DangKyHoatDong", Storage="_TinhTrangXetDuyet", ThisKey="TinhTrang", OtherKey="MaTinhTrang", IsForeignKey=true)]
+		public TinhTrangXetDuyet TinhTrangXetDuyet
+		{
+			get
+			{
+				return this._TinhTrangXetDuyet.Entity;
+			}
+			set
+			{
+				TinhTrangXetDuyet previousValue = this._TinhTrangXetDuyet.Entity;
+				if (((previousValue != value) 
+							|| (this._TinhTrangXetDuyet.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TinhTrangXetDuyet.Entity = null;
+						previousValue.DangKyHoatDongs.Remove(this);
+					}
+					this._TinhTrangXetDuyet.Entity = value;
+					if ((value != null))
+					{
+						value.DangKyHoatDongs.Add(this);
+						this._TinhTrang = value.MaTinhTrang;
+					}
+					else
+					{
+						this._TinhTrang = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TinhTrangXetDuyet");
 				}
 			}
 		}
@@ -1434,92 +1475,6 @@ namespace GIS.Models
 		{
 			this.SendPropertyChanging();
 			entity.HoatDong = null;
-		}
-	}
-	
-	[Table(Name="dbo.KieuSanPham")]
-	public partial class KieuSanPham : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MaKieuSanPham;
-		
-		private string _DienGiai;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMaKieuSanPhamChanging(int value);
-    partial void OnMaKieuSanPhamChanged();
-    partial void OnDienGiaiChanging(string value);
-    partial void OnDienGiaiChanged();
-    #endregion
-		
-		public KieuSanPham()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_MaKieuSanPham", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int MaKieuSanPham
-		{
-			get
-			{
-				return this._MaKieuSanPham;
-			}
-			set
-			{
-				if ((this._MaKieuSanPham != value))
-				{
-					this.OnMaKieuSanPhamChanging(value);
-					this.SendPropertyChanging();
-					this._MaKieuSanPham = value;
-					this.SendPropertyChanged("MaKieuSanPham");
-					this.OnMaKieuSanPhamChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_DienGiai", DbType="NVarChar(50)")]
-		public string DienGiai
-		{
-			get
-			{
-				return this._DienGiai;
-			}
-			set
-			{
-				if ((this._DienGiai != value))
-				{
-					this.OnDienGiaiChanging(value);
-					this.SendPropertyChanging();
-					this._DienGiai = value;
-					this.SendPropertyChanged("DienGiai");
-					this.OnDienGiaiChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -1791,6 +1746,8 @@ namespace GIS.Models
 		
 		private EntitySet<SanPham> _SanPhams;
 		
+		private EntityRef<KieuSanPham> _KieuSanPham1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1808,6 +1765,7 @@ namespace GIS.Models
 		public LoaiSanPham()
 		{
 			this._SanPhams = new EntitySet<SanPham>(new Action<SanPham>(this.attach_SanPhams), new Action<SanPham>(this.detach_SanPhams));
+			this._KieuSanPham1 = default(EntityRef<KieuSanPham>);
 			OnCreated();
 		}
 		
@@ -1862,6 +1820,10 @@ namespace GIS.Models
 			{
 				if ((this._KieuSanPham != value))
 				{
+					if (this._KieuSanPham1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnKieuSanPhamChanging(value);
 					this.SendPropertyChanging();
 					this._KieuSanPham = value;
@@ -1904,6 +1866,40 @@ namespace GIS.Models
 			}
 		}
 		
+		[Association(Name="KieuSanPham_LoaiSanPham", Storage="_KieuSanPham1", ThisKey="KieuSanPham", OtherKey="MaKieuSanPham", IsForeignKey=true)]
+		public KieuSanPham KieuSanPham1
+		{
+			get
+			{
+				return this._KieuSanPham1.Entity;
+			}
+			set
+			{
+				KieuSanPham previousValue = this._KieuSanPham1.Entity;
+				if (((previousValue != value) 
+							|| (this._KieuSanPham1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._KieuSanPham1.Entity = null;
+						previousValue.LoaiSanPhams.Remove(this);
+					}
+					this._KieuSanPham1.Entity = value;
+					if ((value != null))
+					{
+						value.LoaiSanPhams.Add(this);
+						this._KieuSanPham = value.MaKieuSanPham;
+					}
+					else
+					{
+						this._KieuSanPham = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("KieuSanPham1");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1934,92 +1930,6 @@ namespace GIS.Models
 		{
 			this.SendPropertyChanging();
 			entity.LoaiSanPham = null;
-		}
-	}
-	
-	[Table(Name="dbo.LoaiThamDinh")]
-	public partial class LoaiThamDinh : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MALOAITHAMDINH;
-		
-		private string _DIENGIAI;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMALOAITHAMDINHChanging(int value);
-    partial void OnMALOAITHAMDINHChanged();
-    partial void OnDIENGIAIChanging(string value);
-    partial void OnDIENGIAIChanged();
-    #endregion
-		
-		public LoaiThamDinh()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_MALOAITHAMDINH", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int MALOAITHAMDINH
-		{
-			get
-			{
-				return this._MALOAITHAMDINH;
-			}
-			set
-			{
-				if ((this._MALOAITHAMDINH != value))
-				{
-					this.OnMALOAITHAMDINHChanging(value);
-					this.SendPropertyChanging();
-					this._MALOAITHAMDINH = value;
-					this.SendPropertyChanged("MALOAITHAMDINH");
-					this.OnMALOAITHAMDINHChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_DIENGIAI", DbType="NVarChar(50)")]
-		public string DIENGIAI
-		{
-			get
-			{
-				return this._DIENGIAI;
-			}
-			set
-			{
-				if ((this._DIENGIAI != value))
-				{
-					this.OnDIENGIAIChanging(value);
-					this.SendPropertyChanging();
-					this._DIENGIAI = value;
-					this.SendPropertyChanged("DIENGIAI");
-					this.OnDIENGIAIChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -3920,178 +3830,6 @@ namespace GIS.Models
 		}
 	}
 	
-	[Table(Name="dbo.TinhTrangGiayPhep")]
-	public partial class TinhTrangGiayPhep : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MaTinhTrang;
-		
-		private string _DienGiai;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMaTinhTrangChanging(int value);
-    partial void OnMaTinhTrangChanged();
-    partial void OnDienGiaiChanging(string value);
-    partial void OnDienGiaiChanged();
-    #endregion
-		
-		public TinhTrangGiayPhep()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_MaTinhTrang", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int MaTinhTrang
-		{
-			get
-			{
-				return this._MaTinhTrang;
-			}
-			set
-			{
-				if ((this._MaTinhTrang != value))
-				{
-					this.OnMaTinhTrangChanging(value);
-					this.SendPropertyChanging();
-					this._MaTinhTrang = value;
-					this.SendPropertyChanged("MaTinhTrang");
-					this.OnMaTinhTrangChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_DienGiai", DbType="NVarChar(50)")]
-		public string DienGiai
-		{
-			get
-			{
-				return this._DienGiai;
-			}
-			set
-			{
-				if ((this._DienGiai != value))
-				{
-					this.OnDienGiaiChanging(value);
-					this.SendPropertyChanging();
-					this._DienGiai = value;
-					this.SendPropertyChanged("DienGiai");
-					this.OnDienGiaiChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[Table(Name="dbo.TinhTrangXetDuyet")]
-	public partial class TinhTrangXetDuyet : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MaTinhTrang;
-		
-		private string _DienGiai;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMaTinhTrangChanging(int value);
-    partial void OnMaTinhTrangChanged();
-    partial void OnDienGiaiChanging(string value);
-    partial void OnDienGiaiChanged();
-    #endregion
-		
-		public TinhTrangXetDuyet()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_MaTinhTrang", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int MaTinhTrang
-		{
-			get
-			{
-				return this._MaTinhTrang;
-			}
-			set
-			{
-				if ((this._MaTinhTrang != value))
-				{
-					this.OnMaTinhTrangChanging(value);
-					this.SendPropertyChanging();
-					this._MaTinhTrang = value;
-					this.SendPropertyChanged("MaTinhTrang");
-					this.OnMaTinhTrangChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_DienGiai", DbType="NVarChar(50)")]
-		public string DienGiai
-		{
-			get
-			{
-				return this._DienGiai;
-			}
-			set
-			{
-				if ((this._DienGiai != value))
-				{
-					this.OnDienGiaiChanging(value);
-					this.SendPropertyChanging();
-					this._DienGiai = value;
-					this.SendPropertyChanged("DienGiai");
-					this.OnDienGiaiChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[Table(Name="dbo.ToChuc")]
 	public partial class ToChuc : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -4714,6 +4452,8 @@ namespace GIS.Models
 		
 		private EntityRef<GiayPhepHoatDong> _GiayPhepHoatDong;
 		
+		private EntityRef<LoaiThamDinh> _LoaiThamDinh1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -4745,6 +4485,7 @@ namespace GIS.Models
 		public ThamDinh()
 		{
 			this._GiayPhepHoatDong = default(EntityRef<GiayPhepHoatDong>);
+			this._LoaiThamDinh1 = default(EntityRef<LoaiThamDinh>);
 			OnCreated();
 		}
 		
@@ -4963,6 +4704,10 @@ namespace GIS.Models
 			{
 				if ((this._LoaiThamDinh != value))
 				{
+					if (this._LoaiThamDinh1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnLoaiThamDinhChanging(value);
 					this.SendPropertyChanging();
 					this._LoaiThamDinh = value;
@@ -5002,6 +4747,40 @@ namespace GIS.Models
 						this._MaGiayPhepHoatDong = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("GiayPhepHoatDong");
+				}
+			}
+		}
+		
+		[Association(Name="LoaiThamDinh_ThamDinh", Storage="_LoaiThamDinh1", ThisKey="LoaiThamDinh", OtherKey="MALOAITHAMDINH", IsForeignKey=true)]
+		public LoaiThamDinh LoaiThamDinh1
+		{
+			get
+			{
+				return this._LoaiThamDinh1.Entity;
+			}
+			set
+			{
+				LoaiThamDinh previousValue = this._LoaiThamDinh1.Entity;
+				if (((previousValue != value) 
+							|| (this._LoaiThamDinh1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._LoaiThamDinh1.Entity = null;
+						previousValue.ThamDinhs.Remove(this);
+					}
+					this._LoaiThamDinh1.Entity = value;
+					if ((value != null))
+					{
+						value.ThamDinhs.Add(this);
+						this._LoaiThamDinh = value.MALOAITHAMDINH;
+					}
+					else
+					{
+						this._LoaiThamDinh = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("LoaiThamDinh1");
 				}
 			}
 		}
@@ -5368,6 +5147,8 @@ namespace GIS.Models
 		
 		private EntityRef<ToChuc> _ToChuc;
 		
+		private EntityRef<TinhTrangGiayPhep> _TinhTrangGiayPhep;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -5413,6 +5194,7 @@ namespace GIS.Models
 			this._DangKyHoatDongs = new EntitySet<DangKyHoatDong>(new Action<DangKyHoatDong>(this.attach_DangKyHoatDongs), new Action<DangKyHoatDong>(this.detach_DangKyHoatDongs));
 			this._ThamDinhs = new EntitySet<ThamDinh>(new Action<ThamDinh>(this.attach_ThamDinhs), new Action<ThamDinh>(this.detach_ThamDinhs));
 			this._ToChuc = default(EntityRef<ToChuc>);
+			this._TinhTrangGiayPhep = default(EntityRef<TinhTrangGiayPhep>);
 			OnCreated();
 		}
 		
@@ -5671,6 +5453,10 @@ namespace GIS.Models
 			{
 				if ((this._TinhTrang != value))
 				{
+					if (this._TinhTrangGiayPhep.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnTinhTrangChanging(value);
 					this.SendPropertyChanging();
 					this._TinhTrang = value;
@@ -5820,6 +5606,40 @@ namespace GIS.Models
 			}
 		}
 		
+		[Association(Name="TinhTrangGiayPhep_GiayPhepHoatDong", Storage="_TinhTrangGiayPhep", ThisKey="TinhTrang", OtherKey="MaTinhTrang", IsForeignKey=true)]
+		public TinhTrangGiayPhep TinhTrangGiayPhep
+		{
+			get
+			{
+				return this._TinhTrangGiayPhep.Entity;
+			}
+			set
+			{
+				TinhTrangGiayPhep previousValue = this._TinhTrangGiayPhep.Entity;
+				if (((previousValue != value) 
+							|| (this._TinhTrangGiayPhep.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TinhTrangGiayPhep.Entity = null;
+						previousValue.GiayPhepHoatDongs.Remove(this);
+					}
+					this._TinhTrangGiayPhep.Entity = value;
+					if ((value != null))
+					{
+						value.GiayPhepHoatDongs.Add(this);
+						this._TinhTrang = value.MaTinhTrang;
+					}
+					else
+					{
+						this._TinhTrang = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TinhTrangGiayPhep");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -5862,6 +5682,462 @@ namespace GIS.Models
 		{
 			this.SendPropertyChanging();
 			entity.GiayPhepHoatDong = null;
+		}
+	}
+	
+	[Table(Name="dbo.TinhTrangGiayPhep")]
+	public partial class TinhTrangGiayPhep : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaTinhTrang;
+		
+		private string _DienGiai;
+		
+		private EntitySet<GiayPhepHoatDong> _GiayPhepHoatDongs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaTinhTrangChanging(int value);
+    partial void OnMaTinhTrangChanged();
+    partial void OnDienGiaiChanging(string value);
+    partial void OnDienGiaiChanged();
+    #endregion
+		
+		public TinhTrangGiayPhep()
+		{
+			this._GiayPhepHoatDongs = new EntitySet<GiayPhepHoatDong>(new Action<GiayPhepHoatDong>(this.attach_GiayPhepHoatDongs), new Action<GiayPhepHoatDong>(this.detach_GiayPhepHoatDongs));
+			OnCreated();
+		}
+		
+		[Column(Storage="_MaTinhTrang", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int MaTinhTrang
+		{
+			get
+			{
+				return this._MaTinhTrang;
+			}
+			set
+			{
+				if ((this._MaTinhTrang != value))
+				{
+					this.OnMaTinhTrangChanging(value);
+					this.SendPropertyChanging();
+					this._MaTinhTrang = value;
+					this.SendPropertyChanged("MaTinhTrang");
+					this.OnMaTinhTrangChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DienGiai", DbType="NVarChar(50)")]
+		public string DienGiai
+		{
+			get
+			{
+				return this._DienGiai;
+			}
+			set
+			{
+				if ((this._DienGiai != value))
+				{
+					this.OnDienGiaiChanging(value);
+					this.SendPropertyChanging();
+					this._DienGiai = value;
+					this.SendPropertyChanged("DienGiai");
+					this.OnDienGiaiChanged();
+				}
+			}
+		}
+		
+		[Association(Name="TinhTrangGiayPhep_GiayPhepHoatDong", Storage="_GiayPhepHoatDongs", ThisKey="MaTinhTrang", OtherKey="TinhTrang")]
+		public EntitySet<GiayPhepHoatDong> GiayPhepHoatDongs
+		{
+			get
+			{
+				return this._GiayPhepHoatDongs;
+			}
+			set
+			{
+				this._GiayPhepHoatDongs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_GiayPhepHoatDongs(GiayPhepHoatDong entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhTrangGiayPhep = this;
+		}
+		
+		private void detach_GiayPhepHoatDongs(GiayPhepHoatDong entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhTrangGiayPhep = null;
+		}
+	}
+	
+	[Table(Name="dbo.TinhTrangXetDuyet")]
+	public partial class TinhTrangXetDuyet : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaTinhTrang;
+		
+		private string _DienGiai;
+		
+		private EntitySet<DangKyHoatDong> _DangKyHoatDongs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaTinhTrangChanging(int value);
+    partial void OnMaTinhTrangChanged();
+    partial void OnDienGiaiChanging(string value);
+    partial void OnDienGiaiChanged();
+    #endregion
+		
+		public TinhTrangXetDuyet()
+		{
+			this._DangKyHoatDongs = new EntitySet<DangKyHoatDong>(new Action<DangKyHoatDong>(this.attach_DangKyHoatDongs), new Action<DangKyHoatDong>(this.detach_DangKyHoatDongs));
+			OnCreated();
+		}
+		
+		[Column(Storage="_MaTinhTrang", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int MaTinhTrang
+		{
+			get
+			{
+				return this._MaTinhTrang;
+			}
+			set
+			{
+				if ((this._MaTinhTrang != value))
+				{
+					this.OnMaTinhTrangChanging(value);
+					this.SendPropertyChanging();
+					this._MaTinhTrang = value;
+					this.SendPropertyChanged("MaTinhTrang");
+					this.OnMaTinhTrangChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DienGiai", DbType="NVarChar(50)")]
+		public string DienGiai
+		{
+			get
+			{
+				return this._DienGiai;
+			}
+			set
+			{
+				if ((this._DienGiai != value))
+				{
+					this.OnDienGiaiChanging(value);
+					this.SendPropertyChanging();
+					this._DienGiai = value;
+					this.SendPropertyChanged("DienGiai");
+					this.OnDienGiaiChanged();
+				}
+			}
+		}
+		
+		[Association(Name="TinhTrangXetDuyet_DangKyHoatDong", Storage="_DangKyHoatDongs", ThisKey="MaTinhTrang", OtherKey="TinhTrang")]
+		public EntitySet<DangKyHoatDong> DangKyHoatDongs
+		{
+			get
+			{
+				return this._DangKyHoatDongs;
+			}
+			set
+			{
+				this._DangKyHoatDongs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DangKyHoatDongs(DangKyHoatDong entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhTrangXetDuyet = this;
+		}
+		
+		private void detach_DangKyHoatDongs(DangKyHoatDong entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhTrangXetDuyet = null;
+		}
+	}
+	
+	[Table(Name="dbo.KieuSanPham")]
+	public partial class KieuSanPham : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaKieuSanPham;
+		
+		private string _DienGiai;
+		
+		private EntitySet<LoaiSanPham> _LoaiSanPhams;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaKieuSanPhamChanging(int value);
+    partial void OnMaKieuSanPhamChanged();
+    partial void OnDienGiaiChanging(string value);
+    partial void OnDienGiaiChanged();
+    #endregion
+		
+		public KieuSanPham()
+		{
+			this._LoaiSanPhams = new EntitySet<LoaiSanPham>(new Action<LoaiSanPham>(this.attach_LoaiSanPhams), new Action<LoaiSanPham>(this.detach_LoaiSanPhams));
+			OnCreated();
+		}
+		
+		[Column(Storage="_MaKieuSanPham", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MaKieuSanPham
+		{
+			get
+			{
+				return this._MaKieuSanPham;
+			}
+			set
+			{
+				if ((this._MaKieuSanPham != value))
+				{
+					this.OnMaKieuSanPhamChanging(value);
+					this.SendPropertyChanging();
+					this._MaKieuSanPham = value;
+					this.SendPropertyChanged("MaKieuSanPham");
+					this.OnMaKieuSanPhamChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DienGiai", DbType="NVarChar(50)")]
+		public string DienGiai
+		{
+			get
+			{
+				return this._DienGiai;
+			}
+			set
+			{
+				if ((this._DienGiai != value))
+				{
+					this.OnDienGiaiChanging(value);
+					this.SendPropertyChanging();
+					this._DienGiai = value;
+					this.SendPropertyChanged("DienGiai");
+					this.OnDienGiaiChanged();
+				}
+			}
+		}
+		
+		[Association(Name="KieuSanPham_LoaiSanPham", Storage="_LoaiSanPhams", ThisKey="MaKieuSanPham", OtherKey="KieuSanPham")]
+		public EntitySet<LoaiSanPham> LoaiSanPhams
+		{
+			get
+			{
+				return this._LoaiSanPhams;
+			}
+			set
+			{
+				this._LoaiSanPhams.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_LoaiSanPhams(LoaiSanPham entity)
+		{
+			this.SendPropertyChanging();
+			entity.KieuSanPham1 = this;
+		}
+		
+		private void detach_LoaiSanPhams(LoaiSanPham entity)
+		{
+			this.SendPropertyChanging();
+			entity.KieuSanPham1 = null;
+		}
+	}
+	
+	[Table(Name="dbo.LoaiThamDinh")]
+	public partial class LoaiThamDinh : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MALOAITHAMDINH;
+		
+		private string _DIENGIAI;
+		
+		private EntitySet<ThamDinh> _ThamDinhs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMALOAITHAMDINHChanging(int value);
+    partial void OnMALOAITHAMDINHChanged();
+    partial void OnDIENGIAIChanging(string value);
+    partial void OnDIENGIAIChanged();
+    #endregion
+		
+		public LoaiThamDinh()
+		{
+			this._ThamDinhs = new EntitySet<ThamDinh>(new Action<ThamDinh>(this.attach_ThamDinhs), new Action<ThamDinh>(this.detach_ThamDinhs));
+			OnCreated();
+		}
+		
+		[Column(Storage="_MALOAITHAMDINH", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int MALOAITHAMDINH
+		{
+			get
+			{
+				return this._MALOAITHAMDINH;
+			}
+			set
+			{
+				if ((this._MALOAITHAMDINH != value))
+				{
+					this.OnMALOAITHAMDINHChanging(value);
+					this.SendPropertyChanging();
+					this._MALOAITHAMDINH = value;
+					this.SendPropertyChanged("MALOAITHAMDINH");
+					this.OnMALOAITHAMDINHChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DIENGIAI", DbType="NVarChar(50)")]
+		public string DIENGIAI
+		{
+			get
+			{
+				return this._DIENGIAI;
+			}
+			set
+			{
+				if ((this._DIENGIAI != value))
+				{
+					this.OnDIENGIAIChanging(value);
+					this.SendPropertyChanging();
+					this._DIENGIAI = value;
+					this.SendPropertyChanged("DIENGIAI");
+					this.OnDIENGIAIChanged();
+				}
+			}
+		}
+		
+		[Association(Name="LoaiThamDinh_ThamDinh", Storage="_ThamDinhs", ThisKey="MALOAITHAMDINH", OtherKey="LoaiThamDinh")]
+		public EntitySet<ThamDinh> ThamDinhs
+		{
+			get
+			{
+				return this._ThamDinhs;
+			}
+			set
+			{
+				this._ThamDinhs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ThamDinhs(ThamDinh entity)
+		{
+			this.SendPropertyChanging();
+			entity.LoaiThamDinh1 = this;
+		}
+		
+		private void detach_ThamDinhs(ThamDinh entity)
+		{
+			this.SendPropertyChanging();
+			entity.LoaiThamDinh1 = null;
 		}
 	}
 }
