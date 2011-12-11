@@ -113,13 +113,14 @@ namespace GIS.Controllers
             }
 
             ToChuc tochuc = tochucRepository.GetToChucByID(id.Value);
+            LoaiHinhToChuc loaiHinhTC = tochucRepository.getLoaiHinh(tochuc);
 
             if (tochuc == null)
             {
                 return new FileNotFoundResult { Message = "Không có tổ chức trên" };
             }
 
-            return View(tochuc);
+            return View(new ToChucDetailViewModel(tochuc, loaiHinhTC));
         }
 
 
@@ -128,44 +129,37 @@ namespace GIS.Controllers
 
         public ActionResult Edit(int id)
         {
-
-            //Dinner dinner = dinnerRepository.GetDinner(id);
-
-            //if (!dinner.IsHostedBy(User.Identity.Name))
-            //    return View("InvalidOwner");
-
-            //return View(new DinnerFormViewModel(dinner));
-            return View();
+            ToChuc tochuc = tochucRepository.GetToChucByID(id);
+            LoaiHinhToChuc lhtc = tochucRepository.getLoaiHinh(tochuc);
+            return View(new ToChucDetailViewModel(tochuc, lhtc));
         }
 
         //
         // POST: /Dinners/Edit/5
 
-        [AcceptVerbs(HttpVerbs.Post), Authorize]
+        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(int id, FormCollection collection)
         {
-
-            //Dinner dinner = dinnerRepository.GetDinner(id);
-
-            //if (!dinner.IsHostedBy(User.Identity.Name))
-            //    return View("InvalidOwner");
-
-            //try
-            //{
-            //    UpdateModel(dinner);
-
-            //    dinnerRepository.Save();
-
-            //    return RedirectToAction("Details", new { id = dinner.DinnerID });
-            //}
-            //catch
-            //{
-            //    ModelState.AddModelErrors(dinner.GetRuleViolations());
-
-            //    return View(new DinnerFormViewModel(dinner));
-            //}
-            return View();
+            ToChuc tochuc = tochucRepository.GetToChucByID(Convert.ToInt32(Request.Form["MaToChuc"]));             
+            LoaiHinhToChuc lhtc = tochucRepository.getLoaiHinh(tochuc);               
+            try
+            {
+                tochuc.TruSoChinh =  Request.Form["tochuc.TruSoChinh"];
+                tochuc.TongSoCanBo = Convert.ToInt32(Request.Form["tochuc.TongSoCanBo"]);
+                tochuc.SoTaiKhoan = Request.Form["tochuc.TaiKhoan"];
+                tochuc.NguoiDaiDien = Request.Form["tochuc.NguoiDaiDien"];
+                tochuc.DienThoai = Request.Form["tochuc.DienThoai"];
+                tochuc.Email = Request.Form["tochuc.Email"];
+                tochuc.Fax = Request.Form["tochuc.Fax"];
+                tochucRepository.Save();
+                return RedirectToAction("Details", new { id = tochuc.MaToChuc });
+            }
+            catch
+            {
+                return View(new ToChucDetailViewModel(tochuc, lhtc));
+            }
         }
+
 
         //
         // GET: /Dinners/Create
