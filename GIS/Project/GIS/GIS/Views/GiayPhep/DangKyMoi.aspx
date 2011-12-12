@@ -4,40 +4,73 @@
     DangKyMoi
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="jui-tabs">
-        <ul>
-            <li><a href="#ThongTinChung">Thong tin chung</a></li>
-            <li><a href="#HoSoDinhKem">Ho so dinh kem</a></li>
-            <li><a href="#KetQuaXetDuyet">Ket qua xet duyet</a></li>
-        </ul>
-        <div id="ThongTinChung">
-            <p>
-                Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec
-                arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante.
-                Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper
-                leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales
-                tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel
-                pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum.
-                Nunc tristique tempus lectus.</p>
+<% using (Html.BeginForm())
+   { %>
+    <fieldset class="formVertical">
+        <div class="span subHeader"><h3>Thông Tin Chung </h3></div>
+        <div class="span subContent">
+			<dl class="span w16">
+				<dt class="w4"><label>Tên tổ chức</label></dt>
+				<dd><input type="text" class="w23" /></dd>
+			</dl>
+			<dl class="span w16">
+				<dt class="w4"><label>Loại tổ chức</label></dt>
+				<dd><select class="w23"></select></dd>
+			</dl>
+			<dl class="span w16">
+				<dt class="w4"><label>Người đại diện</label></dt>
+				<dd><input type="text" class="w23" /></dd>
+			</dl>
+			<dl class="span w16">
+				<dt class="w4"><label>Số cán bộ</label></dt>
+				<dd><input type="text" class="w23" /></dd>
+			</dl>
+			<dl class="span w16">
+				<dt class="w4"><label>QDDTL/GPKD</label></dt>
+				<dd><input type="text" class="w23" /></dd>
+			</dl>
+			<dl class="span w16">
+				<dt class="w4"><label>Email</label></dt>
+				<dd><input type="text" class="w23" /></dd>
+			</dl>
+			<dl class="span w16">
+				<dt class="w4"><label>Trụ sở chính</label></dt>
+				<dd><input type="text" class="w23" /></dd>
+			</dl>
+			<dl class="span w16">
+				<dt class="w4"><label>Số tài khoản</label></dt>
+				<dd><input type="text" class="w23" /></dd>
+			</dl>
+			<dl class="span w16">
+				<dt class="w4"><label>Số điện thoại</label></dt>
+				<dd><input type="text" class="w23" /></dd>
+			</dl>
+			<dl class="span w16">
+				<dt class="w4"><label>Fax</label></dt>
+				<dd><input type="text" class="w23" /></dd>
+			</dl>
         </div>
-        <div id="HoSoDinhKem">
-            <p>
-                Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra
-                massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget
-                luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean
-                aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent
-                in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat
-                nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque
-                convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod
-                felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+    </fieldset>
+    <fieldset class="formVertical">
+        <div class="span subHeader"><h3>Lĩnh vực hoạt động</h3></div>
+        <div class="span subContent">
+            <select class="multiselect">
+                <option value="1"></option>
+                <option value="2"></option>
+            </select>
         </div>
-        <div id="KetQuaXetDuyet">
-            Ket qua xet duyet
-            <input type="radio" name="ketqua" /> Duyet
-            <input type="radio" name="ketqua" /> Khong duyet <br />
-            Ly do
-            <textarea></textarea>
+    </fieldset>
+    <fieldset class="formVertical">
+        <div class="span subHeader"><h3>Tệp đính kèm</h3></div>
+        <div class="span subContent">
+			<input type="file" />
         </div>
-    </div>
-    <input class="jui-button" type="submit" value="Luu" />
+    </fieldset>
+    <input class="jui-button" type="submit" value="Đăng ký" />
+    <script type="text/javascript">
+        $(function() {
+            $(".multiselect").multiselect({ sortable: false, searchable: false });
+        });
+    </script>
+<% } %>
 </asp:Content>

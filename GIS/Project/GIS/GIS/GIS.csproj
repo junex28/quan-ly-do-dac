@@ -68,7 +68,6 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GiayPhepController.cs" />
     <Compile Include="Controllers\GiayPhepMoiController.cs" />
     <Compile Include="Controllers\GISController.cs" />
@@ -88,6 +87,8 @@
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Helpers\PagingLinqExtensions.cs" />
+    <Compile Include="Models\GiayPhepMoiRepository.cs" />
+    <Compile Include="Models\IGiayPhepMoiRespository.cs" />
     <Compile Include="Models\Repository\LoaiHinhToChucRepository.cs" />
     <Compile Include="Models\Repository\GiayPhepHoatDongRepository.cs" />
     <Compile Include="Models\Del_AccountModels.cs" />
@@ -291,7 +292,10 @@
     <Content Include="Content\template\soria\images\validationInputBg.png" />
     <Content Include="Content\template\soria\images\warning.png" />
     <Content Include="Content\template\soria\soria.css" />
+    <Content Include="Content\ui.multiselect.css" />
     <Content Include="Mvc.Sitemap" />
+    <Content Include="Resources\configT2.js" />
+    <Content Include="Scripts\gridview\GiayPhepMois.js" />
     <Content Include="Scripts\gridview\ToChucs.js" />
     <Content Include="Scripts\i18n\grid.locale-en.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
@@ -299,11 +303,21 @@
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.16.custom.min.js" />
     <Content Include="Scripts\jquery.jqGrid.min.js" />
-    <Content Include="Scripts\splitter.js" />
+    <Content Include="Scripts\multi-select\locale\ui-multiselect-de.js" />
+    <Content Include="Scripts\multi-select\locale\ui-multiselect-en.js" />
+    <Content Include="Scripts\multi-select\locale\ui-multiselect-es.js" />
+    <Content Include="Scripts\multi-select\locale\ui-multiselect-fr.js" />
+    <Content Include="Scripts\multi-select\locale\ui-multiselect-it.js" />
+    <Content Include="Scripts\multi-select\plugins\localisation\jquery.localisation-min.js" />
+    <Content Include="Scripts\multi-select\plugins\localisation\jquery.localisation-pack.js" />
+    <Content Include="Scripts\multi-select\plugins\localisation\jquery.localisation.js" />
+    <Content Include="Scripts\multi-select\plugins\scrollTo\changes.txt" />
+    <Content Include="Scripts\multi-select\plugins\scrollTo\jquery.scrollTo-min.js" />
+    <Content Include="Scripts\multi-select\plugins\scrollTo\jquery.scrollTo.js" />
+    <Content Include="Scripts\multi-select\plugins\scrollTo\README.txt" />
+    <Content Include="Scripts\multi-select\ui.multiselect.js" />
     <Content Include="Scripts\superfish\hoverIntent.js" />
     <Content Include="Scripts\superfish\superfish.js" />
-    <Content Include="Views\DangKy\DangKyMoi.aspx" />
-    <Content Include="Views\DangKy\Index.aspx" />
     <Content Include="Views\GiayPhep\DangKyMoi.aspx" />
     <Content Include="Views\GiayPhep\Index.aspx" />
     <Content Include="Views\Shared\DisplayTemplates\LeftMenu.ascx" />
@@ -328,6 +342,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GIS.csproj.pdsync" />
+    <None Include="GIS.csproj.pdsyncu" />
+    <None Include="GIS.idc" />
     <None Include="Models\DDBD.dbml.layout">
       <DependentUpon>DDBD.dbml</DependentUpon>
     </None>
