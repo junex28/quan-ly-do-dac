@@ -1,9 +1,9 @@
 ﻿fieldset.formVertical
 {
 	border: 0 none;
+	padding: 0;
+	margin: 8px 0;
 }
-
-.formVertical { margin: 8px 0; }
 
 .formVertical * { font-size: 15px; }
 
@@ -61,3 +61,13 @@ input[type=text].w23 { width: 230px; }
 select.w23 { width: 236px; }
 
 input[type=file] { width: 406px; }
+
+input[type=submit].formVertical { margin-left: 200px }
+
+.multiselectable { width:500px; display:block; overflow: hidden; width: 100%; }
+.multiselectable label { line-height: 24px; }
+.multiselectable select { height: 150px; width: 100% }
+.multiselectable div { width: 200px; float:left; display: inline; }
+.multiselectable div * { display: block; margin: 0 auto; }
+.multiselectable .m-selectable-controls { margin-top: 3em; width: 50px; }
+.multiselectable .m-selectable-controls button { margin-top: 1em; }
