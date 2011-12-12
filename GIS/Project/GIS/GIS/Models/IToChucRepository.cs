@@ -13,5 +13,7 @@ namespace GIS.Models
         void Add(ToChuc tochuc);
         void Delete(ToChuc tochuc);
         void Save();
+
+        LoaiHinhToChuc getLoaiHinh(ToChuc tochuc);
     }
 }
