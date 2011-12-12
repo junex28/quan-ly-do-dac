@@ -12,17 +12,21 @@ namespace GIS.Controllers
 {
     public class ToChucController : Controller
     {
-        private IToChucRepository tochucRepository;
-
+        private IToChucRepository _tochucRepository;
+        private ILoaiHinhToChucRepository _loaihinhtochucRepository;
+        private ITaiKhoanRepository _taikhoanRepository;
+        
 
         public ToChucController()
-            : this(new ToChucRepository())
+            : this(new ToChucRepository(),new LoaiHinhToChucRepository(), new TaiKhoanRepository())
         {
         }
 
-        public ToChucController(IToChucRepository tochucRepository)
+        public ToChucController(IToChucRepository tochucRepository, ILoaiHinhToChucRepository loaihinhtochucRepository, ITaiKhoanRepository taikhoanRepository)
         {
-            this.tochucRepository = tochucRepository;
+            this._tochucRepository = tochucRepository;
+            this._loaihinhtochucRepository = loaihinhtochucRepository;
+            this._taikhoanRepository = taikhoanRepository;
         }
 
         public ActionResult Index()
@@ -40,7 +44,7 @@ namespace GIS.Controllers
 
         public ActionResult ListData(string sidx, string sord, int page, int rows)
         {
-            var listToChucs = tochucRepository.GetToChucs();
+            var listToChucs = _tochucRepository.GetToChucs();
             var pageIndex = Convert.ToInt32(page) - 1;
             var pageSize = rows;
             var totalRecords = listToChucs.Count();
@@ -112,15 +116,15 @@ namespace GIS.Controllers
                 return new FileNotFoundResult { Message = "Không có tổ chức trên" };
             }
 
-            ToChuc tochuc = tochucRepository.GetToChucByID(id.Value);
-            LoaiHinhToChuc loaiHinhTC = tochucRepository.getLoaiHinh(tochuc);
-
+            ToChuc tochuc = _tochucRepository.GetToChucByID(id.Value);
+            
             if (tochuc == null)
             {
                 return new FileNotFoundResult { Message = "Không có tổ chức trên" };
             }
 
-            return View(new ToChucDetailViewModel(tochuc, loaiHinhTC));
+            var modelview = new ToChucDetailViewModel { toChuc = tochuc};
+            return View(modelview);
         }
 
 
@@ -129,9 +133,17 @@ namespace GIS.Controllers
 
         public ActionResult Edit(int id)
         {
-            ToChuc tochuc = tochucRepository.GetToChucByID(id);
-            LoaiHinhToChuc lhtc = tochucRepository.getLoaiHinh(tochuc);
-            return View(new ToChucDetailViewModel(tochuc, lhtc));
+            var EditedToChuc = _tochucRepository.GetToChucByID(id);
+            //LoaiHinhToChuc lhtc = tochucRepository.getLoaiHinh(tochuc);
+            var LoaiHinhToChucList = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
+            
+            var viewmodel = new ToChucDetailViewModel
+            {
+               toChuc = EditedToChuc,
+               loaiHinh = LoaiHinhToChucList
+            };
+
+            return View(viewmodel);
         }
 
         //
@@ -140,23 +152,25 @@ namespace GIS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            ToChuc tochuc = tochucRepository.GetToChucByID(Convert.ToInt32(Request.Form["MaToChuc"]));             
-            LoaiHinhToChuc lhtc = tochucRepository.getLoaiHinh(tochuc);               
+            ToChuc tochuc = _tochucRepository.GetToChucByID(Convert.ToInt32(Request.Form["MaToChuc"]));             
+            LoaiHinhToChuc lhtc = _tochucRepository.getLoaiHinh(tochuc);               
             try
             {
-                tochuc.TruSoChinh =  Request.Form["tochuc.TruSoChinh"];
-                tochuc.TongSoCanBo = Convert.ToInt32(Request.Form["tochuc.TongSoCanBo"]);
-                tochuc.SoTaiKhoan = Request.Form["tochuc.TaiKhoan"];
-                tochuc.NguoiDaiDien = Request.Form["tochuc.NguoiDaiDien"];
-                tochuc.DienThoai = Request.Form["tochuc.DienThoai"];
-                tochuc.Email = Request.Form["tochuc.Email"];
-                tochuc.Fax = Request.Form["tochuc.Fax"];
-                tochucRepository.Save();
+                tochuc.TruSoChinh =  Request.Form["TruSoChinh"];
+                tochuc.TongSoCanBo = Convert.ToInt32(Request.Form["TongSoCanBo"]);
+                tochuc.SoTaiKhoan = Request.Form["SoTaiKhoan"];
+                tochuc.GiayPhepKinhDoanh = Request.Form["GiayPhepKinhDoanh"];
+                tochuc.NguoiDaiDien = Request.Form["NguoiDaiDien"];
+                tochuc.DienThoai = Request.Form["DienThoai"];
+                tochuc.Email = Request.Form["Email"];
+                tochuc.Fax = Request.Form["Fax"];
+                tochuc.KichHoat = Convert.ToBoolean(Request.Form["KichHoat"]);
+                _tochucRepository.Save();
                 return RedirectToAction("Details", new { id = tochuc.MaToChuc });
             }
             catch
             {
-                return View(new ToChucDetailViewModel(tochuc, lhtc));
+                return View();
             }
         }
 
@@ -216,7 +230,7 @@ namespace GIS.Controllers
         //[Authorize]
         public ActionResult Delete(int id)
         {
-            ToChuc tochuc = tochucRepository.GetToChucByID(id);
+            ToChuc tochuc = _tochucRepository.GetToChucByID(id);
 
             if (tochuc == null)
             {
@@ -231,15 +245,15 @@ namespace GIS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(int id, string confirmButton)
         {
-            ToChuc tochuc = tochucRepository.GetToChucByID(id);
+            ToChuc tochuc = _tochucRepository.GetToChucByID(id);
 
             if (tochuc == null)
             {
                 return View("NotFound");
             }
 
-            tochucRepository.Delete(tochuc);
-            tochucRepository.Save();
+            _tochucRepository.Delete(tochuc);
+            _tochucRepository.Save();
 
             return View("Deleted");
         }
