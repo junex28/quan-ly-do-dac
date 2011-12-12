@@ -1,0 +1,63 @@
+﻿fieldset.formVertical
+{
+	border: 0 none;
+}
+
+.formVertical { margin: 8px 0; }
+
+.formVertical * { font-size: 15px; }
+
+.subHeader *
+{
+	color: #00B9F2 !important;
+	font-size: 1.2em !important;
+	font-weight: 700 !important;
+	margin-right: 10px;
+	width: 190px;
+}
+
+.subContent
+{
+	width: 663px;
+}
+
+.formVertical dl { margin: 2px 0; }
+.formVertical dl dt, .formVertical dl dd { float: left; }
+.formVertical dl dt
+{
+	display: block;
+	line-height: 24px;
+}
+
+.formVertical dl dd
+{
+	width: 410px;
+}
+
+.span
+{
+	float: left;
+}
+
+.w16
+{
+	width: 630px;
+}
+
+.w4
+{
+	width: 170px;
+}
+
+input[type=text], select
+{
+	border: solid 1px;
+	padding: 2px;
+	background: #efffef;
+}
+
+input[type=text].w23 { width: 230px; }
+
+select.w23 { width: 236px; }
+
+input[type=file] { width: 406px; }
