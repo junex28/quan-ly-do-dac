@@ -39,5 +39,10 @@ namespace GIS.Models
         {
             db.SubmitChanges();
         }
+
+        public LoaiHinhToChuc getLoaiHinh(ToChuc tochuc)
+        {
+            return db.LoaiHinhToChucs.SingleOrDefault(d => d.MaLoaiHinhToChuc == tochuc.MaLoaiHinhToChuc);
+        }
     }
 }
