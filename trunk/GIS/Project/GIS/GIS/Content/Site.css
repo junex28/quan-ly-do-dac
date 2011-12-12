@@ -109,7 +109,7 @@ ul.leftMenu a
 
 fieldset 
 {
-    margin: 1em 0;
+    margin: 1em 1em;
     padding: 1em;
     border: 1px solid #CCC;
 }
@@ -246,3 +246,28 @@ div#title
 {
     width: 6em;
 }
+
+/* Custom Styles for editor and display helpers
+----------------------------------------------------------*/
+.editor-row
+{
+    width: 100%;
+    float :left;
+    }
+
+.editor-label
+{
+    width : 12em;
+    float : left;
+    }
+    
+.editor-field
+{
+    margin: 0.5em 0;
+    float: left;
+}
+
+.editor-row .submit
+{
+    margin-left: 12em;
+    }
