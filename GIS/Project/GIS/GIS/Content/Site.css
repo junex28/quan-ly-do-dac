@@ -127,11 +127,11 @@ page width. Or, you can specify an exact pixel width. */
 .content .contentLeft
 {
 	left: 2px;
-	width: 200px;
+	width: 208px;
 }
 .content .contentRight
 {
-	left: 206px;
+	left: 214px;
 	right: 2px;
 	border: 1px solid #CCC;
 	padding: 10px 20px;
@@ -146,7 +146,7 @@ ul.leftMenu li
 
 ul.leftMenu a
 {
-	width: 198px;
+	width: 206px;
 }
 
 /* FORM LAYOUT ELEMENTS   
