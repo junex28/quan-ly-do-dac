@@ -68,22 +68,64 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DangKyController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GiayPhepController.cs" />
+    <Compile Include="Controllers\GiayPhepMoiController.cs" />
     <Compile Include="Controllers\GISController.cs" />
-    <Compile Include="Controllers\TaiKhoanController.cs" />
-    <Compile Include="Controllers\TrangChuController.cs" />
     <Compile Include="Controllers\QLCapPhepController.cs" />
+    <Compile Include="Controllers\TaiKhoanController.cs" />
+    <Compile Include="Controllers\ToChucController.cs" />
+    <Compile Include="Controllers\TrangChuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Helpers\ControllerHelpers.cs" />
+    <Compile Include="Helpers\Dynamic.cs" />
+    <Compile Include="Helpers\FileNotFoundResult.cs" />
+    <Compile Include="Helpers\IPagedList.cs" />
+    <Compile Include="Helpers\JqGridData.cs" />
+    <Compile Include="Helpers\JqGridExtensions.cs" />
+    <Compile Include="Helpers\PagedList.cs" />
+    <Compile Include="Helpers\PaginatedList.cs" />
+    <Compile Include="Helpers\PagingLinqExtensions.cs" />
+    <Compile Include="Models\Repository\LoaiHinhToChucRepository.cs" />
+    <Compile Include="Models\Repository\GiayPhepHoatDongRepository.cs" />
+    <Compile Include="Models\Del_AccountModels.cs" />
+    <Compile Include="Models\ILoaiHinhToChucRepository.cs" />
+    <Compile Include="Models\IHoatDongRepository.cs" />
+    <Compile Include="Models\IGiayPhepHoatDongRepository.cs" />
+    <Compile Include="Models\IDangKyHoatDongRepository.cs" />
+    <Compile Include="Models\ICongTrinhRepository.cs" />
+    <Compile Include="Models\ICongDoanThucHienRepository.cs" />
+    <Compile Include="Models\IBaoCaoHoatDongRepository.cs" />
     <Compile Include="Models\DDBD.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DDBD.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\IKieuSanPhamRepository.cs" />
+    <Compile Include="Models\ILoaiQuyenRepository.cs" />
+    <Compile Include="Models\ILoaiSanPhamRepository.cs" />
+    <Compile Include="Models\ILoaiThamDinhRepository.cs" />
+    <Compile Include="Models\INhanLucRepository.cs" />
+    <Compile Include="Models\INhomNguoiDungRepository.cs" />
+    <Compile Include="Models\IQuanHuyenRepository.cs" />
+    <Compile Include="Models\IQuyenRepository.cs" />
+    <Compile Include="Models\IQuyenCuaNhomRepository.cs" />
+    <Compile Include="Models\IThietBiRepository.cs" />
+    <Compile Include="Models\IThamDinhRepository.cs" />
+    <Compile Include="Models\ITinhTrangXetDuyetRepository.cs" />
+    <Compile Include="Models\ITinhTrangGiayPhepRepository.cs" />
+    <Compile Include="Models\ITinhThanhRepository.cs" />
+    <Compile Include="Models\ITaiKhoanRepository.cs" />
+    <Compile Include="Models\ISanPhamRepository.cs" />
+    <Compile Include="Models\IToChucRepository.cs" />
+    <Compile Include="Models\A_RuleViolation.cs" />
+    <Compile Include="Models\Repository\TaiKhoanRepository.cs" />
+    <Compile Include="Models\Repository\ToChucRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ToChucDetailViewModel.cs" />
+    <Compile Include="ViewModels\ToChucListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -116,9 +158,7 @@
     <Content Include="Content\images\top_header_md_tile.gif" />
     <Content Include="Content\map.css" />
     <Content Include="Resources\config.js" />
-    <Content Include="Resources\configT2.js" />
     <Content Include="Resources\project.js" />
-    <Content Include="Views\GIS\Code.aspx" />
     <Content Include="Views\GIS\Index.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -130,16 +170,6 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\DDBD.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DDBD.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Models\DDBD.dbml.layout">
-      <DependentUpon>DDBD.dbml</DependentUpon>
-    </None>
     <Content Include="Content\images\icon\Circle_Blue.png" />
     <Content Include="Content\images\icon\Circle_Blue.png" />
     <Content Include="Content\images\icon\Circle_Blue16x16.png" />
@@ -153,6 +183,23 @@
     <Content Include="Content\images\icon\Pin_Blue24x24.png" />
     <Content Include="Content\images\icon\Pin_Orange24x24.png" />
     <Content Include="Content\images\icon\Pin_Red32x32.png" />
+    <Content Include="Content\redmond\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\redmond\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Content\redmond\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\redmond\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\redmond\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\redmond\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\redmond\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\redmond\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\redmond\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\redmond\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Content\ui.jqgrid.css" />
     <Content Include="Content\superfish\images\arrows-ffffff.png" />
     <Content Include="Content\superfish\images\normal.jpg" />
     <Content Include="Content\superfish\images\sand.jpg" />
@@ -245,14 +292,20 @@
     <Content Include="Content\template\soria\images\warning.png" />
     <Content Include="Content\template\soria\soria.css" />
     <Content Include="Mvc.Sitemap" />
+    <Content Include="Scripts\gridview\ToChucs.js" />
+    <Content Include="Scripts\i18n\grid.locale-en.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.16.custom.min.js" />
+    <Content Include="Scripts\jquery.jqGrid.min.js" />
     <Content Include="Scripts\splitter.js" />
     <Content Include="Scripts\superfish\hoverIntent.js" />
     <Content Include="Scripts\superfish\superfish.js" />
     <Content Include="Views\DangKy\DangKyMoi.aspx" />
     <Content Include="Views\DangKy\Index.aspx" />
+    <Content Include="Views\GiayPhep\DangKyMoi.aspx" />
+    <Content Include="Views\GiayPhep\Index.aspx" />
     <Content Include="Views\Shared\DisplayTemplates\LeftMenu.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Menu.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\TopMenu.ascx" />
@@ -260,9 +313,29 @@
     <Content Include="Views\TaiKhoan\DangNhap.aspx" />
     <Content Include="Views\TaiKhoan\DoiMatKhau.aspx" />
     <Content Include="Views\TaiKhoan\DoiMatKhauThanhCong.aspx" />
+    <Content Include="Views\ToChuc\Delete.aspx" />
+    <Content Include="Views\ToChuc\Deleted.aspx" />
+    <Content Include="Views\ToChuc\Details.aspx" />
+    <Content Include="Views\ToChuc\Edit.aspx" />
+    <Content Include="Views\ToChuc\Index.aspx" />
+    <Content Include="Views\ToChuc\List.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\DDBD.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DDBD.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\DDBD.dbml.layout">
+      <DependentUpon>DDBD.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Lib\" />
+    <Folder Include="UploadToChucFiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
