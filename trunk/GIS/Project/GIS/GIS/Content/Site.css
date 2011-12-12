@@ -1,43 +1,65 @@
-﻿* { margin: 0; padding: 0; }
-
-html, body {
-    height: 100%;
-    width: 100%;
+﻿*
+{
+	margin: 0;
+	padding: 0;
 }
 
-body {
-    font: 12px Myriad,Helvetica,Tahoma,Arial,clean,sans-serif;
-    background-color: #ffffff;
+html, body
+{
+	height: 100%;
+	width: 100%;
+}
+
+body
+{
+	font: 12px Myriad,Helvetica,Tahoma,Arial,clean,sans-serif;
+	background-color: #ffffff;
 }
 
 p, ul
 {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
-ol li, ul li {
-    font-size: 1em;
-    line-height: 1.5em;
-}
-
-img 
+ol li, ul li
 {
-    border: 0 none
+	font-size: 1em;
+	line-height: 1.5em;
+}
+
+img
+{
+	border: 0 none;
 }
 
 /* HEADINGS   
 ----------------------------------------------------------*/
-h1 { font-size: 2em; }
-h2 { font-size: 1.5em; }
-h3 { font-size: 1.2em; }
-h4 { font-size: 1.1em; }
-h5, h6 { font-size: 1em; }
+h1
+{
+	font-size: 2em;
+}
+h2
+{
+	font-size: 1.5em;
+}
+h3
+{
+	font-size: 1.2em;
+}
+h4
+{
+	font-size: 1.1em;
+}
+h5, h6
+{
+	font-size: 1em;
+}
 
 /* this rule styles <h2> tags that are the 
 first child of the left and right table columns */
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
 {
-    margin-top: 0;
+	margin-top: 0;
 }
 
 /* PRIMARY LAYOUT ELEMENTS   
@@ -45,229 +67,273 @@ first child of the left and right table columns */
 
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
-.page 
+.page
 {
-    width: 100%;
-    height: 100%;
-    position: absolute;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 }
 
-.header { position: relative; }
+.header
+{
+	position: relative;
+}
 
 .header .siteLogo
 {
-    position: absolute;
-    height: 50px;
-    width: 217px;
+	position: absolute;
+	height: 50px;
+	width: 217px;
 }
 
 .header .siteLogin
 {
-    position: absolute;
-    left: 217px;
-    right: 0;
-    height: 20px;
-    padding-right: 10px;
-    padding-top: 3px;
-    text-align: right;
+	position: absolute;
+	left: 217px;
+	right: 0;
+	height: 20px;
+	padding-right: 10px;
+	padding-top: 3px;
+	text-align: right;
 }
 
 .header .siteMenu
 {
-    padding-left: 217px;
-    background: url("../../Content/images/logo_space_bg.gif") no-repeat scroll 0 0 transparent;
-    
-    height: 50px;
+	padding-left: 217px;
+	background: url("../../Content/images/logo_space_bg.gif") no-repeat scroll 0 0 transparent;
+	height: 50px;
 }
 
 .header .siteMenu .siteMenuContent
 {
-    background: url("../../Content/images/top_header_md_tile.gif") repeat scroll 0 0 transparent;
-    padding-top: 23px;
-    height: 27px;
+	background: url("../../Content/images/top_header_md_tile.gif") repeat scroll 0 0 transparent;
+	padding-top: 23px;
+	height: 27px;
 }
 
-.content { position: absolute; top: 52px; bottom:0; left: 0; right: 0; }
-.content .contentLeft { position: absolute; top: 0; bottom: 0; left: 2px; width: 200px; overflow: auto }
-.content .contentRight { position: absolute; top: 0; bottom: 0; left: 204px; right: 2px; overflow: auto }
-
+.content, .contentLeft, .contentRight 
+{
+	position: absolute;
+	overflow: auto;
+	top: 2px;
+	bottom: 2px;
+	left: 2px;
+	right: 2px;
+}
+.content
+{
+	top: 52px;
+}
+.content .contentLeft
+{
+	left: 2px;
+	width: 200px;
+}
+.content .contentRight
+{
+	left: 206px;
+	right: 2px;
+	border: 1px solid #CCC;
+	padding: 10px 20px;
+}
 
 /* LEFT MENU
 ----------------------------------------------------------*/
 ul.leftMenu li
 {
-    list-style: none;
+	list-style: none;
 }
 
 ul.leftMenu a
 {
-    width: 198px;
+	width: 198px;
 }
 
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
-fieldset 
+fieldset
 {
-    margin: 1em 1em;
-    padding: 1em;
-    border: 1px solid #CCC;
+	margin: 1em 1em;
+	padding: 1em;
+	border: 1px solid #CCC;
 }
 
-fieldset p 
+fieldset p
 {
-    margin: 2px 12px 10px 10px;
+	margin: 2px 12px 10px 10px;
 }
 
-legend 
+legend
 {
-    font-size: 1.1em;
-    font-weight: 600;
-    padding: 2px 4px 8px 4px;
+	font-size: 1.1em;
+	font-weight: 600;
+	padding: 2px 4px 8px 4px;
 }
 
 /* TABLE
 ----------------------------------------------------------*/
 
-table { width: 100%; border: solid 1px #19638A; border-collapse: collapse; }
+table
+{
+	width: 100%;
+	border: solid 1px #19638A;
+	border-collapse: collapse;
+}
 
-table td, table th { padding: 5px; border: 0 none; color: #222222; }
+table td, table th
+{
+	padding: 5px;
+	border: 0 none;
+	color: #222222;
+}
 
-table th { text-align: center; background-color: #19638A;  color: #ffffff; }
+table th
+{
+	text-align: center;
+	background-color: #19638A;
+	color: #ffffff;
+}
 
-table tr td { background-color: #ffffff; }
+table tr td
+{
+	background-color: #ffffff;
+}
 
-table tr.even td { background-color: #dddddd; }
+table tr.even td
+{
+	background-color: #dddddd;
+}
 
-table tr:hover td { background-color: #cccccc; }
+table tr:hover td
+{
+	background-color: #cccccc;
+}
 
 
 /* MISC  
 ----------------------------------------------------------*/
 .clear
 {
-    clear: both;
+	clear: both;
 }
 
 .error
 {
-    color:Red;
+	color: Red;
 }
 
 #menucontainer
 {
-    margin-top:40px;
+	margin-top: 40px;
 }
 
 div#title
 {
-    display:block;
-    float:left;
-    text-align:left;
+	display: block;
+	float: left;
+	text-align: left;
 }
 
 #logindisplay
 {
-    font-size:1.1em;
-    display:block;
-    text-align:right;
-    margin:10px;
-    color:White;
+	font-size: 1.1em;
+	display: block;
+	text-align: right;
+	margin: 10px;
+	color: White;
 }
 
 #logindisplay a:link
 {
-    color: white;
-    text-decoration: underline;
+	color: white;
+	text-decoration: underline;
 }
 
 #logindisplay a:visited
 {
-    color: white;
-    text-decoration: underline;
+	color: white;
+	text-decoration: underline;
 }
 
 #logindisplay a:hover
 {
-    color: white;
-    text-decoration: none;
+	color: white;
+	text-decoration: none;
 }
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error
 {
-    color: #ff0000;
+	color: #ff0000;
 }
 
 .field-validation-valid
 {
-    display: none;
+	display: none;
 }
 
 .input-validation-error
 {
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
+	border: 1px solid #ff0000;
+	background-color: #ffeeee;
 }
 
 .validation-summary-errors
 {
-    font-weight: bold;
-    color: #ff0000;
+	font-weight: bold;
+	color: #ff0000;
 }
 
 .validation-summary-valid
 {
-    display: none;
+	display: none;
 }
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
-.display-label,
-.editor-label,
-.display-field,
-.editor-field
+.display-label, .editor-label, .display-field, .editor-field
 {
-    margin: 0.5em 0;
+	margin: 0.5em 0;
 }
 
 .text-box
 {
-    width: 30em;
+	width: 30em;
 }
 
 .text-box.multi-line
 {
-    height: 6.5em;
+	height: 6.5em;
 }
 
 .tri-state
 {
-    width: 6em;
+	width: 6em;
 }
 
 /* Custom Styles for editor and display helpers
 ----------------------------------------------------------*/
 .editor-row
 {
-    width: 100%;
-    float :left;
-    }
+	width: 100%;
+	float: left;
+}
 
 .editor-label
 {
-    width : 12em;
-    float : left;
-    }
-    
+	width: 12em;
+	float: left;
+}
+
 .editor-field
 {
-    margin: 0.5em 0;
-    float: left;
+	margin: 0.5em 0;
+	float: left;
 }
 
 .editor-row .submit
 {
-    margin-left: 12em;
-    }
+	margin-left: 12em;
+}
