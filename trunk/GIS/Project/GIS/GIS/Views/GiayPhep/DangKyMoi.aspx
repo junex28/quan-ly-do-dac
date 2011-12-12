@@ -54,9 +54,9 @@
     <fieldset class="formVertical">
         <div class="span subHeader"><h3>Lĩnh vực hoạt động</h3></div>
         <div class="span subContent">
-            <select class="multiselect">
-                <option value="1"></option>
-                <option value="2"></option>
+            <select class="multiselect" multiple="multiple" name="alo">
+                <option value="1" selected="selected">1</option>
+                <option value="2">2</option>
             </select>
         </div>
     </fieldset>
@@ -66,10 +66,13 @@
 			<input type="file" />
         </div>
     </fieldset>
-    <input class="jui-button" type="submit" value="Đăng ký" />
+	<input class="formVertical jui-button" type="submit" value="Đăng ký" />
     <script type="text/javascript">
         $(function() {
-            $(".multiselect").multiselect({ sortable: false, searchable: false });
+            $(".multiselect").multiselectable({
+                selectedLabel: 'Đã được cấp phép',
+                selectableLabel: 'Chưa được cấp phép'
+            });
         });
     </script>
 <% } %>
