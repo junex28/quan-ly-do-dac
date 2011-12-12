@@ -171,6 +171,7 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Custom.css" />
     <Content Include="Content\images\icon\Circle_Blue.png" />
     <Content Include="Content\images\icon\Circle_Blue.png" />
     <Content Include="Content\images\icon\Circle_Blue16x16.png" />
@@ -303,19 +304,7 @@
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.16.custom.min.js" />
     <Content Include="Scripts\jquery.jqGrid.min.js" />
-    <Content Include="Scripts\multi-select\locale\ui-multiselect-de.js" />
-    <Content Include="Scripts\multi-select\locale\ui-multiselect-en.js" />
-    <Content Include="Scripts\multi-select\locale\ui-multiselect-es.js" />
-    <Content Include="Scripts\multi-select\locale\ui-multiselect-fr.js" />
-    <Content Include="Scripts\multi-select\locale\ui-multiselect-it.js" />
-    <Content Include="Scripts\multi-select\plugins\localisation\jquery.localisation-min.js" />
-    <Content Include="Scripts\multi-select\plugins\localisation\jquery.localisation-pack.js" />
-    <Content Include="Scripts\multi-select\plugins\localisation\jquery.localisation.js" />
-    <Content Include="Scripts\multi-select\plugins\scrollTo\changes.txt" />
-    <Content Include="Scripts\multi-select\plugins\scrollTo\jquery.scrollTo-min.js" />
-    <Content Include="Scripts\multi-select\plugins\scrollTo\jquery.scrollTo.js" />
-    <Content Include="Scripts\multi-select\plugins\scrollTo\README.txt" />
-    <Content Include="Scripts\multi-select\ui.multiselect.js" />
+    <Content Include="Scripts\multiselectable.js" />
     <Content Include="Scripts\superfish\hoverIntent.js" />
     <Content Include="Scripts\superfish\superfish.js" />
     <Content Include="Views\GiayPhep\DangKyMoi.aspx" />
