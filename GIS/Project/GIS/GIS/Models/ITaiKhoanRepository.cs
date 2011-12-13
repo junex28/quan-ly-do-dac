@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace GIS.Models
 {
@@ -10,8 +11,10 @@ namespace GIS.Models
         IQueryable<TaiKhoan> GetTaiKhoans();
         TaiKhoan GetTaiKhoanByID(int id);
 
-        void Add(TaiKhoan TaiKhoan);
+        int Add(TaiKhoan TaiKhoan);
         void Delete(TaiKhoan TaiKhoan);
         void Save();
+
+        MembershipCreateStatus CreateUser(TaiKhoan tk);
     }
 }
