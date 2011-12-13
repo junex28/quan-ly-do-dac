@@ -1,148 +1,253 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Web;
-//using System.Web.Mvc;
-//using GIS.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using GIS.Models;
+using System.Linq.Dynamic;
+using GIS.ViewModels;
 
-//namespace GIS.Controllers
-//{
-//    public class GiayPhepMoiController : Controller
-//    {
-//        IGiayPhepMoiRepository gpMoiRepository;
+namespace GIS.Controllers
+{
+    public class GiayPhepMoiController : Controller
+    {
+        IGiayPhepMoiRepository _gpmRepository;
 
 
-//        // Dependency Injection enabled constructors
+        // Dependency Injection enabled constructors
 
-//        public GiayPhepMoiController()
-//            : this(new GiayPhepMoiController())
-//        {
-//        }
+        public GiayPhepMoiController()
+            : this(new GiayPhepMoiRepository())
+        {
+        }
 
-//        public GiayPhepMoiController(IGiayPhepMoiRepository repository)
-//        {
-//            gpMoiRepository = repository;
-//        }
-//        //
-//        // GET: /GiayPhepMoi/
+        public GiayPhepMoiController(IGiayPhepMoiRepository repository)
+        {
+            _gpmRepository = repository;
+        }
+        //
+        // GET: /GiayPhepMoi/
 
-//        public ActionResult Index()
-//        {
-//            var dsChoThamDinh = gpMoiRepository.DSChoThamDinh();
-//            return View(dsChoThamDinh);
-//        }
+        public ActionResult Index()
+        {
+             return View(); 
+        }
 
-//        public ViewResult List()
-//        {
-//            return View();
-//        }
-//        /*
-//        public ActionResult GridData(int? GPChoThamDinhId, string sidx, string sord, int? page, int? rows)
-//        {
-//            var repotory1 = new GiayPhepMoiController();
-//            var model = from entity in repotory1.Index(GPChoThamDinhId.Value).OrderBy(sidx + " " + sord)
-//                        select new
-//                        {
-                            
-//                        };
-//        */
-//        /* var jsonData = new
-//         {
-//             total = 1, // we'll implement later 
-//             page = page,
-//             records = 3, // implement later 
-//             rows = new[]{,
-//             new {id = 1, cell = new[] {"1", "-7", "Is this a good question?"}},
-//             new {id = 2, cell = new[] {"2", "15", "Is this a blatant ripoff?"}},
-//             new {id = 3, cell = new[] {"3", "23", "Why is the sky blue?"}}
-//         }
-//         };
-//         return Json(jsonData, JsonRequestBehavior.AllowGet); 
-//     }*/
-//        //
-//        // GET: /GiayPhepMoi/Details/5
+        public ActionResult List(int page)
+        {
+            ViewData["page"] = page;
+            //ViewData["page2"] = page2;
+            //ViewData["page3"] = page3;
+            return View();
+        }
 
-//        public ActionResult Details(int id)
-//        {
-//            return View();
-//        }
+        public ActionResult ListData1(string sidx, string sord, int page, int rows)
+        {
+            var dsMoi = _gpmRepository.GetDSMoi();
+            var pageIndex = Convert.ToInt32(page) - 1;
+            var pageSize = rows;
+            var totalRecords = dsMoi.Count();
+            var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
 
-//        //
-//        // GET: /GiayPhepMoi/Create
+            // Input page number greater than total page
+            //if(page >totalPages && page !=1){
+            //    pageIndex = 0;
+            //} 
+            // This is possible because I'm using the LINQ Dynamic Query Library
+            var models = dsMoi
+                    .OrderBy(sidx + " " + sord)
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize).AsQueryable();
 
-//        public ActionResult Create()
-//        {
-//            return View();
-//        }
+            var jsonData = new
+            {
+                total = totalPages,
+                page = page,
+                records = totalRecords,
+                rows = (
+                    from u in models
+                    select new
+                    {
+                        id = u.MaGiayPhepHoatDong,
+                        cell = new String[]
+                       {   
+                           "<ul class='ui-widget icon-collection'>"+
+                           "<li class='ui-state-default ui-corner-all' title='Chi tiết'>"+
+                           "<a href='/GiayPhepMoi/Details/"+
+                           u.MaGiayPhepHoatDong.ToString()+
+                           "'><span class='ui-icon ui-icon-document'></span></a>"+
+                           "</li>"+
+                           
+                           "<li class='ui-state-default ui-corner-all' title='Thay đổi'>"+
+                           "<a href='/GiayPhepMoi/Edit/"+
+                           u.MaGiayPhepHoatDong.ToString()+
+                           "'><span class='ui-icon ui-icon-pencil'></span></a>"+
+                           "</li>"+
+                           
+                           "<li class='ui-state-default ui-corner-all' title='Xoá'>"+
+                           "<a href='/GiayPhepMoi/Xoa?id="+
+                           u.MaGiayPhepHoatDong.ToString()+
+                           "'><span class='ui-icon ui-icon-trash'></span></a>"+
+                           "</li>"+
+                            "</ul>",
+                           u.MaGiayPhepHoatDong.ToString(),
+                           //CategoryName = "<a href=''>" + entity.CategoryName + "</a>",
+                           u.ToChuc.TenToChuc.ToString(),
+                           u.NgayXinPhep.ToString(),
+                           u.ToChuc.NguoiDaiDien.ToString(),
+                           u.ToChuc.TruSoChinh.ToString()
+                       }
+                    }).ToArray()
+            };
 
-//        //
-//        // POST: /GiayPhepMoi/Create
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+        }
 
-//        [HttpPost]
-//        public ActionResult Create(FormCollection collection)
-//        {
-//            try
-//            {
-//                // TODO: Add insert logic here
+        public ActionResult ListData2(string sidx, string sord, int page, int rows)
+        {
+            var dsMoiChoCapGP = _gpmRepository.GetDSMoiChoCapGP();
+            var pageIndex = Convert.ToInt32(page) - 1;
+            var pageSize = rows;
+            var totalRecords = dsMoiChoCapGP.Count();
+            var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
 
-//                return RedirectToAction("Index");
-//            }
-//            catch
-//            {
-//                return View();
-//            }
-//        }
+            // Input page number greater than total page
+            //if(page >totalPages && page !=1){
+            //    pageIndex = 0;
+            //} 
+            // This is possible because I'm using the LINQ Dynamic Query Library
+            var models = dsMoiChoCapGP
+                    .OrderBy(sidx + " " + sord)
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize).AsQueryable();
 
-//        //
-//        // GET: /GiayPhepMoi/Edit/5
+            var jsonData = new
+            {
+                total = totalPages,
+                page = page,
+                records = totalRecords,
+                rows = (
+                    from u in models
+                    select new
+                    {
+                        id = u.MaGiayPhepHoatDong,
+                        cell = new String[]
+                       {   
+                           "<ul class='ui-widget icon-collection'>"+
+                           "<li class='ui-state-default ui-corner-all' title='Chi tiết'>"+
+                           "<a href='/GiayPhepMoi/Details/"+
+                           u.MaGiayPhepHoatDong.ToString()+
+                           "'><span class='ui-icon ui-icon-document'></span></a>"+
+                           "</li>"+
+                           
+                           "<li class='ui-state-default ui-corner-all' title='Thay đổi'>"+
+                           "<a href='/GiayPhepMoi/Edit/"+
+                           u.MaGiayPhepHoatDong.ToString()+
+                           "'><span class='ui-icon ui-icon-pencil'></span></a>"+
+                           "</li>"+
+                           
+                           "<li class='ui-state-default ui-corner-all' title='Xoá'>"+
+                           "<a href='/GiayPhepMoi/Xoa?id="+
+                           u.MaGiayPhepHoatDong.ToString()+
+                           "'><span class='ui-icon ui-icon-trash'></span></a>"+
+                           "</li>"+
+                            "</ul>",
+                           u.MaGiayPhepHoatDong.ToString(),
+                           //CategoryName = "<a href=''>" + entity.CategoryName + "</a>",
+                           u.ToChuc.TenToChuc.ToString(),
+                           u.NgayXinPhep.ToString(),
+                           u.ToChuc.NguoiDaiDien.ToString(),
+                           u.ToChuc.TruSoChinh.ToString()
+                       }
+                    }).ToArray()
+            };
 
-//        public ActionResult Edit(int id)
-//        {
-//            return View();
-//        }
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+        }
+        //
+        // GET: /GiayPhepMoi/Details/5
 
-//        //
-//        // POST: /GiayPhepMoi/Edit/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
 
-//        [HttpPost]
-//        public ActionResult Edit(int id, FormCollection collection)
-//        {
-//            try
-//            {
-//                // TODO: Add update logic here
+        //
+        // GET: /GiayPhepMoi/Create
 
-//                return RedirectToAction("Index");
-//            }
-//            catch
-//            {
-//                return View();
-//            }
-//        }
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-//        //
-//        // GET: /GiayPhepMoi/Delete/5
+        //
+        // POST: /GiayPhepMoi/Create
 
-//        public ActionResult Delete(int id)
-//        {
-//            return View();
-//        }
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
 
-//        //
-//        // POST: /GiayPhepMoi/Delete/5
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
-//        [HttpPost]
-//        public ActionResult Delete(int id, FormCollection collection)
-//        {
-//            try
-//            {
-//                // TODO: Add delete logic here
+        //
+        // GET: /GiayPhepMoi/Edit/5
 
-//                return RedirectToAction("Index");
-//            }
-//            catch
-//            {
-//                return View();
-//            }
-//        }
-//    }
-//}
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        //
+        // POST: /GiayPhepMoi/Edit/5
+
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        //
+        // GET: /GiayPhepMoi/Delete/5
+
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        //
+        // POST: /GiayPhepMoi/Delete/5
+
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}
