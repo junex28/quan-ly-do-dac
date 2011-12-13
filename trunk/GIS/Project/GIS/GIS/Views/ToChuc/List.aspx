@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<GIS.ViewModels.ToChucListViewModel>" %>
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -40,7 +40,7 @@ var ToChucs = {
                 { name: 'ThoiGianHetHan', index: 'ThoiGianHetHan', width: 40, align: 'left', sortable: true},
                 { name: 'DienThoai', index: 'DienThoai', width: 40, align: 'left', sortable: false},
                 { name: 'TruSoChinh', index: 'TruSoChinh', width: 50, align: 'left', sortable: false}] ,               
-            page: <%= Model.page%>,
+            page: '<%= ViewData["page"] %>',
             rowNum: 10,
             rowList: [10, 20, 50],
             pager: pager,
