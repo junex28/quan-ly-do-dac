@@ -164,6 +164,7 @@
       <Column Name="MatKhau" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="TaiKhoan_ToChuc" Member="ToChucs" ThisKey="MaTaiKhoan" OtherKey="MaTaiKhoan" Type="ToChuc" />
       <Association Name="NhomNguoiDung_TaiKhoan" Member="NhomNguoiDung1" ThisKey="NhomNguoiDung" OtherKey="MaNhom" Type="NhomNguoiDung" IsForeignKey="true" />
+      <Association Name="TinhTrangTaiKhoan_TaiKhoan" Member="TinhTrangTaiKhoan" ThisKey="TinhTrang" OtherKey="MaTinhTrang" Type="TinhTrangTaiKhoan" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.TinhThanh" Member="TinhThanhs">
@@ -280,6 +281,13 @@
       <Column Name="MALOAITHAMDINH" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="DIENGIAI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="LoaiThamDinh_ThamDinh" Member="ThamDinhs" ThisKey="MALOAITHAMDINH" OtherKey="LoaiThamDinh" Type="ThamDinh" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TinhTrangTaiKhoan" Member="TinhTrangTaiKhoans">
+    <Type Name="TinhTrangTaiKhoan">
+      <Column Name="MaTinhTrang" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DienGiai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="TinhTrangTaiKhoan_TaiKhoan" Member="TaiKhoans" ThisKey="MaTinhTrang" OtherKey="TinhTrang" Type="TaiKhoan" />
     </Type>
   </Table>
 </Database>

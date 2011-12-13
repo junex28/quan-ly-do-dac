@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace GIS.Models
 {
@@ -19,10 +20,10 @@ namespace GIS.Models
             return db.TaiKhoans.SingleOrDefault(d => d.MaTaiKhoan == id);
         }
 
-        public void Add(TaiKhoan TaiKhoan)
-        {
-            db.TaiKhoans.InsertOnSubmit(TaiKhoan);
-        }
+        //public void Add(TaiKhoan TaiKhoan)
+        //{
+        //    db.TaiKhoans.InsertOnSubmit(TaiKhoan);
+        //}
 
         public void Delete(TaiKhoan TaiKhoan)
         {
@@ -34,9 +35,57 @@ namespace GIS.Models
             db.SubmitChanges();
         }
 
-        public TaiKhoan getLoaiHinh(TaiKhoan TaiKhoan)
+        public int Add(TaiKhoan tk)
+        { 
+           try
+            {
+                db.TaiKhoans.InsertOnSubmit(tk);               
+                return 1;
+            }
+            catch (Exception){
+                return -1; 
+            }
+
+        }
+
+        public MembershipCreateStatus CreateUser(TaiKhoan tk)
         {
-            return db.TaiKhoans.SingleOrDefault(d => d.MaTaiKhoan == TaiKhoan.MaTaiKhoan);
+            if (tk.TenTaiKhoan == null || tk.TenTaiKhoan.Length  == 0) {
+                return MembershipCreateStatus.InvalidUserName;
+            }
+ 
+            if(tk.MatKhau ==  null || tk.MatKhau.Length == 0)  {
+                return MembershipCreateStatus.InvalidPassword;
+            }
+
+            if (tk.Email == null || tk.Email.Length == 0) {
+                return MembershipCreateStatus.InvalidEmail;
+            }
+
+            int countUser = (from a in db.TaiKhoans
+                       where a.TenTaiKhoan == tk.TenTaiKhoan
+                            select a).Count();
+            if (countUser > 0) {
+                return MembershipCreateStatus.DuplicateUserName;
+            }
+
+            int countEmail = (from a in db.TaiKhoans
+                              where a.Email == tk.Email
+                              select a).Count();
+            if (countEmail > 0) {
+                return MembershipCreateStatus.DuplicateEmail;
+            }
+
+            try
+            {
+                db.TaiKhoans.InsertOnSubmit(tk);
+                db.SubmitChanges();
+                return MembershipCreateStatus.Success;
+            }
+            catch (Exception) {
+                return MembershipCreateStatus.ProviderError;
+            }
+
         }
     }
 }

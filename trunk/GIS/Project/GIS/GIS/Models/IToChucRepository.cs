@@ -14,6 +14,5 @@ namespace GIS.Models
         void Delete(ToChuc tochuc);
         void Save();
 
-        LoaiHinhToChuc getLoaiHinh(ToChuc tochuc);
-    }
+   }
 }

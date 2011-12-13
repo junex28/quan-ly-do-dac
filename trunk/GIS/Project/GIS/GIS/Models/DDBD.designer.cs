@@ -102,6 +102,9 @@ namespace GIS.Models
     partial void InsertLoaiThamDinh(LoaiThamDinh instance);
     partial void UpdateLoaiThamDinh(LoaiThamDinh instance);
     partial void DeleteLoaiThamDinh(LoaiThamDinh instance);
+    partial void InsertTinhTrangTaiKhoan(TinhTrangTaiKhoan instance);
+    partial void UpdateTinhTrangTaiKhoan(TinhTrangTaiKhoan instance);
+    partial void DeleteTinhTrangTaiKhoan(TinhTrangTaiKhoan instance);
     #endregion
 		
 		public DDBDDataContext() : 
@@ -325,6 +328,14 @@ namespace GIS.Models
 				return this.GetTable<LoaiThamDinh>();
 			}
 		}
+		
+		public System.Data.Linq.Table<TinhTrangTaiKhoan> TinhTrangTaiKhoans
+		{
+			get
+			{
+				return this.GetTable<TinhTrangTaiKhoan>();
+			}
+		}
 	}
 	
 	[Table(Name="dbo.BaoCaoHoatDong")]
@@ -418,7 +429,7 @@ namespace GIS.Models
 				}
 			}
 		}
-        [DisplayName("Năm")]
+		
 		[Column(Storage="_Nam", DbType="Int")]
 		public System.Nullable<int> Nam
 		{
@@ -438,8 +449,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Doanh Thu")]
+		
 		[Column(Storage="_DoanhThu", DbType="Money")]
 		public System.Nullable<decimal> DoanhThu
 		{
@@ -459,8 +469,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Nộp ngân sách")]
+		
 		[Column(Storage="_NopNganSach", DbType="Money")]
 		public System.Nullable<decimal> NopNganSach
 		{
@@ -480,8 +489,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách công trình")]
+		
 		[Column(Storage="_DanhSachCongTrinh", DbType="NVarChar(2000)")]
 		public string DanhSachCongTrinh
 		{
@@ -501,8 +509,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tệp đính kèm")]
+		
 		[Column(Storage="_TepDinhKem", DbType="NVarChar(500)")]
 		public string TepDinhKem
 		{
@@ -522,8 +529,8 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [Association(Name="ToChuc_BaoCaoHoatDong", Storage="_ToChuc", ThisKey="MaToChuc", OtherKey="MaToChuc", IsForeignKey=true, DeleteRule="CASCADE")]
+		
+		[Association(Name="ToChuc_BaoCaoHoatDong", Storage="_ToChuc", ThisKey="MaToChuc", OtherKey="MaToChuc", IsForeignKey=true, DeleteRule="CASCADE")]
 		public ToChuc ToChuc
 		{
 			get
@@ -617,7 +624,7 @@ namespace GIS.Models
 			this._CongTrinh = default(EntityRef<CongTrinh>);
 			OnCreated();
 		}
-        [DisplayName("Mã công đoạn")]
+		
 		[Column(Storage="_MaCongDoan", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaCongDoan
 		{
@@ -637,8 +644,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Số giấy phép")]
+		
 		[Column(Storage="_SoGiayPhep", DbType="NVarChar(50)")]
 		public string SoGiayPhep
 		{
@@ -658,8 +664,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mã công trình")]
+		
 		[Column(Storage="_MaCongTrinh", DbType="Int")]
 		public System.Nullable<int> MaCongTrinh
 		{
@@ -683,8 +688,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày bắt đầu")]
+		
 		[Column(Storage="_NgayBatDau", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayBatDau
 		{
@@ -704,8 +708,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày kết thúc")]
+		
 		[Column(Storage="_NgayKetThuc", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayKetThuc
 		{
@@ -725,8 +728,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Công trình")]
+		
 		[Association(Name="CongTrinh_CongDoanThucHien", Storage="_CongTrinh", ThisKey="MaCongTrinh", OtherKey="MaCongTrinh", IsForeignKey=true, DeleteRule="CASCADE")]
 		public CongTrinh CongTrinh
 		{
@@ -836,8 +838,7 @@ namespace GIS.Models
 			this._SanPhams = new EntitySet<SanPham>(new Action<SanPham>(this.attach_SanPhams), new Action<SanPham>(this.detach_SanPhams));
 			OnCreated();
 		}
-
-        [DisplayName("Mã công trình")]
+		
 		[Column(Storage="_MaCongTrinh", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaCongTrinh
 		{
@@ -857,8 +858,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên công trình")]
+		
 		[Column(Storage="_TenCongTrinh", DbType="NVarChar(500)")]
 		public string TenCongTrinh
 		{
@@ -878,8 +878,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Chủ đầu tư")]
+		
 		[Column(Storage="_ChuDauTu", DbType="NVarChar(500)")]
 		public string ChuDauTu
 		{
@@ -899,8 +898,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Đơn vị nghiệm thu")]
+		
 		[Column(Storage="_DonViNghiemThu", DbType="NVarChar(500)")]
 		public string DonViNghiemThu
 		{
@@ -920,8 +918,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày bắt đầu")]
+		
 		[Column(Storage="_NgayBatDau", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayBatDau
 		{
@@ -941,8 +938,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày kết thúc")]
+		
 		[Column(Storage="_NgayKetThuc", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayKetThuc
 		{
@@ -962,8 +958,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ghi chú")]
+		
 		[Column(Storage="_GhiChu", DbType="NVarChar(2000)")]
 		public string GhiChu
 		{
@@ -983,8 +978,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tình trạng")]
+		
 		[Column(Storage="_TinhTrang", DbType="Int")]
 		public System.Nullable<int> TinhTrang
 		{
@@ -1004,8 +998,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách công đoạn thực hiện")]
+		
 		[Association(Name="CongTrinh_CongDoanThucHien", Storage="_CongDoanThucHiens", ThisKey="MaCongTrinh", OtherKey="MaCongTrinh")]
 		public EntitySet<CongDoanThucHien> CongDoanThucHiens
 		{
@@ -1018,8 +1011,7 @@ namespace GIS.Models
 				this._CongDoanThucHiens.Assign(value);
 			}
 		}
-
-        [DisplayName("Danh sách sản phẩm")]
+		
 		[Association(Name="CongTrinh_SanPham", Storage="_SanPhams", ThisKey="MaCongTrinh", OtherKey="MaCongTrinh")]
 		public EntitySet<SanPham> SanPhams
 		{
@@ -1127,8 +1119,7 @@ namespace GIS.Models
 			this._TinhTrangXetDuyet = default(EntityRef<TinhTrangXetDuyet>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã đăng ký hoạt động")]
+		
 		[Column(Storage="_MaDangKyHoatDong", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaDangKyHoatDong
 		{
@@ -1148,8 +1139,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mã giấy phép hoạt động")]
+		
 		[Column(Storage="_MaGiayPhepHoatDong", DbType="Int")]
 		public System.Nullable<int> MaGiayPhepHoatDong
 		{
@@ -1173,8 +1163,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Có bổ sung")]
+		
 		[Column(Storage="_LaBoSung", DbType="Bit")]
 		public System.Nullable<bool> LaBoSung
 		{
@@ -1194,8 +1183,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày bổ sung")]
+		
 		[Column(Storage="_NgayBoSung", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayBoSung
 		{
@@ -1215,8 +1203,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tình trạng")]
+		
 		[Column(Storage="_TinhTrang", DbType="Int")]
 		public System.Nullable<int> TinhTrang
 		{
@@ -1240,8 +1227,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mã hoạt động")]
+		
 		[Column(Storage="_MaHoatDong", DbType="Int")]
 		public System.Nullable<int> MaHoatDong
 		{
@@ -1265,8 +1251,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Hoạt động")]
+		
 		[Association(Name="HoatDong_DangKyHoatDong", Storage="_HoatDong", ThisKey="MaHoatDong", OtherKey="MaHoatDong", IsForeignKey=true)]
 		public HoatDong HoatDong
 		{
@@ -1300,8 +1285,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Giấy phép hoạt động")]
+		
 		[Association(Name="GiayPhepHoatDong_DangKyHoatDong", Storage="_GiayPhepHoatDong", ThisKey="MaGiayPhepHoatDong", OtherKey="MaGiayPhepHoatDong", IsForeignKey=true)]
 		public GiayPhepHoatDong GiayPhepHoatDong
 		{
@@ -1335,8 +1319,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tình trạng xét duyệt")]
+		
 		[Association(Name="TinhTrangXetDuyet_DangKyHoatDong", Storage="_TinhTrangXetDuyet", ThisKey="TinhTrang", OtherKey="MaTinhTrang", IsForeignKey=true)]
 		public TinhTrangXetDuyet TinhTrangXetDuyet
 		{
@@ -1419,8 +1402,7 @@ namespace GIS.Models
 			this._DangKyHoatDongs = new EntitySet<DangKyHoatDong>(new Action<DangKyHoatDong>(this.attach_DangKyHoatDongs), new Action<DangKyHoatDong>(this.detach_DangKyHoatDongs));
 			OnCreated();
 		}
-
-        [DisplayName("Mã hoạt động")]
+		
 		[Column(Storage="_MaHoatDong", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaHoatDong
 		{
@@ -1440,8 +1422,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên hoạt động")]
+		
 		[Column(Storage="_TenHoatDong", DbType="NVarChar(500)")]
 		public string TenHoatDong
 		{
@@ -1461,8 +1442,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách hoạt động")]
+		
 		[Association(Name="HoatDong_DangKyHoatDong", Storage="_DangKyHoatDongs", ThisKey="MaHoatDong", OtherKey="MaHoatDong")]
 		public EntitySet<DangKyHoatDong> DangKyHoatDongs
 		{
@@ -1536,8 +1516,7 @@ namespace GIS.Models
 			this._ToChucs = new EntitySet<ToChuc>(new Action<ToChuc>(this.attach_ToChucs), new Action<ToChuc>(this.detach_ToChucs));
 			OnCreated();
 		}
-
-        [DisplayName("Mã loại hình tổ chức")]
+		
 		[Column(Storage="_MaLoaiHinhToChuc", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaLoaiHinhToChuc
 		{
@@ -1557,8 +1536,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên loại hình tổ chức")]
+		
 		[Column(Storage="_TenLoaiHinhToChuc", DbType="NVarChar(50)")]
 		public string TenLoaiHinhToChuc
 		{
@@ -1578,8 +1556,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách tổ chức")]
+		
 		[Association(Name="LoaiHinhToChuc_ToChuc", Storage="_ToChucs", ThisKey="MaLoaiHinhToChuc", OtherKey="MaLoaiHinhToChuc")]
 		public EntitySet<ToChuc> ToChucs
 		{
@@ -1657,8 +1634,7 @@ namespace GIS.Models
 			this._Quyens = new EntitySet<Quyen>(new Action<Quyen>(this.attach_Quyens), new Action<Quyen>(this.detach_Quyens));
 			OnCreated();
 		}
-
-        [DisplayName("Mã loại quyền")]
+		
 		[Column(Storage="_MaLoaiQuyen", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaLoaiQuyen
 		{
@@ -1678,8 +1654,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên loại quyền")]
+		
 		[Column(Storage="_TenLoaiQuyen", DbType="NVarChar(50)")]
 		public string TenLoaiQuyen
 		{
@@ -1699,8 +1674,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Diễn giải")]
+		
 		[Column(Storage="_DienGiai", DbType="NVarChar(100)")]
 		public string DienGiai
 		{
@@ -1720,8 +1694,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách quyền")]
+		
 		[Association(Name="LoaiQuyen_Quyen", Storage="_Quyens", ThisKey="MaLoaiQuyen", OtherKey="LoaiQuyen")]
 		public EntitySet<Quyen> Quyens
 		{
@@ -1767,8 +1740,8 @@ namespace GIS.Models
 			entity.LoaiQuyen1 = null;
 		}
 	}
-
-    [Table(Name="dbo.LoaiSanPham")]
+	
+	[Table(Name="dbo.LoaiSanPham")]
 	public partial class LoaiSanPham : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -1806,8 +1779,7 @@ namespace GIS.Models
 			this._KieuSanPham1 = default(EntityRef<KieuSanPham>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã loại sản phẩm")]	
+		
 		[Column(Storage="_MaLoaiSanPham", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaLoaiSanPham
 		{
@@ -1827,8 +1799,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên loại sản phẩm")]	
+		
 		[Column(Storage="_TenLoaiSanPham", DbType="NVarChar(500)")]
 		public string TenLoaiSanPham
 		{
@@ -1848,8 +1819,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Kiểu sản phẩm")]
+		
 		[Column(Storage="_KieuSanPham", DbType="Int")]
 		public System.Nullable<int> KieuSanPham
 		{
@@ -1873,8 +1843,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Diễn giải")]
+		
 		[Column(Storage="_DienGiai", DbType="NVarChar(2000)")]
 		public string DienGiai
 		{
@@ -1894,8 +1863,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách sản phẩm")]
+		
 		[Association(Name="LoaiSanPham_SanPham", Storage="_SanPhams", ThisKey="MaLoaiSanPham", OtherKey="MaLoaiSanPham")]
 		public EntitySet<SanPham> SanPhams
 		{
@@ -1909,7 +1877,6 @@ namespace GIS.Models
 			}
 		}
 		
-
 		[Association(Name="KieuSanPham_LoaiSanPham", Storage="_KieuSanPham1", ThisKey="KieuSanPham", OtherKey="MaKieuSanPham", IsForeignKey=true)]
 		public KieuSanPham KieuSanPham1
 		{
@@ -2052,8 +2019,7 @@ namespace GIS.Models
 			this._ToChuc = default(EntityRef<ToChuc>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã nhân viên")]
+		
 		[Column(Storage="_MaNhanVien", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaNhanVien
 		{
@@ -2073,8 +2039,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mã tổ chức")]
+		
 		[Column(Storage="_MaToChuc", DbType="Int")]
 		public System.Nullable<int> MaToChuc
 		{
@@ -2098,8 +2063,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Họ và tên")]
+		
 		[Column(Storage="_HoTen", DbType="NVarChar(50)")]
 		public string HoTen
 		{
@@ -2119,8 +2083,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("CMND")]
+		
 		[Column(Storage="_CMND", DbType="NVarChar(15)")]
 		public string CMND
 		{
@@ -2140,8 +2103,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Chức vụ")]
+		
 		[Column(Storage="_ChucVu", DbType="NVarChar(50)")]
 		public string ChucVu
 		{
@@ -2161,8 +2123,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Địa chỉ")]
+		
 		[Column(Storage="_DiaChi", DbType="NVarChar(2000)")]
 		public string DiaChi
 		{
@@ -2182,8 +2143,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Trình độ học vấn")]
+		
 		[Column(Storage="_TrinhDoHocVan", DbType="NVarChar(50)")]
 		public string TrinhDoHocVan
 		{
@@ -2203,8 +2163,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Chuyên ngành")]
+		
 		[Column(Storage="_ChuyenNganh", DbType="NVarChar(500)")]
 		public string ChuyenNganh
 		{
@@ -2224,8 +2183,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Thâm niên")]
+		
 		[Column(Storage="_ThamNien", DbType="Int")]
 		public System.Nullable<int> ThamNien
 		{
@@ -2245,8 +2203,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày sinh")]
+		
 		[Column(Storage="_NgaySinh", DbType="Date")]
 		public System.Nullable<System.DateTime> NgaySinh
 		{
@@ -2266,8 +2223,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Quá trình học tập")]
+		
 		[Column(Storage="_QuaTrinhHocTap", DbType="NVarChar(2000)")]
 		public string QuaTrinhHocTap
 		{
@@ -2287,8 +2243,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Quá trình công tác")]
+		
 		[Column(Storage="_QuaTrinhCongTac", DbType="NVarChar(2000)")]
 		public string QuaTrinhCongTac
 		{
@@ -2308,8 +2263,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Chịu trách nhiệm")]
+		
 		[Column(Storage="_ChiuTrachNhiem", DbType="Bit")]
 		public System.Nullable<bool> ChiuTrachNhiem
 		{
@@ -2329,8 +2283,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tệp đính kèm")]
+		
 		[Column(Storage="_TepDinhKem", DbType="NVarChar(500)")]
 		public string TepDinhKem
 		{
@@ -2350,8 +2303,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Thuộc tổ chức")]
+		
 		[Association(Name="ToChuc_NhanLuc", Storage="_ToChuc", ThisKey="MaToChuc", OtherKey="MaToChuc", IsForeignKey=true, DeleteRule="CASCADE")]
 		public ToChuc ToChuc
 		{
@@ -2437,8 +2389,7 @@ namespace GIS.Models
 			this._TaiKhoans = new EntitySet<TaiKhoan>(new Action<TaiKhoan>(this.attach_TaiKhoans), new Action<TaiKhoan>(this.detach_TaiKhoans));
 			OnCreated();
 		}
-
-        [DisplayName("Mã nhóm")]
+		
 		[Column(Storage="_MaNhom", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaNhom
 		{
@@ -2458,8 +2409,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên nhóm")]
+		
 		[Column(Storage="_TenNhom", DbType="NVarChar(50)")]
 		public string TenNhom
 		{
@@ -2479,8 +2429,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Quyền nhóm")]
+		
 		[Association(Name="NhomNguoiDung_QuyenCuaNhom", Storage="_QuyenCuaNhoms", ThisKey="MaNhom", OtherKey="MaNhom")]
 		public EntitySet<QuyenCuaNhom> QuyenCuaNhoms
 		{
@@ -2493,8 +2442,7 @@ namespace GIS.Models
 				this._QuyenCuaNhoms.Assign(value);
 			}
 		}
-
-        [DisplayName("Danh sách tài khoản")]
+		
 		[Association(Name="NhomNguoiDung_TaiKhoan", Storage="_TaiKhoans", ThisKey="MaNhom", OtherKey="NhomNguoiDung")]
 		public EntitySet<TaiKhoan> TaiKhoans
 		{
@@ -2587,8 +2535,7 @@ namespace GIS.Models
 			this._TinhThanh = default(EntityRef<TinhThanh>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã quận huyện")]
+		
 		[Column(Storage="_MaQuanHuyen", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaQuanHuyen
 		{
@@ -2608,8 +2555,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên quận huyện")]
+		
 		[Column(Storage="_TenQuanHuyen", DbType="NVarChar(50)")]
 		public string TenQuanHuyen
 		{
@@ -2629,8 +2575,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mã tỉnh thành")]
+		
 		[Column(Storage="_MaTinhThanh", DbType="Int")]
 		public System.Nullable<int> MaTinhThanh
 		{
@@ -2654,8 +2599,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách sản phẩm")]
+		
 		[Association(Name="QuanHuyen_SanPham", Storage="_SanPhams", ThisKey="MaQuanHuyen", OtherKey="MaQuanHuyen")]
 		public EntitySet<SanPham> SanPhams
 		{
@@ -2668,8 +2612,7 @@ namespace GIS.Models
 				this._SanPhams.Assign(value);
 			}
 		}
-
-        [DisplayName("Thuộc tỉnh thành")]
+		
 		[Association(Name="TinhThanh_QuanHuyen", Storage="_TinhThanh", ThisKey="MaTinhThanh", OtherKey="MaTinhThanh", IsForeignKey=true, DeleteRule="CASCADE")]
 		public TinhThanh TinhThanh
 		{
@@ -2775,8 +2718,7 @@ namespace GIS.Models
 			this._LoaiQuyen1 = default(EntityRef<LoaiQuyen>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã quyền")]
+		
 		[Column(Storage="_MaQuyen", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaQuyen
 		{
@@ -2796,8 +2738,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên quyền")]
+		
 		[Column(Storage="_TenQuyen", DbType="NVarChar(50)")]
 		public string TenQuyen
 		{
@@ -2817,8 +2758,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mô tả")]
+		
 		[Column(Storage="_MoTa", DbType="NVarChar(100)")]
 		public string MoTa
 		{
@@ -2838,8 +2778,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Loại quyền")]
+		
 		[Column(Storage="_LoaiQuyen", DbType="Int")]
 		public System.Nullable<int> LoaiQuyen
 		{
@@ -2863,8 +2802,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách quyền nhóm")]
+		
 		[Association(Name="Quyen_QuyenCuaNhom", Storage="_QuyenCuaNhoms", ThisKey="MaQuyen", OtherKey="Quyen")]
 		public EntitySet<QuyenCuaNhom> QuyenCuaNhoms
 		{
@@ -2877,8 +2815,7 @@ namespace GIS.Models
 				this._QuyenCuaNhoms.Assign(value);
 			}
 		}
-
-        [DisplayName("Loại quyền")]
+		
 		[Association(Name="LoaiQuyen_Quyen", Storage="_LoaiQuyen1", ThisKey="LoaiQuyen", OtherKey="MaLoaiQuyen", IsForeignKey=true)]
 		public LoaiQuyen LoaiQuyen1
 		{
@@ -2980,8 +2917,7 @@ namespace GIS.Models
 			this._Quyen1 = default(EntityRef<Quyen>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã quyền nhóm")]
+		
 		[Column(Storage="_MaQuyenNhom", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaQuyenNhom
 		{
@@ -3001,8 +2937,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mã nhóm")]
+		
 		[Column(Storage="_MaNhom", DbType="Int NOT NULL")]
 		public int MaNhom
 		{
@@ -3026,8 +2961,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Quyền")]
+		
 		[Column(Storage="_Quyen", DbType="Int NOT NULL")]
 		public int Quyen
 		{
@@ -3051,8 +2985,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Nhóm người dùng")]
+		
 		[Association(Name="NhomNguoiDung_QuyenCuaNhom", Storage="_NhomNguoiDung", ThisKey="MaNhom", OtherKey="MaNhom", IsForeignKey=true)]
 		public NhomNguoiDung NhomNguoiDung
 		{
@@ -3086,8 +3019,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Quyền")]
+		
 		[Association(Name="Quyen_QuyenCuaNhom", Storage="_Quyen1", ThisKey="Quyen", OtherKey="MaQuyen", IsForeignKey=true)]
 		public Quyen Quyen1
 		{
@@ -3192,8 +3124,7 @@ namespace GIS.Models
 			this._QuanHuyen = default(EntityRef<QuanHuyen>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã sản phẩm")]
+		
 		[Column(Storage="_MaSanPham", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaSanPham
 		{
@@ -3213,8 +3144,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Số hiệu")]
+		
 		[Column(Storage="_SoHieu", DbType="NVarChar(50)")]
 		public string SoHieu
 		{
@@ -3234,8 +3164,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mã loại sản phẩm")]
+		
 		[Column(Storage="_MaLoaiSanPham", DbType="Int")]
 		public System.Nullable<int> MaLoaiSanPham
 		{
@@ -3259,8 +3188,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mã công trình")]
+		
 		[Column(Storage="_MaCongTrinh", DbType="Int")]
 		public System.Nullable<int> MaCongTrinh
 		{
@@ -3284,8 +3212,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mã quận huyện")]
+		
 		[Column(Storage="_MaQuanHuyen", DbType="Int")]
 		public System.Nullable<int> MaQuanHuyen
 		{
@@ -3309,8 +3236,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Cấp hành chính")]
+		
 		[Column(Storage="_CapHanhChinh", DbType="Int")]
 		public System.Nullable<int> CapHanhChinh
 		{
@@ -3330,8 +3256,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Công trình")]
+		
 		[Association(Name="CongTrinh_SanPham", Storage="_CongTrinh", ThisKey="MaCongTrinh", OtherKey="MaCongTrinh", IsForeignKey=true, DeleteRule="CASCADE")]
 		public CongTrinh CongTrinh
 		{
@@ -3365,8 +3290,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Loại sản phẩm")]
+		
 		[Association(Name="LoaiSanPham_SanPham", Storage="_LoaiSanPham", ThisKey="MaLoaiSanPham", OtherKey="MaLoaiSanPham", IsForeignKey=true, DeleteRule="CASCADE")]
 		public LoaiSanPham LoaiSanPham
 		{
@@ -3400,8 +3324,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Quận huyện")]
+		
 		[Association(Name="QuanHuyen_SanPham", Storage="_QuanHuyen", ThisKey="MaQuanHuyen", OtherKey="MaQuanHuyen", IsForeignKey=true, DeleteRule="CASCADE")]
 		public QuanHuyen QuanHuyen
 		{
@@ -3487,6 +3410,8 @@ namespace GIS.Models
 		
 		private EntityRef<NhomNguoiDung> _NhomNguoiDung1;
 		
+		private EntityRef<TinhTrangTaiKhoan> _TinhTrangTaiKhoan;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -3517,10 +3442,10 @@ namespace GIS.Models
 		{
 			this._ToChucs = new EntitySet<ToChuc>(new Action<ToChuc>(this.attach_ToChucs), new Action<ToChuc>(this.detach_ToChucs));
 			this._NhomNguoiDung1 = default(EntityRef<NhomNguoiDung>);
+			this._TinhTrangTaiKhoan = default(EntityRef<TinhTrangTaiKhoan>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã tài khoản")]
+		
 		[Column(Storage="_MaTaiKhoan", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaTaiKhoan
 		{
@@ -3540,8 +3465,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Nhóm người dùng")]
+		
 		[Column(Storage="_NhomNguoiDung", DbType="Int")]
 		public System.Nullable<int> NhomNguoiDung
 		{
@@ -3565,8 +3489,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên tài khoản")]
+		
 		[Column(Storage="_TenTaiKhoan", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string TenTaiKhoan
 		{
@@ -3586,8 +3509,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Họ tên người dùng")]
+		
 		[Column(Storage="_HoTen", DbType="NVarChar(50)")]
 		public string HoTen
 		{
@@ -3607,8 +3529,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Địa chỉ")]
+		
 		[Column(Storage="_DiaChi", DbType="NVarChar(100)")]
 		public string DiaChi
 		{
@@ -3628,8 +3549,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("CMND")]
+		
 		[Column(Storage="_CMND", DbType="NVarChar(50)")]
 		public string CMND
 		{
@@ -3649,8 +3569,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Email")]
+		
 		[Column(Storage="_Email", DbType="NVarChar(250)")]
 		public string Email
 		{
@@ -3670,8 +3589,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Cơ quan")]
+		
 		[Column(Storage="_CoQuan", DbType="NVarChar(100)")]
 		public string CoQuan
 		{
@@ -3691,8 +3609,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tình trạng")]
+		
 		[Column(Storage="_TinhTrang", DbType="Int")]
 		public System.Nullable<int> TinhTrang
 		{
@@ -3704,6 +3621,10 @@ namespace GIS.Models
 			{
 				if ((this._TinhTrang != value))
 				{
+					if (this._TinhTrangTaiKhoan.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnTinhTrangChanging(value);
 					this.SendPropertyChanging();
 					this._TinhTrang = value;
@@ -3712,8 +3633,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mật khẩu")]
+		
 		[Column(Storage="_MatKhau", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string MatKhau
 		{
@@ -3733,8 +3653,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách tổ chức")]
+		
 		[Association(Name="TaiKhoan_ToChuc", Storage="_ToChucs", ThisKey="MaTaiKhoan", OtherKey="MaTaiKhoan")]
 		public EntitySet<ToChuc> ToChucs
 		{
@@ -3747,8 +3666,7 @@ namespace GIS.Models
 				this._ToChucs.Assign(value);
 			}
 		}
-
-        [DisplayName("Nhóm người dùng")]
+		
 		[Association(Name="NhomNguoiDung_TaiKhoan", Storage="_NhomNguoiDung1", ThisKey="NhomNguoiDung", OtherKey="MaNhom", IsForeignKey=true)]
 		public NhomNguoiDung NhomNguoiDung1
 		{
@@ -3779,6 +3697,40 @@ namespace GIS.Models
 						this._NhomNguoiDung = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("NhomNguoiDung1");
+				}
+			}
+		}
+		
+		[Association(Name="TinhTrangTaiKhoan_TaiKhoan", Storage="_TinhTrangTaiKhoan", ThisKey="TinhTrang", OtherKey="MaTinhTrang", IsForeignKey=true)]
+		public TinhTrangTaiKhoan TinhTrangTaiKhoan
+		{
+			get
+			{
+				return this._TinhTrangTaiKhoan.Entity;
+			}
+			set
+			{
+				TinhTrangTaiKhoan previousValue = this._TinhTrangTaiKhoan.Entity;
+				if (((previousValue != value) 
+							|| (this._TinhTrangTaiKhoan.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TinhTrangTaiKhoan.Entity = null;
+						previousValue.TaiKhoans.Remove(this);
+					}
+					this._TinhTrangTaiKhoan.Entity = value;
+					if ((value != null))
+					{
+						value.TaiKhoans.Add(this);
+						this._TinhTrang = value.MaTinhTrang;
+					}
+					else
+					{
+						this._TinhTrang = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TinhTrangTaiKhoan");
 				}
 			}
 		}
@@ -3843,8 +3795,7 @@ namespace GIS.Models
 			this._QuanHuyens = new EntitySet<QuanHuyen>(new Action<QuanHuyen>(this.attach_QuanHuyens), new Action<QuanHuyen>(this.detach_QuanHuyens));
 			OnCreated();
 		}
-
-        [DisplayName("Mã tỉnh thành")]
+		
 		[Column(Storage="_MaTinhThanh", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaTinhThanh
 		{
@@ -3864,8 +3815,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên tỉnh thành")]
+		
 		[Column(Storage="_TenTinhThanh", DbType="NVarChar(50)")]
 		public string TenTinhThanh
 		{
@@ -3885,8 +3835,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách quận huyện")]
+		
 		[Association(Name="TinhThanh_QuanHuyen", Storage="_QuanHuyens", ThisKey="MaTinhThanh", OtherKey="MaTinhThanh")]
 		public EntitySet<QuanHuyen> QuanHuyens
 		{
@@ -4027,8 +3976,7 @@ namespace GIS.Models
 			this._TaiKhoan = default(EntityRef<TaiKhoan>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã tổ chức")]
+		
 		[Column(Storage="_MaToChuc", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaToChuc
 		{
@@ -4048,8 +3996,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Loại hình tổ chức")]
+		
 		[Column(Storage="_MaLoaiHinhToChuc", DbType="Int")]
 		public System.Nullable<int> MaLoaiHinhToChuc
 		{
@@ -4073,8 +4020,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên tổ chức")]
+		
 		[Column(Storage="_TenToChuc", DbType="NVarChar(250)")]
 		public string TenToChuc
 		{
@@ -4094,8 +4040,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Giấy phép kinh doanh")]
+		
 		[Column(Storage="_GiayPhepKinhDoanh", DbType="NVarChar(15)")]
 		public string GiayPhepKinhDoanh
 		{
@@ -4115,8 +4060,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Người đại diện")]
+		
 		[Column(Storage="_NguoiDaiDien", DbType="NVarChar(50)")]
 		public string NguoiDaiDien
 		{
@@ -4136,8 +4080,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Trụ sở chính")]
+		
 		[Column(Storage="_TruSoChinh", DbType="NVarChar(2000)")]
 		public string TruSoChinh
 		{
@@ -4157,8 +4100,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Số tài khoản")]
+		
 		[Column(Storage="_SoTaiKhoan", DbType="NVarChar(50)")]
 		public string SoTaiKhoan
 		{
@@ -4178,8 +4120,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Điện thoại")]
+		
 		[Column(Storage="_DienThoai", DbType="NVarChar(15)")]
 		public string DienThoai
 		{
@@ -4199,8 +4140,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Fax")]
+		
 		[Column(Storage="_Fax", DbType="NVarChar(15)")]
 		public string Fax
 		{
@@ -4220,8 +4160,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Email")]
+		
 		[Column(Storage="_Email", DbType="NVarChar(250)")]
 		public string Email
 		{
@@ -4241,8 +4180,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tổng số cán bộ")]
+		
 		[Column(Storage="_TongSoCanBo", DbType="Int")]
 		public System.Nullable<int> TongSoCanBo
 		{
@@ -4262,8 +4200,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày xin phép")]
+		
 		[Column(Storage="_NgayXinPhep", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayXinPhep
 		{
@@ -4283,8 +4220,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Kích hoạt")]
+		
 		[Column(Storage="_KichHoat", DbType="Bit")]
 		public System.Nullable<bool> KichHoat
 		{
@@ -4304,8 +4240,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tệp đính kèm")]
+		
 		[Column(Storage="_TepDinhKem", DbType="NVarChar(500)")]
 		public string TepDinhKem
 		{
@@ -4325,8 +4260,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tài khoản")]
+		
 		[Column(Storage="_MaTaiKhoan", DbType="Int")]
 		public System.Nullable<int> MaTaiKhoan
 		{
@@ -4350,8 +4284,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách hoạt động")]
+		
 		[Association(Name="ToChuc_BaoCaoHoatDong", Storage="_BaoCaoHoatDongs", ThisKey="MaToChuc", OtherKey="MaToChuc")]
 		public EntitySet<BaoCaoHoatDong> BaoCaoHoatDongs
 		{
@@ -4390,8 +4323,7 @@ namespace GIS.Models
 				this._ThietBis.Assign(value);
 			}
 		}
-
-        [DisplayName("Danh sách giấy phép")]
+		
 		[Association(Name="ToChuc_GiayPhepHoatDong", Storage="_GiayPhepHoatDongs", ThisKey="MaToChuc", OtherKey="MaToChuc")]
 		public EntitySet<GiayPhepHoatDong> GiayPhepHoatDongs
 		{
@@ -4404,8 +4336,7 @@ namespace GIS.Models
 				this._GiayPhepHoatDongs.Assign(value);
 			}
 		}
-
-        [DisplayName("Loại hình tổ chức")]
+		
 		[Association(Name="LoaiHinhToChuc_ToChuc", Storage="_LoaiHinhToChuc", ThisKey="MaLoaiHinhToChuc", OtherKey="MaLoaiHinhToChuc", IsForeignKey=true, DeleteRule="CASCADE")]
 		public LoaiHinhToChuc LoaiHinhToChuc
 		{
@@ -4439,8 +4370,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tài khoản người dùng")]
+		
 		[Association(Name="TaiKhoan_ToChuc", Storage="_TaiKhoan", ThisKey="MaTaiKhoan", OtherKey="MaTaiKhoan", IsForeignKey=true)]
 		public TaiKhoan TaiKhoan
 		{
@@ -4610,8 +4540,7 @@ namespace GIS.Models
 			this._LoaiThamDinh1 = default(EntityRef<LoaiThamDinh>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã thẩm định")]
+		
 		[Column(Storage="_MaThamDinh", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaThamDinh
 		{
@@ -4631,8 +4560,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Giấy phép hoạt động")]
+		
 		[Column(Storage="_MaGiayPhepHoatDong", DbType="Int")]
 		public System.Nullable<int> MaGiayPhepHoatDong
 		{
@@ -4656,8 +4584,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Người thẩm định")]
+		
 		[Column(Storage="_NguoiThamDinh", DbType="NVarChar(500)")]
 		public string NguoiThamDinh
 		{
@@ -4677,8 +4604,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Người phía tổ chức")]
+		
 		[Column(Storage="_NguoiPhiaToChuc", DbType="NVarChar(500)")]
 		public string NguoiPhiaToChuc
 		{
@@ -4698,8 +4624,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày thẩm định")]
+		
 		[Column(Storage="_NgayThamDinh", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayThamDinh
 		{
@@ -4719,8 +4644,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tính hợp lệ")]
+		
 		[Column(Storage="_TinhHopLe", DbType="NVarChar(2000)")]
 		public string TinhHopLe
 		{
@@ -4740,8 +4664,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Năng lực nhân viên")]
+		
 		[Column(Storage="_NangLucNhanVien", DbType="NVarChar(2000)")]
 		public string NangLucNhanVien
 		{
@@ -4761,8 +4684,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Năng lực thiết bị")]
+		
 		[Column(Storage="_NangLucThietBi", DbType="NVarChar(2000)")]
 		public string NangLucThietBi
 		{
@@ -4782,8 +4704,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Kết luận")]
+		
 		[Column(Storage="_KetLuan", DbType="NVarChar(2000)")]
 		public string KetLuan
 		{
@@ -4803,8 +4724,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Kiến nghị")]
+		
 		[Column(Storage="_KienNghi", DbType="NVarChar(2000)")]
 		public string KienNghi
 		{
@@ -4824,8 +4744,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Loại thẩm định")]
+		
 		[Column(Storage="_LoaiThamDinh", DbType="Int")]
 		public System.Nullable<int> LoaiThamDinh
 		{
@@ -4849,8 +4768,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Giấy phép hoạt động")]
+		
 		[Association(Name="GiayPhepHoatDong_ThamDinh", Storage="_GiayPhepHoatDong", ThisKey="MaGiayPhepHoatDong", OtherKey="MaGiayPhepHoatDong", IsForeignKey=true, DeleteRule="CASCADE")]
 		public GiayPhepHoatDong GiayPhepHoatDong
 		{
@@ -4884,8 +4802,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Loại thẩm định")]
+		
 		[Association(Name="LoaiThamDinh_ThamDinh", Storage="_LoaiThamDinh1", ThisKey="LoaiThamDinh", OtherKey="MALOAITHAMDINH", IsForeignKey=true)]
 		public LoaiThamDinh LoaiThamDinh1
 		{
@@ -4996,8 +4913,7 @@ namespace GIS.Models
 			this._ToChuc = default(EntityRef<ToChuc>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã thiết bị")]
+		
 		[Column(Storage="_MaThietBi", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaThietBi
 		{
@@ -5017,8 +4933,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tổ chức")]
+		
 		[Column(Storage="_MaToChuc", DbType="Int")]
 		public System.Nullable<int> MaToChuc
 		{
@@ -5042,8 +4957,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tên thiết bị")]
+		
 		[Column(Storage="_TenThietBi", DbType="NVarChar(500)")]
 		public string TenThietBi
 		{
@@ -5063,8 +4977,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Số lượng")]
+		
 		[Column(Storage="_SoLuong", DbType="Int")]
 		public System.Nullable<int> SoLuong
 		{
@@ -5084,8 +4997,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Hãng sản xuất")]
+		
 		[Column(Storage="_HangSanXuat", DbType="NVarChar(500)")]
 		public string HangSanXuat
 		{
@@ -5105,8 +5017,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Công nghệ")]
+		
 		[Column(Storage="_CongNghe", DbType="NVarChar(500)")]
 		public string CongNghe
 		{
@@ -5126,8 +5037,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tình trạng")]
+		
 		[Column(Storage="_TinhTrang", DbType="Bit")]
 		public System.Nullable<bool> TinhTrang
 		{
@@ -5147,8 +5057,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ghi chú")]
+		
 		[Column(Storage="_GhiChu", DbType="NVarChar(2000)")]
 		public string GhiChu
 		{
@@ -5168,8 +5077,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tệp đính kèm")]
+		
 		[Column(Storage="_TepDinhKem", DbType="NVarChar(500)")]
 		public string TepDinhKem
 		{
@@ -5189,8 +5097,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Thuộc tổ chức")]
+		
 		[Association(Name="ToChuc_ThietBi", Storage="_ToChuc", ThisKey="MaToChuc", OtherKey="MaToChuc", IsForeignKey=true, DeleteRule="CASCADE")]
 		public ToChuc ToChuc
 		{
@@ -5342,8 +5249,7 @@ namespace GIS.Models
 			this._TinhTrangGiayPhep = default(EntityRef<TinhTrangGiayPhep>);
 			OnCreated();
 		}
-
-        [DisplayName("Mã giấy phép hoạt động")]
+		
 		[Column(Storage="_MaGiayPhepHoatDong", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaGiayPhepHoatDong
 		{
@@ -5363,8 +5269,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Mã tổ chức")]
+		
 		[Column(Storage="_MaToChuc", DbType="Int")]
 		public System.Nullable<int> MaToChuc
 		{
@@ -5388,8 +5293,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Số giấy phép")]
+		
 		[Column(Storage="_SoGiayPhep", DbType="NVarChar(50)")]
 		public string SoGiayPhep
 		{
@@ -5409,8 +5313,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày cấp phép")]
+		
 		[Column(Storage="_NgayCapPhep", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayCapPhep
 		{
@@ -5430,8 +5333,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày hết hạn")]
+		
 		[Column(Storage="_NgayHetHan", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayHetHan
 		{
@@ -5451,8 +5353,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày gia hạn")]
+		
 		[Column(Storage="_NgayGiaHan", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayGiaHan
 		{
@@ -5472,8 +5373,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Lý do xin phép")]
+		
 		[Column(Storage="_LyDoXinPhep", DbType="NVarChar(2000)")]
 		public string LyDoXinPhep
 		{
@@ -5493,8 +5393,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Lý do gia hạn")]
+		
 		[Column(Storage="_LyDoGiaHan", DbType="NVarChar(2000)")]
 		public string LyDoGiaHan
 		{
@@ -5514,8 +5413,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Lý do cấp phép")]
+		
 		[Column(Storage="_LyDoCapPhep", DbType="NVarChar(2000)")]
 		public string LyDoCapPhep
 		{
@@ -5535,8 +5433,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Cam kết xin phép")]
+		
 		[Column(Storage="_CamKetXinPhep", DbType="NVarChar(2000)")]
 		public string CamKetXinPhep
 		{
@@ -5556,8 +5453,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Cam kết gia hạn")]
+		
 		[Column(Storage="_CamKetGiaHan", DbType="NVarChar(2000)")]
 		public string CamKetGiaHan
 		{
@@ -5577,8 +5473,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Cam kết bổ sung")]
+		
 		[Column(Storage="_CamKetBoSung", DbType="NVarChar(2000)")]
 		public string CamKetBoSung
 		{
@@ -5598,8 +5493,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tình trạng")]
+		
 		[Column(Storage="_TinhTrang", DbType="Int")]
 		public System.Nullable<int> TinhTrang
 		{
@@ -5623,8 +5517,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày xin phép")]
+		
 		[Column(Storage="_NgayXinPhep", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayXinPhep
 		{
@@ -5644,8 +5537,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày xin gia hạn")]
+		
 		[Column(Storage="_NgayXinGiaHan", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayXinGiaHan
 		{
@@ -5665,8 +5557,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Ngày xin bổ sung")]
+		
 		[Column(Storage="_NgayXinBoSung", DbType="Date")]
 		public System.Nullable<System.DateTime> NgayXinBoSung
 		{
@@ -5686,8 +5577,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tệp đính kèm")]
+		
 		[Column(Storage="_TepDinhKem", DbType="NVarChar(50)")]
 		public string TepDinhKem
 		{
@@ -5707,8 +5597,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách hoạt động")]
+		
 		[Association(Name="GiayPhepHoatDong_DangKyHoatDong", Storage="_DangKyHoatDongs", ThisKey="MaGiayPhepHoatDong", OtherKey="MaGiayPhepHoatDong")]
 		public EntitySet<DangKyHoatDong> DangKyHoatDongs
 		{
@@ -5734,8 +5623,7 @@ namespace GIS.Models
 				this._ThamDinhs.Assign(value);
 			}
 		}
-
-        [DisplayName("Tổ chức")]
+		
 		[Association(Name="ToChuc_GiayPhepHoatDong", Storage="_ToChuc", ThisKey="MaToChuc", OtherKey="MaToChuc", IsForeignKey=true, DeleteRule="CASCADE")]
 		public ToChuc ToChuc
 		{
@@ -5769,8 +5657,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Tình trạng giấy phép")]
+		
 		[Association(Name="TinhTrangGiayPhep_GiayPhepHoatDong", Storage="_TinhTrangGiayPhep", ThisKey="TinhTrang", OtherKey="MaTinhTrang", IsForeignKey=true)]
 		public TinhTrangGiayPhep TinhTrangGiayPhep
 		{
@@ -5877,8 +5764,7 @@ namespace GIS.Models
 			this._GiayPhepHoatDongs = new EntitySet<GiayPhepHoatDong>(new Action<GiayPhepHoatDong>(this.attach_GiayPhepHoatDongs), new Action<GiayPhepHoatDong>(this.detach_GiayPhepHoatDongs));
 			OnCreated();
 		}
-
-        [DisplayName("Mã tình trạng")]
+		
 		[Column(Storage="_MaTinhTrang", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int MaTinhTrang
 		{
@@ -5898,8 +5784,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Diễn giải")]
+		
 		[Column(Storage="_DienGiai", DbType="NVarChar(50)")]
 		public string DienGiai
 		{
@@ -5919,8 +5804,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách giấy phép hoạt động")]
+		
 		[Association(Name="TinhTrangGiayPhep_GiayPhepHoatDong", Storage="_GiayPhepHoatDongs", ThisKey="MaTinhTrang", OtherKey="TinhTrang")]
 		public EntitySet<GiayPhepHoatDong> GiayPhepHoatDongs
 		{
@@ -5966,8 +5850,7 @@ namespace GIS.Models
 			entity.TinhTrangGiayPhep = null;
 		}
 	}
-
-    [DisplayName("Tình trạng xét duyệt")]
+	
 	[Table(Name="dbo.TinhTrangXetDuyet")]
 	public partial class TinhTrangXetDuyet : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5995,8 +5878,7 @@ namespace GIS.Models
 			this._DangKyHoatDongs = new EntitySet<DangKyHoatDong>(new Action<DangKyHoatDong>(this.attach_DangKyHoatDongs), new Action<DangKyHoatDong>(this.detach_DangKyHoatDongs));
 			OnCreated();
 		}
-
-        [DisplayName("Mã tình trạng")]
+		
 		[Column(Storage="_MaTinhTrang", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int MaTinhTrang
 		{
@@ -6016,8 +5898,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Diễn giải")]
+		
 		[Column(Storage="_DienGiai", DbType="NVarChar(50)")]
 		public string DienGiai
 		{
@@ -6037,8 +5918,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách hoạt động")]
+		
 		[Association(Name="TinhTrangXetDuyet_DangKyHoatDong", Storage="_DangKyHoatDongs", ThisKey="MaTinhTrang", OtherKey="TinhTrang")]
 		public EntitySet<DangKyHoatDong> DangKyHoatDongs
 		{
@@ -6112,8 +5992,7 @@ namespace GIS.Models
 			this._LoaiSanPhams = new EntitySet<LoaiSanPham>(new Action<LoaiSanPham>(this.attach_LoaiSanPhams), new Action<LoaiSanPham>(this.detach_LoaiSanPhams));
 			OnCreated();
 		}
-
-        [DisplayName("Kiểu sản phẩm")]
+		
 		[Column(Storage="_MaKieuSanPham", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MaKieuSanPham
 		{
@@ -6133,8 +6012,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Diễn giải")]
+		
 		[Column(Storage="_DienGiai", DbType="NVarChar(50)")]
 		public string DienGiai
 		{
@@ -6154,8 +6032,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách loại sản phẩm")]
+		
 		[Association(Name="KieuSanPham_LoaiSanPham", Storage="_LoaiSanPhams", ThisKey="MaKieuSanPham", OtherKey="KieuSanPham")]
 		public EntitySet<LoaiSanPham> LoaiSanPhams
 		{
@@ -6229,8 +6106,7 @@ namespace GIS.Models
 			this._ThamDinhs = new EntitySet<ThamDinh>(new Action<ThamDinh>(this.attach_ThamDinhs), new Action<ThamDinh>(this.detach_ThamDinhs));
 			OnCreated();
 		}
-
-        [DisplayName("Mã loại thẩm định")]
+		
 		[Column(Storage="_MALOAITHAMDINH", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int MALOAITHAMDINH
 		{
@@ -6250,8 +6126,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Diễn giải")]
+		
 		[Column(Storage="_DIENGIAI", DbType="NVarChar(50)")]
 		public string DIENGIAI
 		{
@@ -6271,8 +6146,7 @@ namespace GIS.Models
 				}
 			}
 		}
-
-        [DisplayName("Danh sách thẩm định")]
+		
 		[Association(Name="LoaiThamDinh_ThamDinh", Storage="_ThamDinhs", ThisKey="MALOAITHAMDINH", OtherKey="LoaiThamDinh")]
 		public EntitySet<ThamDinh> ThamDinhs
 		{
@@ -6316,6 +6190,120 @@ namespace GIS.Models
 		{
 			this.SendPropertyChanging();
 			entity.LoaiThamDinh1 = null;
+		}
+	}
+	
+	[Table(Name="dbo.TinhTrangTaiKhoan")]
+	public partial class TinhTrangTaiKhoan : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaTinhTrang;
+		
+		private string _DienGiai;
+		
+		private EntitySet<TaiKhoan> _TaiKhoans;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaTinhTrangChanging(int value);
+    partial void OnMaTinhTrangChanged();
+    partial void OnDienGiaiChanging(string value);
+    partial void OnDienGiaiChanged();
+    #endregion
+		
+		public TinhTrangTaiKhoan()
+		{
+			this._TaiKhoans = new EntitySet<TaiKhoan>(new Action<TaiKhoan>(this.attach_TaiKhoans), new Action<TaiKhoan>(this.detach_TaiKhoans));
+			OnCreated();
+		}
+		
+		[Column(Storage="_MaTinhTrang", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int MaTinhTrang
+		{
+			get
+			{
+				return this._MaTinhTrang;
+			}
+			set
+			{
+				if ((this._MaTinhTrang != value))
+				{
+					this.OnMaTinhTrangChanging(value);
+					this.SendPropertyChanging();
+					this._MaTinhTrang = value;
+					this.SendPropertyChanged("MaTinhTrang");
+					this.OnMaTinhTrangChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DienGiai", DbType="NVarChar(50)")]
+		public string DienGiai
+		{
+			get
+			{
+				return this._DienGiai;
+			}
+			set
+			{
+				if ((this._DienGiai != value))
+				{
+					this.OnDienGiaiChanging(value);
+					this.SendPropertyChanging();
+					this._DienGiai = value;
+					this.SendPropertyChanged("DienGiai");
+					this.OnDienGiaiChanged();
+				}
+			}
+		}
+		
+		[Association(Name="TinhTrangTaiKhoan_TaiKhoan", Storage="_TaiKhoans", ThisKey="MaTinhTrang", OtherKey="TinhTrang")]
+		public EntitySet<TaiKhoan> TaiKhoans
+		{
+			get
+			{
+				return this._TaiKhoans;
+			}
+			set
+			{
+				this._TaiKhoans.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_TaiKhoans(TaiKhoan entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhTrangTaiKhoan = this;
+		}
+		
+		private void detach_TaiKhoans(TaiKhoan entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhTrangTaiKhoan = null;
 		}
 	}
 }
