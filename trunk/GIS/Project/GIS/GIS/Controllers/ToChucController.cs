@@ -39,7 +39,8 @@ namespace GIS.Controllers
 
         public ActionResult List(int page)
         {
-            return View(new ToChucListViewModel(page));
+            ViewData["page"] = page;
+            return View();
         }
 
         public ActionResult ListData(string sidx, string sord, int page, int rows)
@@ -153,12 +154,13 @@ namespace GIS.Controllers
         public ActionResult Edit(int id, FormCollection collection)
         {
             ToChuc tochuc = _tochucRepository.GetToChucByID(Convert.ToInt32(Request.Form["MaToChuc"]));             
-            LoaiHinhToChuc lhtc = _tochucRepository.getLoaiHinh(tochuc);               
+           
             try
             {
                 tochuc.TruSoChinh =  Request.Form["TruSoChinh"];
                 tochuc.TongSoCanBo = Convert.ToInt32(Request.Form["TongSoCanBo"]);
                 tochuc.SoTaiKhoan = Request.Form["SoTaiKhoan"];
+                tochuc.LoaiHinhToChuc = _loaihinhtochucRepository.GetLoaiHinhToChucByID(Convert.ToInt16(Request.Form["MaLoaiToChuc"]));
                 tochuc.GiayPhepKinhDoanh = Request.Form["GiayPhepKinhDoanh"];
                 tochuc.NguoiDaiDien = Request.Form["NguoiDaiDien"];
                 tochuc.DienThoai = Request.Form["DienThoai"];
