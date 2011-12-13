@@ -333,6 +333,11 @@ div#title
 	float: left;
 }
 
+.editor-field input
+{
+    width : 15em;
+    }
+    
 .editor-row .submit
 {
 	margin-left: 12em;
