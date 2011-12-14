@@ -34,40 +34,47 @@
 	width: 410px;
 }
 
-.span
+.formVertical .span
 {
 	float: left;
 }
 
-.w16
+.formVertical .w16
 {
 	width: 630px;
 }
 
-.w4
+.formVertical .w4
 {
 	width: 170px;
 }
 
-input[type=text], select
+.formVertical input[type=text], .formVertical select
 {
 	border: solid 1px;
 	padding: 2px;
 	background: #efffef;
 }
 
-input[type=text].w23 { width: 230px; }
+.formVertical input[type=text].w23 { width: 230px; }
 
-select.w23 { width: 236px; }
+.formVertical select.w23 { width: 236px; }
 
-input[type=file] { width: 406px; }
+.formVertical input[type=file] { width: 406px; }
 
 input[type=submit].formVertical { margin-left: 200px }
 
 .multiselectable { width:500px; display:block; overflow: hidden; width: 100%; }
 .multiselectable label { line-height: 24px; }
-.multiselectable select { height: 150px; width: 100% }
+.multiselectable select { height: 150px; width: 100%; overflow: auto }
 .multiselectable div { width: 200px; float:left; display: inline; }
 .multiselectable div * { display: block; margin: 0 auto; }
 .multiselectable .m-selectable-controls { margin-top: 3em; width: 50px; }
 .multiselectable .m-selectable-controls button { margin-top: 1em; }
+
+.gridpage a { padding: 5px 0 }
+.gridpage span.ui-icon {float: left; margin: 0 4px;}
+.gridpage span.ui-button-text {float: left; width: 80px;}
+.gridpage ul {margin: 0; padding: 0;}
+.gridpage li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+.gridpage .custom-fsize { font-size: 0.8em !important; }

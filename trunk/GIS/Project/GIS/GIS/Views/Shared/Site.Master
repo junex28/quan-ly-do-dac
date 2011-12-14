@@ -10,14 +10,18 @@
     <link href="../../Content/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
     <link href="../../Content/template/soria/soria.css" rel="stylesheet" type="text/css" />
     <link href="../../Content/superfish/superfish.css" rel="stylesheet" type="text/css" />
-    <link href="../../Content/ui.multiselect.css" rel="stylesheet" type="text/css" />
-
+    <link href="../../Content/ui.jqgrid.css" rel="stylesheet" type="text/css" />
+    
     <script src="../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
     <script src="../../Scripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
-
+    <!-- Script for multi select -->
     <script src="../../Scripts/multiselectable.js" type="text/javascript"></script>
+    <!-- Script for dropdown menu -->
     <script src="../../Scripts/superfish/hoverIntent.js" type="text/javascript"></script>
     <script src="../../Scripts/superfish/superfish.js" type="text/javascript"></script>
+    <!-- Script for grid table -->
+    <script src="../../Scripts/i18n/grid.locale-en.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.jqGrid.min.js" type="text/javascript"></script>
 	<asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
 </head>
 <body>
