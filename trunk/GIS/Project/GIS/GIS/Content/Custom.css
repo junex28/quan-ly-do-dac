@@ -72,6 +72,7 @@ input[type=submit].formVertical { margin-left: 200px }
 .multiselectable .m-selectable-controls { margin-top: 3em; width: 50px; }
 .multiselectable .m-selectable-controls button { margin-top: 1em; }
 
+.action-button { margin-bottom: 5px }
 .gridpage a { padding: 5px 0 }
 .gridpage span.ui-icon {float: left; margin: 0 4px;}
 .gridpage span.ui-button-text {float: left; width: 80px;}

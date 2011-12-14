@@ -15,10 +15,10 @@ namespace GIS.Controllers
         private IToChucRepository _tochucRepository;
         private ILoaiHinhToChucRepository _loaihinhtochucRepository;
         private ITaiKhoanRepository _taikhoanRepository;
-        
+
 
         public ToChucController()
-            : this(new ToChucRepository(),new LoaiHinhToChucRepository(), new TaiKhoanRepository())
+            : this(new ToChucRepository(), new LoaiHinhToChucRepository(), new TaiKhoanRepository())
         {
         }
 
@@ -50,7 +50,7 @@ namespace GIS.Controllers
             var pageSize = rows;
             var totalRecords = listToChucs.Count();
             var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
-            
+
             // Input page number greater than total page
             //if(page >totalPages && page !=1){
             //    pageIndex = 0;
@@ -71,37 +71,16 @@ namespace GIS.Controllers
                     select new
                     {
                         id = u.MaToChuc,
-                        cell = new String[]
-                       {   
-                           "<ul class='ui-widget icon-collection'>"+
-                           "<li class='ui-state-default ui-corner-all' title='Chi tiết'>"+
-                           "<a href='/ToChuc/Details/"+
-                           u.MaToChuc.ToString()+
-                           "'><span class='ui-icon ui-icon-document'></span></a>"+
-                           "</li>"+
-                           
-                           "<li class='ui-state-default ui-corner-all' title='Thay đổi'>"+
-                           "<a href='/ToChuc/Edit/"+
-                           u.MaToChuc.ToString()+
-                           "'><span class='ui-icon ui-icon-pencil'></span></a>"+
-                           "</li>"+
-                           
-                           "<li class='ui-state-default ui-corner-all' title='Xoá'>"+
-                           "<a href='/ToChuc/Xoa?id="+
-                           u.MaToChuc.ToString()+
-                           "'><span class='ui-icon ui-icon-trash'></span></a>"+
-                           "</li>"+
-                            "</ul>",
+                        cell = new string[] {
                            u.MaToChuc.ToString(),
-                           //CategoryName = "<a href=''>" + entity.CategoryName + "</a>",
-                           u.TenToChuc.ToString(),
-                           "LoaiHinhToChuc",
+                           u.TenToChuc,
+                           u.LoaiHinhToChuc.TenLoaiHinhToChuc,
                            "Sogiayphep",
                            "ThoiGianHetHan",
-                           u.DienThoai.ToString(),
-                           u.TruSoChinh.ToString()                            
-                       }
-                    }).ToArray()
+                           u.DienThoai,
+                           u.TruSoChinh
+                        }
+                    })
             };
 
             return Json(jsonData, JsonRequestBehavior.AllowGet);
@@ -118,13 +97,13 @@ namespace GIS.Controllers
             }
 
             ToChuc tochuc = _tochucRepository.GetToChucByID(id.Value);
-            
+
             if (tochuc == null)
             {
                 return new FileNotFoundResult { Message = "Không có tổ chức trên" };
             }
 
-            var modelview = new ToChucDetailViewModel { toChuc = tochuc};
+            var modelview = new ToChucDetailViewModel { toChuc = tochuc };
             return View(modelview);
         }
 
@@ -137,11 +116,11 @@ namespace GIS.Controllers
             var EditedToChuc = _tochucRepository.GetToChucByID(id);
             //LoaiHinhToChuc lhtc = tochucRepository.getLoaiHinh(tochuc);
             var LoaiHinhToChucList = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
-            
+
             var viewmodel = new ToChucDetailViewModel
             {
-               toChuc = EditedToChuc,
-               loaiHinh = LoaiHinhToChucList
+                toChuc = EditedToChuc,
+                loaiHinh = LoaiHinhToChucList
             };
 
             return View(viewmodel);
@@ -153,11 +132,11 @@ namespace GIS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            ToChuc tochuc = _tochucRepository.GetToChucByID(Convert.ToInt32(Request.Form["MaToChuc"]));             
-           
+            ToChuc tochuc = _tochucRepository.GetToChucByID(Convert.ToInt32(Request.Form["MaToChuc"]));
+
             try
             {
-                tochuc.TruSoChinh =  Request.Form["TruSoChinh"];
+                tochuc.TruSoChinh = Request.Form["TruSoChinh"];
                 tochuc.TongSoCanBo = Convert.ToInt32(Request.Form["TongSoCanBo"]);
                 tochuc.SoTaiKhoan = Request.Form["SoTaiKhoan"];
                 tochuc.LoaiHinhToChuc = _loaihinhtochucRepository.GetLoaiHinhToChucByID(Convert.ToInt16(Request.Form["MaLoaiToChuc"]));
@@ -241,23 +220,13 @@ namespace GIS.Controllers
 
             return View(tochuc);
         }
-   
+
         // HTTP POST: /Dinners/Delete/1
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Delete(int id, string confirmButton)
+        [HttpPost]
+        public ActionResult Delete(int[] ids)
         {
-            ToChuc tochuc = _tochucRepository.GetToChucByID(id);
-
-            if (tochuc == null)
-            {
-                return View("NotFound");
-            }
-
-            _tochucRepository.Delete(tochuc);
-            _tochucRepository.Save();
-
-            return View("Deleted");
+            return RedirectToAction("List");
         }
 
         protected override void HandleUnknownAction(string actionName)
