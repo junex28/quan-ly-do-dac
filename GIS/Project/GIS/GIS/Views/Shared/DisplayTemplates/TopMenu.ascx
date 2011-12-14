@@ -5,6 +5,10 @@
     foreach (var node in Model)
     {
         Writer.Write("<li>");
+        if (node.Controller.Equals("TaiKhoan"))
+        {
+            continue;
+        }
         if (node.IsCurrentNode || (node.IsInCurrentPath && !node.IsRootNode))
         {
             Writer.Write(Html.ActionLink(node.Title, node.Action, node.Controller, null, new { @class = "selected" }));

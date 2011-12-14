@@ -174,38 +174,38 @@ legend
 /* TABLE
 ----------------------------------------------------------*/
 
-table
+table.simple
 {
 	width: 100%;
 	border: solid 1px #19638A;
 	border-collapse: collapse;
 }
 
-table td, table th
+table.simple td, table th
 {
 	padding: 5px;
 	border: 0 none;
 	color: #222222;
 }
 
-table th
+table.simple th
 {
 	text-align: center;
 	background-color: #19638A;
 	color: #ffffff;
 }
 
-table tr td
+table.simple tr td
 {
 	background-color: #ffffff;
 }
 
-table tr.even td
+table.simple tr.even td
 {
 	background-color: #dddddd;
 }
 
-table tr:hover td
+table.simple tr:hover td
 {
 	background-color: #cccccc;
 }
