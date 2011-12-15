@@ -31,7 +31,7 @@
 
 .formVertical dl dd
 {
-	width: 410px;
+	width: 460px;
 }
 
 .formVertical .span
@@ -56,9 +56,9 @@
 	background: #efffef;
 }
 
-.formVertical input[type=text].w23 { width: 230px; }
+.formVertical dd input[type=text] { width: 230px; }
 
-.formVertical select.w23 { width: 236px; }
+.formVertical dd select { width: 236px; }
 
 .formVertical input[type=file] { width: 406px; }
 

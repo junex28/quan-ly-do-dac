@@ -17,19 +17,9 @@ namespace GIS
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "DSToChuc",
-                "ToChuc",
-                new { controller = "ToChuc", action = "List", page = 1 });
-
-            routes.MapRoute(
                 "PagingToChuc",
                 "ToChuc/Trang/{page}",
                 new { controller = "ToChuc", action = "List", page = 1 });
-
-            routes.MapRoute(
-                "DeleteToChuc",
-                "ToChuc/Xoa/{id}",
-                new { controller = "ToChuc", action = "Delete", id = UrlParameter.Optional });
 
             routes.MapRoute(
                 "Default", // Route name

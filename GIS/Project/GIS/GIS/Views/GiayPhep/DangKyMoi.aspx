@@ -11,7 +11,7 @@
         <div class="span subContent">
 			<dl class="span w16">
 				<dt class="w4"><label>Tên tổ chức</label></dt>
-				<dd><input type="text" class="w23" /></dd>
+				<dd><input type="text" /></dd>
 			</dl>
 			<dl class="span w16">
 				<dt class="w4"><label>Loại tổ chức</label></dt>
@@ -19,35 +19,35 @@
 			</dl>
 			<dl class="span w16">
 				<dt class="w4"><label>Người đại diện</label></dt>
-				<dd><input type="text" class="w23" /></dd>
+				<dd><input type="text" /></dd>
 			</dl>
 			<dl class="span w16">
 				<dt class="w4"><label>Số cán bộ</label></dt>
-				<dd><input type="text" class="w23" /></dd>
+				<dd><input type="text" /></dd>
 			</dl>
 			<dl class="span w16">
 				<dt class="w4"><label>QDDTL/GPKD</label></dt>
-				<dd><input type="text" class="w23" /></dd>
+				<dd><input type="text" /></dd>
 			</dl>
 			<dl class="span w16">
 				<dt class="w4"><label>Email</label></dt>
-				<dd><input type="text" class="w23" /></dd>
+				<dd><input type="text" /></dd>
 			</dl>
 			<dl class="span w16">
 				<dt class="w4"><label>Trụ sở chính</label></dt>
-				<dd><input type="text" class="w23" /></dd>
+				<dd><input type="text" /></dd>
 			</dl>
 			<dl class="span w16">
 				<dt class="w4"><label>Số tài khoản</label></dt>
-				<dd><input type="text" class="w23" /></dd>
+				<dd><input type="text" /></dd>
 			</dl>
 			<dl class="span w16">
 				<dt class="w4"><label>Số điện thoại</label></dt>
-				<dd><input type="text" class="w23" /></dd>
+				<dd><input type="text" /></dd>
 			</dl>
 			<dl class="span w16">
 				<dt class="w4"><label>Fax</label></dt>
-				<dd><input type="text" class="w23" /></dd>
+				<dd><input type="text" /></dd>
 			</dl>
         </div>
     </fieldset>
@@ -66,9 +66,10 @@
 			<input type="file" />
         </div>
     </fieldset>
-	<input class="formVertical jui-button" type="submit" value="Đăng ký" />
+	<input class="formVertical" type="submit" value="Đăng ký" />
     <script type="text/javascript">
         $(function() {
+            $("input[type=submit]").button();
             $(".multiselect").multiselectable({
                 selectedLabel: 'Đã được cấp phép',
                 selectableLabel: 'Chưa được cấp phép'
