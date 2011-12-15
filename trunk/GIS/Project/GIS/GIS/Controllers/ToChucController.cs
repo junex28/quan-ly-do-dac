@@ -7,6 +7,7 @@ using GIS.Models;
 using GIS.Helpers;
 using GIS.ViewModels;
 using System.Linq.Dynamic;
+using System.ComponentModel;
 
 namespace GIS.Controllers
 {
@@ -15,7 +16,6 @@ namespace GIS.Controllers
         private IToChucRepository _tochucRepository;
         private ILoaiHinhToChucRepository _loaihinhtochucRepository;
         private ITaiKhoanRepository _taikhoanRepository;
-
 
         public ToChucController()
             : this(new ToChucRepository(), new LoaiHinhToChucRepository(), new TaiKhoanRepository())
@@ -29,15 +29,7 @@ namespace GIS.Controllers
             this._taikhoanRepository = taikhoanRepository;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-        //
-        // GET: /ToChuc/
-        //      /ToChuc/p/2
-
-        public ActionResult List(int page)
+        public ActionResult Index([DefaultValue(1)] int page)
         {
             ViewData["page"] = page;
             return View();
@@ -89,14 +81,9 @@ namespace GIS.Controllers
         //
         // GET: /Dinners/Details/5
 
-        public ActionResult Details(int? id)
+        public ActionResult Detail(int id)
         {
-            if (id == null)
-            {
-                return new FileNotFoundResult { Message = "Không có tổ chức trên" };
-            }
-
-            ToChuc tochuc = _tochucRepository.GetToChucByID(id.Value);
+            ToChuc tochuc = _tochucRepository.GetToChucByID(id);
 
             if (tochuc == null)
             {

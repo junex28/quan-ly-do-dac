@@ -1,136 +1,113 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<GIS.ViewModels.ToChucDetailViewModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<GIS.ViewModels.ToChucDetailViewModel>" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Thay đổi thông tin tổ chức</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="../../Content/redmond/jquery-ui-1.8.16.custom.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="../../Content/ui.jqgrid.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="../../Content/Site.css" />
+<asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">
+    Thay đổi thông tin tổ chức
+</asp:Content>
 
-    <script src="../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+<asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
+    <script type="text/javascript">
+        $(function() {
+            $("input[type=submit]").button();
+            $('#danhsachButton').button({
+                icons:
+                    {
+                        primary: "ui-icon-document"
+                    }
+            });
+        });
+    </script>
+</asp:Content>
 
-    <script src="../../Scripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
-
-</head>
-<body>
-    <% using (Html.BeginForm())
-       {%>
+<asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
     <%= Html.ValidationSummary(true) %>
-    <fieldset class="editor-form">
-        <legend>Tổ chức</legend>
-        <%= Html.Hidden("MaToChuc",Model.toChuc.MaToChuc) %>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.TenToChuc) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.TextBox("TenToChuc",Model.toChuc.TenToChuc, new { @disabled = "disabled" })%>
-                <%= Html.ValidationMessageFor(model => model.toChuc.TenToChuc)%>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.GiayPhepKinhDoanh) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.TextBox("GiayPhepKinhDoanh",Model.toChuc.GiayPhepKinhDoanh)%>
-                <%= Html.ValidationMessageFor(model => model.toChuc.GiayPhepKinhDoanh)%>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label" disabled='disabled'>
-                <%= Html.LabelFor(model => model.toChuc.LoaiHinhToChuc.TenLoaiHinhToChuc) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.DropDownList("MaLoaiToChuc",new SelectList(Model.loaiHinh,"MaLoaiHinhToChuc","TenLoaiHinhToChuc",Model.toChuc.MaLoaiHinhToChuc)) %>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.TruSoChinh) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.TextBox("TruSoChinh",Model.toChuc.TruSoChinh)%>
-                <%= Html.ValidationMessageFor(model => model.toChuc.TruSoChinh)%>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.NguoiDaiDien) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.TextBox("NguoiDaiDien",Model.toChuc.NguoiDaiDien)%>
-                <%= Html.ValidationMessageFor(model => model.toChuc.NguoiDaiDien)%>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.DienThoai) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.TextBox("DienThoai",Model.toChuc.DienThoai)%>
-                <%= Html.ValidationMessageFor(model => model.toChuc.NguoiDaiDien)%>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.Email) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.TextBox("Email", Model.toChuc.Email)%>
-                <%= Html.ValidationMessageFor(model => model.toChuc.Email)%>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.Fax) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.TextBox("Fax",Model.toChuc.Fax)%>
-                <%= Html.ValidationMessageFor(model => model.toChuc.Fax)%>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.SoTaiKhoan) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.TextBox("SoTaiKhoan",Model.toChuc.SoTaiKhoan)%>
-                (* Ngân hàng VietcomBank)
-                <%= Html.ValidationMessageFor(model => model.toChuc.SoTaiKhoan)%>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.TongSoCanBo) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.TextBox("TongSoCanBo",Model.toChuc.TongSoCanBo)%>
-                <%= Html.ValidationMessageFor(model => model.toChuc.TongSoCanBo)%>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.KichHoat) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.RadioButton("KichHoat",true, Model.toChuc.KichHoat == true)%>
-                Bật
-                <%= Html.RadioButton("KichHoat", false, Model.toChuc.KichHoat == false)%>
-                Tắt
-            </div>
-        </div>
-        <!--div class="editor-field">
-                <--%= Html.CheckBoxFor(model => model.toChuc.KichHoat)%>
-            </div-->
-        <div class="editor-row">
-            <input class="submit" type="submit" value="Lưu lại" />
-        </div>
-    </fieldset>
-    <% } %>
-    <div>
-        <%= Html.ActionLink("Quay về", "Index") %>
+    
+    <div class="action-button">
+        <%= Html.ActionLink("Danh sách tổ chức", "Index", null, new { id = "danhsachButton" })%>
     </div>
-</body>
-</html>
+    <% using (Html.BeginForm()) {%>
+        <fieldset class="formVertical">
+            <div class="span subHeader"><h3>Thông Tin Chung </h3></div>
+            <div class="span subContent">
+			    <dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.TenToChuc) %></dt>
+                    <dd>
+                        <%= Html.TextBox("TenToChuc",Model.toChuc.TenToChuc, new { @disabled = "disabled" })%>
+                        <%= Html.ValidationMessageFor(model => model.toChuc.TenToChuc)%>
+                    </dd>
+                </dl>
+                <dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.GiayPhepKinhDoanh) %></dt>
+				    <dd>
+				        <%= Html.TextBox("GiayPhepKinhDoanh",Model.toChuc.GiayPhepKinhDoanh)%>
+                        <%= Html.ValidationMessageFor(model => model.toChuc.GiayPhepKinhDoanh)%>
+				    </dd>
+				</dl>
+                <dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.LoaiHinhToChuc.TenLoaiHinhToChuc) %></dt>
+				    <dd>
+                        <%= Html.DropDownList("MaLoaiToChuc", new SelectList(Model.loaiHinh, "MaLoaiHinhToChuc", "TenLoaiHinhToChuc", Model.toChuc.MaLoaiHinhToChuc)) %>
+				    </dd>
+				</dl>
+                <dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.TruSoChinh) %></dt>
+				    <dd>
+				        <%= Html.TextBox("TruSoChinh",Model.toChuc.TruSoChinh)%>
+                        <%= Html.ValidationMessageFor(model => model.toChuc.TruSoChinh)%>
+				    </dd>
+				</dl>
+                <dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.NguoiDaiDien) %></dt>
+				    <dd>
+				        <%= Html.TextBox("NguoiDaiDien",Model.toChuc.NguoiDaiDien)%>
+                        <%= Html.ValidationMessageFor(model => model.toChuc.NguoiDaiDien)%>
+				    </dd>
+				</dl>
+				<dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.DienThoai) %></dt>
+				    <dd>
+				        <%= Html.TextBox("DienThoai",Model.toChuc.DienThoai)%>
+                        <%= Html.ValidationMessageFor(model => model.toChuc.NguoiDaiDien)%>
+				    </dd>
+				</dl>
+                <dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.Email) %></dt>
+				    <dd>
+				        <%= Html.TextBox("Email", Model.toChuc.Email)%>
+                        <%= Html.ValidationMessageFor(model => model.toChuc.Email)%>
+				    </dd>
+				</dl>
+				<dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.Fax) %></dt>
+				    <dd>
+				        <%= Html.TextBox("Fax",Model.toChuc.Fax)%>
+                        <%= Html.ValidationMessageFor(model => model.toChuc.Fax)%>
+				    </dd>
+				</dl>
+				<dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.SoTaiKhoan) %></dt>
+				    <dd>
+				        <%= Html.TextBox("SoTaiKhoan",Model.toChuc.SoTaiKhoan)%> (* Ngân hàng VietcomBank)
+                        <%= Html.ValidationMessageFor(model => model.toChuc.SoTaiKhoan)%>
+				    </dd>
+				</dl>
+                <dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.TongSoCanBo) %></dt>
+                    <dd>
+                        <%= Html.TextBox("TongSoCanBo",Model.toChuc.TongSoCanBo)%>
+                        <%= Html.ValidationMessageFor(model => model.toChuc.TongSoCanBo)%>
+                    </dd>
+                </dl>
+                <dl class="span w16">
+				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.KichHoat) %></dt>
+                    <dd>
+                        <%= Html.RadioButton("KichHoat",true, Model.toChuc.KichHoat == true)%>
+                        Bật
+                        <%= Html.RadioButton("KichHoat", false, Model.toChuc.KichHoat == false)%>
+                        Tắt
+                    </dd>
+                </dl>
+            </div>
+        </fieldset>
+        <input class="formVertical" type="submit" value="Lưu lại" />
+    <% } %>
+</asp:Content>

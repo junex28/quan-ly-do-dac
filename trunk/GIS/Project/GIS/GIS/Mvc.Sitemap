@@ -2,11 +2,18 @@
 <mvcSiteMap xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-2.0" enableLocalization="true">
   <mvcSiteMapNode title="Trang chủ" controller="TrangChu" action="Index" changeFrequency="Always" updatePriority="Normal">
     <mvcSiteMapNode title="WebGIS" controller="GIS" action="Index" changeFrequency="Always" updatePriority="Normal" />
-    <mvcSiteMapNode title="Đăng ký" controller="GiayPhep" action="Index" changeFrequency="Always" updatePriority="Normal">
-      <mvcSiteMapNode title="Đăng ký giấy phép mới" controller="GiayPhep" action="DangKyMoi" />
-      <mvcSiteMapNode title="Đăng ký gia hạn" controller="GiayPhep" action="GiaHan" />
-      <mvcSiteMapNode title="Đăng ký bổ sung hoạt động" controller="GiayPhep" action="BoSungHoatDong" />
-      <mvcSiteMapNode title="Bổ sung thông tin" controller="GiayPhep" action="BoSungThongTin" />
+    <mvcSiteMapNode title="Giấy phép" controller="GiayPhep" action="Index" changeFrequency="Always" updatePriority="Normal" />
+    <mvcSiteMapNode title="Quản lý" controller="QuanLy" action="Index"  changeFrequency="Always" updatePriority="Normal">
+      <mvcSiteMapNode title="Quản lý tài khoản" controller="QuanLy" action="TaiKhoan" />
+      <mvcSiteMapNode title="Quản lý tổ chức" controller="ToChuc" action="Index">
+        <mvcSiteMapNode title="Thông tin" controller="ToChuc" action="Details" />
+        <mvcSiteMapNode title="Sửa thông tin" controller="ToChuc" action="Edit" />
+        <mvcSiteMapNode title="Thêm tổ chức" controller="QuanLy" action="Create" />
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Quản lý công trình" controller="QuanLy" action="CongTrinh" />
+      <mvcSiteMapNode title="Quản lý giấy phép" controller="QuanLy" action="GiayPhep" />
     </mvcSiteMapNode>
+    <mvcSiteMapNode title="Đăng nhập" controller="TaiKhoan" action="DangNhap"  changeFrequency="Always" updatePriority="Normal" />
+    <mvcSiteMapNode title="Đăng ký" controller="TaiKhoan" action="DangKy"  changeFrequency="Always" updatePriority="Normal" />
   </mvcSiteMapNode>
 </mvcSiteMap>

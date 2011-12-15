@@ -13,7 +13,7 @@ namespace GIS.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("DangKyMoi");
         }
 
         public ActionResult DangKyMoi()
