@@ -50,10 +50,14 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(function () {
+        $(function() {
             $('ul.sf-menu').superfish();
             $(".jui-tabs").tabs();
             $(".jui-button").button();
+            if ($(".contentLeft").children().length == 0) {
+                $(".contentLeft").remove();
+                $(".contentRight").css("left", $(".contentRight").css("right"));
+            }
         });
     </script>
 </body>
