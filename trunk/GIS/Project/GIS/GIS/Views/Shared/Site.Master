@@ -45,6 +45,7 @@
                 <%= Html.MvcSiteMap().Menu("LeftMenu", 1, 2, false, false) %>
             </div>
             <div class="contentRight">
+                <% Html.RenderPartial("SystemMessage"); %>
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
             </div>
         </div>
