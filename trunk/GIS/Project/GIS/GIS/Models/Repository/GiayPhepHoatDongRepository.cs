@@ -16,6 +16,13 @@ namespace GIS.Models
             return db.GiayPhepHoatDongs.AsQueryable();
         }
 
+        public IQueryable<GiayPhepHoatDong> GetGPHDByTinhTrang(int Id)
+        {
+            return from gp in db.GiayPhepHoatDongs
+                   where gp.TinhTrang == Id
+                   select gp; 
+        }
+
         public GiayPhepHoatDong GetGiayPhepHoatDongByID(int id)
         {
             return db.GiayPhepHoatDongs.SingleOrDefault(d => d.MaGiayPhepHoatDong == id);

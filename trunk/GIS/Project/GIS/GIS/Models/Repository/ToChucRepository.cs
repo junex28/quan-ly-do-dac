@@ -28,10 +28,10 @@ namespace GIS.Models
 
         public void Delete(ToChuc tochuc)
         {
-            db.ThietBis.DeleteAllOnSubmit(tochuc.ThietBis);
-            db.GiayPhepHoatDongs.DeleteAllOnSubmit(tochuc.GiayPhepHoatDongs);
-            db.BaoCaoHoatDongs.DeleteAllOnSubmit(tochuc.BaoCaoHoatDongs);
-            db.NhanLucs.DeleteAllOnSubmit(tochuc.NhanLucs);
+            //db.ThietBis.DeleteAllOnSubmit(tochuc.ThietBis);
+            //db.GiayPhepHoatDongs.DeleteAllOnSubmit(tochuc.GiayPhepHoatDongs);
+            //db.BaoCaoHoatDongs.DeleteAllOnSubmit(tochuc.BaoCaoHoatDongs);
+            //db.NhanLucs.DeleteAllOnSubmit(tochuc.NhanLucs);
             db.ToChucs.DeleteOnSubmit(tochuc);
         }
 
