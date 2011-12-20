@@ -18,13 +18,15 @@ namespace GIS.Controllers
     public class TaiKhoanController : Controller
     {
         public ITaiKhoanRepository _TaiKhoanRepository { get; set; }
+        public IFormsAuthenticationService _FormsService { get; set; }
         
 
-        public TaiKhoanController() : this(new TaiKhoanRepository()) { 
+        public TaiKhoanController() : this(new TaiKhoanRepository(), new FormsAuthenticationService()) { 
         }
         
-        public TaiKhoanController(ITaiKhoanRepository taikhoanRepository) {
-            _TaiKhoanRepository = taikhoanRepository; 
+        public TaiKhoanController(ITaiKhoanRepository taikhoanRepository, IFormsAuthenticationService formService) {
+            _TaiKhoanRepository = taikhoanRepository;
+            _FormsService = formService;
         }
 
         public ActionResult Index() {
@@ -35,6 +37,9 @@ namespace GIS.Controllers
         [HttpGet]
         public ActionResult Dangky()
         {
+            if (!String.IsNullOrEmpty(Session[Sessions.AccountID.ToString()].ToString())) {
+                return View("DangNhaped");
+            }
             return View();
         }
 
@@ -80,20 +85,7 @@ namespace GIS.Controllers
  
 
                 return View(model);
-            
-            // Tao user 
-            //MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email);
-            // if succes  then 
-            //{
-            //    Dang nhap
-            //     Redirect TrangChu
-            //}
-            //else
-            //{
-            //    Baoloi
-            //}
-            //Hien thi lai form dang ky 
-
+        
         }
 
         // **************************************
@@ -101,10 +93,10 @@ namespace GIS.Controllers
         // **************************************
         
         // 3. Dang xuat
-        public ActionResult Dangxuat()
+        public ActionResult DangXuat()
         {
-            // Repository.Dangxuat
-            // Quay ve trang chu
+            _FormsService.SignOut();
+            Session[Sessions.AccountID.ToString()] = null;
             return RedirectToAction("Index", "TrangChu");
         }
 
@@ -115,26 +107,41 @@ namespace GIS.Controllers
         public ActionResult Dangnhap()
         {
             // Form login
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public ActionResult DangNhap(LogOnViewModel model, string returnUrl)
         {
-            // Truyen vao thong tin dang nhap, va duong dan truoc do yeu cau dang nhap
-            // Kiem tra tren form hop le
-                // Kiem tra duoi csdl
-                    // If hop le
-                    //  Redirect den trang yeu cau
-                    //  Hoac Redirect den trang chu
-                    // else 
-                    // Bao loi
-                        // Tra ve trang dang nhap voi model
+            int? accountID = null;
+            int? roleID = null; 
+            string username = String.Empty; 
+            if (ModelState.IsValid) {
+                if (_TaiKhoanRepository.ValidateUser(model.TenTaiKhoan, MD5Helper.GetHash(model.MatKhau),out accountID,out roleID,out username))
+                {
 
-            // If we got this far, something failed, redisplay form
+                    _FormsService.SignIn(model.TenTaiKhoan, model.GhiNho);                    
+                    Session[Sessions.AccountID.ToString()] = accountID;
+                    Session[Sessions.RoleID.ToString()] = roleID;
+                    Session[Sessions.UserName.ToString()] = username;
+                    
+                    if (returnUrl != null)
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "TrangChu");
+                    }
+                }
+                else {
+                    ModelState.AddModelError("","Tài khoản đăng nhập không hợp lệ");
+                }
+                     
+            }
             return View(model);
         }
+
     }
 }
 //public IFormsAuthenticationService FormsService { get; set; }
@@ -184,16 +191,7 @@ namespace GIS.Controllers
 //    return View(model);
 //}
 
-//// **************************************
-//// URL: /Account/LogOff
-//// **************************************
 
-//public ActionResult DangXuat()
-//{
-//    FormsService.SignOut();
-
-//    return RedirectToAction("Index", "TrangChu");
-//}
 
 //// **************************************
 //// URL: /Account/Register
