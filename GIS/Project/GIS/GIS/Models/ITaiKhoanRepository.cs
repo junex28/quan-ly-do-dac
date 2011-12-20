@@ -16,5 +16,8 @@ namespace GIS.Models
         void Save();
 
         MembershipCreateStatus CreateUser(TaiKhoan tk);
+        bool ValidateUser(String tentaikhoan, String matkhau, out int? accountid, out int? roleid, out string username);
+        //MembershipUser CreateUser(TaiKhoan tk);
+        //MembershipUser GetUser(String TenTaiKhoan);
     }
 }
