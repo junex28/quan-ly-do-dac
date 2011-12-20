@@ -43,10 +43,6 @@ namespace GIS.Controllers
             var totalRecords = listToChucs.Count();
             var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
 
-            // Input page number greater than total page
-            //if(page >totalPages && page !=1){
-            //    pageIndex = 0;
-            //} 
             // This is possible because I'm using the LINQ Dynamic Query Library
             var models = listToChucs
                     .OrderBy(sidx + " " + sord)
@@ -195,7 +191,23 @@ namespace GIS.Controllers
         [HttpPost]
         public ActionResult Delete(int[] ids)
         {
-            MessageHelper.CreateMessage(MessageType.Error, "Title", new List<string> { "message 1", "message 2" }, HttpContext.Response);
+            try
+            {
+                //List<String> listMsg = new List<string>();
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    ToChuc tochuc = _tochucRepository.GetToChucByID(ids[i]);
+                    //String strName = tochuc.TenToChuc;
+                    _tochucRepository.Delete(tochuc);
+                    //listMsg.Add("đã xóa tổ chức " + strName);
+                }
+                _tochucRepository.Save();
+                //MessageHelper.CreateMessage(MessageType.Highlight, "Title", listMsg, HttpContext.Response);
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.CreateMessage(MessageType.Error, "",new List<string>{"error when deleting"}, HttpContext.Response);
+            }
             return View("Index");
         }
     }
