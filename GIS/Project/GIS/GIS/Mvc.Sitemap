@@ -8,10 +8,14 @@
       <mvcSiteMapNode title="Quản lý tổ chức" controller="ToChuc" action="Index">
         <mvcSiteMapNode title="Thông tin" controller="ToChuc" action="Details" />
         <mvcSiteMapNode title="Sửa thông tin" controller="ToChuc" action="Edit" />
-        <mvcSiteMapNode title="Thêm tổ chức" controller="QuanLy" action="Create" />
-      </mvcSiteMapNode>
+        <mvcSiteMapNode title="Thêm tổ chức" controller="ToChuc" action="Create" />
+       </mvcSiteMapNode>
       <mvcSiteMapNode title="Quản lý công trình" controller="QuanLy" action="CongTrinh" />
-      <mvcSiteMapNode title="Quản lý giấy phép" controller="QuanLy" action="GiayPhep" />
+        <mvcSiteMapNode title="Quản lý giấy phép" controller="QLGiayPhep" action="Index" >
+            <mvcSiteMapNode title="Thông tin" controller="QLGiayPhep" action="Details" />
+            <mvcSiteMapNode title="Sửa thông tin" controller="QLGiayPhep" action="Edit" />
+            <mvcSiteMapNode title="Thêm giấy phép" controller="QLGiayPhep" action="Create" />
+        </mvcSiteMapNode>
     </mvcSiteMapNode>
     <mvcSiteMapNode title="Đăng nhập" controller="TaiKhoan" action="DangNhap"  changeFrequency="Always" updatePriority="Normal" />
     <mvcSiteMapNode title="Đăng ký" controller="TaiKhoan" action="DangKy"  changeFrequency="Always" updatePriority="Normal" />
