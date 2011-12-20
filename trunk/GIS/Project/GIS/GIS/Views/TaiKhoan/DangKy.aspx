@@ -12,25 +12,7 @@
     <div>
         <fieldset>
             <legend>Đăng ký tài khoản</legend>
-            <%--            
-        Validation Summary
-                TenTaiKhoan
-                [Pass=RetypePass]
-                [PassLen >=6]               
-                Pass
-                ReTypePass
-                [Kieu dinh dang email]
-                Email                
-                HoTen
-                CMND                
-                DiaChi
-                CoQuan
-                
-                Captcha
-                
-                Submit
-                --%>
-            <div class="editor-row">
+             <div class="editor-row">
                 <div class="editor-label">
                     <%= Html.LabelFor(m => m.TenTaiKhoan) %>
                 </div>
