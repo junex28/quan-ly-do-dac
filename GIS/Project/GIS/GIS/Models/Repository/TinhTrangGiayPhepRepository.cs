@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace GIS.Models.Repository
 {
-    public class TinhTrangGiayPhepRepository
+    public class TinhTrangGiayPhepRepository : ITinhTrangGiayPhepRepository
     {
         DDBDDataContext db = new DDBDDataContext();
 
