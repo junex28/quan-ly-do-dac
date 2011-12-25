@@ -37,7 +37,7 @@ namespace GIS.Controllers
         [HttpGet]
         public ActionResult Dangky()
         {
-            if (!String.IsNullOrEmpty(Session[Sessions.AccountID.ToString()].ToString())) {
+            if (Session[Sessions.AccountID.ToString()]!= null) {
                 return View("DangNhaped");
             }
             return View();
