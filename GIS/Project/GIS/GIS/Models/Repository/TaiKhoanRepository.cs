@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using System.Web.Mvc;
+using System.Security.Principal;
+using GIS.Helpers;
+using GIS.Models;
+using GIS.Controllers;
+
 
 namespace GIS.Models
 {
@@ -19,11 +25,6 @@ namespace GIS.Models
         {
             return db.TaiKhoans.SingleOrDefault(d => d.MaTaiKhoan == id);
         }
-
-        //public void Add(TaiKhoan TaiKhoan)
-        //{
-        //    db.TaiKhoans.InsertOnSubmit(TaiKhoan);
-        //}
 
         public void Delete(TaiKhoan TaiKhoan)
         {
@@ -94,38 +95,56 @@ namespace GIS.Models
 
         }
 
-
-        public bool ValidateUser(String tentaikhoan, String matkhau, out int? accountid, out int? roleid, out string username) {
-
-            accountid = null;
-            roleid = null;
-            username = string.Empty;
+        public TaiKhoan ValidateUser(String tentaikhoan, String matkhau) {
+            TaiKhoan tk = null;
             try
             {
                 if (tentaikhoan != null && !(tentaikhoan.Equals("")))
                 {
                     if (matkhau != null && !(matkhau.Equals("")))
                     {
-                        var tk = (from p in db.TaiKhoans
-                                  where p.TenTaiKhoan == tentaikhoan && p.MatKhau == matkhau
-                                  select p).Single();
+                        tk = (from p in db.TaiKhoans 
+                              join c in db.NhomNguoiDungs on p.NhomNguoiDung equals c.MaNhom 
+                              where p.TenTaiKhoan == tentaikhoan && p.MatKhau == matkhau
+                              select p).SingleOrDefault();
                         if (null != tk)
                         {
-                            accountid = tk.MaTaiKhoan;
-                            roleid = tk.NhomNguoiDung;
-                            username = tk.TenTaiKhoan;
-                            return true;
+                            return tk;
                         }
                     }
 
                 }
-                return false;
+                return tk;
             }
-            catch {
-                return false;
+            catch (Exception){
+                return tk;
             }
         }
+
+        public TaiKhoan GetTaiKhoanByName(String tentaikhoan)
+        {
+            return db.TaiKhoans.SingleOrDefault(d => d.TenTaiKhoan == tentaikhoan);
+        }
+
+        public bool IsInRole(TaiKhoan tk, string role) {
+            try
+            {
+                var rl = db.NhomNguoiDungs.Single(p => p.TenNhom == role);
+                int i = rl.MaNhom;
+                int c = (from a in db.TaiKhoans
+                         where a.MaTaiKhoan == tk.MaTaiKhoan && a.NhomNguoiDung1.MaNhom >= i
+                         select a.NhomNguoiDung1.TenNhom).Count();
+                if (c>0)
+                {
+                    return true;
+                }
+            }
+            catch { return false; }
+            return false;
+        }
     }
+
+
 
     #region services
     public interface IFormsAuthenticationService
@@ -136,16 +155,96 @@ namespace GIS.Models
 
     public class FormsAuthenticationService : IFormsAuthenticationService
     {
-        public void SignIn(string userName, bool createPersistentCookie)
+        public void SignIn(string userID, bool createPersistentCookie)
         {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Gia tri rong.", "Tên Tài Khoản");
+            if (String.IsNullOrEmpty(userID)) throw new ArgumentException("Gia tri rong.", "Tên Tài Khoản");
 
-            FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
+            FormsAuthentication.SetAuthCookie(userID, createPersistentCookie);
         }
 
         public void SignOut()
         {
             FormsAuthentication.SignOut();
+        }
+    }
+
+    public class EnhancedPrincipal : IPrincipal
+    {
+        private readonly IIdentity _identity;
+        private readonly TaiKhoan _taikhoan;
+        private readonly ITaiKhoanRepository _taikhoanRepository;
+        public static readonly EnhancedPrincipal Anonymous = new AnonymousPrincipal();
+
+        public EnhancedPrincipal(IIdentity identity, TaiKhoan userData)
+        {
+            this._identity = identity;
+            this._taikhoan = userData;
+            _taikhoanRepository = new TaiKhoanRepository();
+        }
+
+        public bool IsInRole(string role)
+        {
+            return _taikhoanRepository.IsInRole(_taikhoan, role);
+        }
+
+        public IIdentity Identity
+        {
+            get { return _identity; }
+        }
+
+        public TaiKhoan Data
+        {
+            get { return _taikhoan; }
+        }
+
+        private class AnonymousIdentity : IIdentity
+        {
+            public string Name
+            {
+                get { return "Anonymous"; }
+            }
+
+            public string AuthenticationType
+            {
+                get { return null; }
+            }
+
+            public bool IsAuthenticated
+            {
+                get { return false; }
+            }
+        }
+
+        private class AnonymousPrincipal : EnhancedPrincipal
+        {
+            public AnonymousPrincipal()
+                : base(new AnonymousIdentity(), new TaiKhoan
+                {
+                    MaTaiKhoan = 0,
+                    TenTaiKhoan = "Anonymous"
+                })
+            {
+            }
+        }
+    }
+
+    public class RoleFilterAttribute : FilterAttribute, IAuthorizationFilter
+    {
+        public string Roles { get; set; }
+
+        public void OnAuthorization(AuthorizationContext filterContext)
+        {
+            var controller = filterContext.Controller as BaseController;
+            
+            if (controller == null)
+                return;
+            foreach (string definedRole in this.Roles.Split(','))
+            {
+                if (definedRole.Equals(controller.CurrentUser.NhomNguoiDung.ToString()))
+                    return;
+            }
+
+            filterContext.Result = controller.RedirectToLogin();
         }
     }
     #endregion
