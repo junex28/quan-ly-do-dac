@@ -41,6 +41,7 @@
             </div>
         </div>
         <div class="content">
+            <asp:ContentPlaceHolder ID="MapCenter" runat="server" />
             <div class="contentLeft">
                 <%= Html.MvcSiteMap().Menu("LeftMenu", 1, 2, false, false) %>
             </div>

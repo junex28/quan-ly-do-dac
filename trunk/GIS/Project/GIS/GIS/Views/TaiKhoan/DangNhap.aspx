@@ -6,7 +6,8 @@
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Đăng nhập</h2>
-    <p>
+    <br />
+    <p>    
         Nhập Tên Tài Khoản và Mật Khẩu. <%= Html.ActionLink("đăng ký", "DangKy") %> nếu bạn chưa có tài khoản.
     </p>
 

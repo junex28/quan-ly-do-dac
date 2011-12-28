@@ -4,8 +4,8 @@
     Register
 </asp:Content>
 <asp:Content ID="registerContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Đăng ký tài khoản mới</h2>
+    <h2>Đăng ký tài khoản mới</h2>
+    <br />
     <% using (Html.BeginForm())
        { %>
     <%= Html.ValidationSummary(true, "Tài khoản tạo thất bại. Xin vui lòng sửa lỗi và nhập lại.") %>
@@ -91,11 +91,19 @@
                 </div>
                 <div class="editor-field">
                       <%= Html.Captcha("myCaptcha") %>
-                    <div>Nhập ký tự ở trên : <%= Html.TextBoxFor(m => m.Captcha) %></div>
-                    <%= Html.ValidationMessageFor( m => m.Captcha  ) %>
+                </div>
+            </div>
+            <div class="editor-row">
+                <div class="editor-label">
+                Nhập ký tự ở trên :
+                </div>                
+                <div class="editor-field">
+                      <%= Html.TextBoxFor(m => m.Captcha) %>
+                      <%= Html.ValidationMessageFor( m => m.Captcha  ) %>          
                 </div>
             </div>
             <p>
+                <input type="reset"  value="Làm mới" />
                 <input type="submit" value="Đăng ký" />
             </p>
         </fieldset>
