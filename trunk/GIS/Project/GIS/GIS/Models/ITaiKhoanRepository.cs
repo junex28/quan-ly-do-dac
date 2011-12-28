@@ -10,13 +10,15 @@ namespace GIS.Models
     {
         IQueryable<TaiKhoan> GetTaiKhoans();
         TaiKhoan GetTaiKhoanByID(int id);
+        TaiKhoan GetTaiKhoanByName(String tentaikhoan);
 
         int Add(TaiKhoan TaiKhoan);
         void Delete(TaiKhoan TaiKhoan);
         void Save();
 
         MembershipCreateStatus CreateUser(TaiKhoan tk);
-        bool ValidateUser(String tentaikhoan, String matkhau, out int? accountid, out int? roleid, out string username);
+        TaiKhoan ValidateUser(String tentaikhoan, String matkhau);
+        bool IsInRole(TaiKhoan taikhoan, string nhomquyen);
         //MembershipUser CreateUser(TaiKhoan tk);
         //MembershipUser GetUser(String TenTaiKhoan);
     }
