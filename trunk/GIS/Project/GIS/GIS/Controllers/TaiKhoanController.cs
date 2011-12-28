@@ -15,29 +15,34 @@ namespace GIS.Controllers
 {
 
     [HandleError]
-    public class TaiKhoanController : Controller
+    public class TaiKhoanController : BaseController
     {
         public ITaiKhoanRepository _TaiKhoanRepository { get; set; }
         public IFormsAuthenticationService _FormsService { get; set; }
-        
 
-        public TaiKhoanController() : this(new TaiKhoanRepository(), new FormsAuthenticationService()) { 
+
+        public TaiKhoanController()
+            : this(new TaiKhoanRepository(), new FormsAuthenticationService())
+        {
         }
-        
-        public TaiKhoanController(ITaiKhoanRepository taikhoanRepository, IFormsAuthenticationService formService) {
+
+        public TaiKhoanController(ITaiKhoanRepository taikhoanRepository, IFormsAuthenticationService formService)
+        {
             _TaiKhoanRepository = taikhoanRepository;
             _FormsService = formService;
         }
 
-        public ActionResult Index() {
-            return RedirectToAction("Dangky"); 
+        public ActionResult Index()
+        {
+            return RedirectToAction("Dangky");
         }
 
         // 1. Lan dau vao dangky
         [HttpGet]
         public ActionResult Dangky()
         {
-            if (Session[Sessions.AccountID.ToString()]!= null) {
+            if (Session[Sessions.AccountID.ToString()] != null)
+            {
                 return View("DangNhaped");
             }
             return View();
@@ -82,16 +87,16 @@ namespace GIS.Controllers
                 // Redisplay the view with an error message
                 ModelState.AddModelError("", "Captcha nhập sai - Xin vui lòng nhập lại");
             }
- 
 
-                return View(model);
-        
+
+            return View(model);
+
         }
 
         // **************************************
         // URL: /Taikhoan/Dangxuat
         // **************************************
-        
+
         // 3. Dang xuat
         public ActionResult DangXuat()
         {
@@ -113,156 +118,35 @@ namespace GIS.Controllers
         [HttpPost]
         public ActionResult DangNhap(LogOnViewModel model, string returnUrl)
         {
-            int? accountID = null;
-            int? roleID = null; 
-            string username = String.Empty; 
-            if (ModelState.IsValid) {
-                if (_TaiKhoanRepository.ValidateUser(model.TenTaiKhoan, MD5Helper.GetHash(model.MatKhau),out accountID,out roleID,out username))
-                {
+            if (!ModelState.IsValid) {
+                return View(model);
+            }
 
-                    _FormsService.SignIn(model.TenTaiKhoan, model.GhiNho);                    
-                    Session[Sessions.AccountID.ToString()] = accountID;
-                    Session[Sessions.RoleID.ToString()] = roleID;
-                    Session[Sessions.UserName.ToString()] = username;
-                    
-                    if (returnUrl != null)
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "TrangChu");
-                    }
+            TaiKhoan user = _TaiKhoanRepository.ValidateUser(model.TenTaiKhoan, MD5Helper.GetHash(model.MatKhau));
+            if (null != user) {
+                if (user.TinhTrang == 2)
+                {
+                    _FormsService.SignIn(user.MaTaiKhoan.ToString(), model.GhiNho);
+                    Session[Sessions.AccountID.ToString()] = user.MaTaiKhoan;
+                    Session[Sessions.UserName.ToString()] = user.TenTaiKhoan;
+                    Session[Sessions.RoleID.ToString()] = user.NhomNguoiDung1.TenNhom;
+                     if (returnUrl != null)
+                     {
+                         return Redirect(returnUrl);
+                     }
+                     else
+                     {
+                         return RedirectToAction("Index", "TrangChu");
+                     }
                 }
                 else {
-                    ModelState.AddModelError("","Tài khoản đăng nhập không hợp lệ");
+                    ModelState.AddModelError("", "Tài khoản đăng nhập chưa được kích hoạt.");
                 }
-                     
             }
+            ModelState.AddModelError("", "Tài khoản đăng nhập không hợp lệ");
             return View(model);
+    
         }
 
     }
 }
-//public IFormsAuthenticationService FormsService { get; set; }
-//public IMembershipService MembershipService { get; set; }
-
-//protected override void Initialize(RequestContext requestContext)
-//{
-//    if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
-//    if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
-
-//    base.Initialize(requestContext);
-//}
-
-//// **************************************
-//// URL: /Account/LogOn
-//// **************************************
-
-//public ActionResult DangNhap()
-//{
-//    return View();
-//}
-
-//[HttpPost]
-//public ActionResult DangNhap(LogOnModel model, string returnUrl)
-//{
-//    if (ModelState.IsValid)
-//    {
-//        if (MembershipService.ValidateUser(model.UserName, model.Password))
-//        {
-//            FormsService.SignIn(model.UserName, model.RememberMe);
-//            if (!String.IsNullOrEmpty(returnUrl))
-//            {
-//                return Redirect(returnUrl);
-//            }
-//            else
-//            {
-//                return RedirectToAction("Index", "Home");
-//            }
-//        }
-//        else
-//        {
-//            ModelState.AddModelError("", "The user name or password provided is incorrect.");
-//        }
-//    }
-
-//    // If we got this far, something failed, redisplay form
-//    return View(model);
-//}
-
-
-
-//// **************************************
-//// URL: /Account/Register
-//// **************************************
-//public ActionResult DangKy()
-//{
-//    ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-//    return View();
-//}
-
-//[HttpPost]
-//public ActionResult DangKy(RegisterModel model)
-//{
-//    if (ModelState.IsValid)
-//    {
-//        // Attempt to register the user
-//        MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email);
-
-//        if (createStatus == MembershipCreateStatus.Success)
-//        {
-//            FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
-//            return RedirectToAction("Index", "Home");
-//        }
-//        else
-//        {
-//            ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
-//        }
-//    }
-
-//    // If we got this far, something failed, redisplay form
-//    ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-//    return View(model);
-//}
-
-//// **************************************
-//// URL: /Account/ChangePassword
-//// **************************************
-
-//[Authorize]
-//public ActionResult DoiMatKhau()
-//{
-//    ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-//    return View();
-//}
-
-//[Authorize]
-//[HttpPost]
-//public ActionResult DoiMatKhau(ChangePasswordModel model)
-//{
-//    if (ModelState.IsValid)
-//    {
-//        if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
-//        {
-//            return RedirectToAction("ChangePasswordSuccess");
-//        }
-//        else
-//        {
-//            ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-//        }
-//    }
-
-//    // If we got this far, something failed, redisplay form
-//    ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-//    return View(model);
-//}
-
-//// **************************************
-//// URL: /Account/ChangePasswordSuccess
-//// **************************************
-
-//public ActionResult DoiMatKhauThanhCong()
-//{
-//    return View();
-//}

@@ -18,5 +18,9 @@ namespace GIS.Controllers
         {
             return View();
         }
+
+        public ActionResult NewIndex() {
+            return View();
+        }
     }
 }

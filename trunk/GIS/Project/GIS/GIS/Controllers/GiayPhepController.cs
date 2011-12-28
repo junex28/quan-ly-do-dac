@@ -10,7 +10,7 @@ namespace GIS.Controllers
     {
         //
         // GET: /GiayPhep/
-
+ 
         public ActionResult Index()
         {
             return RedirectToAction("DangKyMoi");

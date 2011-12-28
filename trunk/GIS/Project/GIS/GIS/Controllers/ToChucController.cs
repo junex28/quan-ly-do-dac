@@ -11,7 +11,7 @@ using System.ComponentModel;
 
 namespace GIS.Controllers
 {
-    public class ToChucController : Controller
+    public class ToChucController : BaseController
     {
         private IToChucRepository _tochucRepository;
         private ILoaiHinhToChucRepository _loaihinhtochucRepository;
@@ -29,6 +29,8 @@ namespace GIS.Controllers
             this._taikhoanRepository = taikhoanRepository;
         }
 
+        [Authorize]
+        [RoleFilter(Roles= "4")]
         public ActionResult Index([DefaultValue(1)] int page)
         {
             ViewData["page"] = page;
