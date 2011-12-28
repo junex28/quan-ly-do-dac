@@ -10,6 +10,7 @@ using System.Web.Security;
 using GIS.Models;
 using GIS.ViewModels;
 using GIS.Helpers;
+using Microsoft.Web.Mvc;
 
 namespace GIS.Controllers
 {
@@ -19,17 +20,37 @@ namespace GIS.Controllers
     {
         public ITaiKhoanRepository _TaiKhoanRepository { get; set; }
         public IFormsAuthenticationService _FormsService { get; set; }
+        public IToChucRepository _ToChucRepository { get; set; }
+        private RegisterViewModel _regData;
 
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var serialized = Request.Form["regData"];
+            if (serialized != null) // Form was posted containing serialized data
+            {
+                _regData = (RegisterViewModel)new MvcSerializer().Deserialize(serialized);
+                TryUpdateModel(_regData);
+            }
+            else
+                _regData = (RegisterViewModel)TempData["regData"] ?? new RegisterViewModel();
+        }
+
+        protected override void OnResultExecuted(ResultExecutedContext filterContext)
+        {
+            if (filterContext.Result is RedirectToRouteResult)
+                TempData["regData"] = _regData;
+        }
 
         public TaiKhoanController()
-            : this(new TaiKhoanRepository(), new FormsAuthenticationService())
+            : this(new TaiKhoanRepository(), new FormsAuthenticationService(), new ToChucRepository())
         {
         }
 
-        public TaiKhoanController(ITaiKhoanRepository taikhoanRepository, IFormsAuthenticationService formService)
+        public TaiKhoanController(ITaiKhoanRepository taikhoanRepository, IFormsAuthenticationService formService, IToChucRepository tochucRepository)
         {
             _TaiKhoanRepository = taikhoanRepository;
             _FormsService = formService;
+            _ToChucRepository = tochucRepository;
         }
 
         public ActionResult Index()
@@ -41,10 +62,6 @@ namespace GIS.Controllers
         [HttpGet]
         public ActionResult Dangky()
         {
-            if (Session[Sessions.AccountID.ToString()] != null)
-            {
-                return View("DangNhaped");
-            }
             return View();
         }
 
@@ -108,10 +125,14 @@ namespace GIS.Controllers
         // **************************************
         // URL: /Account/LogOn
         // **************************************
-
+        [HttpGet]
         public ActionResult Dangnhap()
         {
             // Form login
+            if (Request.IsAuthenticated) {
+                return View("NotAllowed");
+            }
+
             return View();
         }
 
@@ -146,6 +167,22 @@ namespace GIS.Controllers
             ModelState.AddModelError("", "Tài khoản đăng nhập không hợp lệ");
             return View(model);
     
+        }
+
+        [HttpGet]
+        public ActionResult ChiTiet() {
+            // Authenticated
+                try
+                {
+                     if (Request.IsAuthenticated) {
+                        TaiKhoan Model = this.CurrentUser;
+                        return View(Model);
+                     }
+                }
+                catch (Exception) { 
+                    MessageHelper.CreateMessage(MessageType.Error, "",new List<string>{"error when display user"}, HttpContext.Response);
+                }
+            return View();
         }
 
     }

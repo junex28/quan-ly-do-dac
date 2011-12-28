@@ -17,6 +17,7 @@ namespace GIS.Controllers
                 return principal == null ? null : principal.Data;
             }
         }
+
         public ActionResult RedirectToLogin() {
             return RedirectToAction("DangNhap", "TaiKhoan", new {returnUrl = Request.Path });
         }
