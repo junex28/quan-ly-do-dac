@@ -206,7 +206,7 @@ namespace GIS.Controllers
                 _tochucRepository.Save();
                 //MessageHelper.CreateMessage(MessageType.Highlight, "Title", listMsg, HttpContext.Response);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageHelper.CreateMessage(MessageType.Error, "",new List<string>{"error when deleting"}, HttpContext.Response);
             }
