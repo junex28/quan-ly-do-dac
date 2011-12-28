@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 namespace GIS.ViewModels
 {
+    [Serializable]
     [PropertiesMustMatch("MatKhau", "NhapLaiMatKhau", ErrorMessage = "Mật khẩu nhập lại không khớp.")]
     public class RegisterViewModel
     {
