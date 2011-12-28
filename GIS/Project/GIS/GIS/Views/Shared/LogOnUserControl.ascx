@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
+<%@ Import Namespace="GIS.Models" %>
 <% if (Request.IsAuthenticated) { %>
-    Chào <b><%= Html.Encode(Page.User.Identity.Name) %></b>! |
+    Chào <b><%=  Html.Encode(((EnhancedPrincipal)Page.User).Data.HoTen) %></b>! |
     <%= Html.ActionLink("Đăng xuất", "DangXuat", "TaiKhoan",null, new { onclick = "DangXuatConfirm()" })%>
 <% } else { %> 
     <%= Html.ActionLink("Đăng nhập", "DangNhap", "TaiKhoan") %> |
