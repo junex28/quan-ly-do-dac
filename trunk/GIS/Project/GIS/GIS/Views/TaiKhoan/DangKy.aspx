@@ -1,13 +1,16 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<GIS.ViewModels.RegisterViewModel>" %>
 <%@ Import Namespace="GIS.Helpers" %>
+
 <asp:Content ID="registerTitle" ContentPlaceHolderID="TitleContent" runat="server">
     Register
 </asp:Content>
 <asp:Content ID="registerContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Đăng ký tài khoản mới</h2>
     <br />
+    <% Html.EnableClientValidation(); %>    
     <% using (Html.BeginForm())
-       { %>
+       {  %>     
+    <%= Html.Serialize("regData", Model) %>          
     <%= Html.ValidationSummary(true, "Tài khoản tạo thất bại. Xin vui lòng sửa lỗi và nhập lại.") %>
     <div>
         <fieldset>
