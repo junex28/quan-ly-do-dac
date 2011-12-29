@@ -16,6 +16,11 @@ namespace GIS.Models
             return db.LoaiHinhToChucs.AsQueryable();
         }
 
+        public IEnumerable<LoaiHinhToChuc> GetLoaiHinhToChucs1()
+        {
+            return from lh in db.LoaiHinhToChucs select lh;
+        }
+
         public LoaiHinhToChuc GetLoaiHinhToChucByID(int id)
         {
             return db.LoaiHinhToChucs.SingleOrDefault(d => d.MaLoaiHinhToChuc == id);
