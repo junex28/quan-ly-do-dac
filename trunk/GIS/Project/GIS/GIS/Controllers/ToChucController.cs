@@ -28,9 +28,10 @@ namespace GIS.Controllers
             this._loaihinhtochucRepository = loaihinhtochucRepository;
             this._taikhoanRepository = taikhoanRepository;
         }
-
+      
         [Authorize]
         [RoleFilter(Roles= "4")]
+   
         public ActionResult Index([DefaultValue(1)] int page)
         {
             ViewData["page"] = page;
@@ -75,6 +76,47 @@ namespace GIS.Controllers
 
             return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        // create new tochuc
+        /// </summary>
+        /// <returns></returns>
+
+        public ActionResult Create()
+        {
+            var loaihinh = _loaihinhtochucRepository.GetLoaiHinhToChucs1();
+            
+           ViewData["loaihinh"] = new SelectList(loaihinh, "MaLoaiHinhToChuc", "TenLoaiHinhToChuc");
+           // ViewData["loaihinh"] = loaihinh;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(ToChuc model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+            var tc = new ToChuc
+            {
+                
+                TenToChuc = model.TenToChuc,
+                NguoiDaiDien = model.NguoiDaiDien,
+                TruSoChinh = model.TruSoChinh,
+                GiayPhepKinhDoanh = model.GiayPhepKinhDoanh,
+                SoTaiKhoan = model.SoTaiKhoan,
+                NgayXinPhep = DateTime.Now,
+                DienThoai = model.DienThoai,
+                Email = model.Email,
+                Fax = model.Fax,
+                KichHoat = model.KichHoat,
+                MaLoaiHinhToChuc = model.MaLoaiHinhToChuc,
+                TepDinhKem = model.TepDinhKem,
+                TongSoCanBo = model.TongSoCanBo
+            };
+            _tochucRepository.Add(tc);
+            _tochucRepository.Save();
+            return RedirectToAction("Index", new { tc.MaToChuc });
+        }
+
 
         //
         // GET: /Dinners/Details/5
@@ -82,7 +124,6 @@ namespace GIS.Controllers
         public ActionResult Detail(int id)
         {
             ToChuc tochuc = _tochucRepository.GetToChucByID(id);
-
             if (tochuc == null)
             {
                 return new FileNotFoundResult { Message = "Không có tổ chức trên" };
@@ -141,70 +182,20 @@ namespace GIS.Controllers
         }
 
 
-        //
-        // GET: /Dinners/Create
-
-        [Authorize]
-        public ActionResult Create()
-        {
-
-            //Dinner dinner = new Dinner()
-            //{
-            //    EventDate = DateTime.Now.AddDays(7)
-            //};
-
-            //return View(new DinnerFormViewModel(dinner));
-            return View();
-        }
-
-        //
-        // POST: /Dinners/Create
-
-        [AcceptVerbs(HttpVerbs.Post), Authorize]
-        public ActionResult Create(ToChuc tochuc)
-        {
-
-            //if (ModelState.IsValid)
-            //{
-
-            //    try
-            //    {
-            //        dinner.HostedBy = User.Identity.Name;
-
-            //        RSVP rsvp = new RSVP();
-            //        rsvp.AttendeeName = User.Identity.Name;
-            //        dinner.RSVPs.Add(rsvp);
-
-            //        dinnerRepository.Add(dinner);
-            //        dinnerRepository.Save();
-
-            //        return RedirectToAction("Details", new { id = dinner.DinnerID });
-            //    }
-            //    catch
-            //    {
-            //        ModelState.AddModelErrors(dinner.GetRuleViolations());
-            //    }
-            //}
-
-            //return View(new DinnerFormViewModel(dinner));
-            return View();
-        }
-
         [HttpPost]
         public ActionResult Delete(int[] ids)
         {
             try
             {
-                //List<String> listMsg = new List<string>();
                 for (int i = 0; i < ids.Length; i++)
                 {
                     ToChuc tochuc = _tochucRepository.GetToChucByID(ids[i]);
-                    //String strName = tochuc.TenToChuc;
+                
                     _tochucRepository.Delete(tochuc);
-                    //listMsg.Add("đã xóa tổ chức " + strName);
+                
                 }
                 _tochucRepository.Save();
-                //MessageHelper.CreateMessage(MessageType.Highlight, "Title", listMsg, HttpContext.Response);
+               
             }
             catch (Exception)
             {
