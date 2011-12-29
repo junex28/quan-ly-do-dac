@@ -9,7 +9,7 @@ namespace GIS.Models
     {
         IQueryable<LoaiHinhToChuc> GetLoaiHinhToChucs();
         LoaiHinhToChuc GetLoaiHinhToChucByID(int id);
-
+        IEnumerable<LoaiHinhToChuc> GetLoaiHinhToChucs1();
         void Add(LoaiHinhToChuc LoaiHinhToChuc);
         void Delete(LoaiHinhToChuc LoaiHinhToChuc);
         void Save();
