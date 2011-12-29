@@ -18,20 +18,26 @@ namespace GIS.Controllers
         private ITaiKhoanRepository _taikhoanRepository;
         private IGiayPhepHoatDongRepository _gphdRepository;
         private ITinhTrangGiayPhepRepository _ttgpRepository;
+        private IDangKyHoatDongRepository _dkhdRespository;
+        private IHoatDongRepository _hoatdongRespository;
 
        public QLGiayPhepController()
             : this(new ToChucRepository(), new TaiKhoanRepository(), new GiayPhepHoatDongRepository(),
-                        new TinhTrangGiayPhepRepository())
+                        new TinhTrangGiayPhepRepository(), new DangKyHoatDongRespository(),
+                        new HoatDongRespository())
         {
         }
 
        public QLGiayPhepController(IToChucRepository tochucRepository, ITaiKhoanRepository taikhoanRepository,
-           IGiayPhepHoatDongRepository gphdRepository, ITinhTrangGiayPhepRepository ttgpRepository)
+           IGiayPhepHoatDongRepository gphdRepository, ITinhTrangGiayPhepRepository ttgpRepository, 
+           IDangKyHoatDongRepository dkhdRespository, IHoatDongRepository hoatdongRepository)
         {
             this._tochucRepository = tochucRepository;
             this._taikhoanRepository = taikhoanRepository;
             this._gphdRepository = gphdRepository;
             this._ttgpRepository = ttgpRepository;
+            this._dkhdRespository = dkhdRespository;
+            this._hoatdongRespository = hoatdongRepository;
         }
         //
         // GET: /GiayPhep/
@@ -103,19 +109,20 @@ namespace GIS.Controllers
                return new FileNotFoundResult { Message = "Không có giấy phép trên trên" };
            }
 
-           return View(gphd);
+           var gp = gphd;
+           return View(gp);
        }
 
        public ActionResult Edit(int id)
        {
            var EditedGPHD = _gphdRepository.GetGiayPhepHoatDongByID(id);
-           //LoaiHinhToChuc lhtc = tochucRepository.getLoaiHinh(tochuc);
-           //var LoaiHinhToChucList = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
-
-           var viewmodel = new ToChucDetailViewModel
+           var dkhdList = _dkhdRespository.GetDangKyHDs(id);
+           var hoatdongList = _hoatdongRespository.GetHoatDongs();
+           var viewmodel = new GiayPhepDetailModel
            {
-               //toChuc = EditedToChuc,
-               //loaiHinh = LoaiHinhToChucList
+               gphd = EditedGPHD,
+               DangKy = dkhdList,
+               HoatDong = hoatdongList
            };
 
            return View(viewmodel);
