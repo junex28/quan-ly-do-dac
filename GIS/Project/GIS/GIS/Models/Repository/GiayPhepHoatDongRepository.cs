@@ -36,7 +36,7 @@ namespace GIS.Models
         public void Delete(GiayPhepHoatDong GiayPhepHoatDong)
         {
             db.DangKyHoatDongs.DeleteAllOnSubmit(GiayPhepHoatDong.DangKyHoatDongs);
-            db.ThamDinhs.DeleteAllOnSubmit(GiayPhepHoatDong.ThamDinhs);
+            //db.ThamDinhs.DeleteAllOnSubmit(GiayPhepHoatDong.ThamDinhs);
             db.GiayPhepHoatDongs.DeleteOnSubmit(GiayPhepHoatDong);
         }
 
