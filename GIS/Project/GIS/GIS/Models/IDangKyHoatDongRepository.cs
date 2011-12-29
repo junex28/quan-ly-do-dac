@@ -6,9 +6,9 @@ using System.Web;
 namespace GIS.Models
 {
     public interface IDangKyHoatDongRepository
-    {        
-        IQueryable<DangKyHoatDong> GetDangKyHoatDongs();
-        DangKyHoatDong GetDangKyHoatDongByID(int id);
+    {
+        IQueryable<DangKyHoatDong> GetDangKyHDs(int id);
+        DangKyHoatDong GetDangKysHDByID(int id);
 
         void Add(DangKyHoatDong DangKyHoatDong);
         void Delete(DangKyHoatDong DangKyHoatDong);
