@@ -52,6 +52,7 @@ namespace GIS.Controllers
        {
            int i = sId;
            var listGiayPhep = _gphdRepository.GetGiayPhepHoatDongs();
+
            switch(i)
            {
                case 0: listGiayPhep = _gphdRepository.GetGiayPhepHoatDongs(); break;
@@ -103,26 +104,45 @@ namespace GIS.Controllers
        public ActionResult Detail(int id)
        {
            GiayPhepHoatDong gphd = _gphdRepository.GetGiayPhepHoatDongByID(id);
-
            if (gphd == null)
            {
-               return new FileNotFoundResult { Message = "Không có giấy phép trên trên" };
+             return new FileNotFoundResult { Message = "Không có giấy phép trên trên" };
            }
-
-           var gp = gphd;
-           return View(gp);
+           var dangky =_dkhdRespository.GetDangKyHDs(id);
+           var maHDList = _dkhdRespository.getSelectedHD(dangky.ToList<DangKyHoatDong>());
+           var hoatdongList = new List<HoatDong>();
+           foreach (int i in maHDList)
+           {
+               hoatdongList.Add(_hoatdongRespository.GetHoatDongByID(i));
+           }
+           var viewmodel = new GiayPhepDetailModel
+           {
+               DangKy = dangky,
+               giayphep = gphd,
+               hoatdong = hoatdongList
+           };
+           return View(viewmodel);
        }
 
        public ActionResult Edit(int id)
        {
            var EditedGPHD = _gphdRepository.GetGiayPhepHoatDongByID(id);
            var dkhdList = _dkhdRespository.GetDangKyHDs(id);
-           var hoatdongList = _hoatdongRespository.GetHoatDongs();
+           var hoatdongList = _hoatdongRespository.GetHoatDongs().ToList<HoatDong>();
+           var selectedMaHDList = _dkhdRespository.getSelectedHD(dkhdList.ToList<DangKyHoatDong>());
+           var selectedHDList = new List<HoatDong>();
+           foreach (int i in selectedMaHDList)
+           {
+               selectedHDList.Add(hoatdongList[i]);
+           }
+           var m = new MultiSelectList(hoatdongList, "MaHoatDong", "TenHoatDong",
+                     selectedHDList.Select(x => x.MaHoatDong));
+           ViewData["hoatdong"] = m;
            var viewmodel = new GiayPhepDetailModel
            {
-               gphd = EditedGPHD,
-               DangKy = dkhdList,
-               HoatDong = hoatdongList
+               giayphep = EditedGPHD,
+              DangKy = dkhdList,
+              //HoatDong = m;
            };
 
            return View(viewmodel);
