@@ -29,7 +29,7 @@
         <fieldset>
             <legend>Fields</legend>
             <dl class="span w16">
-			    <dt class="w4"><%= Html.LabelFor(model => model.LoaiHinhToChuc.TenLoaiHinhToChuc) %></dt>
+			    <dt class="w4"></dt>
 			    <dd>
                     <%= Html.DropDownList("MaLoaiHinhToChuc",(IEnumerable<SelectListItem>)ViewData["loaihinh"]) %>
 			    </dd>
