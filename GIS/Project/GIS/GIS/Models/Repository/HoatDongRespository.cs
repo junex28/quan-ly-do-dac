@@ -22,14 +22,6 @@ namespace GIS.Models.Repository
             return db.HoatDongs.AsQueryable();
         }
 
-       
-        /*
-        public IEnumerable<HoatDong> GetDSHoatDongByID(int id )
-        {
-            return from hd in db.HoatDongs (from dk in db.DangKyHoatDongs where dk.MaGiayPhepHoatDong == id select dk.MaHoatDong)
-                   
-        }
-        */
         public HoatDong GetHoatDongByID(int id)
         {
             return db.HoatDongs.SingleOrDefault(d => d.MaHoatDong == id);
