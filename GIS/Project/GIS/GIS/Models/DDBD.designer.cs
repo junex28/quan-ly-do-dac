@@ -4803,7 +4803,7 @@ namespace GIS.Models
 			}
 		}
 		
-		[Association(Name="LoaiThamDinh_ThamDinh", Storage="_LoaiThamDinh1", ThisKey="LoaiThamDinh", OtherKey="MALOAITHAMDINH", IsForeignKey=true)]
+		[Association(Name="LoaiThamDinh_ThamDinh", Storage="_LoaiThamDinh1", ThisKey="LoaiThamDinh", OtherKey="MaLoaiThamDinh", IsForeignKey=true)]
 		public LoaiThamDinh LoaiThamDinh1
 		{
 			get
@@ -4826,7 +4826,7 @@ namespace GIS.Models
 					if ((value != null))
 					{
 						value.ThamDinhs.Add(this);
-						this._LoaiThamDinh = value.MALOAITHAMDINH;
+						this._LoaiThamDinh = value.MaLoaiThamDinh;
 					}
 					else
 					{
@@ -6095,10 +6095,10 @@ namespace GIS.Models
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnMALOAITHAMDINHChanging(int value);
-    partial void OnMALOAITHAMDINHChanged();
-    partial void OnDIENGIAIChanging(string value);
-    partial void OnDIENGIAIChanged();
+    partial void OnMaLoaiThamDinhChanging(int value);
+    partial void OnMaLoaiThamDinhChanged();
+    partial void OnDienGiaiChanging(string value);
+    partial void OnDienGiaiChanged();
     #endregion
 		
 		public LoaiThamDinh()
@@ -6107,8 +6107,8 @@ namespace GIS.Models
 			OnCreated();
 		}
 		
-		[Column(Storage="_MALOAITHAMDINH", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int MALOAITHAMDINH
+		[Column(Name="MALOAITHAMDINH", Storage="_MALOAITHAMDINH", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int MaLoaiThamDinh
 		{
 			get
 			{
@@ -6118,17 +6118,17 @@ namespace GIS.Models
 			{
 				if ((this._MALOAITHAMDINH != value))
 				{
-					this.OnMALOAITHAMDINHChanging(value);
+					this.OnMaLoaiThamDinhChanging(value);
 					this.SendPropertyChanging();
 					this._MALOAITHAMDINH = value;
-					this.SendPropertyChanged("MALOAITHAMDINH");
-					this.OnMALOAITHAMDINHChanged();
+					this.SendPropertyChanged("MaLoaiThamDinh");
+					this.OnMaLoaiThamDinhChanged();
 				}
 			}
 		}
 		
-		[Column(Storage="_DIENGIAI", DbType="NVarChar(50)")]
-		public string DIENGIAI
+		[Column(Name="DIENGIAI", Storage="_DIENGIAI", DbType="NVarChar(50)")]
+		public string DienGiai
 		{
 			get
 			{
@@ -6138,16 +6138,16 @@ namespace GIS.Models
 			{
 				if ((this._DIENGIAI != value))
 				{
-					this.OnDIENGIAIChanging(value);
+					this.OnDienGiaiChanging(value);
 					this.SendPropertyChanging();
 					this._DIENGIAI = value;
-					this.SendPropertyChanged("DIENGIAI");
-					this.OnDIENGIAIChanged();
+					this.SendPropertyChanged("DienGiai");
+					this.OnDienGiaiChanged();
 				}
 			}
 		}
 		
-		[Association(Name="LoaiThamDinh_ThamDinh", Storage="_ThamDinhs", ThisKey="MALOAITHAMDINH", OtherKey="LoaiThamDinh")]
+		[Association(Name="LoaiThamDinh_ThamDinh", Storage="_ThamDinhs", ThisKey="MaLoaiThamDinh", OtherKey="LoaiThamDinh")]
 		public EntitySet<ThamDinh> ThamDinhs
 		{
 			get

@@ -24,11 +24,13 @@ namespace GIS.Models
         public void Add(ToChuc tochuc)
         {
             db.ToChucs.InsertOnSubmit(tochuc);
+            db.SubmitChanges();
         }
 
         public void Delete(ToChuc tochuc)
         {
             db.ToChucs.DeleteOnSubmit(tochuc);
+            db.SubmitChanges();
         }
 
         public void Save()
