@@ -140,8 +140,8 @@
         <div id="pager"></div>
     </div>
     
-    <% using (Html.BeginForm("Detail", "ToChuc", FormMethod.Get, new { id = "detailForm" })) { } %>
-    <% using (Html.BeginForm("Edit", "ToChuc", FormMethod.Get, new { id = "editForm" })) { } %>
-    <% using (Html.BeginForm("Delete", "ToChuc", FormMethod.Post, new { id = "deleteForm" })) { } %>
+    <% using (Html.BeginForm("ChiTiet", "ToChuc", FormMethod.Get, new { id = "detailForm" })) { } %>
+    <% using (Html.BeginForm("CapNhat", "ToChuc", FormMethod.Get, new { id = "editForm" })) { } %>
+    <% using (Html.BeginForm("Xoa", "ToChuc", FormMethod.Post, new { id = "deleteForm" })) { } %>
     
 </asp:Content>

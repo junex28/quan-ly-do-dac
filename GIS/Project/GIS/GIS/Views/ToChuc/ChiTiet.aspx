@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<GIS.ViewModels.ToChucDetailViewModel>" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<GIS.ViewModels.ToChucDetailViewModel>" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,78 +18,78 @@
         <legend>Tổ chức</legend>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.TenToChuc) %>
+                <%= Html.LabelFor(model => model.TenToChuc) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.TenToChuc)%>
+                <%= Html.Encode(Model.TenToChuc)%>
             </div>
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.GiayPhepKinhDoanh) %>
+                <%= Html.LabelFor(model => model.GiayPhepKinhDoanh) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.GiayPhepKinhDoanh)%>
+                <%= Html.Encode(Model.GiayPhepKinhDoanh)%>
             </div>
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.LoaiHinhToChuc.TenLoaiHinhToChuc) %>
+                <%= Html.LabelFor(model => model.LoaiHinhToChuc.TenLoaiHinhToChuc) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.LoaiHinhToChuc.TenLoaiHinhToChuc)%>
+                <%= Html.Encode(Model.LoaiHinhToChuc.TenLoaiHinhToChuc)%>
             </div>
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.TruSoChinh) %>
+                <%= Html.LabelFor(model => model.TruSoChinh) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.TruSoChinh)%></div>
+                <%= Html.Encode(Model.TruSoChinh)%></div>
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.NguoiDaiDien) %>
+                <%= Html.LabelFor(model => model.NguoiDaiDien) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.NguoiDaiDien)%>
-            </div>
-        </div>
-        <div class="editor-row">
-            <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.DienThoai) %>
-            </div>
-            <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.DienThoai)%>
+                <%= Html.Encode(Model.NguoiDaiDien)%>
             </div>
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.Email) %>
+                <%= Html.LabelFor(model => model.DienThoai) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.Email)%>
+                <%= Html.Encode(Model.DienThoai)%>
             </div>
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.Fax) %>
+                <%= Html.LabelFor(model => model.Email) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.Fax)%>
+                <%= Html.Encode(Model.Email)%>
             </div>
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.SoTaiKhoan) %>
+                <%= Html.LabelFor(model => model.Fax) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.SoTaiKhoan)%>
+                <%= Html.Encode(Model.Fax)%>
             </div>
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.TongSoCanBo) %>
+                <%= Html.LabelFor(model => model.SoTaiKhoan) %>
+            </div>
+            <div class="editor-field">
+                <%= Html.Encode(Model.SoTaiKhoan)%>
+            </div>
+        </div>
+        <div class="editor-row">
+            <div class="editor-label">
+                <%= Html.LabelFor(model => model.TongSoCanBo) %>
             </div>
             <div class="editor-field">
                 <%= Html.Encode(Model.toChuc.TongSoCanBo)%>
@@ -97,7 +97,7 @@
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.KichHoat) %>
+                <%= Html.LabelFor(model => model.KichHoat) %>
             </div>
             <div class="editor-field">
                 <% if (Model.toChuc.KichHoat == true)
@@ -110,23 +110,23 @@
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.NgayXinPhep) %>
+                <%= Html.LabelFor(model => model.NgayXinPhep) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.NgayXinPhep)%>
+                <%= Html.Encode(Model.NgayXinPhep)%>
             </div>
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.toChuc.TepDinhKem) %>
+                <%= Html.LabelFor(model => model.TepDinhKem) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.toChuc.TepDinhKem)%>
+                <%= Html.Encode(Model.TepDinhKem)%>
             </div>
         </div>
     </fieldset>
     <p>
-        <%= Html.ActionLink("Edit", "Edit", new { id=Model.toChuc.MaToChuc }) %>
+        <%= Html.ActionLink("Edit", "Edit", new { id=Model.MaToChuc }) %>
         |
         <%= Html.ActionLink("Back to List", "Index") %>
     </p>
