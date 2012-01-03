@@ -56,6 +56,14 @@
                 <%= Html.Encode(Model.giayphep.TepDinhKem)%>
             </div>
         </div>
+        <div class="editor-row">
+            <div class="editor-label">
+               Lịch sử thẩm định:
+            </div>
+            <div class="editor-field">
+              <%= Html.ActionLink("Danh sách biên bản thẩm định của tổ chức", "Index", "ThamDinh", new { id = Model.giayphep.MaGiayPhepHoatDong },null)%>
+            </div>
+        </div>
         <% if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang > 3)
            { %>
         <div class="editor-row">
@@ -153,7 +161,7 @@
     </fieldset>
     <p>
         <%= Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) %>
-        <%= Html.ActionLink("Thẩm định", "create", new {  id=Model.giayphep.MaGiayPhepHoatDong }) %>
+      
         <%= Html.ActionLink("Back to List", "Index") %>
     </p>
 </asp:Content>
