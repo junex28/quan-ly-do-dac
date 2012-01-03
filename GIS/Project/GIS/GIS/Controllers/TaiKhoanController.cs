@@ -11,6 +11,8 @@ using GIS.Models;
 using GIS.ViewModels;
 using GIS.Helpers;
 using Microsoft.Web.Mvc;
+using System.Linq.Dynamic;
+using System.ComponentModel;
 
 namespace GIS.Controllers
 {
@@ -21,25 +23,6 @@ namespace GIS.Controllers
         public ITaiKhoanRepository _TaiKhoanRepository { get; set; }
         public IFormsAuthenticationService _FormsService { get; set; }
         public IToChucRepository _ToChucRepository { get; set; }
-        private RegisterViewModel _regData;
-
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            var serialized = Request.Form["regData"];
-            if (serialized != null) // Form was posted containing serialized data
-            {
-                _regData = (RegisterViewModel)new MvcSerializer().Deserialize(serialized);
-                TryUpdateModel(_regData);
-            }
-            else
-                _regData = (RegisterViewModel)TempData["regData"] ?? new RegisterViewModel();
-        }
-
-        protected override void OnResultExecuted(ResultExecutedContext filterContext)
-        {
-            if (filterContext.Result is RedirectToRouteResult)
-                TempData["regData"] = _regData;
-        }
 
         public TaiKhoanController()
             : this(new TaiKhoanRepository(), new FormsAuthenticationService(), new ToChucRepository())
@@ -53,11 +36,12 @@ namespace GIS.Controllers
             _ToChucRepository = tochucRepository;
         }
 
-        public ActionResult Index()
+        public ActionResult Index([DefaultValue(1)] int page)
         {
-            return RedirectToAction("Dangky");
+            ViewData["page"] = page;
+            return View();
         }
-
+        
         // 1. Lan dau vao dangky
         [HttpGet]
         public ActionResult Dangky()
@@ -84,7 +68,8 @@ namespace GIS.Controllers
                         DiaChi = model.DiaChi,
                         CoQuan = model.Coquan,
                         CMND = model.CMND,
-                        TinhTrang = 1
+                        TinhTrang = 1,
+                        NhomNguoiDung = 1
                     };
                     var createStatus = _TaiKhoanRepository.CreateUser(tk);
 
@@ -109,6 +94,8 @@ namespace GIS.Controllers
             return View(model);
 
         }
+        
+
 
         // **************************************
         // URL: /Taikhoan/Dangxuat
@@ -169,21 +156,163 @@ namespace GIS.Controllers
     
         }
 
+        // Hien thi thong tin chi tiet mot tai khoan
+        // taikhoan/chitiet
+        // taikhoan/chitiet/id
         [HttpGet]
-        public ActionResult ChiTiet() {
+        public ActionResult ChiTiet(int? id) {
             // Authenticated
                 try
                 {
+                    // Neu la chu tai khoan thi hien thi edit tai khoan                    
                      if (Request.IsAuthenticated) {
-                        TaiKhoan Model = this.CurrentUser;
-                        return View(Model);
-                     }
+                         //TaiKhoan user  = this.CurrentUser;
+                         TaiKhoan user = _TaiKhoanRepository.GetTaiKhoanByID(id.GetValueOrDefault(this.CurrentUser.MaTaiKhoan));
+                         RegisterViewModel Model = new RegisterViewModel();
+                         
+                         if (null!=user) {
+                             Model.MaTaiKhoan = user.MaTaiKhoan;
+                             Model.TenTaiKhoan = user.TenTaiKhoan;
+                             Model.HoTen = user.HoTen;
+                             Model.DiaChi = user.DiaChi;
+                             Model.Email = user.Email;
+                             Model.CMND = user.CMND;
+                             Model.Coquan = user.CoQuan;
+                             Model.MatKhau = user.MatKhau;
+                         }
+
+                         return View(Model);
+                        }
                 }
                 catch (Exception) { 
                     MessageHelper.CreateMessage(MessageType.Error, "",new List<string>{"error when display user"}, HttpContext.Response);
                 }
-            return View();
+            return RedirectToLogin();
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult CapNhat(int id) {
+            try
+            {
+                // Neu la chu tai khoan hoac admin thi hien thi edit tai khoan                    
+                    //TaiKhoan user  = this.CurrentUser;
+                    TaiKhoan user = _TaiKhoanRepository.GetTaiKhoanByID(id);
+                    TaiKhoan editor = this.CurrentUser;
+                    if (editor.MaTaiKhoan == user.MaTaiKhoan || editor.NhomNguoiDung1.TenNhom.Equals("SuperAdmin"))
+                    {
+                        RegisterViewModel Model = new RegisterViewModel();
+
+                        if (null != user)
+                        {
+                            Model.MaTaiKhoan = user.MaTaiKhoan;
+                            Model.TenTaiKhoan = user.TenTaiKhoan;
+                            Model.HoTen = user.HoTen;
+                            Model.DiaChi = user.DiaChi;
+                            Model.Email = user.Email;
+                            Model.CMND = user.CMND;
+                            Model.Coquan = user.CoQuan;
+                            Model.MatKhau = user.MatKhau;
+                            Model.NhapLaiMatKhau = user.MatKhau;
+                        }
+
+                        return View(Model);
+                    }
+                    else {
+                        return View("NotAllowed"); 
+                    }
+
+                    // return 
+            }
+            catch (Exception)
+            {
+                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when update user" }, HttpContext.Response);
+                return RedirectToAction("Index","TrangChu");
+            }
+        }
+
+        [Authorize]       
+        [HttpPost]
+        public ActionResult CapNhat(RegisterViewModel model, int id)
+        {
+            try
+            {
+                // Neu la chu tai khoan hoac admin thi hien thi edit tai khoan                    
+                //TaiKhoan user  = this.CurrentUser;
+                           var myCaptcha = Request.Form["myCaptcha"];
+                           if (CaptchaHelper.VerifyAndExpireSolution(HttpContext, myCaptcha, model.Captcha))
+                           {
+
+                               if (ModelState.IsValid)
+                               {
+                                   TaiKhoan user = _TaiKhoanRepository.GetTaiKhoanByID(id);
+                                   TaiKhoan editor = this.CurrentUser;
+                                   if (editor.MaTaiKhoan == user.MaTaiKhoan || editor.NhomNguoiDung1.TenNhom.Equals("SuperAdmin"))
+                                   {
+                                       user.HoTen = model.HoTen;
+                                       user.CoQuan = model.Coquan;
+                                       user.CMND = model.CMND;
+                                       user.DiaChi = model.DiaChi;
+                                       user.Email = model.Email;
+
+                                       _TaiKhoanRepository.Save();
+                                       return RedirectToAction("ChiTiet", "TaiKhoan", new { id = id});
+                                   }
+                                   else
+                                   {
+                                       return View("NotAllowed");
+                                   }
+                               }
+                           }
+                return View(model);
+                // return 
+            }
+            catch (Exception)
+            {
+                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when update user" }, HttpContext.Response);
+            }
+            return RedirectToLogin();
+        }
+
+
+        public ActionResult ListData(string sidx, string sord, int page, int rows)
+        {
+            var listTaiKhoans = _TaiKhoanRepository.GetTaiKhoans();
+            var pageIndex = Convert.ToInt32(page) - 1;
+            var pageSize = rows;
+            var totalRecords = listTaiKhoans.Count();
+            var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
+
+            // This is possible because I'm using the LINQ Dynamic Query Library
+            var models = listTaiKhoans
+                        .OrderBy(sidx + " " + sord)
+                        .Skip(pageIndex * pageSize)
+                        .Take(pageSize).AsQueryable();
+            
+                var jsonData = new
+                {
+                    total = totalPages,
+                    page = page,
+                    records = totalRecords,
+                    rows = (
+                        from u in models
+                        select new
+                        {
+                            id = u.MaTaiKhoan,
+                            cell = new string[] {
+                           u.MaTaiKhoan.ToString(),
+                           u.TenTaiKhoan,
+                           u.NhomNguoiDung1.TenNhom,
+                           u.HoTen,
+                           u.Email,
+                           u.TinhTrangTaiKhoan.DienGiai                           
+                        }
+                        })
+                };
+
+                return Json(jsonData, JsonRequestBehavior.AllowGet);
+            }
+
+        }
     }
-}
+

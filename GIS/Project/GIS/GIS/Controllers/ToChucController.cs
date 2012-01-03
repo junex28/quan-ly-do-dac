@@ -16,22 +16,27 @@ namespace GIS.Controllers
         private IToChucRepository _tochucRepository;
         private ILoaiHinhToChucRepository _loaihinhtochucRepository;
         private ITaiKhoanRepository _taikhoanRepository;
+        private IFileStore _fileStore;
 
         public ToChucController()
-            : this(new ToChucRepository(), new LoaiHinhToChucRepository(), new TaiKhoanRepository())
+            : this(new ToChucRepository(), new LoaiHinhToChucRepository(), 
+                   new TaiKhoanRepository(), new DiskFileStore("~/App_Data/Upload/HSToChuc"))
         {
         }
 
-        public ToChucController(IToChucRepository tochucRepository, ILoaiHinhToChucRepository loaihinhtochucRepository, ITaiKhoanRepository taikhoanRepository)
+        public ToChucController(IToChucRepository tochucRepository, 
+                ILoaiHinhToChucRepository loaihinhtochucRepository, 
+                            ITaiKhoanRepository taikhoanRepository,
+                            IFileStore fileStore)
         {
             this._tochucRepository = tochucRepository;
             this._loaihinhtochucRepository = loaihinhtochucRepository;
             this._taikhoanRepository = taikhoanRepository;
+            this._fileStore = fileStore;
         }
-      
+
         [Authorize]
         [RoleFilter(Roles= "4")]
-   
         public ActionResult Index([DefaultValue(1)] int page)
         {
             ViewData["page"] = page;
@@ -76,54 +81,14 @@ namespace GIS.Controllers
 
             return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
-        /// <summary>
-        // create new tochuc
-        /// </summary>
-        /// <returns></returns>
-
-        public ActionResult Create()
-        {
-            var loaihinh = _loaihinhtochucRepository.GetLoaiHinhToChucs1();
-            
-           ViewData["loaihinh"] = new SelectList(loaihinh, "MaLoaiHinhToChuc", "TenLoaiHinhToChuc");
-           // ViewData["loaihinh"] = loaihinh;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Create(ToChuc model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-            var tc = new ToChuc
-            {
-                
-                TenToChuc = model.TenToChuc,
-                NguoiDaiDien = model.NguoiDaiDien,
-                TruSoChinh = model.TruSoChinh,
-                GiayPhepKinhDoanh = model.GiayPhepKinhDoanh,
-                SoTaiKhoan = model.SoTaiKhoan,
-                NgayXinPhep = DateTime.Now,
-                DienThoai = model.DienThoai,
-                Email = model.Email,
-                Fax = model.Fax,
-                KichHoat = model.KichHoat,
-                MaLoaiHinhToChuc = model.MaLoaiHinhToChuc,
-                TepDinhKem = model.TepDinhKem,
-                TongSoCanBo = model.TongSoCanBo
-            };
-            _tochucRepository.Add(tc);
-            _tochucRepository.Save();
-            return RedirectToAction("Index", new { tc.MaToChuc });
-        }
-
 
         //
-        // GET: /Dinners/Details/5
+        // GET: /tochuc/{id}/chitiet
 
-        public ActionResult Detail(int id)
+        public ActionResult ChiTiet(int id)
         {
             ToChuc tochuc = _tochucRepository.GetToChucByID(id);
+
             if (tochuc == null)
             {
                 return new FileNotFoundResult { Message = "Không có tổ chức trên" };
@@ -135,12 +100,11 @@ namespace GIS.Controllers
 
 
         //
-        // GET: /Dinners/Edit/5
-
-        public ActionResult Edit(int id)
+        // GET: /tochuc/{id}/capnhat
+        [HttpGet]
+        public ActionResult CapNhat(int id)
         {
             var EditedToChuc = _tochucRepository.GetToChucByID(id);
-            //LoaiHinhToChuc lhtc = tochucRepository.getLoaiHinh(tochuc);
             var LoaiHinhToChucList = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
 
             var viewmodel = new ToChucDetailViewModel
@@ -152,11 +116,9 @@ namespace GIS.Controllers
             return View(viewmodel);
         }
 
-        //
-        // POST: /Dinners/Edit/5
-
+        
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult CapNhat(int id, FormCollection collection)
         {
             ToChuc tochuc = _tochucRepository.GetToChucByID(Convert.ToInt32(Request.Form["MaToChuc"]));
 
@@ -182,20 +144,77 @@ namespace GIS.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult Delete(int[] ids)
+        // Users declare ToChuc's info
+        // GET: /tochuc/taomoi
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult TaoMoi()
+        {
+            // Neu da co to chuc            
+            if (this.CurrentUser.ToChucs.Count == 0 ) {
+                ToChucDetailViewModel model = new ToChucDetailViewModel();
+                model.loaiHinh = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();        
+                return View(model);
+            }
+             return RedirectToAction("Index","ToChuc");
+        }
+
+        //
+        // POST: /Dinners/Create
+
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
+        public ActionResult TaoMoi(ToChucDetailViewModel model)
         {
             try
             {
+                if (this.CurrentUser.ToChucs.Count == 0)
+                {
+                    TaiKhoan tk = this.CurrentUser;
+                    ToChuc tc = new ToChuc();
+                    tc.TenToChuc = model.TenToChuc;
+                    tc.DienThoai = model.DienThoai;
+                    tc.Email = model.Email;
+                    tc.Fax = model.Fax;
+                    tc.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
+                    tc.MaLoaiHinhToChuc = model.MaLoaiHinhToChuc;
+                    tc.NgayXinPhep = DateTime.Now;
+                    tc.NguoiDaiDien = model.NguoiDaiDien;
+                    tc.SoTaiKhoan = model.SoTaiKhoan;
+                    tc.TongSoCanBo = model.TongSoCanBo;
+                    tc.MaTaiKhoan = tk.MaTaiKhoan;
+                    if (Request.Files["tepdinhkem"] != null) // If uploaded synchronously
+                    {
+                        var tep_guid = _fileStore.SaveUploadedFile(Request.Files["tepdinhkem"]);
+                        var tep_filename = Request.Files["tepdinhkem"].FileName;
+                        tc.TepDinhKem = tep_guid.ToString();                    
+                    }
+                    tc.TruSoChinh = model.TruSoChinh;
+                    _tochucRepository.Add(tc);
+                }
+                return RedirectToAction("Index","TrangChu");
+            }
+            catch (Exception) {
+                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when create new" }, HttpContext.Response);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Xoa(int[] ids)
+        {
+            try
+            {
+                //List<String> listMsg = new List<string>();
                 for (int i = 0; i < ids.Length; i++)
                 {
                     ToChuc tochuc = _tochucRepository.GetToChucByID(ids[i]);
-                
+                    //String strName = tochuc.TenToChuc;
                     _tochucRepository.Delete(tochuc);
-                
+                    //listMsg.Add("đã xóa tổ chức " + strName);
                 }
                 _tochucRepository.Save();
-               
+                //MessageHelper.CreateMessage(MessageType.Highlight, "Title", listMsg, HttpContext.Response);
             }
             catch (Exception)
             {
@@ -203,5 +222,11 @@ namespace GIS.Controllers
             }
             return View("Index");
         }
+
+        public Guid Uploader()
+        {
+            return _fileStore.SaveUploadedFile(Request.Files[0]);
+        }
+   
     }
 }
