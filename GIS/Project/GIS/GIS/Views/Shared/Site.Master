@@ -58,10 +58,10 @@
             $('ul.sf-menu').superfish();
             $(".jui-tabs").tabs();
             $(".jui-button").button();
-            if ($(".contentLeft").children().length == 0) {
-                $(".contentLeft").remove();
-                $(".contentRight").css("left", $(".contentRight").css("right"));
-            }
+//            if ($(".contentLeft").children().length == 0) {
+//                $(".contentLeft").remove();
+//                $(".contentRight").css("left", $(".contentRight").css("right"));
+//            }
         });
     </script>
 </body>
