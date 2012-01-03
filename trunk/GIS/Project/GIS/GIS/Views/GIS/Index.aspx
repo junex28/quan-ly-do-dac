@@ -3,18 +3,18 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=7" />
     <!--The viewport meta tag is used to improve the presentation and behavior of the samples
       on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
     <title>Web GIS</title>
-    <link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/soria/soria.css" >
+    <link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dijit/themes/soria/soria.css" />
     <!--link type="text/css" rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dojo/resources/dojo.css"  /-->
     <link type="text/css" rel="Stylesheet" href="../../Content/dojo.css" />
     <link type="text/css" rel="Stylesheet" href="../../Content/template/soria/soria.css" />
-    <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dojox/grid/resources/Grid.css">
-    <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dojox/grid/resources/soriaGrid.css">
+    <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dojox/grid/resources/Grid.css" />
+    <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.5/js/dojo/dojox/grid/resources/soriaGrid.css" />
     <link rel="stylesheet" type="text/css" href="../../Content/map.css" />
     <style type="text/css">
         html, body
@@ -32,9 +32,10 @@
         };
     </script>
 
-    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.5">
+    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.6">
+    
     </script>
-
+    
     <script type="text/javascript" src="../../Resources/config.js"></script>
 
     <script type="text/javascript" src="../../Resources/project.js"></script>
