@@ -95,12 +95,12 @@
                         <%= Html.ValidationMessageFor(model => model.KienNghi)%>
                     </dd>
                 </dl>
-                <dl class="span w16">
+<%--                <dl class="span w16">
 				    <dt class="w4"><%= Html.LabelFor(model => model.LoaiThamDinh) %></dt>
 				    <dd>
-                        <%= Html.DropDownList("LoaiThamDinh", new SelectList(Model.LoaiThamDinh1.MaLoaiThamDinh, "LoaiThamDinh", "DienGiai", Model.LoaiThamDinh1.DienGiai)) %>
+                        <%= Html.CheckBoxFor%>
 				    </dd>
-				</dl>
+				</dl>--%>
             </div>
         </fieldset>
         <input class="formVertical" type="submit" value="Lưu lại" />
