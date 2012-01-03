@@ -213,7 +213,7 @@
       <Column Name="KienNghi" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
       <Column Name="LoaiThamDinh" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="GiayPhepHoatDong_ThamDinh" Member="GiayPhepHoatDong" ThisKey="MaGiayPhepHoatDong" OtherKey="MaGiayPhepHoatDong" Type="GiayPhepHoatDong" IsForeignKey="true" DeleteRule="CASCADE" />
-      <Association Name="LoaiThamDinh_ThamDinh" Member="LoaiThamDinh1" ThisKey="LoaiThamDinh" OtherKey="MALOAITHAMDINH" Type="LoaiThamDinh" IsForeignKey="true" />
+      <Association Name="LoaiThamDinh_ThamDinh" Member="LoaiThamDinh1" ThisKey="LoaiThamDinh" OtherKey="MaLoaiThamDinh" Type="LoaiThamDinh" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ThietBi" Member="ThietBis">
@@ -278,9 +278,9 @@
   </Table>
   <Table Name="dbo.LoaiThamDinh" Member="LoaiThamDinhs">
     <Type Name="LoaiThamDinh">
-      <Column Name="MALOAITHAMDINH" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="DIENGIAI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="LoaiThamDinh_ThamDinh" Member="ThamDinhs" ThisKey="MALOAITHAMDINH" OtherKey="LoaiThamDinh" Type="ThamDinh" />
+      <Column Name="MALOAITHAMDINH" Member="MaLoaiThamDinh" Storage="_MALOAITHAMDINH" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DIENGIAI" Member="DienGiai" Storage="_DIENGIAI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="LoaiThamDinh_ThamDinh" Member="ThamDinhs" ThisKey="MaLoaiThamDinh" OtherKey="LoaiThamDinh" Type="ThamDinh" />
     </Type>
   </Table>
   <Table Name="dbo.TinhTrangTaiKhoan" Member="TinhTrangTaiKhoans">

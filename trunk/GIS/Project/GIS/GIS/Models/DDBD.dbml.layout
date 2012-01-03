@@ -128,7 +128,7 @@
         <classShapeMoniker Id="d8e37e48-930a-48aa-a9c7-8a2d3561ae75" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(16.71875 : 2.70359537760417); (16.71875 : 6.95034662109375); (20 : 6.95034662109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(16.71875 : 2.70359537760417); (16.71875 : 6.95034662109375); (18.2291666666667 : 6.95034662109375 : JumpStart); (18.3958333333333 : 6.95034662109375 : JumpEnd); (20 : 6.95034662109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DDBDDataContext/LoaiSanPham/LoaiSanPham_SanPham" />
       <nodes>
         <classShapeMoniker Id="b8be4d42-57fc-434d-b5a0-468011f12a6d" />
@@ -188,7 +188,7 @@
         <classShapeMoniker Id="226a9400-7ee4-49c1-8bc4-0a1150f7a3c9" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(13 : 7.22199625651042); (9.25 : 7.22199625651042); (9.25 : 5.75); (8.67708333333333 : 5.75 : JumpStart); (8.51041666666667 : 5.75 : JumpEnd); (7 : 5.75); (7 : 6)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(13 : 7.22199625651042); (9.25 : 7.22199625651042); (9.25 : 5.75); (7 : 5.75); (7 : 6)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DDBDDataContext/LoaiHinhToChuc/LoaiHinhToChuc_ToChuc" />
       <nodes>
         <classShapeMoniker Id="d0a1e944-af5c-4b65-984e-4010055cbd1a" />
@@ -306,7 +306,7 @@
         <elementListCompartment Id="75f4c9ea-0dd7-4cd3-b0f9-d324b3a77227" absoluteBounds="4.515, 3.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.6925 : 4.56899251302083); (4.6925 : 9.54848028320312); (3.75 : 9.54848028320312)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.6925 : 4.56899251302083); (4.6925 : 9.54848028320312); (3.75 : 9.54848028320312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DDBDDataContext/TinhTrangTaiKhoan/TinhTrangTaiKhoan_TaiKhoan" />
       <nodes>
         <classShapeMoniker Id="e9ece6a0-40ed-481d-94a5-71c8c09fd368" />
