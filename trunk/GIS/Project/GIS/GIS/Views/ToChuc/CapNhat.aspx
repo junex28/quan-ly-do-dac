@@ -20,7 +20,7 @@
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
     <%= Html.ValidationSummary(true) %>
-    
+        
     <div class="action-button">
         <%= Html.ActionLink("Danh sách tổ chức", "Index", null, new { id = "danhsachButton" })%>
     </div>
