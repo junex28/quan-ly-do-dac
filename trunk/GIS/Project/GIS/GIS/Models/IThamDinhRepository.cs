@@ -8,8 +8,10 @@ namespace GIS.Models
     public interface IThamDinhRepository
     {
         IQueryable<ThamDinh> GetThamDinhs();
-        ThamDinh GetThamDinhByID(int id);
-
+        IQueryable<ThamDinh> GetThamDinhByGPID(int id);
+        ThamDinh GetThamDinhById(int id);
+        ThamDinh GetThamDinhMoiById(int id, int maTinhTrang);
+        //ThamDinh GetThamDinhHoatDongById(int id);
         void Add(ThamDinh ThamDinh);
         void Delete(ThamDinh ThamDinh);
         void Save();
