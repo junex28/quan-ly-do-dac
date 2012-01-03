@@ -123,7 +123,7 @@ namespace GIS.Controllers
             ThamDinh thamdinh = new ThamDinh();
             thamdinh = _thamdinhRepository.GetThamDinhById(id);
             var loaithamdinh = _loaitdRespository.GetLoaiThamDinhs().ToList();
-            ViewData["myDropList"] = new SelectList(loaithamdinh, "LoaiThamDinh", "DienGiai", thamdinh.LoaiThamDinh1.DienGiai);
+            ViewData["LoaiThamDinh"] = loaithamdinh;
             return View(thamdinh);
         }
 
