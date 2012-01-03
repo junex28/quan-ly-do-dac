@@ -13,7 +13,9 @@
 	font-size: 1.2em !important;
 	font-weight: 700 !important;
 	margin-right: 10px;
-	width: 190px;
+	margin-bottom: 20px;
+	width: 400px;
+	text-align : center;
 }
 
 .subContent
@@ -21,7 +23,7 @@
 	width: 663px;
 }
 
-.formVertical dl { margin: 2px 0; }
+.formVertical dl { margin: 4px 0; }
 .formVertical dl dt, .formVertical dl dd { float: left; }
 .formVertical dl dt
 {
@@ -32,6 +34,7 @@
 .formVertical dl dd
 {
 	width: 460px;
+	line-height : 24px;
 }
 
 .formVertical .span
@@ -49,20 +52,21 @@
 	width: 170px;
 }
 
-.formVertical input[type=text], .formVertical select
+.formVertical input[type=text], .formVertical select, .formVertical input[type=password] 
 {
 	border: solid 1px;
 	padding: 2px;
 	background: #efffef;
 }
 
-.formVertical dd input[type=text] { width: 230px; }
+.formVertical dd input[type=text], .formVertical dd input[type=password] { width: 230px; }
 
 .formVertical dd select { width: 236px; }
 
 .formVertical input[type=file] { width: 406px; }
 
 input[type=submit].formVertical { margin-left: 200px }
+input[type=reset].formVertical { margin-left: 100px }
 
 .multiselectable { width:500px; display:block; overflow: hidden; width: 100%; }
 .multiselectable label { line-height: 24px; }

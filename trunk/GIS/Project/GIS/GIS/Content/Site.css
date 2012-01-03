@@ -119,10 +119,12 @@ page width. Or, you can specify an exact pixel width. */
 	bottom: 2px;
 	left: 2px;
 	right: 2px;
+
 }
 .content
 {
 	top: 52px;
+    height: 100%;
 }
 .content .contentLeft
 {
@@ -209,6 +211,43 @@ table.simple tr:hover td
 {
 	background-color: #cccccc;
 }
+
+/* Zebra */
+table *
+{
+    margin : 0;
+    padding: 0 
+    }
+    
+table.zebra
+{
+        border: 1px solid #666666;
+    }
+    
+table.zebra tbody tr td 
+{
+    width: 350px;
+    }
+    
+table.zebra tbody tr td, table.zebra tbody tr th {
+        padding: 6px 11px;
+		vertical-align : top;
+		text-align : left;
+ }
+
+table.zebra tbody tr th {
+    width : 180px;
+ }
+
+table.zebra tbody tr td *
+ {
+     padding : 6px 11px;
+    }
+    
+table.zebra tbody tr.alt
+{
+    background: #ecf6fc;
+    }
 
 
 /* MISC  
@@ -342,3 +381,17 @@ div#title
 {
 	margin-left: 12em;
 }
+
+.formVertical .center
+{
+    margin-left : 200px;
+    }
+    
+.formVertical .field-validation-error *
+{
+    font-size: 0.8em !important; 
+    }      
+    
+DIV.ProgressBar { width: 100px; padding: 0; border: 1px solid black; margin-right: 1em; height:.75em; margin-left:1em; display:-moz-inline-stack; display:inline-block; zoom:1; *display:inline; }
+DIV.ProgressBar DIV { background-color: Green; font-size: 1pt; height:100%; float:left; }
+SPAN.asyncUploader OBJECT { position: relative; top: 5px; left: 10px; }    
