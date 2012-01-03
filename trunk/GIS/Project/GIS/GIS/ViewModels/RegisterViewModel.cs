@@ -7,12 +7,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using GIS.Models;
+
 namespace GIS.ViewModels
 {
     [Serializable]
     [PropertiesMustMatch("MatKhau", "NhapLaiMatKhau", ErrorMessage = "Mật khẩu nhập lại không khớp.")]
     public class RegisterViewModel
     {
+        public int MaTaiKhoan { get; set; }
 
         [Required(ErrorMessage = "Tên tài khoản không được trống")]
         [DisplayName("Tên tài khoản")]
@@ -38,6 +41,7 @@ namespace GIS.ViewModels
         [DisplayName("Họ và tên")]
         public string HoTen { get; set; }
         // Chuoi so
+        [RegularExpression(@"[0-9]{9}", ErrorMessage = "Số CMND không hợp lệ.")]
         [DisplayName("CMND")]
         public string CMND { get; set; }
 
@@ -47,6 +51,7 @@ namespace GIS.ViewModels
         public string Coquan { get; set; }
         [Required(ErrorMessage = "Captcha không được trống")]
         public string Captcha { get; set; }
+
     }
 
     #region Validation
