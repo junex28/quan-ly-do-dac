@@ -16,8 +16,8 @@
             <mvcSiteMapNode title="Sửa thông tin" controller="QLGiayPhep" action="Edit" />
             <mvcSiteMapNode title="Thêm giấy phép" controller="QLGiayPhep" action="Create" />
         </mvcSiteMapNode>
-    </mvcSiteMapNode>
+    </mvcSiteMapNode>        
     <mvcSiteMapNode title="Đăng nhập" controller="TaiKhoan" action="DangNhap"  changeFrequency="Always" updatePriority="Normal" />
-    <mvcSiteMapNode title="Đăng ký" controller="TaiKhoan" action="DangKy"  changeFrequency="Always" updatePriority="Normal" />
-  </mvcSiteMapNode>
+    <mvcSiteMapNode title="Đăng ký" controller="TaiKhoan" action="DangKy"  changeFrequency="Always" updatePriority="Normal" />    
+   </mvcSiteMapNode>
 </mvcSiteMap>
