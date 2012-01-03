@@ -22,7 +22,7 @@ namespace GIS.Models.Repository
             return db.LoaiThamDinhs.AsQueryable();
         }
 
-        public LoaiThamDinhRespLoaiThamDinhosiroty GetLoaiThamDinhByID(int id)
+        public LoaiThamDinh GetLoaiThamDinhByID(int id)
         {
             return db.LoaiThamDinhs.SingleOrDefault(d => d.MaLoaiThamDinh == id);
         }
