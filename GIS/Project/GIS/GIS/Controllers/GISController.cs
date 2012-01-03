@@ -19,7 +19,7 @@ namespace GIS.Controllers
             return View();
         }
 
-        public ActionResult NewIndex() {
+        public ActionResult Viewer() {
             return View();
         }
     }
