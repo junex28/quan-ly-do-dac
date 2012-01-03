@@ -74,13 +74,17 @@ body
 /* End Banner - Background*/
 #siteLogin
 {
-    padding-right: 10px;
-    padding-top: 3px;
-    text-align: right;
-    height: 22px;
+	position: absolute;
+	left: 217px;
+	top : 3px;
+	right: 0;
+	height: 20px;
+	padding-right: 10px;
+	padding-top: 3px;
+	text-align: right;
 }
 
-#siteLogin a, #siteLogin a:hover
+#siteLogin a, .siteLogin a:hover
 {
     color: #3366cc;
 }
@@ -94,6 +98,10 @@ body
 .siteMenu
 {
     height: 28px;
+    position : absolute;
+    left : 210px;
+    top : 25px;
+    
 }
 
 .siteMenu ul.mapLinks
@@ -236,3 +244,8 @@ height:16px; }
     background: #F1F1DC;
     padding: 4px;
 }
+
+.lefttab
+{
+    
+    }
