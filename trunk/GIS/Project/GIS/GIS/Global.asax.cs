@@ -20,8 +20,25 @@ namespace GIS
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "PagingToChuc",
-                "ToChuc/Trang/{page}",
+                "Cap Nhat Tai Khoan",
+                "taikhoan/{id}/capnhat",
+                new { controller = "TaiKhoan", action = "CapNhat" }
+            );
+
+            routes.MapRoute(
+                "Chi Tiet Tai Khoan",
+                "taikhoan/{id}/chitiet",
+                new { controller = "TaiKhoan", action = "ChiTiet" }
+            );
+
+            routes.MapRoute(
+                "Cap Nhat To Chuc",
+                "tochuc/{id}/capnhat",
+                new { controller = "ToChuc", action = "CapNhat"});
+
+            routes.MapRoute(
+                "Paging To Chuc",
+                "tochuc/trang/{page}",
                 new { controller = "ToChuc", action = "List", page = 1 });
 
             routes.MapRoute(
