@@ -20,28 +20,31 @@ namespace GIS.Controllers
         
         private IThamDinhRepository _thamdinhRepository;
         private IGiayPhepHoatDongRepository _gphdRepository;
+        private ILoaiThamDinhRepository _loaitdRespository;
 
         public ThamDinhController()
-            : this(new ThamDinhRespository(), new GiayPhepHoatDongRepository())
+            : this(new ThamDinhRespository(), new GiayPhepHoatDongRepository(), new LoaiThamDinhResposiroty())
         {
         }
 
-        public ThamDinhController(IThamDinhRepository thamdinhRepository, IGiayPhepHoatDongRepository gphdRepository)
+        public ThamDinhController(IThamDinhRepository thamdinhRepository, IGiayPhepHoatDongRepository gphdRepository, ILoaiThamDinhRepository loaitdRespository)
         {
             this._thamdinhRepository = thamdinhRepository;
             this._gphdRepository = gphdRepository;
+            this._loaitdRespository = loaitdRespository;
         }
         //
         // GET: /ThamDinh/
-        public ActionResult Index([DefaultValue(1)] int page)
+        public ActionResult Index([DefaultValue(1)] int page, int id)
         {
+            ViewData["id"]=id;
             ViewData["page"] = page;
             return View();
         }
 
-        public ActionResult ListData(string sidx, string sord, int page, int rows)
+        public ActionResult ListData(int sid, string sidx, string sord, int page, int rows)
         {
-            var listThamDinhs = _thamdinhRepository.GetThamDinhs() ;
+            var listThamDinhs = _thamdinhRepository.GetThamDinhByGPID(sid);
             var pageIndex = Convert.ToInt32(page) - 1;
             var pageSize = rows;
             var totalRecords = listThamDinhs.Count();
@@ -64,13 +67,11 @@ namespace GIS.Controllers
                     {
                         id = u.MaThamDinh,
                         cell = new string[] {
-                           u.MaToChuc.ToString(),
-                           u.TenToChuc,
-                           u.LoaiHinhToChuc.TenLoaiHinhToChuc,
-                           "Sogiayphep",
-                           "ThoiGianHetHan",
-                           u.DienThoai,
-                           u.TruSoChinh
+                           u.MaThamDinh.ToString(),
+                           u.GiayPhepHoatDong.ToChuc.TenToChuc,
+                           u.NgayThamDinh.Value.ToShortDateString(),
+                           u.KienNghi,
+                           u.LoaiThamDinh1.DienGiai
                         }
                     })
             };
@@ -80,9 +81,11 @@ namespace GIS.Controllers
         //
         // GET: /ThamDinh/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Detail(int id)
         {
-            return View();
+            ThamDinh thamdinh = new ThamDinh();
+            thamdinh = _thamdinhRepository.GetThamDinhById(id);
+            return View(thamdinh);
         }
 
         //
@@ -117,21 +120,34 @@ namespace GIS.Controllers
  
         public ActionResult Edit(int id)
         {
-
-            return View();
+            ThamDinh thamdinh = new ThamDinh();
+            thamdinh = _thamdinhRepository.GetThamDinhById(id);
+            var loaithamdinh = _loaitdRespository.GetLoaiThamDinhs().ToList();
+            ViewData["myDropList"] = new SelectList(loaithamdinh, "LoaiThamDinh", "DienGiai", thamdinh.LoaiThamDinh1.DienGiai);
+            return View(thamdinh);
         }
 
         //
         // POST: /ThamDinh/Edit/5
 
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(int id, FormCollection collection)
         {
+            ThamDinh thamdinh = _thamdinhRepository.GetThamDinhById(Convert.ToInt32(Request.Form["MaThamDinh"]));
+
             try
             {
-                // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
+                thamdinh.NgayThamDinh = Convert.ToDateTime(Request.Form["NgayThamDinh"]);
+                thamdinh.NguoiThamDinh = Request.Form["NguoiThamDinh"];
+                thamdinh.NguoiPhiaToChuc = Request.Form["NguoiPhiaToChuc"];
+                thamdinh.TinhHopLe = Request.Form["TinhHopLe"];
+                thamdinh.NangLucNhanVien = Request.Form["NangLucNhanVien"];
+                thamdinh.NangLucThietBi = Request.Form["NangLucThietBi"];
+                thamdinh.KetLuan = Request.Form["KetLuan"];
+                thamdinh.KienNghi = Request.Form["KienNghi"];
+                //thamdinh.LoaiThamDinh = Request.Form["LoaiThamDinh"];
+                _thamdinhRepository.Save();
+                return RedirectToAction("Detail", new { id = thamdinh.MaThamDinh });
             }
             catch
             {
