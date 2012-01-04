@@ -111,7 +111,7 @@ page width. Or, you can specify an exact pixel width. */
 	height: 27px;
 }
 
-.content, .contentLeft, .contentRight 
+.contentLeft, .contentRight 
 {
 	position: absolute;
 	overflow: auto;
@@ -121,20 +121,23 @@ page width. Or, you can specify an exact pixel width. */
 	right: 2px;
 
 }
+
 .content
 {
+    position: absolute;
 	top: 52px;
     height: 100%;
+    width: 100%;
 }
 .content .contentLeft
 {
-	left: 2px;
+    left: 2px;
 	width: 208px;
 }
 .content .contentRight
 {
-	left: 214px;
-	right: 2px;
+    left: 214px;
+    right: 2px;
 	border: 1px solid #CCC;
 	padding: 10px 20px;
 }
