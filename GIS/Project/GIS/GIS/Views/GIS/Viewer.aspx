@@ -70,7 +70,9 @@
 				// Comment out these lines, and the onresize on body
 				// if you don't want full-screen
 				if (com.esri.solutions.jsviewer.util) {
-					var screen = com.esri.solutions.jsviewer.util.pageBox();
+				    var screen = com.esri.solutions.jsviewer.util.pageBox();
+				    // remove the height of the banner 52px + 2 px for margin 
+				    screen.h = screen.h - 54; 
 					dojo.publish("mapResizeRequestEvent", [screen])
 				}
 			};
