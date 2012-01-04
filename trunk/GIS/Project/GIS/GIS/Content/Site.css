@@ -77,6 +77,7 @@ page width. Or, you can specify an exact pixel width. */
 .header
 {
 	position: relative;
+	width:100%;
 }
 
 .header .siteLogo
@@ -125,8 +126,7 @@ page width. Or, you can specify an exact pixel width. */
 .content
 {
     position: absolute;
-	top: 52px;
-    height: 100%;
+    top: 52px;
     width: 100%;
 }
 .content .contentLeft
