@@ -32,9 +32,11 @@
       <basemaps menu="menuMap">
 			<mapservice label="Street Map" type="tiled" visible="true" alpha="1" icon="assets/images/icons/i_highway.png">http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer</mapservice>
 			<mapservice label="Satellite Map" type="tiled" visible="false" alpha="1" icon="assets/images/icons/i_shuttle.png">http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_Imagery_World_2D/MapServer</mapservice>
-		</basemaps>
+        <!--<mapservice label="Bản đồ nền" type="tiled" visible="true" alpha="1" icon="assets/images/icons/i_highway.png">http://localhost/ArcGIS/rest/services/bandonen/MapServer</mapservice>-->
+      </basemaps>
 		<livemaps>
-			<mapservice label="Louisville Landbase" type="dynamic" visible="false" alpha="0.4">http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Louisville/LOJIC_LandRecords_Louisville/MapServer</mapservice>
+      <!--<mapservice label="Bản đồ động" type="dynamic" visible="false" alpha="0.4">http://localhost/ArcGIS/rest/services/bandodong/MapServer</mapservice>-->
+      <mapservice label="Louisville Landbase" type="dynamic" visible="false" alpha="0.4">http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Louisville/LOJIC_LandRecords_Louisville/MapServer</mapservice>
 			<mapservice label="Portland Map" type="dynamic" visible="true" alpha="0.4">http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Portland/Portland_ESRI_LandBase_AGO/MapServer</mapservice>
 		</livemaps>
 	</map>
@@ -52,12 +54,16 @@
 		<widget label="Earthquakes" icon="assets/images/icons/i_rss.png" menu="menuWidgets" config="widgets/config/EarthquakeWidget.json">com.esri.solutions.jsviewer.widgets.GeoRSSWidget</widget>
 		<widget label="Locate" icon="assets/images/icons/i_pushpin.png" menu="menuWidgets" config="widgets/config/LocateWidget.json">com.esri.solutions.jsviewer.widgets.LocateWidget</widget>
 		<widget label="Police Facilities" icon="assets/images/icons/i_policestation.png" menu="menuWidgets" config="widgets/config/LiveLayerWidget2.json">com.esri.solutions.jsviewer.widgets.LiveLayerWidget</widget>
-		<widget label="Traffic Cameras" icon="assets/images/icons/i_camera.png" menu="menuWidgets" config="widgets/config/TrafficCameraWidget.json">com.esri.solutions.jsviewer.widgets.LiveLayerWidget</widget>
+    <widget label="Traffic Cameras" icon="assets/images/icons/i_camera.png" menu="menuWidgets" config="widgets/config/TrafficCameraWidget.json">com.esri.solutions.jsviewer.widgets.LiveLayerWidget</widget>
 		<widget label="Search" icon="assets/images/icons/i_search.png" menu="menuWidgets" config="widgets/config/SearchWidget.json">com.esri.solutions.jsviewer.widgets.SearchWidget</widget>
 		<widget label="Draw" icon="assets/images/icons/i_draw.png" menu="menuWidgets" config="widgets/config/DrawWidget.json">com.esri.solutions.jsviewer.widgets.DrawWidget</widget>
 		<widget label="Service Areas" icon="assets/images/icons/i_servicearea.png" menu="menuWidgets" config="widgets/config/ServiceAreaWidget.json">com.esri.solutions.jsviewer.widgets.ServiceAreaWidget</widget>
-		<widget label="About" icon="assets/images/icons/i_about.png" menu="menuHelp" config="widgets/config/AboutWidget.xml">com.esri.solutions.jsviewer.widgets.AboutWidget</widget>		
-	</widgets>
+		<widget label="About" icon="assets/images/icons/i_about.png" menu="menuHelp" config="widgets/config/AboutWidget.xml">com.esri.solutions.jsviewer.widgets.AboutWidget</widget>
+    <!--<widget label="Mốc toạ độ" icon="assets/images/icons/i_moctoado.png" menu="menuWidgets" config="widgets/config/MocToaDoWidget.json">com.esri.solutions.jsviewer.widgets.LiveLayerWidget</widget>
+    <widget label="Mốc độ cao" icon="assets/images/icons/i_mocdocao.png" menu="menuWidgets" config="widgets/config/MocDoCaoWidget.json">com.esri.solutions.jsviewer.widgets.LiveLayerWidget</widget>
+    <widget label="Mốc trọng lực" icon="assets/images/icons/i_moctrongluc.png" menu="menuWidgets" config="widgets/config/MocTrongLucWidget.json">com.esri.solutions.jsviewer.widgets.LiveLayerWidget</widget>-->
+
+  </widgets>
 	<links>
 		<link label="Help" icon="assets/images/icons/i_help.png" menu="menuHelp">help.html</link>
 		<link label="Home" icon="assets/images/icons/i_home.png" menu="menuHelp">http://www.esri.com</link>
