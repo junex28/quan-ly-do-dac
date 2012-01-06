@@ -58,6 +58,7 @@ namespace GIS.Models.Repository
         public void Add(ThamDinh thamdinh)
         {
             db.ThamDinhs.InsertOnSubmit(thamdinh);
+            db.SubmitChanges();
         }
 
         public void Delete(ThamDinh thamdinh)
