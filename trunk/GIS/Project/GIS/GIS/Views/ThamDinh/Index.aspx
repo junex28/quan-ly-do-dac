@@ -99,7 +99,6 @@
             });
 
             var actionUrl ='<%= Url.Action("ListData", "ThamDinh", new { sid = "PLACEHOLDER" } ) %>';
-            //var s = $("#selector").val();
             var st = actionUrl.replace('PLACEHOLDER', '<%= ViewData["id"]%>');
 
             $("#grid").jqGrid({
@@ -131,7 +130,6 @@
             });
         });
         function chageSelect() {
-            //salert($("#selector").val());
             actionUrl = '<%= Url.Action("ListData", "ThamDinh", new { sid = "PLACEHOLDER" } ) %>';
             st = actionUrl.replace('PLACEHOLDER', $("#selector").val());
             $("#grid").setGridParam({ url: st}).trigger('reloadGrid');

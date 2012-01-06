@@ -1,10 +1,25 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<GIS.Models.ThamDinh>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<GIS.ViewModels.ThamDinhEditViewModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Details
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2> Details</h2>
+<asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
+    <script type="text/javascript">
+        $(function() {
+            $("input[type=submit]").button();
+            $('#danhsachButton').button({
+                icons:
+                    {
+                        primary: "ui-icon-document"
+                    }
+            });
+        });
+    </script>
+</asp:Content>
+<asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="action-button">
+        <%= Html.ActionLink("Danh sách thẩm định", "Index", new { id = Model.ThamDinh.GiayPhepHoatDong.MaGiayPhepHoatDong }, new { id = "danhsachButton" })%>
+    </div>
     <fieldset>
         <legend>Chi tiết thẩm định</legend>
         <div class="editor-row">
@@ -12,7 +27,7 @@
                 Mã thẩm định:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.MaThamDinh)%>
+                <%= Html.Encode(Model.ThamDinh.MaThamDinh)%>
             </div>
         </div>
         <div class="editor-row">
@@ -20,7 +35,7 @@
                 Tên tổ chức:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.GiayPhepHoatDong.ToChuc.TenToChuc)%>
+                <%= Html.Encode(Model.ThamDinh.GiayPhepHoatDong.ToChuc.TenToChuc)%>
             </div>
         </div>
         <div class="editor-row">
@@ -28,7 +43,7 @@
                 Số hiệu giấy phép:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.GiayPhepHoatDong.SoGiayPhep)%>
+                <%= Html.Encode(Model.ThamDinh.GiayPhepHoatDong.SoGiayPhep)%>
             </div>
         </div>
         <div class="editor-row">
@@ -36,7 +51,7 @@
                 Người thẩm định:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.NguoiThamDinh)%>
+                <%= Html.Encode(Model.ThamDinh.NguoiThamDinh)%>
             </div>
         </div>
         <div class="editor-row">
@@ -44,7 +59,7 @@
                 Đại diện phía tổ chức:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.NguoiPhiaToChuc)%>
+                <%= Html.Encode(Model.ThamDinh.NguoiPhiaToChuc)%>
             </div>
         </div>
         <div class="editor-row">
@@ -52,7 +67,7 @@
                 Ngày thẩm định:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.NgayThamDinh.Value.ToShortDateString())%>
+                <%= Html.Encode(Model.ThamDinh.NgayThamDinh.Value.ToShortDateString())%>
             </div>
         </div>
         <div class="editor-row">
@@ -60,7 +75,7 @@
                 Tính hợp lệ:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.TinhHopLe)%>
+                <%= Html.Encode(Model.ThamDinh.TinhHopLe)%>
             </div>
         </div>
         <div class="editor-row">
@@ -68,7 +83,7 @@
                Năng lực nhân viên:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.NangLucNhanVien)%>
+                <%= Html.Encode(Model.ThamDinh.NangLucNhanVien)%>
             </div>
         </div>
          <div class="editor-row">
@@ -76,7 +91,7 @@
                Năng lực thiết bị:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.NangLucThietBi)%>
+                <%= Html.Encode(Model.ThamDinh.NangLucThietBi)%>
             </div>
         </div>      
         <div class="editor-row">
@@ -84,7 +99,7 @@
                Kết luận:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.KetLuan)%>
+                <%= Html.Encode(Model.ThamDinh.KetLuan)%>
             </div>
         </div>     
         <div class="editor-row">
@@ -92,29 +107,24 @@
               Kiến nghị:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.KienNghi)%>
+                <%= Html.Encode(Model.ThamDinh.KienNghi)%>
             </div>
         </div>        
         <div class="editor-row">
             <div class="editor-label">
-              Kiến nghị:
+              Kết quả thẩm định:
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.LoaiThamDinh1.DienGiai)%>
+                <%= Html.Encode(Model.ThamDinh.LoaiThamDinh1.DienGiai)%>
             </div>
         </div> 
     </fieldset>
 
     <p>
-        <%= Html.ActionLink("Edit", "Edit", new { id=Model.MaThamDinh }) %> |
-        <%= Html.ActionLink("Back to List", "Index", new { id=Model.GiayPhepHoatDong.MaGiayPhepHoatDong})%>
+        <%= Html.ActionLink("Edit", "Edit", new { id=Model.ThamDinh.MaThamDinh }) %> |
+        <%= Html.ActionLink("Back to List", "Index", new { id=Model.ThamDinh.GiayPhepHoatDong.MaGiayPhepHoatDong})%>
     </p>
 
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
-</asp:Content>
-
-<asp:Content ID="Content4" ContentPlaceHolderID="MapCenter" runat="server">
-</asp:Content>
 
