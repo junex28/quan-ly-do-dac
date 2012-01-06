@@ -85,34 +85,49 @@ namespace GIS.Controllers
         {
             ThamDinh thamdinh = new ThamDinh();
             thamdinh = _thamdinhRepository.GetThamDinhById(id);
-            return View(thamdinh);
+            var viewmodel = new ThamDinhEditViewModel { ThamDinh = thamdinh };
+            return View(viewmodel);
         }
 
         //
         // GET: /ThamDinh/Create
-
-        public ActionResult Create()
+        [HttpGet]
+        public ActionResult Create(int gpid)
         {
-
-            return View();
+            ThamDinhEditViewModel model = new ThamDinhEditViewModel();
+            model.loaiThamDinh = _loaitdRespository.GetLoaiThamDinhs().ToList();
+            model.giayphep = _gphdRepository.GetGiayPhepHoatDongByID(gpid);
+            model.MaGiayPhepHoatDong = gpid; 
+            return View(model);
         } 
 
         //
         // POST: /ThamDinh/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ThamDinhEditViewModel model)
         {
             try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+            {               
+                    ThamDinh td = new ThamDinh();
+                    td.MaGiayPhepHoatDong = model.giayphep.MaGiayPhepHoatDong;
+                    //td.NgayThamDinh = (DateTime)model.NgayThamDinh;
+                    td.NguoiThamDinh = model.NguoiThamDinh;
+                    td.NguoiPhiaToChuc = model.NguoiPhiaToChuc;
+                    td.TinhHopLe = model.TinhHopLe;
+                    td.NangLucNhanVien = model.NangLucNhanVien;
+                    td.NangLucThietBi = model.NangLucThietBi;
+                    td.KetLuan = model.KetLuan;
+                    td.KienNghi = model.KienNghi;
+                    td.LoaiThamDinh = Convert.ToInt32(model.LoaiThamDinh);
+                    _thamdinhRepository.Add(td);
+                //return RedirectToAction("Index", "TrangChu");
             }
-            catch
+            catch (Exception)
             {
-                return View();
+                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when create new" }, HttpContext.Response);
             }
+            return View(model);
         }
         
         //
@@ -122,9 +137,13 @@ namespace GIS.Controllers
         {
             ThamDinh thamdinh = new ThamDinh();
             thamdinh = _thamdinhRepository.GetThamDinhById(id);
-            var loaithamdinh = _loaitdRespository.GetLoaiThamDinhs().ToList();
-            ViewData["LoaiThamDinh"] = loaithamdinh;
-            return View(thamdinh);
+            IList<LoaiThamDinh> listLoaiThamDinh = _loaitdRespository.GetLoaiThamDinhs().ToList();
+            var viewmodel = new ThamDinhEditViewModel
+            {
+                ThamDinh = thamdinh,
+                loaiThamDinh = listLoaiThamDinh
+            };
+            return View(viewmodel);
         }
 
         //
@@ -133,7 +152,8 @@ namespace GIS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            ThamDinh thamdinh = _thamdinhRepository.GetThamDinhById(Convert.ToInt32(Request.Form["MaThamDinh"]));
+            String str = Request.Form["MaThamDinh"];
+            ThamDinh thamdinh = _thamdinhRepository.GetThamDinhById(id);
 
             try
             {
@@ -145,7 +165,7 @@ namespace GIS.Controllers
                 thamdinh.NangLucThietBi = Request.Form["NangLucThietBi"];
                 thamdinh.KetLuan = Request.Form["KetLuan"];
                 thamdinh.KienNghi = Request.Form["KienNghi"];
-                //thamdinh.LoaiThamDinh = Request.Form["LoaiThamDinh"];
+                thamdinh.LoaiThamDinh = Convert.ToInt32(Request.Form["LoaiThamDinh"]);
                 _thamdinhRepository.Save();
                 return RedirectToAction("Detail", new { id = thamdinh.MaThamDinh });
             }
@@ -156,29 +176,28 @@ namespace GIS.Controllers
         }
 
         //
-        // GET: /ThamDinh/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
         // POST: /ThamDinh/Delete/5
 
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int[] ids)
         {
             try
             {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
+                List<String> listMsg = new List<string>();
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    ThamDinh thamdinh = _thamdinhRepository.GetThamDinhById(ids[i]);
+                    _thamdinhRepository.Delete(thamdinh);
+                    listMsg.Add("Đã xóa biên bản thẩm định có mã thẩm định là "+  ids[i].ToString());
+                    _thamdinhRepository.Save();
+                }
+                MessageHelper.CreateMessage(MessageType.Highlight, "Title", listMsg, HttpContext.Response);
             }
-            catch
+            catch (Exception)
             {
-                return View();
+                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when deleting" }, HttpContext.Response);
             }
+            return View("Index");
         }
     }
 }
