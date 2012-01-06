@@ -23,7 +23,13 @@
                     {
                         primary: "ui-icon-pencil"
                     }
-            });
+                });
+                $('#thamdinhButton').button({
+                    icons:
+                    {
+                        primary: "ui-icon-pencil"
+                    }
+                });
 
             $('#deleteButton').button({
                 icons:
@@ -42,6 +48,10 @@
 
             $('#detailButton').click(function() {
                 $('#detailForm').submit();
+            });
+            
+            $('#thamdinhButton').click(function() {
+              $('#thamdinhButton').submit();
             });
 
             $('#detailForm').submit(function() {
@@ -62,6 +72,23 @@
             });
 
             $('#editForm').submit(function() {
+                var selr = jQuery('#grid').jqGrid('getGridParam', 'selarrrow');
+                if (!selr || selr.length < 1) {
+                    alert('Chưa chọn giấy phép nào');
+                } else if (selr.length == 1) {
+                    var input = document.createElement("input");
+                    input.setAttribute("type", "hidden");
+                    input.setAttribute("name", "id");
+                    input.setAttribute("value", selr[0]);
+                    $(this).append(input);
+                    return true;
+                } else {
+                    alert("Chọn chỉ một giấy phép để chỉnh sửa!");
+                }
+                return false;
+            });
+
+            $('#thamdinhForm').submit(function() {
                 var selr = jQuery('#grid').jqGrid('getGridParam', 'selarrrow');
                 if (!selr || selr.length < 1) {
                     alert('Chưa chọn giấy phép nào');
@@ -160,6 +187,7 @@
     <div class="action-button">
         <button id="detailButton">Chi tiết</button>
         <button id="editButton">Sửa</button>
+         <button id="thamdinhButton">Thẩm định</button>
         <button id="deleteButton">Xóa</button>
     </div>
     
@@ -171,6 +199,7 @@
     
     <% using (Html.BeginForm("Detail", "QLGiayPhep", FormMethod.Get, new { id = "detailForm" })) { } %>
     <% using (Html.BeginForm("Edit", "QLGiayPhep", FormMethod.Get, new { id = "editForm" })) { } %>
+     <% using (Html.BeginForm("Create", "ThamDinh", FormMethod.Get, new { id = "thamdinhForm" })) { } %>
     <% using (Html.BeginForm("Delete", "QLGiayPhep", FormMethod.Post, new { id = "deleteForm" })) { } %>
     
 </asp:Content>

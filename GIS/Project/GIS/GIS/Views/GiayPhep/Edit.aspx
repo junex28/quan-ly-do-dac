@@ -48,18 +48,11 @@
                 </dd>
             </dl>
         </div>
-    </fieldset>
-    <fieldset class="formVertical">
-        <div class="span subHeader">
-            <h3>
-                Thông Tin Xin phép mới
-            </h3>
-        </div>
         <dl class="span w16">
             <dt class="w4">
                 <%= Html.LabelFor(model => model.giayphep.NgayXinPhep)%></dt>
             <dd>
-                <%= Html.TextBox("Ngày xin phép", Model.giayphep.NgayXinPhep.Value.ToShortDateString(), new { @class = "date-picker" })%>
+                <%= Html.TextBox("Ngày xin phép", Model.giayphep.NgayXinPhep.Value.ToShortDateString(), new { @class = "date-picker" ,@disabled="disabled"})%>
                 <%= Html.ValidationMessageFor(model => model.giayphep.NgayXinPhep)%>
             </dd>
         </dl>
@@ -67,7 +60,7 @@
             <dt class="w4">
                 <%= Html.LabelFor(model => model.giayphep.LyDoXinPhep) %></dt>
             <dd>
-                <%= Html.TextBox("Lý do xin phép",Model.giayphep.LyDoXinPhep)%>
+                <%= Html.TextBox("Lý do xin phép", Model.giayphep.LyDoXinPhep, new { @disabled = "disabled" })%>
                 <%= Html.ValidationMessageFor(model => model.giayphep.LyDoXinPhep)%>
             </dd>
         </dl>
@@ -75,7 +68,7 @@
             <dt class="w4">
                 <%= Html.LabelFor(model => model.giayphep.CamKetXinPhep) %></dt>
             <dd>
-                <%= Html.TextBox("Cam kết xin phép", Model.giayphep.CamKetXinPhep)%>
+                <%= Html.TextBox("Cam kết xin phép", Model.giayphep.CamKetXinPhep, new { @disabled = "disabled" })%>
                 <%= Html.ValidationMessageFor(model => model.giayphep.CamKetXinPhep)%>
             </dd>
         </dl>
@@ -102,67 +95,122 @@
                 Thông Tin gia hạn
             </h3>
         </div>
-        <dl class="span w16">
-            <dt class="w4">
-                <%= Html.LabelFor(model => model.giayphep.NgayXinGiaHan) %></dt>
-            <dd>
-                <%= Html.TextBox("Ngày xin gia hạn", Model.giayphep.NgayXinGiaHan)%>
-                <%= Html.ValidationMessageFor(model => model.giayphep.NgayXinGiaHan)%>
-            </dd>
-        </dl>
-        <dl class="span w16">
-            <dt class="w4">
-                <%= Html.LabelFor(model => model.giayphep.LyDoGiaHan) %></dt>
-            <dd>
-                <%= Html.TextBox("Lý do gia hạn", Model.giayphep.LyDoGiaHan)%>
-                <%= Html.ValidationMessageFor(model => model.giayphep.LyDoGiaHan)%>
-            </dd>
-        </dl>
-        <dl class="span w16">
-            <dt class="w4">
-                <%= Html.LabelFor(model => model.giayphep.NgayGiaHan) %></dt>
-            <dd>
-                <%= Html.TextBox("Ngày gia hạn", Model.giayphep.NgayGiaHan)%>
-                <%= Html.ValidationMessageFor(model => model.giayphep.NgayGiaHan)%>
-            </dd>
-        </dl>
-    </fieldset>
-    <fieldset class="formVertical">
-        <div class="span subHeader">
-            <h3>
-                Thông tin bổ sung hoạt động</h3>
+        <div>
+            <dl class="span w16">
+                <dt class="w4">
+                    <%= Html.LabelFor(model => model.giayphep.NgayXinGiaHan) %></dt>
+                <dd>
+                    <%= Html.TextBox("Ngày xin gia hạn", Model.giayphep.NgayXinGiaHan, new { @disabled = "disabled" })%>
+                    <%= Html.ValidationMessageFor(model => model.giayphep.NgayXinGiaHan)%>
+                </dd>
+            </dl>
+            <dl class="span w16">
+                <dt class="w4">
+                    <%= Html.LabelFor(model => model.giayphep.LyDoGiaHan) %></dt>
+                <dd>
+                    <%= Html.TextBox("Lý do gia hạn", Model.giayphep.LyDoGiaHan, new { @disabled = "disabled" })%>
+                    <%= Html.ValidationMessageFor(model => model.giayphep.LyDoGiaHan)%>
+                </dd>
+            </dl>
+            <dl class="span w16">
+                <dt class="w4">
+                    <%= Html.LabelFor(model => model.giayphep.NgayGiaHan) %></dt>
+                <dd>
+                    <%= Html.TextBox("Ngày gia hạn", Model.giayphep.NgayGiaHan, new { @disabled = "disabled" })%>
+                    <%= Html.ValidationMessageFor(model => model.giayphep.NgayGiaHan)%>
+                </dd>
+            </dl>
         </div>
-        <div class="span subContent">
-            <dl class="span w16">
-                <dt class="w4">
-                    <%= Html.LabelFor(model => model.giayphep.NgayXinBoSung) %></dt>
-                <dd>
-                    <%= Html.TextBox("Ngày xin bổ sung", Model.giayphep.NgayXinBoSung)%>
-                    <%= Html.ValidationMessageFor(model => model.giayphep.NgayXinBoSung)%>
-                </dd>
-            </dl>
-            <dl class="span w16">
-                <dt class="w4">
-                    <%= Html.LabelFor(model => model.giayphep.CamKetBoSung) %></dt>
-                <dd>
-                    <%= Html.TextBox("Cam kết bổ sung", Model.giayphep.CamKetBoSung)%>
-                    <%= Html.ValidationMessageFor(model => model.giayphep.CamKetBoSung)%>
-                </dd>
-            </dl>
+        
+            <div class="span subHeader">
+                <h3>
+                    Thông tin bổ sung hoạt động</h3>
+            </div>
+            <div class="span subContent">
+                <dl class="span w16">
+                    <dt class="w4">
+                        <%= Html.LabelFor(model => model.giayphep.NgayXinBoSung) %></dt>
+                    <dd>
+                        <%= Html.TextBox("Ngày xin bổ sung", Model.giayphep.NgayXinBoSung, new { @disabled = "disabled" })%>
+                        <%= Html.ValidationMessageFor(model => model.giayphep.NgayXinBoSung)%>
+                    </dd>
+                </dl>
+                <dl class="span w16">
+                    <dt class="w4">
+                        <%= Html.LabelFor(model => model.giayphep.CamKetBoSung) %></dt>
+                    <dd>
+                        <%= Html.TextBox("Cam kết bổ sung", Model.giayphep.CamKetBoSung,new {@disabled = "disabled"})%>
+                        <%= Html.ValidationMessageFor(model => model.giayphep.CamKetBoSung)%>
+                    </dd>
+                </dl>
+            </div>
+            </fieldset>
+            <fieldset>
             <div class="span subHeader">
                 <h3>
                     Lĩnh vực hoạt động</h3>
             </div>
-            <div class="span subContent">
-                <select class="multiselect" multiple="multiple" name="alo">
+            <br/>
+            <p>
+                <div>
+                    <table frame="border">
+                        <tr>
+                            <td>
+                                Mã đăng ký
+                            </td>
+                            <td>
+                                Tên hoạt động
+                            </td>
+                            <td>
+                                Loại hoạt động
+                            </td>
+                            <td>
+                                Ngày bổ sung
+                            </td>
+                            <td>
+                                Tình trạng
+                            </td>
+                        </tr>
+                        <% foreach (var item in Model.DangKy)
+                           {%>
+                        <tr>
+                            <% String str = "";
+                               if (item.LaBoSung != null)
+                               {
+                                   if (item.LaBoSung == true)
+                                       str = "Bổ sung";
+                                   else str = "Không phải bổ sung";
+                               }%>
+                            <td>
+                                <%=Html.Encode(item.MaDangKyHoatDong)%>
+                            </td>
+                            <td>
+                                <%=Html.Encode(item.HoatDong.TenHoatDong)%>
+                            </td>
+                            <td>
+                                <%=Html.Encode(str)%>
+                            </td>
+                            <td>
+                                <%=Html.Encode(item.NgayBoSung.Value.ToShortDateString())%>
+                            </td>
+                            <td>
+                                <%=Html.Encode(item.TinhTrangXetDuyet.DienGiai)%>
+                            </td>
+                        </tr>
+                        <%} %>
+                    </table>
+                </div>
+        </p>
+        <%-- <div class="span subContent">
+                <select class="multiselect" multiple="multiple" name="alo" disabled=disabled>
                     <% foreach (var item in (MultiSelectList)ViewData["hoatdong"])
                        { %>
-                    <option value="<%=item.Value%>" <%=item.Selected? "selected='selected'":String.Empty %>>
+                    <option disabled="disabled" value="<%=item.Value%>" <%=item.Selected? "selected='selected'":String.Empty %>>
                         <%=item.Text%></option>
                     <% } %>
                 </select>
             </div>
-        </div>
+        </div>--%>
     </fieldset>
     <input class="formVertical" type="submit" value="Lưu lại" />
 
@@ -191,10 +239,12 @@
         });
 
     </script>
+
     <style>
-    .ui-datepicker table{
-        display: none;
-    }
+        .ui-datepicker table
+        {
+            display: none;
+        }
     </style>
     <% } %>
 </asp:Content>

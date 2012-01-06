@@ -132,7 +132,7 @@
     <%} %>
     <fieldset>
         <legend>Thông Tin đăng ký hoạt động</legend>
-        <table>
+        <table frame="border">
             <tr>
                 <td> Mã đăng ký </td>
                 <td> Tên hoạt động </td>
@@ -167,5 +167,4 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
 </asp:Content>
-<asp:Content ID="Content4" ContentPlaceHolderID="MapCenter" runat="server">
-</asp:Content>
+
