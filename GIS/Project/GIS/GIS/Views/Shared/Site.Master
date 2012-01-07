@@ -4,33 +4,136 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
-    <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/Content/template/mine/css/reset.css" type="text/css"
+        media="print" />
+    <link rel="stylesheet" href="/Content/template/mine/css/style.css" type="text/css"
+        media="screen, projection, tv" />
+    <link rel="stylesheet" href="/Content/template/mine/css/style-print.css" type="text/css"
+        media="print" />
+    <link rel="stylesheet" href="/Content/template/mine/css/960.css" type="text/css" />
+    <link rel="stylesheet" href="/Content/template/mine/css/text.css" type="text/css"
+        media="print" />
+
+    <script src="/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+
+    <script src="/Scripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+
+    <!-- Script for grid table -->
+
+    <script src="/Scripts/i18n/grid.locale-en.js" type="text/javascript"></script>
+
+    <script src="/Scripts/jquery.jqGrid.min.js" type="text/javascript"></script>
+
+    <link href="/Content/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css"
+        media="screen" />
+    <link href="/Content/ui.jqgrid.css" rel="stylesheet" type="text/css" media="screen" />
+    <!-- Script for validation -->
+
+    <script type="text/javascript" src="/Scripts/jquery.validate.min.js"></script>
+
+    <script type="text/javascript" src="/Scripts/MicrosoftMvcJQueryValidation.js"></script>
+
+    <%--	
+    	<!-- Script for dropdown menu -->
+    <script src="/Scripts/superfish/hoverIntent.js" type="text/javascript"></script>
+    <script src="/Scripts/superfish/superfish.js" type="text/javascript"></script>
+    <!-- Script for multi select -->
+    <script src="/Scripts/multiselectable.js" type="text/javascript"></script>
+    
+    --%>
+    <%-- <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="/Content/Custom.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/redmond/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css" />
     <link href="/Content/template/soria/soria.css" rel="stylesheet" type="text/css" />
     <link href="/Content/superfish/superfish.css" rel="stylesheet" type="text/css" />
     <link href="/Content/ui.jqgrid.css" rel="stylesheet" type="text/css" />
-    
-    <script src="/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
-    
-    <script src="/Scripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
-    <!-- Script for multi select -->
-    <script src="/Scripts/multiselectable.js" type="text/javascript"></script>
-    <!-- Script for dropdown menu -->
-    <script src="/Scripts/superfish/hoverIntent.js" type="text/javascript"></script>
-    <script src="/Scripts/superfish/superfish.js" type="text/javascript"></script>
-    <!-- Script for grid table -->
-    <script src="/Scripts/i18n/grid.locale-en.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery.jqGrid.min.js" type="text/javascript"></script>
-    <!-- Script for validation -->
-    <script type="text/javascript" src="/Scripts/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="/Scripts/MicrosoftMvcJQueryValidation.js"></script>
-	
-	<asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
+   --%>
+    <asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
 </head>
 <body>
-    <div class="page">
+    <div class="container_24">
+        <div class="grid_24" id="wrapper">
+            <!-- Header -->
+            <div id="header" class="grid_24">
+                <!-- Your website name  -->
+                <h1 class="banner">
+                    Hệ thống quản lý ĐO ĐẠC & BẢN ĐỒ</h1>
+                <!-- Your website name end -->
+                <!-- Your slogan end -->
+            </div>
+            <!-- Header end -->
+            <!-- Menu -->
+            <div class="grid_24">
+                <ul class="nav main">
+                    <li><a href="#Home"><span class="">Trang chủ</span></a> </li>
+                    <li><a href="#WebGis">Web GIS</a>
+                        <ul>
+                            <li><a href="#WebGis/">Hướng dẫn</a> </li>
+                            <li><a href="../12/fluid/jquery/">Bản đồ</a> </li>
+                            <li><a href="../12/fluid/none/">Quản lý</a> </li>
+                        </ul>
+                    </li>
+                    <li><a href="#WebGis">Quản lý</a>
+                        <ul>
+                            <li><a href="/giayphep">Quản lý giấy phép</a> </li>
+                            <li><a href="../12/fluid/jquery/">Quản lý công trình</a> </li>
+                            <li><a href="../12/fluid/none/">Quản lý tài khoản</a> </li>
+                        </ul>
+                    </li>
+                    <li><a href="#WebGis">Đăng ký/Tài khoản</a>
+                        <ul>
+                            <li><a href="#WebGis/">Thông tin tài khoản</a> </li>
+                            <li><a href="../12/fluid/jquery/">Đổi mật khẩu</a></li>
+                            <li><a href="../12/fluid/none/">Thông tin tổ chức</a></li>
+                            <li><a href="../12/fluid/none/">Lịch sử thẩm định</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#WebGis">Đăng nhập/Đăng xuất</a> </li>
+                </ul>
+            </div>
+            <!-- Menu end -->
+            <div class="clear">
+            </div>
+            <div class="grid_5 content-left">
+                &nbsp;</div>
+            <div class="grid_19 content-right">
+                <div class="grid_19 message">
+                    <% Html.RenderPartial("SystemMessage"); %>
+                </div>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <%--    <div class="grid_24 col-hint"></div>--%>
+        <div class="grid_24 footer">
+            <p>
+                &copy; Chi cục đo đạc và bản đồ phía Nam</p>
+            <p>
+                Địa chỉ: 42 Mạc Đĩnh Chi - Phường Đa Kao - Quận 1 - TP. Hồ Chí Minh
+            </p>
+            <p>
+                Điện thoại: +84 (08) 3882 9524 - Fax: +84 (08) 3882 9527
+            </p>
+            <p>
+                admin@bandophianam.gov.vn Website: www.bandophianam.gov.vn</p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function() {
+//            $(".jui-tabs").tabs();
+//            $(".jui-button").button();
+        });
+    </script>
+
+</body>
+</html>
+<%--<div class="page">
         <div class="header">
             <div class="siteLogo">
                 <a href="<%= Url.Action("Index", "TrangChu") %>">
@@ -52,17 +155,4 @@
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
             </div>
         </div>
-    </div>
-    <script type="text/javascript">
-        $(function() {
-            $('ul.sf-menu').superfish();
-            $(".jui-tabs").tabs();
-            $(".jui-button").button();
-//            if ($(".contentLeft").children().length == 0) {
-//                $(".contentLeft").remove();
-//                $(".contentRight").css("left", $(".contentRight").css("right"));
-//            }
-        });
-    </script>
-</body>
-</html>
+    </div>--%>

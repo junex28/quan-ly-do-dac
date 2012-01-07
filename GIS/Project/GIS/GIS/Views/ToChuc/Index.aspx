@@ -7,26 +7,6 @@
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
     <script type="text/javascript">
         $(function() {
-            $('#detailButton').button({
-                icons:
-                    {
-                        primary: "ui-icon-document-b"
-                    }
-            });
-
-            $('#editButton').button({
-                icons:
-                    {
-                        primary: "ui-icon-pencil"
-                    }
-            });
-
-            $('#deleteButton').button({
-                icons:
-                    {
-                        primary: "ui-icon-trash"
-                    }
-            });
 
             $('#editButton').click(function() {
                 $('#editForm').submit();
@@ -39,8 +19,9 @@
             $('#detailButton').click(function() {
                 $('#detailForm').submit();
             });
-        
+
             $("#grid").jqGrid({
+                caption:'DANH SÁCH TỔ CHỨC',
                 url: '<%= Url.Action("ListData","ToChuc") %>',
                 editurl: '',
                 mtype: "GET",
@@ -128,17 +109,16 @@
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
     <%--<h2>Danh Sách Tổ Chức</h2>--%>
-    
-    <div class="action-button">
-        <button id="detailButton">Chi tiết</button>
-        <button id="editButton">Sửa</button>
-        <button id="deleteButton">Xóa</button>
+    <div class="box">
+        <button id="detailButton" class="button green"><span class="detail">Chi tiết</span></button>
+        <button id="editButton" class="button green"><span class="edit">Sửa</span></button>
+        <button id="deleteButton" class="button green"><span class="delete">Xóa</span></button>
     </div>
-    
-    <div class="gridpage">
-        <table id="grid"></table>
-        <div id="pager"></div>
+    <div class="box">
+            <table id="grid"></table>
+            <div id="pager"></div>
     </div>
+
     
     <% using (Html.BeginForm("ChiTiet", "ToChuc", FormMethod.Get, new { id = "detailForm" })) { } %>
     <% using (Html.BeginForm("CapNhat", "ToChuc", FormMethod.Get, new { id = "editForm" })) { } %>

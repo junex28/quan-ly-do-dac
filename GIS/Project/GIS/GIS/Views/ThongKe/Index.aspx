@@ -5,9 +5,9 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div id="chart1" style="width:600px; height:250px;"></div>
-
+    <div class="box">
+        <div id="chart1" style="width:600px; height:250px;"></div>
+    </div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
@@ -16,7 +16,7 @@
 <script type="text/javascript" src="../src/plugins/jqplot.pointLabels.min.js"></script>
 	--%>
 	<link type="text/css" rel="Stylesheet" href="../../Scripts/chart/jquery.jqplot.min.css" />
-	<script type="text/javascript" src="../../Scripts/chart/jquery.min.js"></script>
+	<%--<script type="text/javascript" src="../../Scripts/chart/jquery.min.js"></script>--%>
 	<script type="text/javascript" src="../../Scripts/chart/jquery.jqplot.min.js"></script>
 	<script type="text/javascript" src="../../Scripts/chart/jqplot.barRenderer.js"></script>
 	<script type="text/javascript" src="../../Scripts/chart/jqplot.barRenderer.min.js"></script>
@@ -42,13 +42,33 @@
 	    }
 	</script>--%>
 	
-	<script type="text/javascript">
+	<script type="text/javascript">	    
 	    $(document).ready(function() {
-	        var s1 = [2, 6, 7, 10];
-	        var s2 = [7, 5, 3, 4];
-	        var s3 = [14, 9, 3, 8];
-	        var ticks = ['TC Nhà nước', 'TC ngoài Nhà nước', 'TC CT-XH', 'TC nước ngoài'];
-	        plot3 = $.jqplot('chart1', [s1, s2, s3], {
+	        // var s1 = [2, 6, 7, 10];
+	        // var s2 = [7, 5, 3, 4];
+	        // var s3 = [14, 9, 3, 8];
+
+	        /* Dynamic data*/
+	       	         
+	        urlDataJSON = '/thongke/datatojson';
+	        $.getJSON(urlDataJSON, "", function(data) {
+	            var dataLines = [];
+	            var dataLabels = "";
+	            $.each(data, function(entryindex, entry) {
+	                dataLines.push(entry['SoLieu']);
+	                dataLabels = dataLabels + entry['LoaiCapPhep'];
+      	            });	            
+                Plot(dataLines, dataLabels);
+	         });
+	    });
+        
+        function Plot(dataLines, dataLabels) {
+ 	        var ticks = ['TC Nhà nước', 'TC ngoài Nhà nước', 'TC CT-XH', 'TC nước ngoài'];
+	        s1 = dataLines[0].slice();
+	        s2 = dataLines[1].slice();
+	        s3 = dataLines[2].slice();
+	        
+	        plot = $.jqplot('chart1', [s1, s2, s3], {
 	            // Tell the plot to stack the bars.
 	            stackSeries: true,
 	            captureRightClick: true,
@@ -81,12 +101,16 @@
 	                location: 'e',
 	                placement: 'outside'
 	            }
-	        });
-	        $('#chart1').bind('jqplotDataClick',
-                function(ev, seriesIndex, pointIndex, data) {
-                    $('#info3').html('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
+	        });    
+    plot.redraw(); // gets rid of previous axis tick markers
+
                 }
-            );
-	    });
+
+//	        
+//	        $('#chart1').bind('jqplotDataClick',
+//                function(ev, seriesIndex, pointIndex, data) {
+//                    $('#info3').html('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
+//                }
+//            );
 </script>
 </asp:Content>
