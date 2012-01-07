@@ -417,9 +417,8 @@ ul.nav li.secondary:hover a:active {
 	cursor: pointer;
 	text-align: center;
 	text-decoration: none;
-	font: 11px/100% Verdana,Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	padding: .5em 2em .55em;
+	font: 12px/100% Verdana,Arial, Helvetica, sans-serif;
+	padding: .5em 1em .55em;
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	-webkit-border-radius: .5em; 
 	-moz-border-radius: .5em;
@@ -451,8 +450,28 @@ ul.nav li.secondary:hover a:active {
 }
 
 /* color styles 
+background: url("images/ui-bg_glass_85_dfeffc_1x400.png") repeat-x scroll 50% 50% #DFEFFC;
+    border: 1px solid #C5DBEC;
+    color: #2E6E9E;
 ---------------------------------------------- */
+.redmond
+{
+	color: #2E6E9E;
+	border: solid 1px #C5DBEC;
+    background: url("../../../redmond/images/ui-bg_glass_85_dfeffc_1x400.png") repeat-x scroll 50% 50% #DFEFFC;    
+    }
 
+.redmond:hover {
+    background: url("../../../redmond/images/ui-bg_glass_75_d0e5f5_1x400.png") repeat-x scroll 50% 50% #D0E5F5;
+    border: 1px solid #79B7E7;
+    color: #1D5987;
+  } 
+ 
+ .redmond:active{
+    background: url("../../../redmond/images/ui-bg_inset-hard_100_f5f8f9_1x100.png") repeat-x scroll 50% 50% #F5F8F9;
+    border: 1px solid #79B7E7;
+    color: #E17009;
+ }     
 /* black */
 .black {
 	color: #d7d7d7;
@@ -588,6 +607,11 @@ background:url('../img/view.png') no-repeat 0px 0px;
 text-indent:20px;
 display:block;
 }
+.validation
+{
+    background:url('../img/validation.png') no-repeat 0px 0px;
+    text-indent:20px;
+    display:block;
 
-/* Toolbar 
-***************************/
+    }
+
