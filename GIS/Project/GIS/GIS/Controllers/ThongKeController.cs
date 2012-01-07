@@ -8,7 +8,7 @@ using GIS.ViewModels;
 
 namespace GIS.Controllers
 {
-    public class ThongKeController : Controller
+    public class ThongKeController : BaseController
     {
         //
         // GET: /ThongKe/
@@ -17,6 +17,7 @@ namespace GIS.Controllers
         {
             return View();
         }
+
         public ActionResult DataToJSON()
         {
 
@@ -45,7 +46,7 @@ namespace GIS.Controllers
             Data3.SoLieu[2] = 3;
             Data3.SoLieu[3] = 8;
             DataList.Add(Data3);
-            return Json(DataList);
+            return Json(DataList, JsonRequestBehavior.AllowGet);
 
         }
 
