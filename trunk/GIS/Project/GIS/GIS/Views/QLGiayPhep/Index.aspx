@@ -10,33 +10,6 @@
 
         $(function() {
             //var selectedId;
-            $('#detailButton').button({
-
-                icons:
-                    {
-                        primary: "ui-icon-document-b"
-                    }
-            });
-
-            $('#editButton').button({
-                icons:
-                    {
-                        primary: "ui-icon-pencil"
-                    }
-                });
-                $('#thamdinhButton').button({
-                    icons:
-                    {
-                        primary: "ui-icon-pencil"
-                    }
-                });
-
-            $('#deleteButton').button({
-                icons:
-                    {
-                        primary: "ui-icon-trash"
-                    }
-            });
 
             $('#editButton').click(function() {
                 $('#editForm').submit();
@@ -130,7 +103,8 @@
             var st = actionUrl.replace('PLACEHOLDER', 0);
 
             $("#grid").jqGrid({
-                //editurl: '',
+            //editurl: '',
+                caption: 'DANH SÁCH GIẤY PHÉP',
                 url: st,
                 mtype: "GET",
                 datatype: "json",
@@ -167,8 +141,16 @@
 </asp:Content>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div>
-    <label>Xem danh sach giay phep theo: </label>
+   
+    <div class="box">
+        <button id="detailButton" class="button white"><span class="detail">Chi tiết</span></button>
+        <button id="editButton"  class="button white"><span class="edit">Sửa</span></button>
+         <button id="thamdinhButton" class="button white"><span class="edit">Thẩm định</span></button>
+        <button id="deleteButton" class="button white"><span class="delete">Xóa</span></button>
+    </div>
+    
+    <div class="box">
+    <label>Danh sách giấy phép: </label>
     <select id="selector" onchange="chageSelect();">
       <option value="0" selected = "selected">Tất cả</option>
       <option value="1">DS xin mới đang chờ thẩm định</option>
@@ -182,17 +164,8 @@
       <option value="8">DS xin gia hạn thất bại</option>
       <option value="9">DS xin gia hạn thành công</option>
     </select>
-    </div>
-   
-    <div class="action-button">
-        <button id="detailButton">Chi tiết</button>
-        <button id="editButton">Sửa</button>
-         <button id="thamdinhButton">Thẩm định</button>
-        <button id="deleteButton">Xóa</button>
-    </div>
-    
-   
-    <div class="gridpage">
+    </div>   
+    <div class="box">
         <table id="grid"></table>
         <div id="pager"></div>
     </div>
