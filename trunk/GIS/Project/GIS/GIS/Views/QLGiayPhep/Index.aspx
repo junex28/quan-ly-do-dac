@@ -3,13 +3,14 @@
 <asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">
     Danh sách giấy phép
 </asp:Content>
-
-
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
+
     <script type="text/javascript">
 
         $(function() {
             //var selectedId;
+            //find all form with class jqtransform and apply the plugin
+            $("form.jqtransform").jqTransform();
 
             $('#editButton').click(function() {
                 $('#editForm').submit();
@@ -22,9 +23,9 @@
             $('#detailButton').click(function() {
                 $('#detailForm').submit();
             });
-            
+
             $('#thamdinhButton').click(function() {
-              $('#thamdinhButton').submit();
+                $('#thamdinhButton').submit();
             });
 
             $('#detailForm').submit(function() {
@@ -98,12 +99,12 @@
                 return false;
             });
 
-            var actionUrl ='<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER" } ) %>';
+            var actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER" } ) %>';
             //var s = $("#selector").val();
             var st = actionUrl.replace('PLACEHOLDER', 0);
 
             $("#grid").jqGrid({
-            //editurl: '',
+                //editurl: '',
                 caption: 'DANH SÁCH GIẤY PHÉP',
                 url: st,
                 mtype: "GET",
@@ -111,7 +112,7 @@
                 //postdata: { sId: 0 },
                 colNames: ['Mã giấy phép', 'Tên tổ chức', 'Ngày xin phép', 'Tình trạng giấy phép'],
                 colModel: [
-                { name: 'MaGiayPhepHoatDong', index: 'MaGiayPhepHoatDong', width: 10, align: 'left', sortable: false },
+                { name: 'MaGiayPhepHoatDong', index: 'MaGiayPhepHoatDong', width: 50, align: 'left', sortable: false },
                 { name: 'TenToChuc', index: 'TenToChuc', width: 50, align: 'left', sortable: true },
                 { name: 'NgayXinPhep', index: 'NgayXinPhep', width: 40, align: 'left', sortable: true },
                 { name: 'TinhTrangGiayPhep', index: 'SoGiayPhep', width: 50, align: 'left', sortable: false}],
@@ -134,47 +135,52 @@
             //salert($("#selector").val());
             actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER" } ) %>';
             st = actionUrl.replace('PLACEHOLDER', $("#selector").val());
-            $("#grid").setGridParam({ url: st}).trigger('reloadGrid');
+            $("#grid").setGridParam({ url: st }).trigger('reloadGrid');
 
-            }
+        }
     </script>
-</asp:Content>
 
+</asp:Content>
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
-   
     <div class="box">
-        <button id="detailButton" class="button white"><span class="detail">Chi tiết</span></button>
-        <button id="editButton"  class="button white"><span class="edit">Sửa</span></button>
-         <button id="thamdinhButton" class="button white"><span class="edit">Thẩm định</span></button>
-        <button id="deleteButton" class="button white"><span class="delete">Xóa</span></button>
+        <button id="detailButton" class="button redmond">
+            <span class="detail">Chi tiết</span></button>
+        <button id="editButton" class="button redmond">
+            <span class="edit">Sửa</span></button>
+        <button id="deleteButton" class="button redmond">
+            <span class="delete">Xóa</span></button>
+        <button id="thamdinhButton" class="button redmond">
+            <span class="validation">Thẩm định</span></button>
     </div>
-    
-    <div class="box">
-    <label>Danh sách giấy phép: </label>
-    <select id="selector" onchange="chageSelect();">
-      <option value="0" selected = "selected">Tất cả</option>
-      <option value="1">DS xin mới đang chờ thẩm định</option>
-      <option value="2">DS xin mới không đủ điều kiện</option>
-      <option value="3">DS giấy phép hết hạn</option>
-      <option value="3">DS xin mới đủ điều kiện</option>
-      <option value="4">DS xin bổ sung hoạt động</option>
-      <option value="5">DS xin bổ sung hoạt động thất bại</option>
-      <option value="6">DS xin bổ sung hoạt động thành công</option>
-      <option value="7">DS xin gia hạn</option>
-      <option value="8">DS xin gia hạn thất bại</option>
-      <option value="9">DS xin gia hạn thành công</option>
-    </select>
-    </div>   
-    <div class="box">
-        <table id="grid"></table>
-        <div id="pager"></div>
+    <div class="box grid_12">
+        <form class="jqtransform">
+        <label>
+            Danh sách giấy phép:
+        </label>
+        <select id="selector" onchange="chageSelect();">
+            <option value="0" selected="selected">Tất cả</option>
+            <option value="1">DS xin mới đang chờ thẩm định</option>
+            <option value="2">DS xin mới không đủ điều kiện</option>
+            <option value="3">DS giấy phép hết hạn</option>
+            <option value="3">DS xin mới đủ điều kiện</option>
+            <option value="4">DS xin bổ sung hoạt động</option>
+            <option value="5">DS xin bổ sung hoạt động thất bại</option>
+            <option value="6">DS xin bổ sung hoạt động thành công</option>
+            <option value="7">DS xin gia hạn</option>
+            <option value="8">DS xin gia hạn thất bại</option>
+            <option value="9">DS xin gia hạn thành công</option>
+        </select>
+        </form>
     </div>
-    
+    <div class="clear"></div>
+    <div class="box">
+        <table id="grid">
+        </table>
+        <div id="pager">
+        </div>
+    </div>
     <% using (Html.BeginForm("Detail", "QLGiayPhep", FormMethod.Get, new { id = "detailForm" })) { } %>
     <% using (Html.BeginForm("Edit", "QLGiayPhep", FormMethod.Get, new { id = "editForm" })) { } %>
-     <% using (Html.BeginForm("Create", "ThamDinh", FormMethod.Get, new { id = "thamdinhForm" })) { } %>
+    <% using (Html.BeginForm("Create", "ThamDinh", FormMethod.Get, new { id = "thamdinhForm" })) { } %>
     <% using (Html.BeginForm("Delete", "QLGiayPhep", FormMethod.Post, new { id = "deleteForm" })) { } %>
-    
 </asp:Content>
-
-
