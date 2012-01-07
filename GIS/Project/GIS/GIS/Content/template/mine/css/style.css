@@ -1,0 +1,593 @@
+/*  This template was created by Mantis-a [http://www.mantisa.cz/]. For more templates visit Free website templates [http://www.mantisatemplates.com/]. */
+
+
+
+/* CSS Document */
+
+
+/* General */
+
+* {
+margin: 0;
+padding: 0;
+}
+
+html {
+height: 100%;
+font-size: 62.5%;
+}
+
+body 
+{
+height: 100%;
+text-align: center;
+font: 1.2em Verdana, Arial, Helvetica, sans-serif;
+background-color: #112233;
+/*padding-bottom: 80px; Simulates margin-bottom for wrapper in IE */
+}
+
+a:link, a:visited {
+color: #00598D;
+text-decoration: underline;
+font-weight: bold;
+}
+
+a:hover {
+text-decoration: none;
+}
+
+.cleaner {
+clear: both;
+height: 0;
+font-size: 0;
+visibility: hidden;
+}
+
+.noscreen {
+display: none;
+}
+
+
+/* Paragraphs, headings, ... */
+
+p {
+line-height: 1.9;
+margin-bottom: 7px;
+}
+
+p.text-content:first-letter {
+font-size: 1.4em;
+font-weight: bold;
+line-height: 0.9;
+color: #202020;
+font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+h1 {
+font: 2.6em  Georgia, "Times New Roman", Times, serif;
+margin: 0 0 10px 40px;
+width: 55%;
+padding: 15px 0 5px 0;
+}
+
+h1 a:link, h1 a:visited {
+font-weight: normal;
+text-decoration: none;
+color: #FFFFFF;
+}
+
+h2 {
+font: 1.2em Verdana, Arial, Helvetica, sans-serif;
+letter-spacing: 1px;
+color: #FFFFFF;
+/*border-left: 3px solid #FFAE20;*/
+padding-left: 14px;
+margin: 12px 0 0 40px;
+}
+
+h3 {
+color: #00598D;
+font: 1.7em Georgia, "Times New Roman", Times, serif;
+letter-spacing: 1px;
+background: url('../img/h3-bg.gif') no-repeat 0 50%;
+padding-left: 35px;
+margin: 18px 0 10px 0;
+}
+
+h4 {
+font-size: 1em;
+background-color: #005E85;
+color: #FFFFFF;
+letter-spacing: 1px;
+border: 2px solid #FFFFFF;
+margin-top: 7px;
+padding: 6px 10px;
+}
+
+ul {
+list-style-type: none; 
+}
+
+
+/* Site wrapper */
+
+#wrapper {
+margin: 0 auto 0 auto;
+position: relative;
+display: table; /* margin-bottom for FF   (?) */
+text-align: left;
+background-color:#F0F9FD;
+/*opacity:0.7;
+filter:alpha(opacity=70); *//* For IE8 and earlier */
+}
+
+
+/* Header */
+
+#header {
+height: 160px;
+position: relative;
+background: #004E6C url('../img/header-banner.png') repeat-x 0 0;
+text-indent:-99990px;
+border-top: 4px solid #003042;
+border-bottom: 2px solid #46A0CA;
+}
+
+/* Menu */
+
+ul.nav, ul.nav * {
+    margin: 0;
+    padding: 0;
+}
+ul.nav {
+    background:none repeat scroll 0 0 #666666;
+    height: 2.5em;
+    max-width: 100%;
+    position: relative;
+}
+ul.nav li {
+    cursor: pointer;
+    float: left;
+    font-weight: normal;
+    list-style-type: none;
+    text-align: center;
+}
+ul.nav li ul {
+    background-position: 0 0 !important;
+    cursor: default;
+    height: auto;
+    left: -9000px;
+    max-width: 100%;
+    position: absolute;
+    top: 2.5em;
+    width: 100%;
+}
+ul.nav li ul li {
+    border: medium none;
+    max-width: none;
+    padding: 0;
+    width: auto;
+}
+ul.nav li a {
+    background: none repeat scroll 0 0 #666666;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-weight: bold;
+    height: 2.4em;
+    line-height: 2.5em;
+    padding: 0 1em;
+    text-decoration: none;
+}
+ul.nav li ul li a {
+    background-position: 0 50% !important;
+    color: #666666;
+    cursor: pointer !important;
+    font-weight: normal;
+    height: 2em;
+    line-height: 2em;
+    position: relative !important;
+    white-space: nowrap;
+}
+ul.nav li:hover a, ul.nav li a:hover, ul.nav li a:focus {
+    background: none repeat scroll 0 0 #CCCCCC;
+    color: #000000;
+}
+ul.nav li a:active {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #666666;
+}
+ul.nav li:hover ul {
+    left: 0;
+    z-index: 10;
+}
+ul.nav li ul, ul.nav li {
+    background: none repeat scroll 0 0 #CCCCCC !important;
+}
+ul.nav li:hover ul li a {
+    color: #444444;
+}
+ul.nav li:hover ul li a:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #000000;
+}
+ul.nav li:hover ul li a:active {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #666666;
+}
+ul.nav li.current a {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #666666;
+    cursor: default;
+    font-weight: bold;
+}
+ul.nav li.current ul {
+    left: 0;
+    z-index: 5;
+}
+ul.nav li.current ul, ul.nav li.current {
+    background: none repeat scroll 0 0 #CCCCCC !important;
+}
+ul.nav li.current ul li a {
+    background: none repeat scroll 0 0 #CCCCCC;
+    color: #444444;
+    font-weight: normal;
+}
+ul.nav li.current ul li a:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #000000;
+}
+ul.nav li ul li.current a, ul.nav li ul li.current a:hover, ul.nav li.current:hover ul li a:active {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #666666;
+}
+ul.nav {
+    background: none repeat scroll 0 0 #666666;
+}
+
+ul.main
+{
+    /*background: url('../img/nav_01.gif') repeat-x scroll #666666;*/
+    background-color: #0e5ba1;
+    }
+    
+ul.main li {
+    left: 0;
+    position: relative;
+    top: 0;
+}
+ul.main li ul {
+    border-top: 0 none;
+}
+ul.main li ul li {
+    float: left;
+}
+ul.main li a {
+    /*background: url('../img/nav_01.gif') repeat-x scroll 0 0 #666666;*/
+    background-color: #0e5ba1;
+    border: 0 none;
+    color: #FFFFFF;
+    height: 2.5em;
+    line-height: 2.5em;
+}
+
+ul.main li ul li a {
+    background: none repeat scroll 0 0 #444444;
+    border-top: 1px solid #444444;
+    color: #FFFFFF;
+    height: 2em;
+    line-height: 2em;
+    text-align: left;
+    width: 12em;
+}
+ul.main li a:focus {
+    background: url('../img/nav_04.gif') repeat-x scroll 0 0 #666666;
+    color: #FFFFFF;
+}
+ul.main li ul li a:hover {
+    background: none repeat scroll 0 0 #555555;
+    color: #FFFFFF;
+}
+ul.main li:hover a {
+    background: url('../img/nav_04.gif') repeat-x scroll 0 0 #555555;
+    color: #FFFFFF;
+}
+ul.main li:hover ul li a {
+    color: #FFFFFF;
+}
+ul.main li:hover ul li a:hover {
+    background: none repeat scroll 0 0 #444444;
+    color: #FFFFFF;
+}
+ul.main li:hover a:active {
+    background: none repeat scroll 0 0 #444444;
+}
+ul.main li:hover ul li a:active {
+    background: none repeat scroll 0 0 #222222;
+    color: #FFFFFF;
+}
+ul.nav li.secondary {
+    background: none repeat scroll 0 0 transparent !important;
+    color: #CCDDEE;
+    float: right;
+}
+ul.nav li.secondary span.status {
+    float: left;
+    font-size: 0.9em;
+    height: 2.77em;
+    line-height: 2.77em;
+    padding: 0 1em;
+}
+ul.nav li.secondary span.status a {
+    background: none repeat scroll 0 0 transparent;
+    color: #CCDDEE;
+    display: inline;
+    float: none;
+    height: auto;
+    padding: 0;
+}
+ul.nav li.secondary span.status a:hover {
+    background: none repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+}
+ul.nav li.secondary span.status span {
+    text-transform: capitalize;
+}
+ul.nav li.secondary:hover a {
+    background: none repeat scroll 0 0 #666666;
+    color: #FFFFFF;
+}
+ul.nav li.secondary:hover a:hover {
+    background: none repeat scroll 0 0 #555555;
+}
+ul.nav li.secondary:hover a:active {
+    background: none repeat scroll 0 0 #444444;
+}
+
+/* Content boxes */
+.content
+{
+    background: #F0F9FD;
+    margin:10px 0 0;
+    overflow: auto;    
+    }
+
+.content-left, .content-right
+{
+    min-height: 400px;
+    -moz-border-radius: 10px;
+    border-radius: 5px;
+    background-color:#F0F9FD;
+
+    }    
+
+.content-left
+{
+    }
+    
+.content-right
+{
+    }
+    
+    
+/* Footer */
+.footer
+{
+    padding: 30px 0 40px;
+    margin-bottom:5px;
+    background-color: #0e5ba1;
+    }
+    
+.footer p
+{
+    color:#fff;
+    font-size: 11px;
+    text-align: center;
+    line-height: 12px;    
+    }
+
+/* End Footer */     
+
+.container_24
+{
+    background-image:url('../img/24_col.gif');
+    }
+    
+.container_24
+{
+    background-color:#112233;
+    background-repeat:repeat-y;    
+}
+ 
+/* Box */
+.box {
+    /*background: none repeat scroll 0 0 #DDDDDD;*/
+    margin-bottom: 10px;
+    padding: 10px 10px 1px;
+}
+    
+/* Button */
+.button {
+	display: inline-block;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 11px/100% Verdana,Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.button:hover {
+	text-decoration: none;
+}
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+.bigrounded {
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+.medium {
+	font-size: 12px;
+	padding: .4em 1.5em .42em;
+}
+.small {
+	font-size: 11px;
+	padding: .2em 1em .275em;
+}
+
+/* color styles 
+---------------------------------------------- */
+
+/* black */
+.black {
+	color: #d7d7d7;
+	border: solid 1px #333;
+	background: #333;
+	background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#000));
+	background: -moz-linear-gradient(top,  #666,  #000);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#000000');
+}
+.black:hover {
+	background: #000;
+	background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000));
+	background: -moz-linear-gradient(top,  #444,  #000);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000');
+}
+.black:active {
+	color: #666;
+	background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#444));
+	background: -moz-linear-gradient(top,  #000,  #444);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#666666');
+}
+
+/* white */
+.white {
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+.white:hover {
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+.white:active {
+	color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+	background: -moz-linear-gradient(top,  #ededed,  #fff);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
+
+/* orange */
+.orange {
+	color: #fef4e9;
+	border: solid 1px #da7c0c;
+	background: #f78d1d;
+	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+}
+.orange:hover {
+	background: #f47c20;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+}
+.orange:active {
+	color: #fcd3a5;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
+	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+}
+
+/* green */
+.green {
+	color: #e8f0de;
+	border: solid 1px #538312;
+	background: #64991e;
+	background: -webkit-gradient(linear, left top, left bottom, from(#7db72f), to(#4e7d0e));
+	background: -moz-linear-gradient(top,  #7db72f,  #4e7d0e);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#7db72f', endColorstr='#4e7d0e');
+}
+.green:hover {
+	background: #538018;
+	background: -webkit-gradient(linear, left top, left bottom, from(#6b9d28), to(#436b0c));
+	background: -moz-linear-gradient(top,  #6b9d28,  #436b0c);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#6b9d28', endColorstr='#436b0c');
+}
+.green:active {
+	color: #a9c08c;
+	background: -webkit-gradient(linear, left top, left bottom, from(#4e7d0e), to(#7db72f));
+	background: -moz-linear-gradient(top,  #4e7d0e,  #7db72f);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#4e7d0e', endColorstr='#7db72f');
+}
+
+/* blue */
+.blue {
+	color: #d9eef7;
+	border: solid 1px #0076a3;
+	background: #0095cd;
+	background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+	background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00adee', endColorstr='#0078a5');
+}
+.blue:hover {
+	background: #007ead;
+	background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+	background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095cc', endColorstr='#00678e');
+}
+.blue:active {
+	color: #80bed6;
+	background: -webkit-gradient(linear, left top, left bottom, from(#0078a5), to(#00adee));
+	background: -moz-linear-gradient(top,  #0078a5,  #00adee);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0078a5', endColorstr='#00adee');
+}
+
+.add{
+background:url('../img/add.png') no-repeat 0px 0px;
+text-indent:20px;
+display:block;
+}
+.edit{
+background:url('../img/edit.png') no-repeat 0px 0px;
+text-indent:20px;
+display:block;
+}
+.update{
+background:url('../img/update.png') no-repeat 0px 0px;
+text-indent:20px;
+display:block;
+}
+.delete{
+background:url('../img/delete.png') no-repeat 0px 0px;
+text-indent:20px;
+display:block;
+}
+.detail{
+background:url('../img/view.png') no-repeat 0px 0px;
+text-indent:20px;
+display:block;
+}
+
+/* Toolbar 
+***************************/
