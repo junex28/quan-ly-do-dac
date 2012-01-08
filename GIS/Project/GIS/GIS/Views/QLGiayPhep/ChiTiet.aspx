@@ -79,34 +79,65 @@
                     {tochuc.Email}
                 </p>
             </div>
-
-            </div>
-                        <div class="box">
-              <h2>
+        </div>
+        <div class="box">
+            <h2>
                 <a id="toggle-nangluc" href="#" style="cursor: pointer;">Kê khai năng lực</a>
             </h2>
-            
-                   <div class="block" id="nangluc"> 
-                        <div id="nanglucresult"></div>                             
-                   </div>
-    </div>
-
+            <div class="block" id="nangluc">
+                
+                <h4>1. Lực lượng kỹ thuật</h4>
+                <h5>a. Lực lượng kỹ thuật phân tích theo ngành nghề</h5>
+                <div class="box">
+                <div id="nanglucresult">
+                </div>
+                </div>
+                <h5>b. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật chính</h5>
+                <div class="box">
+                <div id="nhanlucresult">
+                </div>
+                </div>                
+                <h5>c. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật chính</h5>
+                <div class="box">
+                <div id="thietbiresult">
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+                    <button id="backButton" class="button redmond" onclick="window.location.href='./'">
+                <span class="back">Trở về</span></button>
+                    <button id="thamdinhButton" class="button redmond" onclick="">
+                <span class="validation">Thẩm định</span></button>
+        </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
+
     <script type="text/javascript">
         
         function doAjaxPageNangLuc(pageNo) {
             // $("#nanglucresult").load("/nangluc/getnanglucs?tcid=${tochuc.MaToChuc}", { page: pageNo });
             $("#nanglucresult").load("/nangluc/dsnanglucs?tcid=1", { page: pageNo });
         }
+
+        function doAjaxPageNhanLuc(pageNo) {
+            $("#nhanlucresult").load("/nhanluc/dsnhanlucs?tcid=1", { page: pageNo });
+        }
+
+        function doAjaxPageThietBi(pageNo) {
+            $("#thietbiresult").load("/thietbi/dsthietbis?tcid=1", { page: pageNo });
+        }
         
         $(document).ready(function() {
-            doAjaxPageNangLuc(1);
+        doAjaxPageNangLuc(1);
+        doAjaxPageNhanLuc(1);
+        doAjaxPageThietBi(1);   
         });
         
     </script>
+
 </asp:Content>
-    <%--   <h2>
+<%--   <h2>
         Detail</h2>
     <fieldset>
         <legend>Thông Tin xin phép</legend>
@@ -266,7 +297,6 @@
       
         <%= Html.ActionLink("Back to List", "Index") %>
     </p>--%>
-
 <%--
 <table border="0">
                         <tr>
