@@ -20,17 +20,18 @@ namespace GIS.Controllers
         private ITinhTrangGiayPhepRepository _ttgpRepository;
         private IDangKyHoatDongRepository _dkhdRespository;
         private IHoatDongRepository _hoatdongRespository;
+        private INangLucKeKhaiRespository _nanglucRespository;
 
        public QLGiayPhepController()
             : this(new ToChucRepository(), new TaiKhoanRepository(), new GiayPhepHoatDongRepository(),
                         new TinhTrangGiayPhepRepository(), new DangKyHoatDongRespository(),
-                        new HoatDongRespository())
+                        new HoatDongRespository(), new NangLucKeKhaiRespository())
         {
         }
 
        public QLGiayPhepController(IToChucRepository tochucRepository, ITaiKhoanRepository taikhoanRepository,
            IGiayPhepHoatDongRepository gphdRepository, ITinhTrangGiayPhepRepository ttgpRepository, 
-           IDangKyHoatDongRepository dkhdRespository, IHoatDongRepository hoatdongRepository)
+           IDangKyHoatDongRepository dkhdRespository, IHoatDongRepository hoatdongRepository, INangLucKeKhaiRespository nanglucRespository)
         {
             this._tochucRepository = tochucRepository;
             this._taikhoanRepository = taikhoanRepository;
@@ -38,6 +39,7 @@ namespace GIS.Controllers
             this._ttgpRepository = ttgpRepository;
             this._dkhdRespository = dkhdRespository;
             this._hoatdongRespository = hoatdongRepository;
+           this._nanglucRespository = nanglucRespository;
         }
         //
         // GET: /GiayPhep/
@@ -99,8 +101,27 @@ namespace GIS.Controllers
            return Json(jsonData, JsonRequestBehavior.AllowGet);
        }
        
-        public ActionResult ChiTiet(){
-            var model = new GiayPhepDetailModel();
+        public ActionResult ChiTiet(int id){
+            GiayPhepHoatDong gphd = _gphdRepository.GetGiayPhepHoatDongByID(id);
+            if (gphd == null)
+            {
+                return new FileNotFoundResult { Message = "Không có giấy phép trên trên" };
+            }
+            var nanglucList = _nanglucRespository.GetNangLucKeKhaiByID(gphd.ToChuc.MaToChuc).ToList();
+            var dangky = _dkhdRespository.GetDangKyHDs(id);
+            var maHDList = _dkhdRespository.getSelectedHD(dangky.ToList<DangKyHoatDong>());
+            var hoatdongList = new List<HoatDong>();
+            foreach (int i in maHDList)
+            {
+                hoatdongList.Add(_hoatdongRespository.GetHoatDongByID(i));
+            }
+            var model = new GiayPhepDetailModel
+            {
+                DangKy = dangky,
+                giayphep = gphd,
+                hoatdong = hoatdongList,
+                nangluc = nanglucList
+            };
             return View(model);
         }
 
