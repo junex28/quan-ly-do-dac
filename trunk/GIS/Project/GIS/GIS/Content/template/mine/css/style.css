@@ -98,14 +98,23 @@ padding:5px 10px 5px 35px;
 margin: 10px 0 10px 0;
 }
 
-h4 {
-font-size: 1em;
-background-color: #005E85;
-color: #FFFFFF;
+h4 
+{
+font:1.4em Georgia, "Times New Roman", Times, serif;    
+color: #00598D;
 letter-spacing: 1px;
-border: 2px solid #FFFFFF;
 margin-top: 7px;
-padding: 6px 10px;
+padding: 10px 10px 5px;
+}
+
+h5 
+{
+font:1.2em Georgia, "Times New Roman", Times, serif;    
+font-style: italic;
+color: #00598D;
+letter-spacing: 1px;
+margin-top: 7px;
+padding: 10px 10px 5px 40px;
 }
 
 ul {
@@ -644,7 +653,11 @@ background:url('../img/view.png') no-repeat 0px 0px;
 text-indent:20px;
 display:block;
 }
-
+.back{
+background:url('../img/arrow_left.png') no-repeat 0px 0px;
+text-indent:20px;
+display:block;
+}
 /* Button Search 
 *********************/
 .search
