@@ -5,7 +5,7 @@
         <thead>  
             <tr>  
 	                        <th>TT</th>
-	                        <th>Ngành, nghề</th>
+	                        <th style="width:200px;">Ngành, nghề</th>
 	                        <th>Đại học trở lên</th>
 	                        <th>Trung cấp</th>
 	                        <th>Công nhân kỹ thuật</th>
@@ -17,6 +17,14 @@
         <tbody>  
     		<tr>
 				<td >i</td>
+				<td >{nangluc.NganhNghe }</td>
+				<td >{nangluc.DaiHocTroLen }</td>
+				<td >{nangluc.TrungCap }</td>
+				<td >{nangluc.CongNhanKyThuat }</td>
+				<td >{nangluc.LoaiKhac }</td>				
+			</tr>
+			    		<tr>
+				<td >i++</td>
 				<td >{nangluc.NganhNghe }</td>
 				<td >{nangluc.DaiHocTroLen }</td>
 				<td >{nangluc.TrungCap }</td>
