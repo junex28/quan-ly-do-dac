@@ -131,48 +131,93 @@
                 }
             });
         });
+        
         function chageSelect() {
             //salert($("#selector").val());
             actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER" } ) %>';
             st = actionUrl.replace('PLACEHOLDER', $("#selector").val());
             $("#grid").setGridParam({ url: st }).trigger('reloadGrid');
-
         }
+
+        var timeoutHnd;
+        var flAuto = false;
+        function doSearch(ev) {
+            if (ev.keyCode == 13) {
+                timeoutHnd = setTimeout(gridReload, 500);
+                return;
+            }
+            if (!flAuto) return;
+            // var elem = ev.target||ev.srcElement;
+            if (timeoutHnd) {
+                clearTimeout(timeoutHnd)
+            }
+            if ((ev.keyCode >= 65 && ev.keyCode <= 90) || ev.keyCode == 8 || ev.keyCode == 46 || (ev.keyCode >= 48 && ev.keyCode <= 57) || (ev.keyCode >= 96 && ev.keyCode <= 105)) {
+                timeoutHnd = setTimeout(gridReload, 500)
+            }
+        }
+        function gridReload() {
+            var search = $('#item').val();
+            var gp = $("#selector").val();
+            jQuery("#grid").setGridParam({ url: "QLGiayPhep/ListData?sid=" + gp + "&search=" + search, page: 1 }).trigger("reloadGrid");
+        }
+        function enableAutosubmit(state) {
+            flAuto = state;
+            jQuery("#submitButton").attr("disabled", state);
+        } 
     </script>
 
 </asp:Content>
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="box">
-        <button id="detailButton" class="button redmond">
-            <span class="detail">Chi tiết</span></button>
-        <button id="editButton" class="button redmond">
-            <span class="edit">Sửa</span></button>
-        <button id="deleteButton" class="button redmond">
-            <span class="delete">Xóa</span></button>
-        <button id="thamdinhButton" class="button redmond">
-            <span class="validation">Thẩm định</span></button>
+    <!-- Thanh cong cu -->
+    <div class="grid_12 alpha">
+        <div class="box">
+            <button id="detailButton" class="button redmond">
+                <span class="detail">Chi tiết</span></button>
+            <button id="editButton" class="button redmond">
+                <span class="edit">Sửa</span></button>
+            <button id="deleteButton" class="button redmond">
+                <span class="delete">Xóa</span></button>
+            <button id="thamdinhButton" class="button redmond">
+                <span class="validation">Thẩm định</span></button>
+        </div>
+        <div class="box">
+            <form class="jqtransform">
+            <label>
+                Danh sách giấy phép:
+            </label>
+            <select id="selector" onchange="chageSelect();">
+                <option value="0" selected="selected">Tất cả</option>
+                <option value="1">DS xin mới đang chờ thẩm định</option>
+                <option value="2">DS xin mới không đủ điều kiện</option>
+                <option value="3">DS giấy phép hết hạn</option>
+                <option value="3">DS xin mới đủ điều kiện</option>
+                <option value="4">DS xin bổ sung hoạt động</option>
+                <option value="5">DS xin bổ sung hoạt động thất bại</option>
+                <option value="6">DS xin bổ sung hoạt động thành công</option>
+                <option value="7">DS xin gia hạn</option>
+                <option value="8">DS xin gia hạn thất bại</option>
+                <option value="9">DS xin gia hạn thành công</option>
+            </select>
+            </form>
+        </div>
     </div>
-    <div class="box grid_12">
-        <form class="jqtransform">
-        <label>
-            Danh sách giấy phép:
-        </label>
-        <select id="selector" onchange="chageSelect();">
-            <option value="0" selected="selected">Tất cả</option>
-            <option value="1">DS xin mới đang chờ thẩm định</option>
-            <option value="2">DS xin mới không đủ điều kiện</option>
-            <option value="3">DS giấy phép hết hạn</option>
-            <option value="3">DS xin mới đủ điều kiện</option>
-            <option value="4">DS xin bổ sung hoạt động</option>
-            <option value="5">DS xin bổ sung hoạt động thất bại</option>
-            <option value="6">DS xin bổ sung hoạt động thành công</option>
-            <option value="7">DS xin gia hạn</option>
-            <option value="8">DS xin gia hạn thất bại</option>
-            <option value="9">DS xin gia hạn thành công</option>
-        </select>
-        </form>
+    <!-- Tim Kiem -->
+    <div class="grid_7 omega">
+        <div class="box">            
+            <form class="jqtransform">
+            <input type="text" size="17" id="item" onkeydown="doSearch(arguments[0]||event)" />
+            <button class="btnSearch" onclick="gridReload()" id="submitButton">
+                <span class="search"></span></button><br/>
+            <input type="checkbox" id="autosearch" onclick="enableAutosubmit(this.checked)" />
+            <p>&nbsp;Tự động</p>
+            <div id="search" style="visibility: hidden; width: 10px; height: 10px">
+            </form>
+            </div>
+        </div>
     </div>
-    <div class="clear"></div>
+    <!-- Lua chon danh sach giay phep -->
+    <div class="clear">
+    </div>
     <div class="box">
         <table id="grid">
         </table>
