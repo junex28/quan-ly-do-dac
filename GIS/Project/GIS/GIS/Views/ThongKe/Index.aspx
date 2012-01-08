@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="box">
-        <div id="chart1" style="width:600px; height:250px;"></div>
+        <div id="chart1" style="width:500px; height:250px;"></div>
     </div>
 </asp:Content>
 
@@ -49,8 +49,8 @@
 	        // var s3 = [14, 9, 3, 8];
 
 	        /* Dynamic data*/
-	       	         
-	        urlDataJSON = '/thongke/datatojson';
+
+	    urlDataJSON = '/thongke/DataToJSON';
 	        $.getJSON(urlDataJSON, "", function(data) {
 	            var dataLines = [];
 	            var dataLabels = "";
