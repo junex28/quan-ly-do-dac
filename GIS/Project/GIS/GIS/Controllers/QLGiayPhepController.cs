@@ -98,9 +98,13 @@ namespace GIS.Controllers
 
            return Json(jsonData, JsonRequestBehavior.AllowGet);
        }
-        
-        //QLGiayPhep/Detail/id
+       
+        public ActionResult ChiTiet(){
+            var model = new GiayPhepDetailModel();
+            return View(model);
+        }
 
+        //QLGiayPhep/Detail/id
        public ActionResult Detail(int id)
        {
            GiayPhepHoatDong gphd = _gphdRepository.GetGiayPhepHoatDongByID(id);
