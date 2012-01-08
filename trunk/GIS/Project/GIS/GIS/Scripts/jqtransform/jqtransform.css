@@ -72,7 +72,7 @@ button.jqTransformButton_click span { background-position: right -66px ; }
  * ------------- */
 .jqTransformInputWrapper {
 	background: transparent url(img/input/input_text_left.gif) no-repeat left top;
-	height: 31px;
+	height: 26px;
 	padding: 0px;
 	float:left;
 }
@@ -84,7 +84,7 @@ button.jqTransformButton_click span { background-position: right -66px ; }
 }
 
 .jqTransformInputInner div {
-	height: 31px;
+	height: 26px;
 	margin:0px 0px 0px 8px;
 }
 
@@ -93,10 +93,10 @@ button.jqTransformButton_click span { background-position: right -66px ; }
 	font-size:12px;
 	line-height: 18px;
 	vertical-align: middle;
-	height: 31px;
+	height: 20px;
 	color:#404040;	
 	border: none;
-	padding: 8px 0px 0px 0px;
+	padding: 4px 0px 0px 0px;
 	margin: 0px;
 	background:transparent;
 }
@@ -240,8 +240,8 @@ span.jqTransformCheckboxWrapper{
 a.jqTransformCheckbox {
 	background: transparent url(img/checkbox.gif) no-repeat center top;
 	vertical-align: middle;
-	height: 19px;
-	width: 18px;
+	height: 16px;
+	width: 16px;
 	display:block;/*display: -moz-inline-block;*/
 }
 
@@ -270,7 +270,7 @@ a.jqTransformChecked { background-position: center bottom;}
 	white-space: nowrap;
 	height: 26px;
 	line-height: 15px;
-	padding: 8px 0 0 7px;
+	padding: 5px 0 0 7px;
 	overflow: hidden;
 	cursor:pointer;
 	/*border: 1px solid #CCCCCC;*/
