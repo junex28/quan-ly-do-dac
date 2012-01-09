@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<GIS.Models.ThietBi>>" %>
 <table class="mytable">
     <!-- Table header -->
     <thead>
@@ -22,39 +22,27 @@
     </thead>
     <!-- Table body -->
     <tbody>
+     <%  var i = 0;
+             foreach (var item in Model)
+             {
+                 i++;%>
         <tr>
             <td>
-                i
+                <%=i %>
             </td>
             <td>
-                {thietbi.TenThietBi }
+                <%= item.TenThietBi_CongNghe %>
             </td>
             <td>
-                {thietbi.SoLuong }
+                <%= item.SoLuong %>
             </td>
             <td>
-                {thietbi.TinhTrangThietBi }
+                <%= item.TinhTrang %>
             </td>
             <td>
-                {thietbi.GhiChu }
+                <%= item.GhiChu %>
             </td>
         </tr>
-        <tr>
-            <td>
-                i++
-            </td>
-            <td>
-                {thietbi.TenThietBi }
-            </td>
-            <td>
-                {thietbi.SoLuong }
-            </td>
-            <td>
-                {thietbi.TinhTrangThietBi }
-            </td>
-            <td>
-                {thietbi.GhiChu }
-            </td>
-        </tr>
+        <%} %>	
     </tbody>
 </table>
