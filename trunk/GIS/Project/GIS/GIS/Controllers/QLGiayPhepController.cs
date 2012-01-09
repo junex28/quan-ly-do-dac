@@ -107,7 +107,7 @@ namespace GIS.Controllers
             {
                 return new FileNotFoundResult { Message = "Không có giấy phép trên trên" };
             }
-            var nanglucList = _nanglucRespository.GetNangLucKeKhaiByID(gphd.ToChuc.MaToChuc).ToList();
+            //var nanglucList = _nanglucRespository.GetNangLucKeKhaiByID(gphd.ToChuc.MaToChuc).ToList();
             var dangky = _dkhdRespository.GetDangKyHDs(id);
             var maHDList = _dkhdRespository.getSelectedHD(dangky.ToList<DangKyHoatDong>());
             var hoatdongList = new List<HoatDong>();
@@ -120,7 +120,7 @@ namespace GIS.Controllers
                 DangKy = dangky,
                 giayphep = gphd,
                 hoatdong = hoatdongList,
-                nangluc = nanglucList
+               // nangluc = nanglucList
             };
             return View(model);
         }

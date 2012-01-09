@@ -11,17 +11,15 @@ namespace GIS.Controllers
 {
     public class NangLucController : BaseController
     {
-        private IToChucRepository _tochucRepository;
         private INangLucKeKhaiRespository _nanglucRepository;
 
         public NangLucController()
-            : this(new ToChucRepository(), new NangLucKeKhaiRespository())
+            : this(new NangLucKeKhaiRespository())
         {
         }
 
-        public NangLucController(IToChucRepository tochucRepository, INangLucKeKhaiRespository nanglucRespository)
+        public NangLucController(INangLucKeKhaiRespository nanglucRespository)
         {
-            this._tochucRepository = tochucRepository;
             this._nanglucRepository = nanglucRespository;
         }
         
