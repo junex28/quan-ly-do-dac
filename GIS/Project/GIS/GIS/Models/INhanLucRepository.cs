@@ -8,8 +8,7 @@ namespace GIS.Models
     public interface INhanLucRepository
     {
         IQueryable<NhanLuc> GetNhanLucs();
-        NhanLuc GetNhanLucByID(int id);
-
+        IPagedList<NhanLuc> GetNhanLucByID(int tcid, int pageNo);
         void Add(NhanLuc NhanLuc);
         void Delete(NhanLuc NhanLuc);
         void Save();
