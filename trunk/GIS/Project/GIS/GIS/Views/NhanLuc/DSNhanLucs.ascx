@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<GIS.Models.NhanLuc>>" %>
 
 <table class="mytable">    
     <!-- Table header -->    
@@ -14,19 +14,17 @@
     
     <!-- Table body -->    
         <tbody>  
+         <%  var i = 0;
+             foreach (var item in Model)
+             {
+                 i++;%>
     		<tr>
-				<td >i</td>
-				<td >{nhanluc.HoTen }</td>
-				<td >{nhanluc.ChucVu }</td>
-				<td >{nhanluc.BangCap }</td>
-				<td >{nhanluc.ThamNienNgheNghiep }</td>		
+				<td ><%=i %></td>
+				<td ><%= item.HoTen %></td>
+				<td ><%= item.ChucVu %></td>
+				<td ><%= item.TrinhDoHocVan %></td>
+				<td ><%= item.ThamNien %></td>		
 			</tr>
-			    		<tr>
-				<td >i++</td>
-				<td >{nhanluc.HoTen }</td>
-				<td >{nhanluc.ChucVu }</td>
-				<td >{nhanluc.BangCap }</td>
-				<td >{nhanluc.ThamNienNgheNghiep }</td>				
-			</tr>			  
+			<%} %>		  
         </tbody>  
 </table>
