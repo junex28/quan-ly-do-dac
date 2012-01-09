@@ -16,98 +16,146 @@
                     <label>
                         Tên tổ chức/cá nhân :
                     </label>
-                    <%= Html.Encode(Model.giayphep.ToChuc.TenToChuc)%>
+                    {tochuc.TenToChuc}
                 </p>
                 <p>
                     <label>
                         Quyết định thành lập/Giấy phép kinh doanh số :
                     </label>
-                    <%= Html.Encode(Model.giayphep.ToChuc.GiayPhepKinhDoanh)%>
+                    {tochuc.GiayPhepKinhDoanh}
                 </p>
                 <p>
                     <label>
                         Hạng của doanh nghiệp :
                     </label>
-                    <%= Html.Encode(Model.giayphep.ToChuc.HangDoanhNghiep) %>
+                    {tochuc.HangDoanhNghiep}(thiếu)
                 </p>
                 <p>
                     <label>
                         Vốn pháp định :
                     </label>
-                    <%= Html.Encode(Model.giayphep.ToChuc.VonPhapDinh) %>
+                    {tochuc.VonPhapDinh}(thiếu)
                 </p>
                 <p>
                     <label>
                         Vốn lưu động :
                     </label>
-                    <%= Html.Encode(Model.giayphep.ToChuc.VonLuuDong) %>
+                    {tochuc.VonLuuDong}(thiếu)
                 </p>
                 <p>
                     <label>
                         Số tài khoản :
                     </label>
-                    <%= Html.Encode(Model.giayphep.ToChuc.SoTaiKhoan)%>
+                    {tochuc.SoTaiKhoan}
                 </p>
                 <p>
                     <label>
                         Tổng số cán bộ, công nhân viên (không kể cộng tác viên:
                     </label>
-                    <%= Html.Encode(Model.giayphep.ToChuc.TongSoCanBo)%>
+                    {tochuc.TongSoCanBo}
                 </p>
                 <p>
                     <label>
                         Trụ sở chính tại :
                     </label>
-                    <%= Html.Encode(Model.giayphep.ToChuc.TruSoChinh)%>
+                    {tochuc.TruSoChinh}
                 </p>
                 <p>
                     <label>
                         Số điện thoại :
                     </label>
-                   <%= Html.Encode(Model.giayphep.ToChuc.DienThoai)%>
+                    {tochuc.SoDienThoai}
                 </p>
                 <p>
                     <label>
                         Fax :
                     </label>
-                   <%= Html.Encode(Model.giayphep.ToChuc.Fax)%>
+                    {tochuc.Fax}
                 </p>
                 <p>
                     <label>
                         Email :
                     </label>
-                    <%= Html.Encode(Model.giayphep.ToChuc.Email)%>
+                    {tochuc.Email}
                 </p>
             </div>
-
-            </div>
-                        <div class="box">
-              <h2>
+        </div>
+        <div class="box">
+            <h2>
                 <a id="toggle-nangluc" href="#" style="cursor: pointer;">Kê khai năng lực</a>
             </h2>
-            
-                   <div class="block" id="nangluc"> 
-                        <%--<div id="nanglucresult"></div> --%>                            
-                        <%= Html.Action("DSNangLucs", "NangLuc",new {tcid = Model.giayphep.ToChuc.MaToChuc})%>
-                   </div>
-    </div>
-
+            <div class="block" id="nangluc">
+                <h4>
+                    1. Lực lượng kỹ thuật</h4>
+                <h5>
+                    a. Lực lượng kỹ thuật phân tích theo ngành nghề</h5>
+                <div class="box">
+                    <div id="nanglucresult">
+                    </div>
+                </div>
+                <h5>
+                    b. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật
+                    chính</h5>
+                <div class="box">
+                    <div id="nhanlucresult">
+                    </div>
+                </div>
+                <h5>
+                    c. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật
+                    chính</h5>
+                <div class="box">
+                    <div id="thietbiresult">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <h2>
+                <a id="toggle-hoso" href="#" style="cursor: pointer;">Hồ sơ đính kèm</a>
+            </h2>
+            <div class="block" id="hoso">
+                <p>
+                    <label>
+                        Hồ sơ đăng ký hoạt động đính kèm :
+                    </label>
+                    {tochuc.TenToChuc}
+                </p>
+            </div>
+        </div>
+        <div class="box">
+            <button id="backButton" class="button redmond" onclick="window.location.href='./'">
+                <span class="back">Trở về</span></button>
+            <button id="thamdinhButton" class="button redmond" onclick="">
+                <span class="validation">Thẩm định</span></button>
+        </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
+
     <script type="text/javascript">
-        
-        function doAjaxPageNangLuc(pageNo) {
-            // $("#nanglucresult").load("/nangluc/getnanglucs?tcid=${tochuc.MaToChuc}", { page: pageNo });
-            $("#nanglucresult").load("/nangluc/dsnanglucs?tcid=1", { page: pageNo });
+
+        function doAjaxPageNangLuc(pageNo,tcid) {
+            $("#nanglucresult").load("/nangluc/dsnanglucs", { page: pageNo, tcid: tcid });
         }
-        
+
+        function doAjaxPageNhanLuc(pageNo) {
+            $("#nhanlucresult").load("/nhanluc/dsnhanlucs?tcid=1", { page: pageNo });
+        }
+
+        function doAjaxPageThietBi(pageNo) {
+            $("#thietbiresult").load("/thietbi/dsthietbis?tcid=1", { page: pageNo });
+        }
+
         $(document).ready(function() {
-            doAjaxPageNangLuc(1);
+			var tcid = '<%=Model.giayphep.ToChuc.MaToChuc%>';
+            doAjaxPageNangLuc(1, tcid);
+            doAjaxPageNhanLuc(1);
+            doAjaxPageThietBi(1);
         });
         
     </script>
+
 </asp:Content>
-    <%--   <h2>
+<%--   <h2>
         Detail</h2>
     <fieldset>
         <legend>Thông Tin xin phép</legend>
@@ -267,7 +315,6 @@
       
         <%= Html.ActionLink("Back to List", "Index") %>
     </p>--%>
-
 <%--
 <table border="0">
                         <tr>
