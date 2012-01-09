@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Data;
+using System.Web;
+using GIS.Models;
+
 
 namespace GIS.Models.Repository
 {
@@ -21,11 +16,13 @@ namespace GIS.Models.Repository
         {
             return db.NangLucKeKhais.AsQueryable();
         }
-        public IQueryable<NangLucKeKhai> GetNangLucKeKhaiByID(int tcid)
+        public IPagedList<NangLucKeKhai> GetNangLucKeKhaiByID(int tcid, int pageNo)
         {
-            return from nn in db.NangLucKeKhais
+            int soRecord =5;
+            var nanglucList= (from nn in db.NangLucKeKhais
                     where nn.MaToChuc == tcid
-                    select nn;
+                    select nn).ToPagedList(pageNo,soRecord);
+            return nanglucList;
         }
 
         public void Add(NangLucKeKhai kknangluc)
