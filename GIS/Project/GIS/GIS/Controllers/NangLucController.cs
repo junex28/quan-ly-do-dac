@@ -33,10 +33,10 @@ namespace GIS.Controllers
             return View();
         }
 
-        public ActionResult DSNanglucs(int tcid)
+        public ActionResult DSNanglucs(int tcid, int page)
         {
 
-            var DSNangLuc = _nanglucRepository.GetNangLucKeKhaiByID(tcid).ToList();
+            var DSNangLuc = _nanglucRepository.GetNangLucKeKhaiByID(tcid,page-1).ToList();
             return PartialView(DSNangLuc);
         }
 
