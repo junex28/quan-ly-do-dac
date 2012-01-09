@@ -100,8 +100,7 @@
                     </div>
                 </div>
                 <h5>
-                    c. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật
-                    chính</h5>
+                    c. Danh sách thiết bị công nghệ</h5>
                 <div class="box">
                     <div id="thietbiresult">
                     </div>
@@ -117,7 +116,7 @@
                     <label>
                         Hồ sơ đăng ký hoạt động đính kèm :
                     </label>
-                    {tochuc.TenToChuc}
+                    <%= Html.Encode(Model.giayphep.TepDinhKem) %>
                 </p>
             </div>
         </div>
@@ -140,15 +139,15 @@
             $("#nhanlucresult").load("/nhanluc/dsnhanlucs", { page: pageNo, tcid: tcid });
         }
 
-        function doAjaxPageThietBi(pageNo) {
-            $("#thietbiresult").load("/thietbi/dsthietbis?tcid=1", { page: pageNo });
+        function doAjaxPageThietBi(pageNo, tcid) {
+            $("#thietbiresult").load("/thietbi/dsthietbis", { page: pageNo, tcid: tcid });
         }
 
         $(document).ready(function() {
             var tcid = '<%=Model.giayphep.ToChuc.MaToChuc%>';
             doAjaxPageNangLuc(1, tcid);
             doAjaxPageNhanLuc(1, tcid);
-            doAjaxPageThietBi(1,tcid);
+            doAjaxPageThietBi(1, tcid);
         });
         
     </script>
