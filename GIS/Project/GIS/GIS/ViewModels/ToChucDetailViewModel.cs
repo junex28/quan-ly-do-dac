@@ -47,13 +47,7 @@ namespace GIS.ViewModels
         
         [DisplayName("Tệp đính kèm")]
         public string TepDinhKem { get; set; }
-        
-        [DisplayName("Kích hoạt")]
-        public string KichHoat { get; set; }
-        
-        [DisplayName("Ngày xin phép")]
-        public DateTime NgayXinPhep { get; set; }
-        
+         
         [DisplayName("Mã tổ chức")]
         public int MaToChuc { get; set; }
         
@@ -63,5 +57,6 @@ namespace GIS.ViewModels
         public ToChuc toChuc { get; set; }
         [DisplayName("Danh sách loại hình")]
         public IList<LoaiHinhToChuc> loaiHinh { get; set; }
+        public IList<NangLucKeKhai> nangLuc { get; set; }
      }
 }
