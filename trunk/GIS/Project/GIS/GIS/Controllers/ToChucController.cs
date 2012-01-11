@@ -133,7 +133,6 @@ namespace GIS.Controllers
                 tochuc.DienThoai = Request.Form["DienThoai"];
                 tochuc.Email = Request.Form["Email"];
                 tochuc.Fax = Request.Form["Fax"];
-                tochuc.KichHoat = Convert.ToBoolean(Request.Form["KichHoat"]);
                 _tochucRepository.Save();
                 return RedirectToAction("Details", new { id = tochuc.MaToChuc });
             }
@@ -178,7 +177,6 @@ namespace GIS.Controllers
                     tc.Fax = model.Fax;
                     tc.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
                     tc.MaLoaiHinhToChuc = model.MaLoaiHinhToChuc;
-                    tc.NgayXinPhep = DateTime.Now;
                     tc.NguoiDaiDien = model.NguoiDaiDien;
                     tc.SoTaiKhoan = model.SoTaiKhoan;
                     tc.TongSoCanBo = model.TongSoCanBo;
