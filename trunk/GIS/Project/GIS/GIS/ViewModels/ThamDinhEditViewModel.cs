@@ -45,14 +45,8 @@ namespace GIS.ViewModels
         [DisplayName("Kiến nghị")]
         public string KienNghi { get; set; }
 
-        [DisplayName("Kết quả thẩm định")]
-        public string LoaiThamDinh { get; set; }
-
         public ThamDinh ThamDinh { get; set; }
 
-        [DisplayName("Danh sách loại hình")]
-        public IList<LoaiThamDinh> loaiThamDinh { get; set; }
-
-        public GiayPhepHoatDong giayphep { get; set; }
+        public HoSoGiayPhep giayphep { get; set; }
     }
 }
