@@ -16,21 +16,21 @@ namespace GIS.Controllers
     {
         private IToChucRepository _tochucRepository;
         private ITaiKhoanRepository _taikhoanRepository;
-        private IGiayPhepHoatDongRepository _gphdRepository;
+        private IHoSoGiayPhepRepository _gphdRepository;
         private ITinhTrangGiayPhepRepository _ttgpRepository;
         private IDangKyHoatDongRepository _dkhdRespository;
         private IHoatDongRepository _hoatdongRespository;
         private INangLucKeKhaiRespository _nanglucRespository;
 
        public QLGiayPhepController()
-            : this(new ToChucRepository(), new TaiKhoanRepository(), new GiayPhepHoatDongRepository(),
+            : this(new ToChucRepository(), new TaiKhoanRepository(), new HoSoGiayPhepRepository(),
                         new TinhTrangGiayPhepRepository(), new DangKyHoatDongRespository(),
                         new HoatDongRespository(), new NangLucKeKhaiRespository())
         {
         }
 
        public QLGiayPhepController(IToChucRepository tochucRepository, ITaiKhoanRepository taikhoanRepository,
-           IGiayPhepHoatDongRepository gphdRepository, ITinhTrangGiayPhepRepository ttgpRepository, 
+           IHoSoGiayPhepRepository gphdRepository, ITinhTrangGiayPhepRepository ttgpRepository, 
            IDangKyHoatDongRepository dkhdRespository, IHoatDongRepository hoatdongRepository, INangLucKeKhaiRespository nanglucRespository)
         {
             this._tochucRepository = tochucRepository;
@@ -53,11 +53,11 @@ namespace GIS.Controllers
        public ActionResult ListData(int sId, string sidx, string sord, int page, int rows)
        {
            int i = sId;
-           var listGiayPhep = _gphdRepository.GetGiayPhepHoatDongs();
+           var listGiayPhep = _gphdRepository.GetHoSoGiayPheps();
 
            switch(i)
            {
-               case 0: listGiayPhep = _gphdRepository.GetGiayPhepHoatDongs(); break;
+               case 0: listGiayPhep = _gphdRepository.GetHoSoGiayPheps(); break;
                case 1: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(1); break;
                case 2: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(2); break;
                case 3: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(3); break;
@@ -88,9 +88,9 @@ namespace GIS.Controllers
                    from u in models
                    select new
                    {
-                       id = u.MaGiayPhepHoatDong,
+                       id = u.MaHoSo,
                        cell = new string[] {
-                           u.MaGiayPhepHoatDong.ToString(),
+                           u.MaHoSo.ToString(),
                            u.ToChuc.TenToChuc,
                            u.NgayXinPhep.ToString(),
                            u.TinhTrangGiayPhep.DienGiai
@@ -102,7 +102,7 @@ namespace GIS.Controllers
        }
        
         public ActionResult ChiTiet(int id){
-            GiayPhepHoatDong gphd = _gphdRepository.GetGiayPhepHoatDongByID(id);
+            HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(id);
             if (gphd == null)
             {
                 return new FileNotFoundResult { Message = "Không có giấy phép trên trên" };
@@ -128,7 +128,7 @@ namespace GIS.Controllers
         //QLGiayPhep/Detail/id
        public ActionResult Detail(int id)
        {
-           GiayPhepHoatDong gphd = _gphdRepository.GetGiayPhepHoatDongByID(id);
+           HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(id);
            if (gphd == null)
            {
              return new FileNotFoundResult { Message = "Không có giấy phép trên trên" };
@@ -151,7 +151,7 @@ namespace GIS.Controllers
 
        public ActionResult Edit(int id)
        {
-           var EditedGPHD = _gphdRepository.GetGiayPhepHoatDongByID(id);
+           var EditedGPHD = _gphdRepository.GetHoSoGiayPhepByID(id);
            var dkhdList = _dkhdRespository.GetDangKyHDs(id);
            var hoatdongList = _hoatdongRespository.GetHoatDongs().ToList<HoatDong>();
            var selectedMaHDList = _dkhdRespository.getSelectedHD(dkhdList.ToList<DangKyHoatDong>());

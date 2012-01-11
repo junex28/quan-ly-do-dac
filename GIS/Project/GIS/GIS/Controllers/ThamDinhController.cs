@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GIS.Models;
@@ -19,19 +16,17 @@ namespace GIS.Controllers
     {
         
         private IThamDinhRepository _thamdinhRepository;
-        private IGiayPhepHoatDongRepository _gphdRepository;
-        private ILoaiThamDinhRepository _loaitdRespository;
+        private IHoSoGiayPhepRepository _gphdRepository;
 
         public ThamDinhController()
-            : this(new ThamDinhRespository(), new GiayPhepHoatDongRepository(), new LoaiThamDinhResposiroty())
+            : this(new ThamDinhRespository(), new HoSoGiayPhepRepository())
         {
         }
 
-        public ThamDinhController(IThamDinhRepository thamdinhRepository, IGiayPhepHoatDongRepository gphdRepository, ILoaiThamDinhRepository loaitdRespository)
+        public ThamDinhController(IThamDinhRepository thamdinhRepository, IHoSoGiayPhepRepository gphdRepository)
         {
             this._thamdinhRepository = thamdinhRepository;
             this._gphdRepository = gphdRepository;
-            this._loaitdRespository = loaitdRespository;
         }
         //
         // GET: /ThamDinh/
@@ -42,42 +37,41 @@ namespace GIS.Controllers
             return View();
         }
 
-        public ActionResult ListData(int sid, string sidx, string sord, int page, int rows)
-        {
-            var listThamDinhs = _thamdinhRepository.GetThamDinhByGPID(sid);
-            var pageIndex = Convert.ToInt32(page) - 1;
-            var pageSize = rows;
-            var totalRecords = listThamDinhs.Count();
-            var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
+        //public ActionResult ListData(int sid, string sidx, string sord, int page, int rows)
+        //{
+        //    var listThamDinhs = _thamdinhRepository.GetThamDinhByGPID(sid);
+        //    var pageIndex = Convert.ToInt32(page) - 1;
+        //    var pageSize = rows;
+        //    var totalRecords = listThamDinhs.Count();
+        //    var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
 
-            // This is possible because I'm using the LINQ Dynamic Query Library
-            var models = listThamDinhs
-                    .OrderBy(sidx + " " + sord)
-                    .Skip(pageIndex * pageSize)
-                    .Take(pageSize).AsQueryable();
+        //    // This is possible because I'm using the LINQ Dynamic Query Library
+        //    var models = listThamDinhs
+        //            .OrderBy(sidx + " " + sord)
+        //            .Skip(pageIndex * pageSize)
+        //            .Take(pageSize).AsQueryable();
 
-            var jsonData = new
-            {
-                total = totalPages,
-                page = page,
-                records = totalRecords,
-                rows = (
-                    from u in models
-                    select new
-                    {
-                        id = u.MaThamDinh,
-                        cell = new string[] {
-                           u.MaThamDinh.ToString(),
-                           u.GiayPhepHoatDong.ToChuc.TenToChuc,
-                           u.NgayThamDinh.Value.ToShortDateString(),
-                           u.KienNghi,
-                           u.LoaiThamDinh1.DienGiai
-                        }
-                    })
-            };
+        //    var jsonData = new
+        //    {
+        //        total = totalPages,
+        //        page = page,
+        //        records = totalRecords,
+        //        rows = (
+        //            from u in models
+        //            select new
+        //            {
+        //                id = u.MaThamDinh,
+        //                cell = new string[] {
+        //                   u.MaThamDinh.ToString(),
+        //                   u.HoSoGiayPhep.ToChuc.TenToChuc,
+        //                   u.NgayThamDinh.Value.ToShortDateString(),
+        //                   u.KienNghi,
+        //                }
+        //            })
+        //    };
 
-            return Json(jsonData, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(jsonData, JsonRequestBehavior.AllowGet);
+        //}
         //
         // GET: /ThamDinh/Details/5
 
@@ -95,9 +89,8 @@ namespace GIS.Controllers
         public ActionResult Create(int gpid)
         {
             ThamDinhEditViewModel model = new ThamDinhEditViewModel();
-            model.loaiThamDinh = _loaitdRespository.GetLoaiThamDinhs().ToList();
-            model.giayphep = _gphdRepository.GetGiayPhepHoatDongByID(gpid);
-            model.MaGiayPhepHoatDong = gpid; 
+            model.giayphep = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+            //model.m = gpid; 
             return View(model);
         } 
 
@@ -107,27 +100,27 @@ namespace GIS.Controllers
         [HttpPost]
         public ActionResult Create(ThamDinhEditViewModel model)
         {
-            try
-            {               
-                    ThamDinh td = new ThamDinh();
-                    td.MaGiayPhepHoatDong = model.giayphep.MaGiayPhepHoatDong;
-                    //td.NgayThamDinh = (DateTime)model.NgayThamDinh;
-                    td.NguoiThamDinh = model.NguoiThamDinh;
-                    td.NguoiPhiaToChuc = model.NguoiPhiaToChuc;
-                    td.TinhHopLe = model.TinhHopLe;
-                    td.NangLucNhanVien = model.NangLucNhanVien;
-                    td.NangLucThietBi = model.NangLucThietBi;
-                    td.KetLuan = model.KetLuan;
-                    td.KienNghi = model.KienNghi;
-                    td.LoaiThamDinh = Convert.ToInt32(model.LoaiThamDinh);
-                    _thamdinhRepository.Add(td);
-                //return RedirectToAction("Index", "TrangChu");
-            }
-            catch (Exception)
-            {
-                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when create new" }, HttpContext.Response);
-            }
-            return View(model);
+            //try
+            //{               
+            //        ThamDinh td = new ThamDinh();
+            //        td.MaHoSoGiayPhep = model.giayphep.MaHoSoGiayPhep;
+            //        //td.NgayThamDinh = (DateTime)model.NgayThamDinh;
+            //        td.NguoiThamDinh = model.NguoiThamDinh;
+            //        td.NguoiPhiaToChuc = model.NguoiPhiaToChuc;
+            //        td.TinhHopLe = model.TinhHopLe;
+            //        td.NangLucNhanVien = model.NangLucNhanVien;
+            //        td.NangLucThietBi = model.NangLucThietBi;
+            //        td.KetLuan = model.KetLuan;
+            //        td.KienNghi = model.KienNghi;
+            //        td.LoaiThamDinh = Convert.ToInt32(model.LoaiThamDinh);
+            //        _thamdinhRepository.Add(td);
+            //    //return RedirectToAction("Index", "TrangChu");
+            //}
+            //catch (Exception)
+            //{
+            //    MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when create new" }, HttpContext.Response);
+            //}
+            return View();
         }
         
         //
@@ -137,11 +130,9 @@ namespace GIS.Controllers
         {
             ThamDinh thamdinh = new ThamDinh();
             thamdinh = _thamdinhRepository.GetThamDinhById(id);
-            IList<LoaiThamDinh> listLoaiThamDinh = _loaitdRespository.GetLoaiThamDinhs().ToList();
             var viewmodel = new ThamDinhEditViewModel
             {
-                ThamDinh = thamdinh,
-                loaiThamDinh = listLoaiThamDinh
+                ThamDinh = thamdinh
             };
             return View(viewmodel);
         }
@@ -165,7 +156,6 @@ namespace GIS.Controllers
                 thamdinh.NangLucThietBi = Request.Form["NangLucThietBi"];
                 thamdinh.KetLuan = Request.Form["KetLuan"];
                 thamdinh.KienNghi = Request.Form["KienNghi"];
-                thamdinh.LoaiThamDinh = Convert.ToInt32(Request.Form["LoaiThamDinh"]);
                 _thamdinhRepository.Save();
                 return RedirectToAction("Detail", new { id = thamdinh.MaThamDinh });
             }
