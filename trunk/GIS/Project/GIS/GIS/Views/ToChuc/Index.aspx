@@ -8,6 +8,29 @@
     <script type="text/javascript">
         $(function() {
 
+<<<<<<< .mine
+            $('#editButton').button({
+                icons:
+                    {
+                        primary: "ui-icon-pencil"
+                    }
+            });
+
+            $('#deleteButton').button({
+                icons:
+                    {
+                        primary: "ui-icon-trash"
+                    }
+                });
+            $('#createButton').button({
+                icons:
+                {
+                    primary: "ui-icon-trash"
+                }
+            });
+
+=======
+>>>>>>> .r285
             $('#editButton').click(function() {
                 $('#editForm').submit();
             });
@@ -19,7 +42,14 @@
             $('#detailButton').click(function() {
                 $('#detailForm').submit();
             });
+<<<<<<< .mine
 
+            $('#createButton').click(function() {
+                $('#createForm').submit();
+            });
+=======
+
+>>>>>>> .r285
             $("#grid").jqGrid({
                 caption:'DANH SÁCH TỔ CHỨC',
                 url: '<%= Url.Action("ListData","ToChuc") %>',
@@ -83,7 +113,8 @@
                 }
                 return false;
             });
-            
+
+           
             $('#deleteForm').submit(function() {
                 var selr = jQuery('#grid').jqGrid('getGridParam', 'selarrrow');
                 if (!selr || selr.length <= 0) {
