@@ -21,20 +21,20 @@ namespace GIS.Models.Repository
         public IQueryable<DangKyHoatDong> GetDangKyHDs(int gpId)
         {
             return from dk in db.DangKyHoatDongs
-                   where dk.MaGiayPhepHoatDong == gpId 
+                   where dk.MaHoSo == gpId 
                    select dk; 
         }
         public IQueryable<DangKyHoatDong> GetDangKyHDMoi(int gpId)
         {
             return from dk in db.DangKyHoatDongs
-                   where dk.MaGiayPhepHoatDong == gpId
+                   where dk.MaHoSo == gpId
                    select dk;
         }
 
         public IQueryable<DangKyHoatDong> GetDangKyHDBoSung(int gpId)
         {
             return from dk in db.DangKyHoatDongs
-                   where dk.MaGiayPhepHoatDong == gpId && dk.LaBoSung == true
+                   where dk.MaHoSo == gpId && dk.LanBoSung > 0
                    select dk;
         }
 

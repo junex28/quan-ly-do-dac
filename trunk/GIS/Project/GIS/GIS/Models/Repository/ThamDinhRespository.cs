@@ -24,7 +24,7 @@ namespace GIS.Models.Repository
         public IQueryable<ThamDinh> GetThamDinhByGPID(int id)
         {
             return from td in db.ThamDinhs
-                   where td.MaGiayPhepHoatDong == id
+                   where td.MaHoSo == id
                    select td;
         }
         public ThamDinh GetThamDinhById(int id)
@@ -38,9 +38,9 @@ namespace GIS.Models.Repository
                 return null;
             }
             var q = from p in db.ThamDinhs
-                    where p.GiayPhepHoatDong.TinhTrangGiayPhep.MaTinhTrang == 2 || (p.GiayPhepHoatDong.TinhTrangGiayPhep.MaTinhTrang > 3 && p.GiayPhepHoatDong.TinhTrangGiayPhep.MaTinhTrang < 6)
-                            || (p.GiayPhepHoatDong.TinhTrangGiayPhep.MaTinhTrang > 6 && p.GiayPhepHoatDong.TinhTrangGiayPhep.MaTinhTrang < 9) || p.GiayPhepHoatDong.TinhTrangGiayPhep.MaTinhTrang > 9
-                    group p by p.MaGiayPhepHoatDong into grp
+                    where p.HoSoGiayPhep.TinhTrangGiayPhep.MaTinhTrang == 2 || (p.HoSoGiayPhep.TinhTrangGiayPhep.MaTinhTrang > 3 && p.HoSoGiayPhep.TinhTrangGiayPhep.MaTinhTrang < 6)
+                            || (p.HoSoGiayPhep.TinhTrangGiayPhep.MaTinhTrang > 6 && p.HoSoGiayPhep.TinhTrangGiayPhep.MaTinhTrang < 9) || p.HoSoGiayPhep.TinhTrangGiayPhep.MaTinhTrang > 9
+                    group p by p.MaHoSo into grp
                     select grp.OrderByDescending(g => g.NgayThamDinh).First();
             ThamDinh td = q.FirstOrDefault();
             return td;
