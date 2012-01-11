@@ -117,7 +117,7 @@ namespace GIS.Controllers
         {
             // Form login
             if (Request.IsAuthenticated) {
-                return View("NotAllowed");
+                return RedirectToAction("Index","TrangChu");
             }
 
             return View();
