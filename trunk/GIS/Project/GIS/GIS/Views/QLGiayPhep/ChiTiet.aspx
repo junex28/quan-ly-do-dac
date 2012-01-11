@@ -6,7 +6,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="grid_19 alpha">
         <h3>
-            Thông tin hồ sơ</h3>
+            Thông tin hồ sơ 
+        <% if (true)
+           {%> đăng ký giấy phép<% } else if(true)
+           {%> đăng ký bổ sung hoạt động<% } else if(true)
+           {%> đăng ký gia hạn<% }%>
+        </h3>
         <div class="box">
             <h2>
                 <a id="toggle-thongtinchung" href="#" style="cursor: pointer;">Thông tin chung</a>
@@ -122,11 +127,133 @@
                     </p>
                 </div>
             </div>
+            <!-- Đăng ký hoạt động mới-->
+            <% if (false)                           
+           {%> <div class="box clearfix">
+                <h2>
+                    <a id="toggle-hoatdongdk" href="#" style="cursor: pointer;">                  
+                    Danh sách hoạt động đăng ký mới
+                    </a>
+                </h2>
+                <div class="block clearfix" id="hoatdongdk">
+                    <p class="grid_7">
+                        <label class="grid_6 alpha">
+                            Danh sách đăng ký hoạt động:
+                        </label>
+                        <ul class="grid_6">
+                        <li>{i++}. {hoatdongmoi}</li>
+                        <li>{i++}. {hoatdongmoi}</li>                        
+                        <li>{i++}. {hoatdongmoi}</li>                       
+                        <li>{i++}. {hoatdongmoi}</li>
+                        </ul>
+                   </p>                    
+                </div>
+                <div class="block">
+                <p>
+                    <label class="grid_6">
+                        Cam kết:
+                    </label>
+                    <%= Html.Encode(Model.giayphep.CamKetXinPhep)%>
+                </p>
+                </div>
+                </div>
+                <!-- Đăng ký bổ sung hoạt động-->
+            <% }                
+               else if(true)                   
+           {%> 
+           <div class="box clearfix">
+                <h2>
+                    <a id="toggle-danhsachhd" href="#" style="cursor: pointer;">                  
+                    Danh sách hoạt động hiện tại
+                    </a>
+                </h2>
+                <div class="block clearfix" id="danhsachhd">
+                    <p class="grid_7">
+                        <label class="grid_6 alpha">
+                            Danh sách hoạt động :
+                        </label>
+                        <ul class="grid_6">
+                        <li>{i++}. {hoatdong1}</li>
+                        <li>{i++}. {hoatdong1}</li>                        
+                        <li>{i++}. {hoatdong1}</li>                       
+                        <li>{i++}. {hoatdong!}</li>
+                        </ul>
+                   </p>                    
+                </div>
+           </div>
+           <div class="box clearfix">
+                <h2>
+                    <a id="toggle-hoatdongdk" href="#" style="cursor: pointer;">                  
+                    Danh sách hoạt động đăng ký bổ sung
+                    </a>
+                </h2>
+                <div class="block clearfix" id="hoatdongdk">
+                    <p class="grid_7">
+                        <label class="grid_6 alpha">
+                            Danh sách hoạt động bổ sung:
+                        </label>
+                        <ul class="grid_6">
+                        <li>{i++}. {hoatdongbosung}</li>
+                        <li>{i++}. {hoatdongbosung}</li>                        
+                        <li>{i++}. {hoatdongbosung}</li>                       
+                        <li>{i++}. {hoatdongbosung}</li>
+                        </ul>
+                   </p>                    
+                </div>
+                <div class="block">
+                <p>
+                    <label class="grid_6">
+                        Cam kết:
+                    </label>
+                    <%= Html.Encode(Model.giayphep.CamKetXinPhep)%>
+                </p>
+                </div>
+                </div>
+           <!-- Đăng ký gia hạn giấy phép-->
+           <% } else if(true)
+           {%> <div class="box clearfix">
+                <h2>
+                    <a id="toggle-danhsachhd" href="#" style="cursor: pointer;">                  
+                    Danh sách hoạt động hiện tại
+                    </a>
+                </h2>
+                <div class="block clearfix" id="danhsachhd">
+                    <p class="grid_7">
+                        <label class="grid_6 alpha">
+                            Danh sách hoạt động :
+                        </label>
+                        <ul class="grid_6">
+                        <li>{i++}. {hoatdong1}</li>
+                        <li>{i++}. {hoatdong1}</li>                        
+                        <li>{i++}. {hoatdong1}</li>                       
+                        <li>{i++}. {hoatdong!}</li>
+                        </ul>
+                   </p>                    
+                </div>
+           </div>
+           <div class="box clearfix">
+                <h2>
+                    <a id="toggle-hoatdongdk" href="#" style="cursor: pointer;">                  
+                    Thông tin gia hạn
+                    </a>
+                </h2>
+                 <div class="block clearfix" id="hoatdongdk">
+                     <p>
+                    <label class="grid_6">
+                        Lý do xin gia hạn:
+                    </label>
+                    <%= Html.Encode(Model.giayphep.LyDoGiaHan)%>
+                </p>
+                </div>
+           </div>
+           <% }%>                                                                                   
             <div class="box">
+                <div class="block prefix_4">
                 <button id="backButton" class="button redmond" onclick="window.location.href='./'">
                     <span class="back">Trở về</span></button>
                 <button id="thamdinhButton" class="button redmond" onclick="">
                     <span class="validation">Thẩm định</span></button>
+                    </div>
             </div>
           </div>
 </asp:Content>
