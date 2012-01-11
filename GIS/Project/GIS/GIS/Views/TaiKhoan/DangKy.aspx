@@ -5,20 +5,72 @@
    Đăng ký tài khoản
 </asp:Content>
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
-    <script type="text/javascript">
-        $(function() {
-        $("input[type=submit]").button();
-        $("input[type=reset]").button();
-        });
-    </script>
 </asp:Content>
 
 <asp:Content ID="registerContent" ContentPlaceHolderID="MainContent" runat="server">
-    <% Html.EnableClientValidation(); %>    
-    <%= Html.ValidationSummary(true, "Tài khoản tạo thất bại. Xin vui lòng sửa lỗi và nhập lại.") %>
-
-    <% using (Html.BeginForm())
-       {  %>     
+    <% Html.EnableClientValidation(); %>     
+    <div class="grid_19 alpha">
+        <h3>Đăng ký tài khoản</h3>
+        <div class="block">
+            <%= Html.ValidationSummary(true, "Tài khoản tạo thất bại. Xin vui lòng sửa lỗi và nhập lại.") %>
+            <% using (Html.BeginForm())
+            {  %> 
+            <p>
+                    <label class="w150">Tên tài khoản: </label>
+                   <%= Html.TextBoxFor(m => m.TenTaiKhoan, new {@class="text"})%>
+                   <%= Html.ValidationMessageFor(m => m.TenTaiKhoan) %>
+                    </p>
+                                <p>
+                    <label class="w150">Email: </label>
+                    <%= Html.TextBoxFor(m => m.Email) %>
+                    <%= Html.ValidationMessageFor(m => m.Email) %>
+                    </p>
+                                <p>
+                    <label class="w150">Tên tài khoản: </label>
+                   <%= Html.PasswordFor(m => m.MatKhau) %>
+                    <%= Html.ValidationMessageFor(m => m.MatKhau) %>
+                    </p>
+                                <p>
+                    <label class="w150">Tên tài khoản: </label>
+                   <%= Html.PasswordFor(m => m.NhapLaiMatKhau) %>
+                    <%= Html.ValidationMessageFor(m => m.NhapLaiMatKhau) %>
+                    </p>
+                                <p>
+                    <label class="w150">Tên tài khoản: </label>
+                    <%= Html.TextBoxFor(m => m.HoTen)%>
+                    <%= Html.ValidationMessageFor(m => m.HoTen) %>
+                    </p>
+                                                    <p>
+                    <label class="w150">Tên tài khoản: </label>
+                    <%= Html.TextBoxFor(m => m.DiaChi)%>
+                    <%= Html.ValidationMessageFor(m => m.DiaChi) %>
+                    </p>
+                                                                       <p>
+                    <label class="w150">Tên tài khoản: </label>
+                     <%= Html.TextBoxFor(m => m.CMND)%>
+                    <%= Html.ValidationMessageFor(m => m.CMND) %>
+                    </p>
+                                                                       <p>
+                    <label class="w150">Tên tài khoản: </label>
+                    <%= Html.TextBoxFor(m => m.Coquan)%>
+                    <%= Html.ValidationMessageFor(m => m.Coquan) %>
+                    </p>
+                                                                       <p>
+                    <label class="w150">Tên tài khoản: </label>
+                      <%= Html.Captcha("myCaptcha") %>
+                    </p>
+                                                                                           <p>
+                    <label class="w150">Tên tài khoản: </label>
+                      <%= Html.TextBoxFor(m => m.Captcha) %>
+                      <%= Html.ValidationMessageFor( m => m.Captcha  ) %>
+                    </p>
+                    <div class="box">
+                            <input  class="formVertical" type="reset"  value="Làm mới" />                            
+                            <input  type="submit" value="Đăng ký" /></div>                    
+            <% } %>  
+        </div>
+    </div>   
+  
     <div>
         <fieldset class="formVertical">
              <div class="span subHeader"><h3>Đăng ký tài khoản mới </h3></div>
@@ -119,6 +171,4 @@
     </div>
             <input  class="formVertical" type="reset"  value="Làm mới" />
             <input  type="submit" value="Đăng ký" />
-            
-    <% } %>
 </asp:Content>
