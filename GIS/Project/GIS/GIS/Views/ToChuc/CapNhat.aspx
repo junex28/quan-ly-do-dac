@@ -55,6 +55,7 @@
                         <%= Html.ValidationMessageFor(model => model.toChuc.TruSoChinh)%>
 				    </dd>
 				</dl>
+				
                 <dl class="span w16">
 				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.NguoiDaiDien) %></dt>
 				    <dd>
@@ -62,6 +63,7 @@
                         <%= Html.ValidationMessageFor(model => model.toChuc.NguoiDaiDien)%>
 				    </dd>
 				</dl>
+				
 				<dl class="span w16">
 				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.DienThoai) %></dt>
 				    <dd>
@@ -69,6 +71,7 @@
                         <%= Html.ValidationMessageFor(model => model.toChuc.NguoiDaiDien)%>
 				    </dd>
 				</dl>
+				
                 <dl class="span w16">
 				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.Email) %></dt>
 				    <dd>
@@ -76,6 +79,7 @@
                         <%= Html.ValidationMessageFor(model => model.toChuc.Email)%>
 				    </dd>
 				</dl>
+				
 				<dl class="span w16">
 				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.Fax) %></dt>
 				    <dd>
@@ -83,6 +87,7 @@
                         <%= Html.ValidationMessageFor(model => model.toChuc.Fax)%>
 				    </dd>
 				</dl>
+				
 				<dl class="span w16">
 				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.SoTaiKhoan) %></dt>
 				    <dd>
@@ -90,6 +95,7 @@
                         <%= Html.ValidationMessageFor(model => model.toChuc.SoTaiKhoan)%>
 				    </dd>
 				</dl>
+				
                 <dl class="span w16">
 				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.TongSoCanBo) %></dt>
                     <dd>
@@ -97,6 +103,7 @@
                         <%= Html.ValidationMessageFor(model => model.toChuc.TongSoCanBo)%>
                     </dd>
                 </dl>
+                
                 <dl class="span w16">
 				    <dt class="w4"><%= Html.LabelFor(model => model.toChuc.KichHoat) %></dt>
                     <dd>
