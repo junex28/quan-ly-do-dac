@@ -122,6 +122,8 @@ namespace GIS.Controllers
                 hoatdong = hoatdongList,
                // nangluc = nanglucList
             };
+
+            // Dieu huong view 
             return View(model);
         }
 
