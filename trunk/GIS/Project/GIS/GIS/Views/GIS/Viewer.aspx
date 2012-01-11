@@ -29,6 +29,7 @@
 			@import "http://serverapi.arcgisonline.com/jsapi/arcgis/1.4/js/dojo/dojox/grid/resources/tundraGrid.css";
 		    @import "/Scripts/com/dijits/identify/css/identify.css";
 		</style>
+
 		
 		<!-- Fix for PNG transparency with IE6 -->
 		<style type="text/css">
@@ -41,7 +42,7 @@
 				parseOnLoad: true,
 				baseUrl:'./',
 				modulePaths:{'com.esri.solutions.jsviewer':'/Scripts/com/esri/solutions/jsviewer', 'dijits.identify': '/Scripts/com/dijits/identify'},
-				isDebug: false,
+				isDebug: true,
 				usePlainJson: true//,
 				//locale: 'fr'
 			};

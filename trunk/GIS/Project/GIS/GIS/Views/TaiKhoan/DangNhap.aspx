@@ -5,47 +5,37 @@
 </asp:Content>
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Đăng nhập</h2>
-    <br />
-    <p>    
-        Nhập Tên Tài Khoản và Mật Khẩu. <%= Html.ActionLink("đăng ký", "DangKy") %> nếu bạn chưa có tài khoản.
+        <% Html.EnableClientValidation(); %>
+    <div class="grid_19 alpha">
+        <h3>Đăng nhập</h3>
+         <div class="box">
+          <p>    
+        Nhập Tên Tài Khoản và Mật Khẩu. <%= Html.ActionLink("đăng ký", "dangky") %> nếu bạn chưa có tài khoản.
     </p>
-
-    <% using (Html.BeginForm()) { %>
-        <%= Html.ValidationSummary(true, "Đăng nhập thật bại. Xin vui lòng kiểm tra và nhập lại thông tin.") %>
-        <div>
-            <fieldset>
-                <legend>Đăng nhập</legend>
-                <div class="editor-row">
-                <div class="editor-label">
-                    <%= Html.LabelFor(m => m.TenTaiKhoan) %>
-                </div>
-                <div class="editor-field">
-                    <%= Html.TextBoxFor(m => m.TenTaiKhoan) %>
-                    <%= Html.ValidationMessageFor(m => m.TenTaiKhoan) %>
-                </div>
-                </div>
-                <div class="editor-row">
-                <div class="editor-label">
-                    Mật khẩu
-                    <%= Html.LabelFor(m => m.MatKhau) %>
-                </div>
-                <div class="editor-field">
-                    <%= Html.PasswordFor(m => m.MatKhau) %>
+          <div class="block">
+            <% using (Html.BeginForm()) { %>  
+                <%= Html.ValidationSummary(true, "Tài khoản đăng nhập thất bại.") %>
+                <fieldset class="login">
+                    <legend>Đăng nhập</legend>
+                    <p>
+                    <label class="grid_4">Tên tài khoản: </label>
+                   <%= Html.TextBoxFor(m => m.TenTaiKhoan, new {@class="text"})%>
+                   <%= Html.ValidationMessageFor(m => m.TenTaiKhoan) %>
+                    </p>
+                    <p>
+                    <label class="grid_4">Mật khẩu: </label>
+                    <%= Html.PasswordFor(m => m.MatKhau,new {@class="text"}) %>
                     <%= Html.ValidationMessageFor(m => m.MatKhau) %>
-                </div>                
-                </div>
-                <div class="editor-row">
-                <div class="editor-label">
+                    </p>
+                    <p>
+                    <span style="margin:180px"></span>
                     <%= Html.CheckBoxFor(m => m.GhiNho) %>
-                    <%= Html.LabelFor(m => m.GhiNho) %>
-                </div>
-                
-                <p>
-                    <input type="submit" value="Đăng nhập"/>
-                </p>
-                </div>
-            </fieldset>
-        </div>
-    <% } %>
+                    Ghi nhớ
+                    <input type="submit" value="Đăng nhập" style="margin-left:30px" class="button redmond"/>
+                    </p>
+                </fieldset>
+            <% } %>
+          </div>
+         </div>
+  </div>
 </asp:Content>

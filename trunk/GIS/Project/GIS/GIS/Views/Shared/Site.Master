@@ -66,7 +66,6 @@
                 <h1>
                     Hệ thống quản lý ĐO ĐẠC & BẢN ĐỒ</h1>
                 <!-- Your website name end -->
-                <!-- Your slogan end -->
             </div>
             <!-- Header end -->
             <!-- Menu -->
@@ -78,6 +77,14 @@
                             <li><a href="#WebGis/">Hướng dẫn</a> </li>
                             <li><a href="../12/fluid/jquery/">Bản đồ</a> </li>
                             <li><a href="../12/fluid/none/">Quản lý</a> </li>
+                        </ul>
+                    </li>
+                    <li><a href="/dangkygiayphep">Đăng ký giấy phép</a>
+                        <ul>
+                            <li><a href="/dangkygiayphep">Đăng ký hoạt động</a> </li>
+                            <li><a href="/bosunggiayphep">Bổ sung hoạt động</a></li>                        
+                            <li><a href="/giahangiayphep">Xin gia hạn </a></li>
+                            <li><a href="/giayphep">Xin gia hạn </a></li>
                         </ul>
                     </li>
                     <li><a href="#WebGis">Quản lý</a>
