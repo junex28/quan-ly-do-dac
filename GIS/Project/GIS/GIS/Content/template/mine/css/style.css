@@ -130,8 +130,8 @@ position: relative;
 display: table; /* margin-bottom for FF   (?) */
 text-align: left;
 background-color:#F0F9FD;
-/*opacity:0.7;
-filter:alpha(opacity=70); *//* For IE8 and earlier */
+opacity:0.7;
+filter:alpha(opacity=70); /* For IE8 and earlier */
 }
 
 
@@ -389,6 +389,7 @@ ul.nav li.secondary:hover a:active {
 .footer
 {
     padding: 30px 0 40px;
+    margin-top: 100px;
     margin-bottom:5px;
     background-color: #0e5ba1;
     }
@@ -406,11 +407,11 @@ ul.nav li.secondary:hover a:active {
 .container_24
 {
     background-image:url('../img/24_col.gif');
+    /*background-color: #F0F9FD;*/
     }
     
 .container_24
 {
-    background-color:#112233;
     background-repeat:repeat-y;    
 }
  
@@ -658,6 +659,7 @@ background:url('../img/arrow_left.png') no-repeat 0px 0px;
 text-indent:20px;
 display:block;
 }
+
 /* Button Search 
 *********************/
 .search
