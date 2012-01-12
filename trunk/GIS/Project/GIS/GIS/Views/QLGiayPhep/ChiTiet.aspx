@@ -274,7 +274,7 @@
                     </div>
             </div>
           </div>
-          <% using (Html.BeginForm("ThamDinh", "QLGiayPhep", FormMethod.Post, new { id = "thamdinhForm" })) { } %>
+          <% using (Html.BeginForm("ThamDinh", "ThamDinh", FormMethod.Post, new { id = "thamdinhForm" })) { } %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
 
