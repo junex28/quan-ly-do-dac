@@ -171,12 +171,13 @@
         <div class="box">
             <button id="detailButton" class="button redmond">
                 <span class="detail">Chi tiết</span></button>
+                 <button id="thamdinhButton" class="button redmond">
+                <span class="validation">Thẩm định</span></button>
             <button id="editButton" class="button redmond">
                 <span class="edit">Sửa</span></button>
             <button id="deleteButton" class="button redmond">
                 <span class="delete">Xóa</span></button>
-            <button id="thamdinhButton" class="button redmond">
-                <span class="validation">Thẩm định</span></button>
+           
         </div>
         <div class="box">
             <form>
