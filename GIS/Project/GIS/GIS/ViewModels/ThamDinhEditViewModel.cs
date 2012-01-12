@@ -48,5 +48,6 @@ namespace GIS.ViewModels
         public ThamDinh ThamDinh { get; set; }
 
         public HoSoGiayPhep giayphep { get; set; }
+        public GiayPhepDetailModel thongtinchung { get; set; }
     }
 }
