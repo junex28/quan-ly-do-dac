@@ -7,8 +7,8 @@
     <div class="grid_19 alpha">
         <h3>
             Thông tin hồ sơ 
-        <% if (true)
-           {%> đăng ký giấy phép<% } else if(true)
+        <% if (false)
+           {%> đăng ký giấy phép<% } else if(false)
            {%> đăng ký bổ sung hoạt động<% } else if(true)
            {%> đăng ký gia hạn<% }%>
         </h3>
@@ -124,7 +124,19 @@
                             Hồ sơ đăng ký đính kèm :
                         </label>
                         <%= Html.Encode(Model.giayphep.TepDinhKem) %>
-                    </p>
+                    </p>    
+                                        <p>
+                        <label class="grid_6">
+                            Hồ sơ nhân lực đính kèm :
+                        </label>
+                        {nhanluc.tepdinhkem}
+                    </p> 
+                                        <p>
+                        <label class="grid_6">
+                            Hồ sơ thiết bị đính kèm :
+                        </label>
+                        {thietbi.tepdinhkem}
+                    </p>                
                 </div>
             </div>
             <!-- Đăng ký hoạt động mới-->
@@ -153,13 +165,13 @@
                     <label class="grid_6">
                         Cam kết:
                     </label>
-                    <%= Html.Encode(Model.giayphep.CamKetXinPhep)%>
+                    <%= Html.Encode(Model.giayphep.CamKet)%>
                 </p>
                 </div>
                 </div>
                 <!-- Đăng ký bổ sung hoạt động-->
             <% }                
-               else if(true)                   
+               else if(false)                   
            {%> 
            <div class="box clearfix">
                 <h2>
@@ -205,7 +217,7 @@
                     <label class="grid_6">
                         Cam kết:
                     </label>
-                    <%= Html.Encode(Model.giayphep.CamKetXinPhep)%>
+                    <%= Html.Encode(Model.giayphep.CamKet)%>
                 </p>
                 </div>
                 </div>
@@ -242,7 +254,13 @@
                     <label class="grid_6">
                         Lý do xin gia hạn:
                     </label>
-                    <%= Html.Encode(Model.giayphep.LyDoGiaHan)%>
+                    <%= Html.Encode(Model.giayphep.LyDo)%>
+                </p>
+                 <p>
+                    <label class="grid_6">
+                        Cam kết xin gia hạn:
+                    </label>
+                    <%= Html.Encode(Model.giayphep.CamKet)%>
                 </p>
                 </div>
            </div>
@@ -251,16 +269,33 @@
                 <div class="block prefix_4">
                 <button id="backButton" class="button redmond" onclick="window.location.href='./'">
                     <span class="back">Trở về</span></button>
-                <button id="thamdinhButton" class="button redmond" onclick="">
+                <button id="thamdinhButton" class="button redmond">
                     <span class="validation">Thẩm định</span></button>
                     </div>
             </div>
           </div>
+          <% using (Html.BeginForm("ThamDinh", "QLGiayPhep", FormMethod.Post, new { id = "thamdinhForm" })) { } %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
 
     <script type="text/javascript">
+        $(function() {
+            $('#thamdinhButton').click(function() {
+                $('#thamdinhForm').submit();
+            });
 
+            $('#thamdinhForm').submit(
+            function() {
+
+                var input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", "id");
+                input.setAttribute("value", "<%=Model.giayphep.MaHoSo%>");
+                $(this).append(input);
+                return true;
+            });
+        });
+        
         function doAjaxPageNangLuc(pageNo, tcid) {
             $("#nanglucresult").load("/nangluc/dsnanglucs", { page: pageNo, tcid: tcid });
         }
