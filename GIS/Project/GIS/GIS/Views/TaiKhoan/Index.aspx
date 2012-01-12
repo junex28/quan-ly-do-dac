@@ -5,15 +5,39 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div class="action-button">
-        <button id="detailButton">Chi tiết</button>
-        <button id="editButton">Sửa</button>
-        <button id="deleteButton">Xóa</button>
-        <button id="enableButton">Kích hoạt</button>
+ <div class="grid_12 alpha">
+        <div class="box">
+         <button id="detailButton" class="button redmond">
+         <span class="detail">Chi tiết</span></button>
+        <button id="editButton" class="button redmond">
+         <span class="edit">Sửa</span></button>
+        <button id="deleteButton" class="button redmond">
+        <span class="delete">Xóa</span></button>
+        <button id="enableButton" class="button redmond">
+        <span class="unlock">Kích hoạt</span></button>
+        </div>
+       
+ </div>
+      <div class="grid_7 omega">
+        <div class="box">
+            <form>
+            <p>
+            <input class="text grid_4" type="text" size="17" id="item" onkeydown="doSearch(arguments[0]||event)" />
+            <button class="btnSearch" onclick="gridReload()" id="submitButton">
+                <span class="search"></span>
+            </button>
+            </p>
+            <p>            
+            <input type="checkbox" id="autosearch" onclick="enableAutosubmit(this.checked)" />
+                &nbsp;Tự động</p>
+            <div id="search" style="visibility: hidden; width: 10px; height: 10px">
+             </div>
+            </form>
+       
+    </div></div>
+     <div class="clear">
     </div>
-    
-    <div class="gridpage">
+    <div class="box">
         <table id="grid"></table>
         <div id="pager"></div>
     </div>
@@ -28,28 +52,7 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
    <script type="text/javascript">
-       $(function() {
-           $('#detailButton').button({
-               icons:
-                    {
-                        primary: "ui-icon-document-b"
-                    }
-           });
-
-           $('#editButton').button({
-               icons:
-                    {
-                        primary: "ui-icon-pencil"
-                    }
-           });
-
-           $('#deleteButton').button({
-               icons:
-                    {
-                        primary: "ui-icon-trash"
-                    }
-           });
-
+       $(function() {        
            $('#enableButton').button({
                 icons: 
                     {
