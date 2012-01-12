@@ -9,8 +9,6 @@
 
         $(function() {
             //var selectedId;
-            //find all form with class jqtransform and apply the plugin
-            $("form.jqtransform").jqTransform();
 
             $('#editButton').click(function() {
                 $('#editForm').submit();
@@ -185,8 +183,8 @@
             <label>
                 Danh sách giấy phép:
             </label>
-            <select id="selector" onchange="chageSelect();" style="padding: 0.5em;background-color: #FFFFFF;
-    border: 1px solid #BBBBBB;">
+            <select id="selector" onchange="chageSelect();" style="padding: 0.5em; background-color: #FFFFFF;
+                border: 1px solid #BBBBBB;">
                 <option value="0" selected="selected">Tất cả</option>
                 <option value="1">DS xin mới đang chờ thẩm định</option>
                 <option value="2">DS xin mới không đủ điều kiện</option>
@@ -205,19 +203,20 @@
     <!-- Tim Kiem -->
     <div class="grid_7 omega">
         <div class="box">
-            <form class="jqtransform">
-            <input type="text" size="17" id="item" onkeydown="doSearch(arguments[0]||event)" />
-            <button class="btnSearch" onclick="gridReload()" id="submitButton">
-                <span class="search"></span>
-            </button>
-            <br />
-            <input type="checkbox" id="autosearch" onclick="enableAutosubmit(this.checked)" />
+            <form>
             <p>
+                <input class="text grid_4" type="text" size="17" id="item" onkeydown="doSearch(arguments[0]||event)" />
+                <button class="btnSearch" onclick="gridReload()" id="submitButton">
+                    <span class="search"></span>
+                </button>
+            </p>
+            <p>
+                <input type="checkbox" id="autosearch" onclick="enableAutosubmit(this.checked)" />
                 &nbsp;Tự động</p>
             <div id="search" style="visibility: hidden; width: 10px; height: 10px">
+            </div>
             </form>
         </div>
-    </div>
     </div>
     <!-- Lua chon danh sach giay phep -->
     <div class="clear">
