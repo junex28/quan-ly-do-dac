@@ -175,5 +175,14 @@ namespace GIS.Controllers
            return View(viewmodel);
        }
 
+       public ActionResult Thamdinh(int id) {
+           //Kiem tra ho so da co tham dinh chua
+           // Neu chua co thi
+           // redirect den ThamDinh/Create/
+           //nguoc lai
+           //redirect den ThamDinh/Detail/                
+           return View();
+       }
+
     }
 }
