@@ -17,18 +17,22 @@ namespace GIS.Controllers
         
         private IThamDinhRepository _thamdinhRepository;
         private IHoSoGiayPhepRepository _gphdRepository;
+        private IDangKyHoatDongRepository _dkhdRespository;
+        private IHoatDongRepository _hoatdongRespository;
 
         public ThamDinhController()
-            : this(new ThamDinhRespository(), new HoSoGiayPhepRepository())
+            : this(new ThamDinhRespository(), new HoSoGiayPhepRepository(), new DangKyHoatDongRespository(), new HoatDongRespository())
         {
         }
 
-        public ThamDinhController(IThamDinhRepository thamdinhRepository, IHoSoGiayPhepRepository gphdRepository)
+        public ThamDinhController(IThamDinhRepository thamdinhRepository, IHoSoGiayPhepRepository gphdRepository, IDangKyHoatDongRepository dkhdRespository, IHoatDongRepository hoatdongRepository)
         {
             this._thamdinhRepository = thamdinhRepository;
             this._gphdRepository = gphdRepository;
+            this._dkhdRespository = dkhdRespository;
+            this._hoatdongRespository = hoatdongRepository;
         }
-        //
+        
         // GET: /ThamDinh/
         public ActionResult Index([DefaultValue(1)] int page, int id)
         {
@@ -88,8 +92,24 @@ namespace GIS.Controllers
         [HttpGet]
         public ActionResult Create(int gpid)
         {
+            HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+            var dangky = _dkhdRespository.GetDangKyHDs(gpid);
+            var maHDList = _dkhdRespository.getSelectedHD(dangky.ToList<DangKyHoatDong>());
+            var hoatdongList = new List<HoatDong>();
+            foreach (int i in maHDList)
+            {
+                hoatdongList.Add(_hoatdongRespository.GetHoatDongByID(i));
+            }
+            var gpchitiet = new GiayPhepDetailModel
+            {
+                DangKy = dangky,
+                giayphep = gphd,
+                hoatdong = hoatdongList,
+                // nangluc = nanglucList
+            };
             ThamDinhEditViewModel model = new ThamDinhEditViewModel();
             model.giayphep = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+            model.thongtinchung = gpchitiet;
             //model.m = gpid; 
             return View(model);
         } 
@@ -188,6 +208,19 @@ namespace GIS.Controllers
                 MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when deleting" }, HttpContext.Response);
             }
             return View("Index");
+        }
+
+        public ActionResult Thamdinh(int id)
+        {
+            // Kiểm tra hồ sơ thẩm định thuộc loại hồ sơ nào
+            // Nếu là đăng ký xin giấy phép mới đã thẩm dịnh 
+            // chưa có số giấy phép thì sang addSoGiayPhep
+
+            // ngược lại tuỳ theo loại 
+            //Kiem tra ho so da co tham dinh chua
+            // Neu chua co thi 
+            // redirect den ThamDinh/Create/
+            return RedirectToAction("Create", "Thamdinh", new { gpid = id });
         }
     }
 }
