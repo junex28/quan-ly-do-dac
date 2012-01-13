@@ -11,7 +11,7 @@ namespace GIS.ViewModels
     public class ThamDinhEditViewModel
     {
         [DisplayName("Mã giấy phép hoạt động")]
-        public int MaGiayPhepHoatDong { get; set; }
+        public int MaHoSo { get; set; }
 
         [Required(ErrorMessage = "Đại diện thẩm định không được trống")]
         [DisplayName("Đại diện thẩm định")]
