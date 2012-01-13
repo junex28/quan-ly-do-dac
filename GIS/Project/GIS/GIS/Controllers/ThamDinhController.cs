@@ -120,13 +120,13 @@ namespace GIS.Controllers
         // POST: /ThamDinh/Create
 
         [HttpPost]
-        public ActionResult Create(ThamDinhEditViewModel model)
+        public ActionResult Create(ThamDinhEditViewModel model, int gpid)
         {
             try
             {
                 ThamDinh td = new ThamDinh();
-                td.MaHoSo = Convert.ToInt32(ViewData["MaHoSo"]);
-                //td.NgayThamDinh = (DateTime)model.NgayThamDinh;
+                td.MaHoSo = gpid;
+                td.NgayThamDinh = (DateTime)model.NgayThamDinh;
                 td.NguoiThamDinh = model.NguoiThamDinh;
                 td.NguoiPhiaToChuc = model.NguoiPhiaToChuc;
                 td.TinhHopLe = model.TinhHopLe;
@@ -141,7 +141,7 @@ namespace GIS.Controllers
             {
                 MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when create new" }, HttpContext.Response);
             }
-            return View();
+            return RedirectToAction("ChiTiet", "qlgiayphep", new { id = gpid });
         }
         
         //
