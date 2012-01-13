@@ -10,8 +10,8 @@ namespace GIS.Models
     {
         IQueryable<DangKyHoatDong> GetDangKyHDs(int id);
         IQueryable<DangKyHoatDong> GetDangKyHDMoi(int id);
-        IQueryable<DangKyHoatDong> GetDangKyHDBoSung(int id);
-        DangKyHoatDong GetDangKysHDByID(int id);
+        IQueryable<HoatDongDuocCap> GetDKHDDaCap(int id);
+        IQueryable<HoatDongDuocCap> GetDKHDBoSung(int id);
         //IEnumerable<HoatDong> GetHoatDongByDangKy(List<DangKyHoatDong> dk);
         List<int> getSelectedHD(List<DangKyHoatDong> dk);
         void Add(DangKyHoatDong DangKyHoatDong);
