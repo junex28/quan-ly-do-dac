@@ -16,6 +16,7 @@
 </asp:Content>
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="grid_19 alpha">
+      <div class="box grid_10 alpha">  
         <h3>
             Thẩm định hồ sơ
             <% if (false)
@@ -28,7 +29,14 @@
                {%>
             đăng ký gia hạn<% }%>
         </h3>
-       
+      </div>
+      <div class="box grid_8 omega" style="text-align:right">
+      <% if (true) {%> 
+         <p> Số giấy phép :<%=Html.Encode(Model.giayphep.SoGiayPhep) %></p>
+         <p> Cấp ngày : <%=Html.Encode(Model.giayphep.NgayCapPhep) %>   </p> 
+       <%  } %>
+      </div>
+      <div class="clear"></div> 
      <% Html.RenderPartial("ThongTinChung", Model.thongtinchung); %>
     <div class="box">
         <h2>
@@ -80,8 +88,18 @@
                 <%= Html.TextAreaFor(m=>m.KienNghi) %>
                 <%= Html.ValidationMessageFor(m => m.KienNghi)%>
             </p>
+            <% if (true)
+               { %>
+            <p>
+                <label class="grid_6">
+                   Số giấy phép :
+                </label>
+                <%= Html.TextAreaFor(m => m.giayphep.SoGiayPhep)%>
+                <%= Html.ValidationMessageFor(m => m.giayphep.SoGiayPhep)%>
+            </p>
             
-            <% } %>
+            <% }
+               } %>
         </div>
 
     </div>
