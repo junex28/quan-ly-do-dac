@@ -262,6 +262,7 @@
       <Association Name="ToChuc_NangLucKeKhai" Member="NangLucKeKhais" ThisKey="MaToChuc" OtherKey="MaToChuc" Type="NangLucKeKhai" />
       <Association Name="ToChuc_NhanLuc" Member="NhanLucs" ThisKey="MaToChuc" OtherKey="MaToChuc" Type="NhanLuc" />
       <Association Name="ToChuc_ThietBi" Member="ThietBis" ThisKey="MaToChuc" OtherKey="MaToChuc" Type="ThietBi" />
+      <Association Name="ToChuc_HoatDongDuocCap" Member="HoatDongDuocCaps" ThisKey="MaToChuc" OtherKey="MaToChuc" Type="HoatDongDuocCap" />
       <Association Name="LoaiHinhToChuc_ToChuc" Member="LoaiHinhToChuc" ThisKey="MaLoaiHinhToChuc" OtherKey="MaLoaiHinhToChuc" Type="LoaiHinhToChuc" IsForeignKey="true" DeleteRule="CASCADE" />
       <Association Name="TaiKhoan_ToChuc" Member="TaiKhoan" ThisKey="MaTaiKhoan" OtherKey="MaTaiKhoan" Type="TaiKhoan" IsForeignKey="true" />
     </Type>
@@ -294,6 +295,16 @@
       <Column Name="MaThongTinChung" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="ToChuc_ThietBi" Member="ToChuc" ThisKey="MaToChuc" OtherKey="MaToChuc" Type="ToChuc" IsForeignKey="true" DeleteRule="CASCADE" />
       <Association Name="ThongTinChung_ThietBi" Member="ThongTinChung" ThisKey="MaThongTinChung" OtherKey="MaThongTinChung" Type="ThongTinChung" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HoatDongDuocCap" Member="HoatDongDuocCaps">
+    <Type Name="HoatDongDuocCap">
+      <Column Name="MaHDHienTai" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MaToChuc" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoGiayPhep" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LanBoSung" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TenHoatDong" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="ToChuc_HoatDongDuocCap" Member="ToChuc" ThisKey="MaToChuc" OtherKey="MaToChuc" Type="ToChuc" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -325,6 +325,14 @@ namespace GIS.Models
 				return this.GetTable<ThietBi>();
 			}
 		}
+		
+		public System.Data.Linq.Table<HoatDongDuocCap> HoatDongDuocCaps
+		{
+			get
+			{
+				return this.GetTable<HoatDongDuocCap>();
+			}
+		}
 	}
 	
 	[Table(Name="dbo.BaoCaoHoatDong")]
@@ -6561,6 +6569,105 @@ namespace GIS.Models
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.HoatDongDuocCap")]
+	public partial class HoatDongDuocCap
+	{
+		
+		private int _MaHDHienTai;
+		
+		private System.Nullable<int> _MaToChuc;
+		
+		private string _SoGiayPhep;
+		
+		private System.Nullable<int> _LanBoSung;
+		
+		private string _TenHoatDong;
+		
+		public HoatDongDuocCap()
+		{
+		}
+		
+		[Column(Storage="_MaHDHienTai", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int MaHDHienTai
+		{
+			get
+			{
+				return this._MaHDHienTai;
+			}
+			set
+			{
+				if ((this._MaHDHienTai != value))
+				{
+					this._MaHDHienTai = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_MaToChuc", DbType="Int")]
+		public System.Nullable<int> MaToChuc
+		{
+			get
+			{
+				return this._MaToChuc;
+			}
+			set
+			{
+				if ((this._MaToChuc != value))
+				{
+					this._MaToChuc = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_SoGiayPhep", DbType="VarChar(50)")]
+		public string SoGiayPhep
+		{
+			get
+			{
+				return this._SoGiayPhep;
+			}
+			set
+			{
+				if ((this._SoGiayPhep != value))
+				{
+					this._SoGiayPhep = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_LanBoSung", DbType="Int")]
+		public System.Nullable<int> LanBoSung
+		{
+			get
+			{
+				return this._LanBoSung;
+			}
+			set
+			{
+				if ((this._LanBoSung != value))
+				{
+					this._LanBoSung = value;
+				}
+			}
+		}
+		
+		[Column(Storage="_TenHoatDong", DbType="NVarChar(50)")]
+		public string TenHoatDong
+		{
+			get
+			{
+				return this._TenHoatDong;
+			}
+			set
+			{
+				if ((this._TenHoatDong != value))
+				{
+					this._TenHoatDong = value;
+				}
 			}
 		}
 	}
