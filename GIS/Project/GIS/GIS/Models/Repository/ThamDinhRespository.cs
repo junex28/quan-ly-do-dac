@@ -21,11 +21,9 @@ namespace GIS.Models.Repository
             return db.ThamDinhs.AsQueryable();
         }
 
-        public IQueryable<ThamDinh> GetThamDinhByGPID(int id)
+        public ThamDinh GetThamDinhByGPID(int id)
         {
-            return from td in db.ThamDinhs
-                   where td.MaHoSo == id
-                   select td;
+            return db.ThamDinhs.SingleOrDefault(d => d.MaHoSo == id);
         }
         public ThamDinh GetThamDinhById(int id)
         {

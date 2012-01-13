@@ -11,6 +11,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Collections;
+using GIS.Models;
 
 namespace GIS.Models.Repository
 {
@@ -27,17 +28,23 @@ namespace GIS.Models.Repository
         public IQueryable<DangKyHoatDong> GetDangKyHDMoi(int gpId)
         {
             return from dk in db.DangKyHoatDongs
-                   where dk.MaHoSo == gpId
+                   where dk.MaHoSo == gpId 
                    select dk;
         }
-
-        public IQueryable<DangKyHoatDong> GetDangKyHDBoSung(int gpId)
+        public IQueryable<HoatDongDuocCap> GetDKHDDaCap(int gpId)
         {
-            return from dk in db.DangKyHoatDongs
-                   where dk.MaHoSo == gpId && dk.LanBoSung > 0
+            HoSoGiayPhep hs = db.HoSoGiayPheps.SingleOrDefault(d => d.MaHoSo == gpId);
+            return from dk in db.HoatDongDuocCaps
+                   where dk.SoGiayPhep == hs.SoGiayPhep && dk.LanBoSung == 0
                    select dk;
         }
-
+        public IQueryable<HoatDongDuocCap> GetDKHDBoSung(int gpId)
+        {
+            HoSoGiayPhep hs = db.HoSoGiayPheps.SingleOrDefault(d => d.MaHoSo == gpId);
+            return from dk in db.HoatDongDuocCaps
+                   where dk.SoGiayPhep == hs.SoGiayPhep && dk.LanBoSung > 0
+                   select dk;
+        }
 
         public DangKyHoatDong GetDangKysHDByID(int id)
         {
