@@ -91,7 +91,7 @@ namespace GIS.Controllers
                        id = u.MaHoSo,
                        cell = new string[] {
                            u.MaHoSo.ToString(),
-                           u.ToChuc.TenToChuc,
+                           u.ThongTinChung.TenToChuc,
                            u.NgayXinPhep.ToString(),
                            u.TinhTrangGiayPhep.DienGiai
                         }
@@ -107,19 +107,23 @@ namespace GIS.Controllers
             {
                 return new FileNotFoundResult { Message = "Không có giấy phép trên trên" };
             }
-            //var nanglucList = _nanglucRespository.GetNangLucKeKhaiByID(gphd.ToChuc.MaToChuc).ToList();
-            var dangky = _dkhdRespository.GetDangKyHDs(id);
-            var maHDList = _dkhdRespository.getSelectedHD(dangky.ToList<DangKyHoatDong>());
-            var hoatdongList = new List<HoatDong>();
-            foreach (int i in maHDList)
-            {
-                hoatdongList.Add(_hoatdongRespository.GetHoatDongByID(i));
-            }
+            var dangkyMoi = _dkhdRespository.GetDangKyHDMoi(id);
+            var dangkyDuocCap = _dkhdRespository.GetDKHDDaCap(id);
+            var dangkyBS = _dkhdRespository.GetDKHDBoSung(id);
+            //var maHDList = _dkhdRespository.getSelectedHD(dangky.ToList<DangKyHoatDong>());
+            //var hoatdongList = new List<HoatDong>();
+            //foreach (int i in maHDList)
+            //{
+            //    hoatdongList.Add(_hoatdongRespository.GetHoatDongByID(i));
+            //}
+
             var model = new GiayPhepDetailModel
             {
-                DangKy = dangky,
-                giayphep = gphd,
-                hoatdong = hoatdongList,
+                DangKy = dangkyMoi,
+                DangKyDaCap = dangkyDuocCap,
+                DangKyBoSung = dangkyBS,
+                giayphep = gphd
+                //hoatdong = hoatdongList
                // nangluc = nanglucList
             };
 
@@ -144,9 +148,9 @@ namespace GIS.Controllers
            }
            var viewmodel = new GiayPhepDetailModel
            {
-               DangKy = dangky,
-               giayphep = gphd,
-               hoatdong = hoatdongList
+               //DangKy = dangky,
+               //giayphep = gphd,
+               //hoatdong = hoatdongList
            };
            return View(viewmodel);
        }

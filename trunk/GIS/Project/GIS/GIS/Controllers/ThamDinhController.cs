@@ -107,9 +107,11 @@ namespace GIS.Controllers
                 hoatdong = hoatdongList,
                 // nangluc = nanglucList
             };
+            var td = _thamdinhRepository.GetThamDinhByGPID(gpid);
             ThamDinhEditViewModel model = new ThamDinhEditViewModel();
             model.giayphep = _gphdRepository.GetHoSoGiayPhepByID(gpid);
             model.thongtinchung = gpchitiet;
+            model.ThamDinh = td;
             //model.m = gpid; 
             return View(model);
         } 
@@ -120,26 +122,25 @@ namespace GIS.Controllers
         [HttpPost]
         public ActionResult Create(ThamDinhEditViewModel model)
         {
-            //try
-            //{               
-            //        ThamDinh td = new ThamDinh();
-            //        td.MaHoSoGiayPhep = model.giayphep.MaHoSoGiayPhep;
-            //        //td.NgayThamDinh = (DateTime)model.NgayThamDinh;
-            //        td.NguoiThamDinh = model.NguoiThamDinh;
-            //        td.NguoiPhiaToChuc = model.NguoiPhiaToChuc;
-            //        td.TinhHopLe = model.TinhHopLe;
-            //        td.NangLucNhanVien = model.NangLucNhanVien;
-            //        td.NangLucThietBi = model.NangLucThietBi;
-            //        td.KetLuan = model.KetLuan;
-            //        td.KienNghi = model.KienNghi;
-            //        td.LoaiThamDinh = Convert.ToInt32(model.LoaiThamDinh);
-            //        _thamdinhRepository.Add(td);
-            //    //return RedirectToAction("Index", "TrangChu");
-            //}
-            //catch (Exception)
-            //{
-            //    MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when create new" }, HttpContext.Response);
-            //}
+            try
+            {
+                ThamDinh td = new ThamDinh();
+                td.MaHoSo = Convert.ToInt32(ViewData["MaHoSo"]);
+                //td.NgayThamDinh = (DateTime)model.NgayThamDinh;
+                td.NguoiThamDinh = model.NguoiThamDinh;
+                td.NguoiPhiaToChuc = model.NguoiPhiaToChuc;
+                td.TinhHopLe = model.TinhHopLe;
+                td.NangLucNhanVien = model.NangLucNhanVien;
+                td.NangLucThietBi = model.NangLucThietBi;
+                td.KetLuan = model.KetLuan;
+                td.KienNghi = model.KienNghi;
+                _thamdinhRepository.Add(td);
+                //return RedirectToAction("Index", "TrangChu");
+            }
+            catch (Exception)
+            {
+                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when create new" }, HttpContext.Response);
+            }
             return View();
         }
         
