@@ -14,6 +14,8 @@ namespace GIS.ViewModels
         DDBDDataContext db = new DDBDDataContext();
         public HoSoGiayPhep giayphep { get; set; }
         public IQueryable<DangKyHoatDong> DangKy{ get; set; }
+        public IQueryable<HoatDongDuocCap> DangKyDaCap { get; set; }
+        public IQueryable<HoatDongDuocCap> DangKyBoSung { get; set; }
         public IEnumerable<HoatDong> hoatdong { get; set; }
         public IList<NangLucKeKhai> nangluc { get; set; }
         //public IEnumerable<SelectListItem> selectListItems{get; set;}
