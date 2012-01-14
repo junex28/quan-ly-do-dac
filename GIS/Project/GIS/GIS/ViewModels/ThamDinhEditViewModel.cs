@@ -45,9 +45,13 @@ namespace GIS.ViewModels
         [DisplayName("Kiến nghị")]
         public string KienNghi { get; set; }
 
+        [DisplayName("Thẩm định")]
         public ThamDinh ThamDinh { get; set; }
 
         public HoSoGiayPhep giayphep { get; set; }
+
         public GiayPhepDetailModel thongtinchung { get; set; }
+
+        public string SoGiayPhep { get; set; } 
     }
 }
