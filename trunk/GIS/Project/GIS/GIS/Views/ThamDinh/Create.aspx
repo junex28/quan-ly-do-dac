@@ -3,38 +3,37 @@
 <asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">
     Thêm biên bản thẩm định
 </asp:Content>
-<asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
 
-    <script type="text/javascript">
 
-	$(function() {
-		$( "#NgayThamDinh" ).datepicker();
-	});
-        
-    </script>
-
-</asp:Content>
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="grid_19 alpha">
       <div class="box grid_10 alpha">  
         <h3>
             Thẩm định hồ sơ
-            <% if (false)
+            <% if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang ==1)
                {%>
             đăng ký giấy phép<% }
-               else if (false)
+               else if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 9)
                {%>
             đăng ký bổ sung hoạt động<% }
-               else if (true)
+               else if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 6)
                {%>
             đăng ký gia hạn<% }%>
         </h3>
       </div>
       <div class="box grid_8 omega" style="text-align:right">
-      <% if (true) {%> 
-         <p> Số giấy phép :<%=Html.Encode(Model.giayphep.SoGiayPhep) %></p>
-         <p> Cấp ngày : <%=Html.Encode(Model.giayphep.NgayCapPhep) %>   </p> 
-       <%  } %>
+      <% if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang != 1)
+         {%> 
+         <p> Số giấy phép :<%=Html.Encode(Model.giayphep.SoGiayPhep)%></p>
+         <% if (Model.giayphep.NgayCapPhep != null)
+            {%>
+         <p> Cấp ngày : <%=Html.Encode(Model.giayphep.NgayCapPhep.Value.ToShortDateString())%>   </p> 
+        <% }
+            else
+            {%>
+       <p> Cấp ngày :</p> 
+       <%} %>
+       <%  }%>
       </div>
       <div class="clear"></div> 
      <% Html.RenderPartial("ThongTinChung", Model.thongtinchung); %>
@@ -45,7 +44,7 @@
         <div class="block" id="thamdinh">
             <% Html.EnableClientValidation(); %>
             <%= Html.ValidationSummary(true) %>
-            <% using (Html.BeginForm("Create", "ThamDinh"))
+            <% using (Html.BeginForm("Create", "ThamDinh", FormMethod.Post, new { gpid = "xetduyetForm" }))  
                {%>
             <p>
                 <label class="grid_6">
@@ -99,9 +98,9 @@
             </p>
             
             <% }
-               } %>
+            }
+                %>
         </div>
-
     </div>
     <div class="box">
         <div class="block prefix_4">
@@ -109,8 +108,34 @@
                 <span class="back">Thoát</span></button>
             <button id="Button1" class="button redmond">
                 <span class="khongduyet">Không Duyệt</span></button>
-            <button id="thamdinhButton" class="button redmond">
+            <button id="xetduyetButton" class="button redmond">
                 <span class="duyet">Duyệt</span></button>
         </div>
     </div>
+      
+</asp:Content>
+<asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
+
+    <script type="text/javascript">
+
+        $(function() {
+            $("#NgayThamDinh").datepicker();
+        });
+        $(function() {
+        $('#xetduyetButton').click(function() {
+               $('#xetduyetForm').submit();
+            });
+
+            $('#xetduyetForm').submit(
+                function() {
+
+                    var input = document.createElement("input");
+                    input.setAttribute("type", "hidden");
+                    input.setAttribute("name", "id");
+                    input.setAttribute("value", "<%=Model.giayphep.MaHoSo%>");
+                    $(this).append(input);
+                    return true;
+                });
+        });
+    </script>
 </asp:Content>
