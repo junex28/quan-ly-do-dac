@@ -102,7 +102,7 @@
             <div class="clear">
             </div>
             <div class="grid_5 content-left">
-                &nbsp;</div>
+                <% Html.RenderPartial("LogOnUserControl"); %></div>
             <div class="grid_19 content-right">
                 <div class="grid_19 message">
                     <% Html.RenderPartial("SystemMessage"); %>
