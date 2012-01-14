@@ -105,7 +105,7 @@ namespace GIS.Controllers
             HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(id);
             if (gphd == null)
             {
-                return new FileNotFoundResult { Message = "Không có giấy phép trên trên" };
+                return new FileNotFoundResult { Message = "Không có giấy phép trên" };
             }
             var dangkyMoi = _dkhdRespository.GetDangKyHDMoi(id);
             var dangkyDuocCap = _dkhdRespository.GetDKHDDaCap(id);
@@ -131,30 +131,6 @@ namespace GIS.Controllers
             return View(model);
         }
 
-        //QLGiayPhep/Detail/id
-       public ActionResult Detail(int id)
-       {
-           HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(id);
-           if (gphd == null)
-           {
-             return new FileNotFoundResult { Message = "Không có giấy phép trên trên" };
-           }
-           var dangky =_dkhdRespository.GetDangKyHDs(id);
-           var maHDList = _dkhdRespository.getSelectedHD(dangky.ToList<DangKyHoatDong>());
-           var hoatdongList = new List<HoatDong>();
-           foreach (int i in maHDList)
-           {
-               hoatdongList.Add(_hoatdongRespository.GetHoatDongByID(i));
-           }
-           var viewmodel = new GiayPhepDetailModel
-           {
-               //DangKy = dangky,
-               //giayphep = gphd,
-               //hoatdong = hoatdongList
-           };
-           return View(viewmodel);
-       }
-
        public ActionResult Edit(int id)
        {
            var EditedGPHD = _gphdRepository.GetHoSoGiayPhepByID(id);
@@ -179,14 +155,7 @@ namespace GIS.Controllers
            return View(viewmodel);
        }
 
-       public ActionResult Thamdinh(int id) {
-           //Kiem tra ho so da co tham dinh chua
-           // Neu chua co thi
-           // redirect den ThamDinh/Create/
-           //nguoc lai
-           //redirect den ThamDinh/Detail/                
-           return View();
-       }
+     
 
     }
 }

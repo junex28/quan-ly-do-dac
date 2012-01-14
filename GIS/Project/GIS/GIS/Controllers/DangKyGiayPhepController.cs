@@ -12,10 +12,17 @@ namespace GIS.Controllers
     {
         //
         // GET: /DangKyGiayPhep/
-        //[Authorize]
+       [Authorize]
         public ActionResult Index()
         {
-            return RedirectToAction("ThongTinChung","DangKyGiayPhep");
+            // Get current user
+            // Check whether User' Organization is exist (true)
+            //      Load User' Organiztion 
+            // else new detail
+            //return View(model)
+            
+
+            return View();
         }
 
         public ActionResult ThongTinChung() {
