@@ -94,6 +94,8 @@ namespace GIS.Controllers
         {
             HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(gpid);
             var dangky = _dkhdRespository.GetDangKyHDs(gpid);
+            var hdDaCap = _dkhdRespository.GetDKHDDaCap(gpid);
+            var hdBoSung = _dkhdRespository.GetDKHDBoSung(gpid);
             var maHDList = _dkhdRespository.getSelectedHD(dangky.ToList<DangKyHoatDong>());
             var hoatdongList = new List<HoatDong>();
             foreach (int i in maHDList)
@@ -105,6 +107,8 @@ namespace GIS.Controllers
                 DangKy = dangky,
                 giayphep = gphd,
                 hoatdong = hoatdongList,
+                DangKyDaCap = hdDaCap,
+                DangKyBoSung = hdBoSung
                 // nangluc = nanglucList
             };
             var td = _thamdinhRepository.GetThamDinhByGPID(gpid);
@@ -122,6 +126,7 @@ namespace GIS.Controllers
         [HttpPost]
         public ActionResult Create(ThamDinhEditViewModel model, int gpid)
         {
+            bool iMsg = true;
             try
             {
                 ThamDinh td = new ThamDinh();
@@ -135,55 +140,93 @@ namespace GIS.Controllers
                 td.KetLuan = model.KetLuan;
                 td.KienNghi = model.KienNghi;
                 _thamdinhRepository.Add(td);
+               
                 //return RedirectToAction("Index", "TrangChu");
+               // MessageHelper.CreateMessage(MessageType.Highlight, "Title", listMsg, HttpContext.Response);
             }
             catch (Exception)
             {
-                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when create new" }, HttpContext.Response);
+               // MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "lỗi khi lưu biên bản thẩm định" }, HttpContext.Response);
+                //listMsg.Add("lỗi khi lưu biên bản thẩm định");
+                iMsg = false;
             }
-            return RedirectToAction("ChiTiet", "qlgiayphep", new { id = gpid });
+            //return RedirectToAction("ThongBao", "Thamdinh", new { iMsg1 = iMsg });
+            return RedirectToAction("Index", "QLGiayPhep");
         }
-        
+
+        public ActionResult ThongBao(bool iMsg1)
+        {
+            List<string> listMsg = new List<string>();
+            if (iMsg1 == true)
+            {
+                listMsg.Add("đã lưu biên bản thẩm định");
+                 MessageHelper.CreateMessage(MessageType.Highlight, "Kết quả", listMsg, HttpContext.Response);
+            }
+            else 
+            {
+                listMsg.Add("lỗi khi lưu biên bản thẩm định");
+                MessageHelper.CreateMessage(MessageType.Error, "Title", listMsg, HttpContext.Response);
+            }
+            return View();
+        }
         //
         // GET: /ThamDinh/Edit/5
- 
-        public ActionResult Edit(int id)
+
+        public ActionResult Edit(int gpid)
         {
-            ThamDinh thamdinh = new ThamDinh();
-            thamdinh = _thamdinhRepository.GetThamDinhById(id);
-            var viewmodel = new ThamDinhEditViewModel
+            HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+            var dangky = _dkhdRespository.GetDangKyHDs(gpid);
+            var hdDaCap = _dkhdRespository.GetDKHDDaCap(gpid);
+            var hdBoSung = _dkhdRespository.GetDKHDBoSung(gpid);
+            var maHDList = _dkhdRespository.getSelectedHD(dangky.ToList<DangKyHoatDong>());
+            var hoatdongList = new List<HoatDong>();
+            foreach (int i in maHDList)
             {
-                ThamDinh = thamdinh
+                hoatdongList.Add(_hoatdongRespository.GetHoatDongByID(i));
+            }
+            var gpchitiet = new GiayPhepDetailModel
+            {
+                DangKy = dangky,
+                giayphep = gphd,
+                hoatdong = hoatdongList,
+                DangKyDaCap = hdDaCap,
+                DangKyBoSung = hdBoSung
+                // nangluc = nanglucList
             };
-            return View(viewmodel);
+            var td = _thamdinhRepository.GetThamDinhByGPID(gpid);
+            ThamDinhEditViewModel model = new ThamDinhEditViewModel();
+            model.giayphep = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+            model.thongtinchung = gpchitiet;
+            model.ThamDinh = td;
+            //model.m = gpid; 
+            return View(model);
         }
 
         //
         // POST: /ThamDinh/Edit/5
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ThamDinhEditViewModel model, int gpid)
         {
-            String str = Request.Form["MaThamDinh"];
-            ThamDinh thamdinh = _thamdinhRepository.GetThamDinhById(id);
-
             try
             {
-                thamdinh.NgayThamDinh = Convert.ToDateTime(Request.Form["NgayThamDinh"]);
-                thamdinh.NguoiThamDinh = Request.Form["NguoiThamDinh"];
-                thamdinh.NguoiPhiaToChuc = Request.Form["NguoiPhiaToChuc"];
-                thamdinh.TinhHopLe = Request.Form["TinhHopLe"];
-                thamdinh.NangLucNhanVien = Request.Form["NangLucNhanVien"];
-                thamdinh.NangLucThietBi = Request.Form["NangLucThietBi"];
-                thamdinh.KetLuan = Request.Form["KetLuan"];
-                thamdinh.KienNghi = Request.Form["KienNghi"];
+                ThamDinh td =_thamdinhRepository.GetThamDinhByGPID(gpid);
+                td.MaHoSo = gpid;
+                td.NgayThamDinh = (DateTime)model.NgayThamDinh;
+                td.NguoiThamDinh = model.NguoiThamDinh;
+                td.NguoiPhiaToChuc = model.NguoiPhiaToChuc;
+                td.TinhHopLe = model.TinhHopLe;
+                td.NangLucNhanVien = model.NangLucNhanVien;
+                td.NangLucThietBi = model.NangLucThietBi;
+                td.KetLuan = model.KetLuan;
+                td.KienNghi = model.KienNghi;
                 _thamdinhRepository.Save();
-                return RedirectToAction("Detail", new { id = thamdinh.MaThamDinh });
             }
             catch
             {
                 return View();
             }
+            return RedirectToAction("Index", "QLGiayPhep");
         }
 
         //
