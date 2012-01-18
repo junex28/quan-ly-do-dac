@@ -115,18 +115,18 @@
             <label class="grid_6">
                 Hồ sơ nhân lực đính kèm :
             </label>
-            {nhanluc.tepdinhkem}
+            <%= Html.Encode(Model.giayphep.ThongTinChung.NhanLucs) %>
         </p>
         <p>
             <label class="grid_6">
                 Hồ sơ thiết bị đính kèm :
             </label>
-            {thietbi.tepdinhkem}
+            <%= Html.Encode(Model.giayphep.ThongTinChung.TepDinhKem) %>
         </p>
     </div>
 </div>
 <!-- Đăng ký hoạt động mới-->
-<% if (false)
+<% if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 1)
    {%>
 <div class="box clearfix">
     <h2>
@@ -139,10 +139,11 @@
                 Danh sách đăng ký hoạt động:
             </label>
             <ul class="grid_6">
-                <li>{i++}. {hoatdongmoi}</li>
-                <li>{i++}. {hoatdongmoi}</li>
-                <li>{i++}. {hoatdongmoi}</li>
-                <li>{i++}. {hoatdongmoi}</li>
+            <%foreach (var item in Model.DangKy)
+              {
+                   %>
+                <li><%=item.HoatDong.TenHoatDong %></li>
+                <%} %>
             </ul>
         </p>
     </div>
@@ -157,7 +158,7 @@
 </div>
 <!-- Đăng ký bổ sung hoạt động-->
 <% }
-   else if (false)
+   else if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 6)
    {%>
 <div class="box clearfix">
     <h2>
@@ -170,10 +171,10 @@
                 Danh sách hoạt động :
             </label>
             <ul class="grid_6">
-                <li>{i++}. {hoatdong1}</li>
-                <li>{i++}. {hoatdong1}</li>
-                <li>{i++}. {hoatdong1}</li>
-                <li>{i++}. {hoatdong!}</li>
+                <% foreach (var item in Model.DangKyDaCap)
+                   {%>
+                <li><%=item.TenHoatDong%></li>
+                <%} %>
             </ul>
         </p>
     </div>
@@ -189,10 +190,14 @@
                 Danh sách hoạt động bổ sung:
             </label>
             <ul class="grid_6">
-                <li>{i++}. {hoatdongbosung}</li>
-                <li>{i++}. {hoatdongbosung}</li>
-                <li>{i++}. {hoatdongbosung}</li>
-                <li>{i++}. {hoatdongbosung}</li>
+               <%foreach (var item in Model.DangKy)
+                 { %>
+                <li><%= item.HoatDong.TenHoatDong %></li>
+                <%}
+                 foreach (var item in Model.DangKyBoSung)
+                 {%>
+                <li><%=item.TenHoatDong%></li>
+                <%} %>
             </ul>
         </p>
     </div>
@@ -207,7 +212,7 @@
 </div>
 <!-- Đăng ký gia hạn giấy phép-->
 <% }
-   else if (true)
+   else if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 6)
    {%>
 <div class="box clearfix">
     <h2>
@@ -220,10 +225,14 @@
                 Danh sách hoạt động :
             </label>
             <ul class="grid_6">
-                <li>{i++}. {hoatdong1}</li>
-                <li>{i++}. {hoatdong1}</li>
-                <li>{i++}. {hoatdong1}</li>
-                <li>{i++}. {hoatdong!}</li>
+            <%foreach (var item in Model.DangKy)
+                 { %>
+                <li><%= item.HoatDong.TenHoatDong %></li>
+                <%}
+                 foreach (var item in Model.DangKyBoSung)
+                 {%>
+                <li><%=item.TenHoatDong%></li>
+                <%} %>
             </ul>
         </p>
     </div>
@@ -247,4 +256,24 @@
         </p>
     </div>
 </div>
+<script type="text/javascript">
+    function doAjaxPageNangLuc(pageNo, tcid) {
+        $("#nanglucresult").load("/nangluc/dsnanglucs", { page: pageNo, tcid: tcid });
+    }
+
+    function doAjaxPageNhanLuc(pageNo, tcid) {
+        $("#nhanlucresult").load("/nhanluc/dsnhanlucs", { page: pageNo, tcid: tcid });
+    }
+
+    function doAjaxPageThietBi(pageNo, tcid) {
+        $("#thietbiresult").load("/thietbi/dsthietbis", { page: pageNo, tcid: tcid });
+    }
+
+    $(document).ready(function() {
+        var tcid = '<%=Model.giayphep.ToChuc.MaToChuc%>';
+        doAjaxPageNangLuc(1, tcid);
+        doAjaxPageNhanLuc(1, tcid);
+        doAjaxPageThietBi(1, tcid);
+    });
+</script>
 <% }%>
