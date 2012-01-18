@@ -11,13 +11,21 @@ namespace GIS.Models
     {
         DDBDDataContext db = new DDBDDataContext();
 
-        public IQueryable<HoSoGiayPhep> GetHoSoGiayPheps()
+        public IQueryable<HoSoGiayPhep> GetHoSoGiayPheps(string strSearch)
         {
+            if (strSearch != null)
+                return from gp in db.HoSoGiayPheps
+                       where gp.ToChuc.TenToChuc.Contains(strSearch)
+                       select gp;
             return db.HoSoGiayPheps.AsQueryable();
         }
 
-        public IQueryable<HoSoGiayPhep> GetGPHDByTinhTrang(int Id)
+        public IQueryable<HoSoGiayPhep> GetGPHDByTinhTrang(int Id, string strSearch)
         {
+            if (strSearch != null)
+                return from gp in db.HoSoGiayPheps
+                       where gp.ToChuc.TenToChuc.Contains(strSearch) && gp.TinhTrang == Id
+                       select gp;
             return from gp in db.HoSoGiayPheps
                    where gp.TinhTrang == Id
                    select gp; 
