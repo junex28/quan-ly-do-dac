@@ -6,9 +6,9 @@ using System.Web;
 namespace GIS.Models
 {
     public interface IHoSoGiayPhepRepository
-    {        
-        IQueryable<HoSoGiayPhep> GetHoSoGiayPheps();
-        IQueryable<HoSoGiayPhep> GetGPHDByTinhTrang(int Id);
+    {
+        IQueryable<HoSoGiayPhep> GetHoSoGiayPheps(string strSearch);
+        IQueryable<HoSoGiayPhep> GetGPHDByTinhTrang(int Id, string strSearch);
         HoSoGiayPhep GetHoSoGiayPhepByID(int id);
         void Add(HoSoGiayPhep HoSoGiayPhep);
         void Delete(HoSoGiayPhep HoSoGiayPhep);
