@@ -55,8 +55,49 @@ namespace GIS.ViewModels
         public int MaLoaiHinhToChuc { get; set; }
 
         public ToChuc toChuc { get; set; }
+
         [DisplayName("Danh sách loại hình")]
+        
         public IList<LoaiHinhToChuc> loaiHinh { get; set; }
+        
         public IList<NangLucKeKhai> nangLuc { get; set; }
-     }
+
+        public string HangDoanhNghiep { get; set; }
+
+        public decimal VonPhapDinh { get; set; }
+
+        public decimal VonLuuDong { get; set; }
+
+        public IList<NangLucVM> NangLucs { get; set; }
+
+        public IList<NhanLucVM> NhanLucs { get; set; }
+
+        public IList<ThietBiVM> ThietBis { get; set; }
+    }
+
+    public class NangLucVM {
+        [Required(ErrorMessage="Ngành nghề không được để trống")]
+        public string NganhNghe { get; set; }
+        public int? Daihoc { get; set; }
+        public int? TrungCap { get; set; }
+        public int? CongNhan { get; set; }
+        public int? LoaiKhac { get; set; }
+    }
+
+    public class NhanLucVM
+    {
+        [Required(ErrorMessage = "Họ Tên không được để trống")]
+        public string HoTen { get; set; }
+        public string ChucVu { get; set; }
+        public string TrinhDoHocVan { get; set; }
+        public int? ThamNien { get; set; }
+    }
+
+    public class ThietBiVM {
+        [Required(ErrorMessage = "Tên thiết bị không được để trống")]
+        public string TenThietBi_CongNghe { get; set; }
+        public int? SoLuong { get; set; }
+        public string TinhTrang { get; set; }
+        public string GhiChu { get; set; }
+    }
 }
