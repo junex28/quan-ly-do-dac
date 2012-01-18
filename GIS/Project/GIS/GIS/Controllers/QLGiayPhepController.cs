@@ -50,23 +50,23 @@ namespace GIS.Controllers
            return View();
        }
       
-       public ActionResult ListData(int sId, string sidx, string sord, int page, int rows)
+       public ActionResult ListData(int sId, string sidx, string search, string sord, int page, int rows)
        {
            int i = sId;
-           var listGiayPhep = _gphdRepository.GetHoSoGiayPheps();
+           var listGiayPhep = _gphdRepository.GetHoSoGiayPheps(search);
 
            switch(i)
            {
-               case 0: listGiayPhep = _gphdRepository.GetHoSoGiayPheps(); break;
-               case 1: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(1); break;
-               case 2: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(2); break;
-               case 3: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(3); break;
-               case 4: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(4); break;
-               case 5: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(5); break;
-               case 6: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(6); break;
-               case 7: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(7); break;
-               case 8: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(8); break;
-               case 9: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(9); break;
+               case 0: listGiayPhep = _gphdRepository.GetHoSoGiayPheps(search); break;
+               case 1: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(1, search); break;
+               case 2: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(2, search); break;
+               case 3: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(3, search); break;
+               case 4: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(4, search); break;
+               case 5: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(5, search); break;
+               case 6: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(6, search); break;
+               case 7: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(7, search); break;
+               case 8: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(8, search); break;
+               case 9: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(9, search); break;
            }
 
            var pageIndex = Convert.ToInt32(page) - 1;
