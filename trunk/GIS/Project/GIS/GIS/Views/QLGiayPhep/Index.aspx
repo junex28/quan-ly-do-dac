@@ -97,10 +97,11 @@
                 return false;
             });
 
-            var actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER" } ) %>';
+            var actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER"} ) %>';
+            //var actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER", search = "PLACEHOLDER1"} ) %>';
             //var s = $("#selector").val();
-            var st = actionUrl.replace('PLACEHOLDER', 0);
-
+            var st = actionUrl.replace('PLACEHOLDER', $("#selector").val());
+            
             $("#grid").jqGrid({
                 //editurl: '',
                 caption: 'DANH SÁCH GIẤY PHÉP',
@@ -132,7 +133,7 @@
 
         function chageSelect() {
             //salert($("#selector").val());
-            actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER" } ) %>';
+            actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER"} ) %>';
             st = actionUrl.replace('PLACEHOLDER', $("#selector").val());
             $("#grid").setGridParam({ url: st }).trigger('reloadGrid');
         }
@@ -153,14 +154,19 @@
                 timeoutHnd = setTimeout(gridReload, 500)
             }
         }
+        
         function gridReload() {
             var search = $('#item').val();
             var gp = $("#selector").val();
-            jQuery("#grid").setGridParam({ url: "QLGiayPhep/ListData?sid=" + gp + "&search=" + search, page: 1 }).trigger("reloadGrid");
+            actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER", search ="PLACEHOLDER1" } ) %>';
+            var st1 = actionUrl.replace('PLACEHOLDER', gp);
+            st = st1.replace('PLACEHOLDER1', search);
+            jQuery("#grid").setGridParam({ url: st }).trigger('reloadGrid');
+            //jQuery("#grid").setGridParam({ url: "QLGiayPhep/ListData?sid=" + gp + "&search=" + search, page: 1 }).trigger("reloadGrid");
         }
         function enableAutosubmit(state) {
             flAuto = state;
-            jQuery("#submitButton").attr("disabled", state);
+            jQuery("#searchButton").attr("disabled", state);
         } 
     </script>
 
@@ -177,7 +183,6 @@
                 <span class="edit">Sửa</span></button>
             <button id="deleteButton" class="button redmond">
                 <span class="delete">Xóa</span></button>
-           
         </div>
         <div class="box">
             <form>
@@ -204,10 +209,9 @@
     <!-- Tim Kiem -->
     <div class="grid_7 omega">
         <div class="box">
-            <form>
             <p>
                 <input class="text grid_4" type="text" size="17" id="item" onkeydown="doSearch(arguments[0]||event)" />
-                <button class="btnSearch" onclick="gridReload()" id="submitButton">
+                <button class="btnSearch" id="searchButton" onclick="gridReload()">
                     <span class="search"></span>
                 </button>
             </p>
@@ -216,7 +220,6 @@
                 &nbsp;Tự động</p>
             <div id="search" style="visibility: hidden; width: 10px; height: 10px">
             </div>
-            </form>
         </div>
     </div>
     <!-- Lua chon danh sach giay phep -->

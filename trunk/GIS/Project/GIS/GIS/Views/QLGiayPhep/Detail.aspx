@@ -34,20 +34,20 @@
         </div>
         <div class="editor-row">
             <div class="editor-label">
-                <%= Html.LabelFor(model => model.giayphep.LyDoXinPhep) %>
+                <%= Html.LabelFor(model => model.giayphep.LyDo) %>
             </div>
             <div class="editor-field">
-                <%= Html.Encode(Model.giayphep.LyDoXinPhep)%>
+                <%= Html.Encode(Model.giayphep.CamKet)%>
             </div>
         </div>
-        <div class="editor-row">
+        <%--<div class="editor-row">
             <div class="editor-label">
                 <%= Html.LabelFor(model => model.giayphep.CamKetXinPhep) %>
             </div>
             <div class="editor-field">
                 <%= Html.Encode(Model.giayphep.CamKetXinPhep)%>
             </div>
-        </div>
+        </div>--%>
         <div class="editor-row">
             <div class="editor-label">
                 <%= Html.LabelFor(model => model.giayphep.TepDinhKem) %>
@@ -100,7 +100,7 @@
         </div>
         <% } %>
     </fieldset>
-    <% if (Model.giayphep.NgayGiaHan != null || Model.giayphep.LyDoGiaHan != null || Model.giayphep.CamKetGiaHan != null)
+   <%-- <% if (Model.giayphep.NgayGiaHan != null || Model.giayphep.LyDoGiaHan != null || Model.giayphep.CamKetGiaHan != null)
        {%>
     <fieldset>
         <legend>Thông Tin gia hạn</legend>
@@ -140,13 +140,13 @@
                 <td> Ngày bổ sung </td>
                 <td> Tình trạng </td>
             </tr>
-            <% foreach (var item in Model.DangKy)
+            <% foreach (var item in Model.DangKyMoi)
                {%>
             <tr>
                 <% String str="";
-               if (item.LaBoSung != null)
+               if (item.LanBoSung != null)
                {
-                   if (item.LaBoSung == true)
+                   if (item.LanBoSung == true)
                        str = "Bổ sung";
                    else str="Không phải bổ sung";
                }%>
@@ -156,7 +156,7 @@
                 <td> <%=Html.Encode(item.NgayBoSung.Value.ToShortDateString())%> </td>
                 <td> <%=Html.Encode(item.TinhTrangXetDuyet.DienGiai)%> </td>
             </tr>
-            <%} %>
+            <%} %>--%>
         </table>
     </fieldset>
     <p>
