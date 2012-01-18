@@ -44,7 +44,7 @@
         <div class="block" id="thamdinh">
             <% Html.EnableClientValidation(); %>
             <%= Html.ValidationSummary(true) %>
-            <% using (Html.BeginForm("Create", "ThamDinh", FormMethod.Post, new { gpid = "xetduyetForm" }))  
+            <% using (Html.BeginForm("Create", "ThamDinh", FormMethod.Post, new { id = "xetduyetForm"}))  
                {%>
             <p>
                 <label class="grid_6">
@@ -97,8 +97,11 @@
                 <%= Html.ValidationMessageFor(m => m.SoGiayPhep)%>
             </p>
             
-            <% }
-            }
+            <% } %>
+            <input type="hidden" id="Save" value="0" /> 
+            <input type="hidden" id="KhongDuyet" value="0" /> 
+                   
+            <%}
                 %>
         </div>
     </div>
@@ -106,13 +109,18 @@
         <div class="block prefix_4">
             <button id="backButton" class="button redmond" onclick="window.location.href='./'">
                 <span class="back">Thoát</span></button>
-            <button id="Button1" class="button redmond">
+                   <button id="saveButton" class="button redmond">
+                <span class="save">Lưu lại</span></button>
+            <button id="khongduyetButton" class="button redmond">
                 <span class="khongduyet">Không Duyệt</span></button>
             <button id="xetduyetButton" class="button redmond">
-                <span class="duyet">Duyệt</span></button>
+                <span class="duyet">Duyệt</span></button>           
         </div>
     </div>
-      
+    
+    
+    
+    
 </asp:Content>
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
 
@@ -122,16 +130,28 @@
             $("#NgayThamDinh").datepicker();
         });
         $(function() {
-        $('#xetduyetButton').click(function() {
-               $('#xetduyetForm').submit();
+
+            $('#xetduyetButton').click(function() {
+                $('#xetduyetForm').submit();
             });
+
+            $('#khongduyetButton').click(function() {
+                $('#khongduyet').val() = 1;
+                $('#xetduyetForm').submit();
+            });
+
+            $('#saveButton').click(function() {
+                // Luu lai
+                $('#Save').val() = 1;
+            });
+
 
             $('#xetduyetForm').submit(
                 function() {
 
                     var input = document.createElement("input");
                     input.setAttribute("type", "hidden");
-                    input.setAttribute("name", "id");
+                    input.setAttribute("name", "gpid");
                     input.setAttribute("value", "<%=Model.giayphep.MaHoSo%>");
                     $(this).append(input);
                     return true;
