@@ -53,6 +53,11 @@
 <body>
     <div class="container_24">
         <div class="grid_24" id="wrapper">
+            <div style="position:relative;top:0px;right:0px">
+                  <div id="logon">
+                <% Html.RenderPartial("LogOnUserControl"); %>
+                    </div>
+            </div>
             <!-- Header -->
             <div id="header" class="grid_24">
                 <!-- Your website name  -->
@@ -60,6 +65,8 @@
                     Hệ thống quản lý ĐO ĐẠC & BẢN ĐỒ</h1>
                 <!-- Your website name end -->
             </div>
+
+    
             <!-- Header end -->
             <!-- Menu -->
             <div class="grid_24">
@@ -102,7 +109,7 @@
             <div class="clear">
             </div>
             <div class="grid_5 content-left">
-                <% Html.RenderPartial("LogOnUserControl"); %></div>
+                &nbsp;</div>
             <div class="grid_19 content-right">
                 <div class="grid_19 message">
                     <% Html.RenderPartial("SystemMessage"); %>
