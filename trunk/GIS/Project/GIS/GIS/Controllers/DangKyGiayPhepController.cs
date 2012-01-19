@@ -42,6 +42,11 @@ namespace GIS.Controllers
             return View(model);
         }
 
+        [HttpPost]
+       public ActionResult Dangky() {
+           return null;
+       }
+
         public ActionResult ThongTinChung() {
             return View();
         }
