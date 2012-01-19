@@ -850,3 +850,9 @@ textarea {
     right: 10px;
     z-index:999;
     }
+
+/************************* UPLOADER *********************/
+DIV.ProgressBar { width: 100px; padding: 0; border: 1px solid black; margin-right: 1em; height:.75em; margin-left:1em; display:-moz-inline-stack; display:inline-block; zoom:1; *display:inline; }
+DIV.ProgressBar DIV { background-color: Green; font-size: 1pt; height:100%; float:left; }
+SPAN.asyncUploader OBJECT { position: relative;  left: 10px; line-height : 2em; } 
+SPAN.asyncUploader *{line-height: 2em; margin: 0.6px, 2%, 0}
