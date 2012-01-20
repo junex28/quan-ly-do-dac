@@ -73,6 +73,8 @@ namespace GIS.ViewModels
         public IList<NhanLucVM> NhanLucs { get; set; }
 
         public IList<ThietBiVM> ThietBis { get; set; }
+
+        public IList<HoatDong> DSHoatDongs { get; set; }
     }
 
     public class NangLucVM {
