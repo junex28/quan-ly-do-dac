@@ -38,7 +38,7 @@
     <script type="text/javascript" src="/Scripts/MicrosoftMvcJQueryValidation.js"></script>
     
     <!-- Script for multi select -->
-    <script src="/Scripts/multiselectable.js" type="text/javascript"></script>
+    <%-- <script src="/Scripts/multiselectable.js" type="text/javascript"></script>--%>
     
     <%-- <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="/Content/Custom.css" rel="stylesheet" type="text/css" />
