@@ -281,7 +281,7 @@
                 <a id="toggle-hoatdongmoi" href="#" style="cursor: pointer;">Đăng ký hoạt động mới</a>
             </h2>
             <div class="block" id="hoatdongmoi">
-            <% Html.ListBoxFor(m=>m.DSHoatDongs,) %>
+      
             </div>
         </div>
             <%} %>
