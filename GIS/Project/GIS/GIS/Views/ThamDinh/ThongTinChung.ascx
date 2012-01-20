@@ -256,6 +256,8 @@
         </p>
     </div>
 </div>
+
+<% }%>
 <script type="text/javascript">
     function doAjaxPageNangLuc(pageNo, tcid) {
         $("#nanglucresult").load("/nangluc/dsnanglucs", { page: pageNo, tcid: tcid });
@@ -276,4 +278,3 @@
         doAjaxPageThietBi(1, tcid);
     });
 </script>
-<% }%>

@@ -80,7 +80,7 @@
                     <label class="grid_6">
                         Fax :
                     </label>
-                    .<%= Html.Encode(Model.giayphep.ThongTinChung.Fax)%>
+                    <%= Html.Encode(Model.giayphep.ThongTinChung.Fax)%>
                 </p>
                 <p>
                     <label class="grid_6">
@@ -143,7 +143,7 @@
                     <label class="grid_6 alpha">
                         Danh sách đăng ký hoạt động mới:
                     </label>
-                    <ul class="grid_6">
+                    <ul class="grid_10 omega">
                         <% foreach (var item in Model.DangKy)
                            {%>
                         <li>

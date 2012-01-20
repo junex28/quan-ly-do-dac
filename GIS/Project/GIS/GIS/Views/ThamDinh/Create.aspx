@@ -93,7 +93,7 @@
                 <label class="grid_6">
                    Số giấy phép :
                 </label>
-                <%= Html.TextBoxFor(m => m.SoGiayPhep)%>
+                <%= Html.TextBoxFor(m => m.SoGiayPhep, new {@class="text"})%>
                 <%= Html.ValidationMessageFor(m => m.SoGiayPhep)%>
             </p>
             
@@ -127,7 +127,7 @@
     <script type="text/javascript">
 
         $(function() {
-            $("#NgayThamDinh").datepicker();
+        $("#NgayThamDinh").datepicker({ dateFormat: 'dd/mm/yy' });
         });
         $(function() {
 
