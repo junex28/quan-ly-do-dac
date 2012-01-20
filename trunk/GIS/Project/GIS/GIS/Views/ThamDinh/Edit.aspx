@@ -3,58 +3,14 @@
 <asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">
     Cập nhật biên bản thẩm định
 </asp:Content>
-<asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
 
-    <script type="text/javascript">
-        $(function() {
-            $("input[type=submit]").button();
-            $('#danhsachButton').button({
-                icons:
-                    {
-                        primary: "ui-icon-document"
-                    }
-            });
-        });
-        $(function() {
-            $("#NgayThamDinh").datepicker();
-        });
-        $(function() {
-
-            $('#xetduyetButton').click(function() {
-                $('#xetduyetForm').submit();
-            });
-
-            $('#khongduyetButton').click(function() {
-                $('#khongduyet').val() = 1;
-                $('#xetduyetForm').submit();
-            });
-
-            $('#saveButton').click(function() {
-                // Luu lai
-                $('#Save').val() = 1;
-            });
-
-
-            $('#xetduyetForm').submit(
-                function() {
-
-                    var input = document.createElement("input");
-                    input.setAttribute("type", "hidden");
-                    input.setAttribute("name", "gpid");
-                    input.setAttribute("value", "<%=Model.giayphep.MaHoSo%>");
-                    $(this).append(input);
-                    return true;
-                });
-        });
-    </script>
-
-</asp:Content>
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
       <div class="grid_19 alpha">
       <div class="box grid_10 alpha">  
         <h3>
             Thẩm định hồ sơ
-            <% if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang ==1)
+            <% 
+                if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang ==1)
                {%>
             đăng ký giấy phép<% }
                else if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 9)
@@ -88,8 +44,11 @@
         <div class="block" id="thamdinh">
             <% Html.EnableClientValidation(); %>
             <%= Html.ValidationSummary(true) %>
-            <% using (Html.BeginForm("Edit", "ThamDinh", FormMethod.Post, new { id = "xetduyetForm"}))  
-               {%>
+            <% using (Html.BeginForm("Edit", "ThamDinh", FormMethod.Post, new { id = "xetduyetForm"}))
+               {
+                   var save = "1";
+                   %>
+               <input id="save" type="hidden" value="<%=save%>"/>
             <p>
                 <label class="grid_6">
                     Ngày thẩm định :
@@ -146,73 +105,77 @@
                 %>
         </div>
     </div>
-    <div class="box">
-        <div class="block prefix_4">
-            <button id="backButton" class="button redmond" onclick="window.location.href='./'">
-                <span class="back">Thoát</span></button>
-            <button id="Button1" class="button redmond">
-                <span class="khongduyet">Không Duyệt</span></button>
-            <button id="xetduyetButton" class="button redmond">
-                <span class="duyet">Duyệt</span></button>
-        </div>
-    </div>
-<%--
-            <dl class="span w16">
-                <dt class="w4">
-                    <%= Html.LabelFor(m => m.NguoiPhiaToChuc) %></dt>
-                <dd>
-                    <%= Html.TextBoxFor(m => m.NguoiPhiaToChuc)%>
-                    <%= Html.ValidationMessageFor(m => m.NguoiPhiaToChuc)%>
-                </dd>
-            </dl>
-            <dl class="span w16">
-                <dt class="w4">
-                    <%= Html.LabelFor(m => m.TinhHopLe) %></dt>
-                <dd>
-                    <%= Html.TextBoxFor(m=> m.TinhHopLe)%>
-                    <%= Html.ValidationMessageFor(m => m.TinhHopLe)%>
-                </dd>
-            </dl>
-            <dl class="span w16">
-                <dt class="w4">
-                    <%= Html.LabelFor(m => m.NangLucNhanVien) %></dt>
-                <dd>
-                    <%= Html.TextBoxFor(m => m.NangLucNhanVien)%>
-                    <%= Html.ValidationMessageFor(m => m.NangLucNhanVien)%>
-                </dd>
-            </dl>
-            <dl class="span w16">
-                <dt class="w4">
-                    <%= Html.LabelFor(m => m.NangLucThietBi) %></dt>
-                <dd>
-                    <%= Html.TextBoxFor(m =>m.NangLucThietBi)%>
-                    <%= Html.ValidationMessageFor(m => m.NangLucThietBi)%>
-                </dd>
-            </dl>
-            <dl class="span w16">
-                <dt class="w4">
-                    <%= Html.LabelFor(m => m.KetLuan) %></dt>
-                <dd>
-                    <%= Html.TextBoxFor(m => m.KetLuan)%>
-                    <%= Html.ValidationMessageFor(m => m.KetLuan)%>
-                </dd>
-            </dl>
-            <dl class="span w16">
-                <dt class="w4">
-                    <%= Html.LabelFor(m => m.KienNghi) %></dt>
-                <dd>
-                    <%= Html.TextBoxFor(m => m.KienNghi)%>
-                    <%= Html.ValidationMessageFor(m => m.KienNghi)%>
-                </dd>
-            </dl>
-            <dl class="span w16">
-                <dt class="w4">
-                    <%= Html.LabelFor(m => m.LoaiThamDinh) %></dt>
-                <dd>
-                    <%= Html.DropDownListFor(m => m.LoaiThamDinh, new SelectList(Model.loaiThamDinh, "MaLoaiThamDinh", "DienGiai")) %>
-                </dd>
-            </dl>--%>
+          <div class="box">
+              <div class="block prefix_4">
+                  <button id="backButton" class="button redmond" onclick="window.location.href='./'">
+                      <span class="back">Thoát</span></button>
+                  <button id="khongduyetButton" class="button redmond">
+                      <span class="khongduyet">Không Duyệt</span></button>
+                  <button id="xetduyetButton" class="button redmond">
+                      <span class="duyet">Duyệt</span></button>
+                  <button id="luuButton" class="button redmond" >
+                      <span>Lưu</span></button>
+                  <button type="reset" id="lammoiButton" class="button redmond">
+                      <span class="duyet">Làm mới</span></button>
+                  
+              </div>
+          </div>
+
             </div>
-    <input class="formVertical" type="reset" value="Làm mới" />
-    <input type="submit" value="Lưu lại" />
+    
+</asp:Content>
+<asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
+
+    <script type="text/javascript">
+
+        $(function() {
+            $("input[type=submit]").button();
+            $('#danhsachButton').button({
+                icons:
+                    {
+                        primary: "ui-icon-document"
+                    }
+            });
+        });
+        
+        $(function() {
+        $("#ThamDinh_NgayThamDinh").datepicker({ dateFormat: 'dd/mm/yy' });
+        });
+        
+        var save;
+        $(function() {
+            $('#xetduyetButton').click(function() {
+            //alert("aa");
+                document.getElementById("save").value = 1;
+                $('#xetduyetForm').submit();
+            });
+
+            $('#khongduyetButton').click(function() {
+                document.getElementById("save").value = 0;
+                $('#xetduyetForm').submit();
+            });
+
+            $('#luuButton').click(function() {
+                // Luu lai
+                document.getElementById("save").value = 2;
+                $('#xetduyetForm').submit();
+            });
+
+            $('#xetduyetForm').submit(
+                function() {
+                    var input = document.createElement("input");
+                    input.setAttribute("type", "hidden");
+                    input.setAttribute("name", "gpid");
+                    input.setAttribute("value", "<%=Model.giayphep.MaHoSo%>");
+                    $(this).append(input);
+
+                    var input1 = document.createElement("input");
+                    input1.setAttribute("type", "hidden");
+                    input1.setAttribute("name", "save");
+                    input1.setAttribute("value", $('#save').val());
+                    $(this).append(input1);
+                    return true;
+                });
+        });
+    </script>
 </asp:Content>
