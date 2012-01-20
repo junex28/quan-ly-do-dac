@@ -133,14 +133,6 @@
                 admin@bandophianam.gov.vn Website: www.bandophianam.gov.vn</p>
         </div>
     </div>
-
-    <script type="text/javascript">
-        $(function() {
-//            $(".jui-tabs").tabs();
-//            $(".jui-button").button();
-        });
-    </script>
-
 </body>
 </html>
 <%--<div class="page">
