@@ -7,7 +7,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.EnableClientValidation(); %>
     <% using (Html.BeginForm("DangKy","DangKyGiayPhep", FormMethod.Post ,new { enctype = "multipart/form-data" }))
-       { %>
+       { 
+           // Cac loai tinh trang
+           int loaigiayphep = 0; // xin cap giay phep moi 
+           // loaigiayphep = 1;  xin cap giay phep bosung 
+           // loaigiayphep = 2; // xin cap giay phep gia han 
+           %>
     <div class="grid_19 alpha">
         <div class="box grid_10 alpha">
             <h3>
@@ -212,25 +217,80 @@
                     <%= Html.ActionLink("Thêm thiết bị...", "BlankThietBiRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addThietBiItem" })%>
                 </div>
             </div>
-            <div class="box">
+            
+        </div>
+        <% if (loaigiayphep == 1 || loaigiayphep == 2)
+           {%>
+        <div class="box">
+            <h2>
+                <a id="toggle-baocaothhd" href="#" style="cursor: pointer;">Báo cáo tình hình hoạt động</a>
+            </h2>
+            <div class="block" id="baocaothhd">
+                
+            </div>
+        </div>
+        <%} %>
+        <div class="box">
             <h2>
                 <a id="toggle-hoso" href="#" style="cursor: pointer;">Hồ sơ đính kèm</a>
             </h2>
             <div class="block" id="hoso">
+            <% 
+               if ((loaigiayphep == 0))
+               { %>
+               <p><label>Nội dung hồ sơ đính kèm gồm:</label></p>
+               
+               <p style="padding-left: 50px;">               
+               1. Bản sao quyết định thành lập hoặc Giấy phép Đăng ký kinh doanh.<br />               
+               2. Bản sao quyết định bổ nhiệm. <br />
+               3. Điều lệ hoặc quy chế hoạt động. <br />
+               4. Bản sao văn bằng chứng chỉ của người chịu trách nhiệm trước pháp luật.<br />
+               5. Bản sao văn bằng chứng chỉ của người phụ trách kỹ thuật chính.<br />
+               6. Giấy tờ khác. <br />
+               </p>
+               <%} %>
+                    <% // Neu tochuc co ho so thi hien thi ho so dinh kem cu 
+                        var hosocu = true;
+                        if (hosocu)
+                        {%>
+                        <p>
+                         <label class="grid_6">
+                        Hồ sơ đính kèm cũ : 
+                            </label>
+                 
+                         Tải xuống
+                    </p>
+                        <%
+                        }  %>                    
+                
                 <p>
+                    
                     <label class="grid_6">
-                        Hồ sơ đăng ký đính kèm :
+                        Hồ sơ đăng ký đính kèm mới:
                     </label>                    
                     <input type="file" id="tepdinhkem" name="tepdinhkem" />
-
                 </p>
             </div>
         </div>
+         <% 
+            if (loaigiayphep == 0)
+               { %>
+           
+        <div class="box">
+            <h2>
+                <a id="toggle-hoatdongmoi" href="#" style="cursor: pointer;">Đăng ký hoạt động mới</a>
+            </h2>
+            <div class="block" id="hoatdongmoi">
+            <% Html.ListBoxFor(m=>m.DSHoatDongs,) %>
+            </div>
         </div>
+            <%} %>
+           
         <%} %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
-<script type="text/javascript" src="<%= Url.Content("~/Scripts/MicrosoftAjax.js") %>"></script>
+    <script src="/Scripts/multiselectable.js" type="text/javascript"></script>
+    <script type="text/javascript" src="<%= Url.Content("~/Scripts/MicrosoftAjax.js") %>"></script>
     <script src="../../Scripts/swfupload.js" type="text/javascript"> </script>
     <script src="../../Scripts/jquery-asyncUpload-0.1.js" type="text/javascript"></script>   
     <script type="text/javascript" src="<%= Url.Content("~/Scripts/MicrosoftMvcValidation.debug.js") %>"></script>
