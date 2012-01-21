@@ -18,7 +18,7 @@ namespace GIS.Controllers
         private IThamDinhRepository _thamdinhRepository;
         private IHoSoGiayPhepRepository _gphdRepository;
         private IDangKyHoatDongRepository _dkhdRespository;
-        private IHoatDongRepository _hoatdongRespository;
+        private IHoatDongRepository _hoatdongRespository; // may cai nay ko de toan cuc dc dau heo
 
         public ThamDinhController()
             : this(new ThamDinhRespository(), new HoSoGiayPhepRepository(), new DangKyHoatDongRespository(), new HoatDongRespository())
@@ -223,12 +223,46 @@ namespace GIS.Controllers
 
         //
         // POST: /ThamDinh/Edit/5
-
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(ThamDinhEditViewModel model, int gpid, int save)
         {
+            ITinhTrangGiayPhepRepository ttgpRepository = new TinhTrangGiayPhepRepository();
+
             try
             {
+                var hs = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+                if (save == 0)
+                {
+                    if (hs.TinhTrangGiayPhep.MaTinhTrang == 1)
+                        hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(2);
+                    else if (hs.TinhTrangGiayPhep.MaTinhTrang == 6)
+                        hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(7);
+                    else if (hs.TinhTrangGiayPhep.MaTinhTrang == 9)
+                        hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(10);
+                }
+                else if (save == 1)
+                {
+                    if (hs.TinhTrangGiayPhep.MaTinhTrang == 1)
+                    {
+                        if (model.giayphep.SoGiayPhep == null)
+                            hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(4);
+                        else
+                        {
+                            hs.SoGiayPhep = model.giayphep.SoGiayPhep;
+                            hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(5);
+                        }
+                    }
+                    else if (hs.TinhTrangGiayPhep.MaTinhTrang == 4 && model.giayphep.SoGiayPhep != null){
+                        hs.SoGiayPhep = model.giayphep.SoGiayPhep;
+                        hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(5);
+                    }
+                    else if (hs.TinhTrangGiayPhep.MaTinhTrang == 6)
+                        hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(8);
+                    else if (hs.TinhTrangGiayPhep.MaTinhTrang == 9)
+                        hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(11);
+                }
+                _gphdRepository.Save();
+
                 ThamDinh td = _thamdinhRepository.GetThamDinhByGPID(gpid);
                 td.MaHoSo = gpid;
                 td.NgayThamDinh = (DateTime)model.ThamDinh.NgayThamDinh;
@@ -239,36 +273,7 @@ namespace GIS.Controllers
                 td.NangLucThietBi = model.ThamDinh.NangLucThietBi;
                 td.KetLuan = model.ThamDinh.KetLuan;
                 td.KienNghi = model.ThamDinh.KienNghi;
-                HoSoGiayPhep hs = _gphdRepository.GetHoSoGiayPhepByID(gpid);
-
-                if (save == 0)
-                {
-                    if (hs.TinhTrangGiayPhep.MaTinhTrang == 1)
-                        hs.TinhTrang = 2;
-                    else if (hs.TinhTrangGiayPhep.MaTinhTrang == 6)
-                        hs.TinhTrang = 7;
-                    else if (hs.TinhTrangGiayPhep.MaTinhTrang == 9)
-                        hs.TinhTrang = 10;
-                }
-                else if (save == 1)
-                {
-                    if (hs.TinhTrangGiayPhep.MaTinhTrang == 1)
-                    {
-                        if (model.giayphep.SoGiayPhep == null)
-                            hs.TinhTrang = 4;
-                        else
-                            hs.TinhTrang = 5;
-                    }
-                    else if (hs.TinhTrangGiayPhep.MaTinhTrang == 4 && model.giayphep.SoGiayPhep != null){
-                        hs.TinhTrang = 5;
-                    }
-                    else if (hs.TinhTrangGiayPhep.MaTinhTrang == 6)
-                        hs.TinhTrang = 8;
-                    else if (hs.TinhTrangGiayPhep.MaTinhTrang == 9)
-                        hs.TinhTrang = 11;
-                }
                 _thamdinhRepository.Save();
-                _gphdRepository.Save();
             }
             catch
             {
