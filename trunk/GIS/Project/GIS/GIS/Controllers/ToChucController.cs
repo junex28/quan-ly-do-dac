@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ using GIS.Helpers;
 using GIS.ViewModels;
 using System.Linq.Dynamic;
 using System.ComponentModel;
+using GIS.Controllers;
 
 namespace GIS.Controllers
 {
@@ -113,6 +115,9 @@ namespace GIS.Controllers
                 loaiHinh = LoaiHinhToChucList
             };
 
+            var file = from f in System.IO.Directory.GetFiles(Server.MapPath("~/AppData/Upload/HSToChuc"), "1e29dab2-7f20-4a7a-a9b6-728bb934a649.rar", SearchOption.AllDirectories)
+                       select System.IO.Path.GetFileName(f);
+            ViewData["file"]= file;
             return View(viewmodel);
         }
 
@@ -225,6 +230,33 @@ namespace GIS.Controllers
         {
             return _fileStore.SaveUploadedFile(Request.Files[0]);
         }
-   
+
+        public ActionResult Download(string fn)
+        {
+
+            string pfn = Server.MapPath("~/App_Data/Upload/HSToChuc/" + fn);
+            pfn = pfn.Replace("//","/" );
+
+            if (!System.IO.File.Exists(pfn))
+            {
+
+                throw new ArgumentException("Invalid file name or file not exists!");
+
+            }
+
+            return new BinaryContentResult()
+            {
+
+                FileName = fn,
+
+                ContentType = "application/octet-stream",
+
+                Content = System.IO.File.ReadAllBytes(pfn)
+
+            };
+
+
+
+        }
     }
 }
