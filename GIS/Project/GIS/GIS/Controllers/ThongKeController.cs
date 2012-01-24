@@ -30,10 +30,10 @@ namespace GIS.Controllers
             return View();
         }
 
-        public ActionResult DataToJSON()
+        public ActionResult DataToJSON(string nam)
         {
             int[] arr = new int[12];
-            arr = _thongkeRespository.GetSoLieu("2012");
+            arr = _thongkeRespository.GetSoLieu(nam);
             List<ThongKe> DataList = new List<ThongKe>();
             ThongKe Data1 = new ThongKe();
             Data1.LoaiCapPhep = "Lần đầu";
