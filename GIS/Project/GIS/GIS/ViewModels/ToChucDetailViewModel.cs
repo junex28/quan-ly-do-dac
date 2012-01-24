@@ -68,12 +68,18 @@ namespace GIS.ViewModels
 
         public decimal VonLuuDong { get; set; }
 
+        public string Camket { get; set; }
+
         public IList<NangLucVM> NangLucs { get; set; }
 
         public IList<NhanLucVM> NhanLucs { get; set; }
 
         public IList<ThietBiVM> ThietBis { get; set; }
 
+        // Danh sach cac hoat dong duoc lua chon
+        public IList<int> DSHoatDongSelecteds { get; set; }
+
+        // Danh sach day du cac hoat dong
         public IList<HoatDong> DSHoatDongs { get; set; }
     }
 
