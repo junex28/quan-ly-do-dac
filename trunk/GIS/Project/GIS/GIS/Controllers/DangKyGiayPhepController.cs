@@ -26,24 +26,34 @@ namespace GIS.Controllers
        [Authorize]
         public ActionResult Index()
         {
-            // Get current user
-            // Check whether User' Organization is exist (true)
-            //      Load User' Organiztion 
-            // else new detail
-            //return View(model)
-
-            ToChucDetailViewModel model = new ToChucDetailViewModel();
-            model.NangLucs = new List<NangLucVM> { new NangLucVM{NganhNghe="sdf",
-                Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2},new NangLucVM{NganhNghe="sdf",
-                Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2} };
-            model.NhanLucs = new List<NhanLucVM> { };
-            model.ThietBis = new List<ThietBiVM> { };
-          
-            return View(model);
+            return RedirectToAction("TaoMoi");
         }
 
-        [HttpPost]
-       public ActionResult Dangky() {
+       [HttpGet]
+       public ActionResult TaoMoi()
+       {
+           // Get current user
+           // Check whether User' Organization is exist (true)
+           //      Load User' Organiztion 
+           // else new detail
+           //return View(model)
+
+           ToChucDetailViewModel model = new ToChucDetailViewModel();
+           model.NangLucs = new List<NangLucVM> { new NangLucVM{NganhNghe="sdf",
+                Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2},new NangLucVM{NganhNghe="sdf",
+                Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2} };
+           model.NhanLucs = new List<NhanLucVM> { };
+           model.ThietBis = new List<ThietBiVM> { };
+
+           model.DSHoatDongSelecteds = new int[] { 2 };
+           model.DSHoatDongs = new List<HoatDong> { new HoatDong { MaHoatDong = 1, TenHoatDong = "sdf" }, new HoatDong { MaHoatDong = 2, TenHoatDong = "gfg" } };
+           model.Camket = "Tôi xin chịu trách nhiệm về toàn bộ nội dung bản đăng ký này.";
+
+           return View(model);
+       }
+
+      [HttpPost]
+       public ActionResult TaoMoi(ToChucDetailViewModel model){       
            return null;
        }
 
