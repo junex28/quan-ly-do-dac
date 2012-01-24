@@ -9,7 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-using System.Collections;
+using System.Collections.Generic;
 namespace GIS.Models.Repository
 {
     public class ThamDinhRespository: IThamDinhRepository
@@ -21,9 +21,33 @@ namespace GIS.Models.Repository
             return db.ThamDinhs.AsQueryable();
         }
 
+        public List<string> GetNguoiThamDinh(string nguoithamdinh)
+        {
+            if (nguoithamdinh != null)
+            {
+                String[] arr = nguoithamdinh.Split(';');
+                return arr.ToList();
+            }
+            return null;
+        }
+
+        public List<string> GetDaiDienTC(string nguoidaidien)
+        {
+            if (nguoidaidien != null)
+            {
+                String[] arr = nguoidaidien.Split(';');
+                return arr.ToList();
+            }
+            return null;
+        }
+
         public ThamDinh GetThamDinhByGPID(int id)
         {
             return db.ThamDinhs.SingleOrDefault(d => d.MaHoSo == id);
+        }
+        public ThamDinh GetThamDinhByGP(HoSoGiayPhep hs)
+        {
+            return db.ThamDinhs.SingleOrDefault(d => d.MaHoSo == hs.MaHoSo);
         }
         public ThamDinh GetThamDinhById(int id)
         {
