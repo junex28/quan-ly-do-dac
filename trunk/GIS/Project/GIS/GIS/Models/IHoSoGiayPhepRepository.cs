@@ -12,6 +12,7 @@ namespace GIS.Models
         HoSoGiayPhep GetHoSoGiayPhepByID(int id);
         void Add(HoSoGiayPhep HoSoGiayPhep);
         void Delete(HoSoGiayPhep HoSoGiayPhep);
+        void Update(HoSoGiayPhep HoSoGiayPhep);
         void Save();
     }
 }
