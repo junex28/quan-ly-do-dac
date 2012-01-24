@@ -23,7 +23,7 @@
             });
 
             $('#thamdinhButton').click(function() {
-                $('#thamdinhButton').submit();
+                $('#thamdinhForm').submit();
             });
 
             $('#detailForm').submit(function() {
@@ -233,6 +233,6 @@
     </div>
     <% using (Html.BeginForm("chitiet", "qlgiayphep", FormMethod.Get, new { id = "detailForm" })) { } %>
     <% using (Html.BeginForm("Edit", "QLGiayPhep", FormMethod.Get, new { id = "editForm" })) { } %>
-    <% using (Html.BeginForm("Create", "ThamDinh", FormMethod.Get, new { id = "thamdinhForm" })) { } %>
+    <% using (Html.BeginForm("ThamDinh", "ThamDinh", FormMethod.Get, new { id = "thamdinhForm" })) { } %>
     <% using (Html.BeginForm("Delete", "QLGiayPhep", FormMethod.Post, new { id = "deleteForm" })) { } %>
 </asp:Content>
