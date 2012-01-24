@@ -856,3 +856,11 @@ DIV.ProgressBar { width: 100px; padding: 0; border: 1px solid black; margin-righ
 DIV.ProgressBar DIV { background-color: Green; font-size: 1pt; height:100%; float:left; }
 SPAN.asyncUploader OBJECT { position: relative;  left: 10px; line-height : 2em; } 
 SPAN.asyncUploader *{line-height: 2em; margin: 0.6px, 2%, 0}
+
+/*********************** Multiselectable *******************/
+.multiselectable { width:500px; display:block; overflow: hidden; width: 100%; }
+.multiselectable select, .multiselectable div { width: 200px; float:left; }
+.multiselectable div * { display: block; margin: 0 auto; }
+.multiselectable div { display: inline; }
+.multiselectable .m-selectable-controls { margin-top: 3em; width: 50px; }
+.multiselectable .m-selectable-controls button { margin-top: 1em; }
