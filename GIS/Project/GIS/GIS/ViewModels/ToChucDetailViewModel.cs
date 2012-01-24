@@ -78,9 +78,15 @@ namespace GIS.ViewModels
 
         // Danh sach cac hoat dong duoc lua chon
         public IList<int> DSHoatDongSelecteds { get; set; }
-
+       
         // Danh sach day du cac hoat dong
         public IList<HoatDong> DSHoatDongs { get; set; }
+
+        // Lan 1
+        public IEnumerable<NangLucVM> NangLucRow{get; set;}
+        public IEnumerable<NangLucVM> NhanLucRow { get; set; }
+        public IEnumerable<NangLucVM> ThietBiRow { get; set; }
+
     }
 
     public class NangLucVM {
