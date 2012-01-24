@@ -27,7 +27,7 @@ Ajax : function(){
 Toggle : function(){
 	var default_hide = {"grid": true };
 	$.each(
-		["nangluc", "thongtinchung", "hoso", "hoatdongdk", "danhsachhd", "thamdinh", "forms", "login-forms", "search", "articles", "accordion"],
+		["nangluc", "thongtinchung", "hoso", "hoatdongdk", "danhsachhd", "thamdinh", "hoatdongmoi", "login-forms", "search", "articles", "accordion"],
 		function() {
 			var el = $("#" + (this == 'accordon' ? 'accordion-block' : this) );
 			if (default_hide[this]) {
