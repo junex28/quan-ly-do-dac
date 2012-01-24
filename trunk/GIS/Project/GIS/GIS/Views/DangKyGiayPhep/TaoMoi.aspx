@@ -6,24 +6,24 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.EnableClientValidation(); %>
-    <% using (Html.BeginForm("TaoMoi","DangKyGiayPhep", FormMethod.Post ,new { enctype = "multipart/form-data" }))
-       { 
+    <% using (Html.BeginForm("TaoMoi", "DangKyGiayPhep", FormMethod.Post, new { enctype = "multipart/form-data" }))
+       {
            // Cac loai tinh trang
            int loaigiayphep = 0; // xin cap giay phep moi 
            // loaigiayphep = 1;  xin cap giay phep bosung 
            // loaigiayphep = 2; // xin cap giay phep gia han 
-           %>
+    %>
     <div class="grid_19 alpha">
         <div class="box grid_10 alpha">
             <h3>
                 Hồ sơ
-                <% if (loaigiayphep==0)
+                <% if (loaigiayphep == 0)
                    {%>
                 đăng ký giấy phép<% }
-                   else if (loaigiayphep==1)
+                   else if (loaigiayphep == 1)
                    {%>
                 đăng ký bổ sung hoạt động<% }
-                   else if (loaigiayphep==2)
+                   else if (loaigiayphep == 2)
                    {%>
                 đăng ký gia hạn<% }%>
             </h3>
@@ -153,71 +153,89 @@
                                 <th>
                                     Loại khác
                                 </th>
-                                <th> &nbsp;</th>
+                                <th>
+                                    &nbsp;
+                                </th>
                             </tr>
                         </thead>
                         <!-- Table body -->
                         <tbody>
-                        <% foreach (var item in Model.NangLucs)
-                               Html.RenderPartial("NangLucEditorRow", item);
-                        %>
+                            <% foreach (var item in Model.NangLucs)
+                                   Html.RenderPartial("NangLucEditorRow", item);
+                            %>
                         </tbody>
                     </table>
-                    
                     <%= Html.ActionLink("Thêm năng lực...", "BlankNangLucRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addNangLucItem" })%>
-                    
-                    <div id="nanglucresult">
-                    </div>
+
                 </div>
                 <h5>
                     b. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật
                     chính</h5>
                 <div class="box">
-                  <table class="mytable" id="editorNhanLucRows">
+                    <table class="mytable" id="editorNhanLucRows">
                         <!-- Table header -->
                         <thead>
                             <tr>
- 	                        <th style="width:200px;">Họ tên</th>
-	                        <th>Chức vụ</th>
-	                        <th>Bằng cấp</th>
-	                        <th>Thâm niên nghề nghiệp</th>
-                            <th> &nbsp;</th>
+                                <th style="width: 200px;">
+                                    Họ tên
+                                </th>
+                                <th>
+                                    Chức vụ
+                                </th>
+                                <th>
+                                    Bằng cấp
+                                </th>
+                                <th>
+                                    Thâm niên nghề nghiệp
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
                             </tr>
                         </thead>
                         <!-- Table body -->
                         <tbody>
-                        <% foreach (var item in Model.NhanLucs)
-                               Html.RenderPartial("NhanLucEditorRow", item);
-                        %>
+                            <% foreach (var item in Model.NhanLucs)
+                                   Html.RenderPartial("NhanLucEditorRow", item);
+                            %>
                         </tbody>
                     </table>
-                <%= Html.ActionLink("Thêm nhân lực...", "BlankNhanLucRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addNhanLucItem" })%>
+                    <%= Html.ActionLink("Thêm nhân lực...", "BlankNhanLucRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addNhanLucItem" })%>
                 </div>
                 <h5>
                     c. Danh sách thiết bị công nghệ</h5>
                 <div class="box">
-                   <table class="mytable" id="editorThietBiRows">
+                    <table class="mytable" id="editorThietBiRows">
                         <!-- Table header -->
                         <thead>
                             <tr>
- 	                        <th style="width:200px;">Tên thiết bị/Công nghệ</th>
-	                        <th>Số Lượng</th>
-	                        <th>Tình trạng</th>
-	                        <th>Ghi chú</th>
-                            <th> &nbsp;</th>
+                                <th style="width: 200px;">
+                                    Tên thiết bị/Công nghệ
+                                </th>
+                                <th>
+                                    Số Lượng
+                                </th>
+                                <th>
+                                    Tình trạng
+                                </th>
+                                <th>
+                                    Ghi chú
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
                             </tr>
                         </thead>
                         <!-- Table body -->
                         <tbody>
-                        <% foreach (var item in Model.ThietBis)
-                               Html.RenderPartial("ThietBiEditorRow", item);
-                        %>
+                            <% foreach (var item in Model.ThietBis)
+                                   Html.RenderPartial("ThietBiEditorRow", item);
+                            %>
                         </tbody>
                     </table>
                     <%= Html.ActionLink("Thêm thiết bị...", "BlankThietBiRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addThietBiItem" })%>
                 </div>
             </div>
-            
         </div>
         <% if (loaigiayphep == 1 || loaigiayphep == 2)
            {%>
@@ -226,7 +244,6 @@
                 <a id="toggle-baocaothhd" href="#" style="cursor: pointer;">Báo cáo tình hình hoạt động</a>
             </h2>
             <div class="block" id="baocaothhd">
-                
             </div>
         </div>
         <%} %>
@@ -235,67 +252,66 @@
                 <a id="toggle-hoso" href="#" style="cursor: pointer;">Hồ sơ đính kèm</a>
             </h2>
             <div class="block" id="hoso">
-            <% 
-               if ((loaigiayphep == 0))
-               { %>
-               <p><label>Nội dung hồ sơ đính kèm gồm:</label></p>
-               
-               <p style="padding-left: 50px;">               
-               1. Bản sao quyết định thành lập hoặc Giấy phép Đăng ký kinh doanh.<br />               
-               2. Bản sao quyết định bổ nhiệm. <br />
-               3. Điều lệ hoặc quy chế hoạt động. <br />
-               4. Bản sao văn bằng chứng chỉ của người chịu trách nhiệm trước pháp luật.<br />
-               5. Bản sao văn bằng chứng chỉ của người phụ trách kỹ thuật chính.<br />
-               6. Giấy tờ khác. <br />
-               </p>
-               <%} %>
-                    <% // Neu tochuc co ho so thi hien thi ho so dinh kem cu 
-                        var hosocu = true;
-                        if (hosocu)
-                        {%>
-                        <p>
-                         <label class="grid_6">
-                        Hồ sơ đính kèm cũ : 
-                            </label>
-                 
-                         Tải xuống
-                    </p>
-                        <%
-                        }  %>                    
-                
+                <% 
+                    if ((loaigiayphep == 0))
+                    { %>
                 <p>
-                    
+                    <label>
+                        Nội dung hồ sơ đính kèm gồm:</label></p>
+                <p style="padding-left: 50px;">
+                    1. Bản sao quyết định thành lập hoặc Giấy phép Đăng ký kinh doanh.<br />
+                    2. Bản sao quyết định bổ nhiệm.
+                    <br />
+                    3. Điều lệ hoặc quy chế hoạt động.
+                    <br />
+                    4. Bản sao văn bằng chứng chỉ của người chịu trách nhiệm trước pháp luật.<br />
+                    5. Bản sao văn bằng chứng chỉ của người phụ trách kỹ thuật chính.<br />
+                    6. Giấy tờ khác.
+                    <br />
+                </p>
+                <%} %>
+                <% // Neu tochuc co ho so thi hien thi ho so dinh kem cu 
+                    var hosocu = true;
+                    if (hosocu)
+                    {%>
+                <p>
+                    <label class="grid_6">
+                        Hồ sơ đính kèm cũ :
+                    </label>
+                    Tải xuống
+                </p>
+                <%
+                    }  %>
+                <p>
                     <label class="grid_6">
                         Hồ sơ đăng ký đính kèm mới:
-                    </label>                    
+                    </label>
                     <input type="file" id="tepdinhkem" name="tepdinhkem" />
                 </p>
             </div>
         </div>
-         <% 
+        <% 
             if (loaigiayphep == 0)
-               { %>
-           
+            { %>
         <div class="box">
             <h2>
                 <a id="toggle-hoatdongmoi" href="#" style="cursor: pointer;">Đăng ký hoạt động mới</a>
             </h2>
             <div class="block prefix_3" id="hoatdongmoi">
-            <%= Html.ListBoxFor(m => m.DSHoatDongSelecteds, new MultiSelectList(Model.DSHoatDongs, "MaHoatDong", "TenHoatDong", Model.DSHoatDongSelecteds), new { size=8, @class="multi" })%>
+                <%= Html.ListBoxFor(m => m.DSHoatDongSelecteds, new MultiSelectList(Model.DSHoatDongs, "MaHoatDong", "TenHoatDong", Model.DSHoatDongSelecteds), new { size=8, @class="multi" })%>
             </div>
-            
         </div>
-            <%} %>
+        <%} %>
         <div class="box">
-        <div class="block">
-                 <p>
+            <div class="block">
+                <p>
                     <label class="grid_6">
-                       Cam kết :
+                        Cam kết :
                     </label>
                     <%= Html.TextAreaFor(m => m.Camket, new { @class = "text" })%>
                     <%= Html.ValidationMessageFor(m=>m.Camket)%>
                 </p>
-                </div>
+            </div>
             <div class="block prefix_4">
                 <button id="saveButton" class="button redmond">
                     <span class="save">Lưu lại</span></button>
@@ -304,73 +320,80 @@
             </div>
         </div>
         <%} %>
+        </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
+
     <script src="/Scripts/multiselectable.js" type="text/javascript"></script>
+
     <script type="text/javascript" src="<%= Url.Content("~/Scripts/MicrosoftAjax.js") %>"></script>
+
     <script src="../../Scripts/swfupload.js" type="text/javascript"> </script>
-    <script src="../../Scripts/jquery-asyncUpload-0.1.js" type="text/javascript"></script>   
+
+    <script src="../../Scripts/jquery-asyncUpload-0.1.js" type="text/javascript"></script>
+
     <script type="text/javascript" src="<%= Url.Content("~/Scripts/MicrosoftMvcValidation.debug.js") %>"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.multi').multiselectable( { 
+            $('.multi').multiselectable({
                 selectableLabel: 'Danh sách hoạt động',
                 selectedLabel: 'Danh sách đã chọn'
-            })           
+            })
         });
-                
+
         $(function() {
-        $("#addNhanLucItem").click(function() {
-            $.ajax({
-                url: this.href,
-                cache: false,
-                success: function(html) { $("#editorNhanLucRows").append(html); }
+            $("#addNhanLucItem").click(function() {
+                $.ajax({
+                    url: this.href,
+                    cache: false,
+                    success: function(html) { $("#editorNhanLucRows").append(html); }
+                });
+                return false;
             });
-            return false;
-        });
 
-        $("a.deleteNhanLucRow").live("click", function() {
-            $(this).parents("tr.editorNhanLucRow:first").remove();
-            return false;
-        });
-
-        $("#addThietBiItem").click(function() {
-            $.ajax({
-                url: this.href,
-                cache: false,
-                success: function(html) { $("#editorThietBiRows").append(html); }
+            $("a.deleteNhanLucRow").live("click", function() {
+                $(this).parents("tr.editorNhanLucRow:first").remove();
+                return false;
             });
-            return false;
-        });
 
-        $("a.deleteThietBiRow").live("click", function() {
-            $(this).parents("tr.editorThietBiRow:first").remove();
-            return false;
-        });
-
-        $("#addNangLucItem").click(function() {
-            $.ajax({
-                url: this.href,
-                cache: false,
-                success: function(html) { $("#editorNangLucRows").append(html); }
+            $("#addThietBiItem").click(function() {
+                $.ajax({
+                    url: this.href,
+                    cache: false,
+                    success: function(html) { $("#editorThietBiRows").append(html); }
+                });
+                return false;
             });
-            return false;
-        });
 
-        $("a.deleteNangLucRow").live("click", function() {
-            $(this).parents("tr.editorNangLucRow:first").remove();
-            return false;
-        });
+            $("a.deleteThietBiRow").live("click", function() {
+                $(this).parents("tr.editorThietBiRow:first").remove();
+                return false;
+            });
 
-        $("#tepdinhkem").makeAsyncUploader({
-            upload_url: "/dangkygiayphep/uploader",
-            flash_url: '/Scripts/swfupload.swf',
-            button_image_url: '/Content/images/blankButton.png',
-            disableDuringUpload: 'INPUT[type="submit"]',
-            file_types: "*.rar;*.zip",
-            file_size_limit: "3072"
-        });
-        
+            $("#addNangLucItem").click(function() {
+                $.ajax({
+                    url: this.href,
+                    cache: false,
+                    success: function(html) { $("#editorNangLucRows").append(html); }
+                });
+                return false;
+            });
+
+            $("a.deleteNangLucRow").live("click", function() {
+                $(this).parents("tr.editorNangLucRow:first").remove();
+                return false;
+            });
+
+            $("#tepdinhkem").makeAsyncUploader({
+                upload_url: "/dangkygiayphep/uploader",
+                flash_url: '/Scripts/swfupload.swf',
+                button_image_url: '/Content/images/blankButton.png',
+                disableDuringUpload: 'INPUT[type="submit"]',
+                file_types: "*.rar;*.zip",
+                file_size_limit: "3072"
+            });
+
         });
     </script>
 
@@ -380,7 +403,7 @@
                                Html.RenderPartial("NangLucEditorRow", item);
                         %>
                     </div>--%>
-                    <%--<fieldset>
+<%--<fieldset>
                         <p>
                             <label class="grid_4">
                                 Ngành nghề :
@@ -412,7 +435,7 @@
                             </span>
                         </p>
                     </fieldset>--%>
-                            <%-- %>/*
+<%-- %>/*
             $("#addNangLucItem").click(function() {
                 $.ajax({
                     url: this.href,
