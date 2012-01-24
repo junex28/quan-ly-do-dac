@@ -6,7 +6,23 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <div>
- <input name="Nam" id="namid" class="date-picker" />
+<p>
+<% 
+    var today = DateTime.Today;
+    int strToday = today.Year;
+    %>
+    <select id ="selectid" onchange="OnchangeSelect()"> 
+    <%
+    for (int i = 1998; i < strToday; i++)
+    {
+        %>
+        <option value="<%=i%>"><%=i%></option>
+        <%
+    }
+    %>
+    <option value="<%=strToday%>" selected="selected"> <%=strToday.ToString()%></option>
+    </select>
+   </p> 
 </div>
     <div class="box">
         <div id="chart1" style="width:500px; height:250px;"></div>
@@ -25,15 +41,16 @@
 	<script type="text/javascript" src="../../Scripts/chart/jqplot.barRenderer.min.js"></script>
 	<script type="text/javascript" src="../../Scripts/chart/jqplot.categoryAxisRenderer.min.js"></script>
 	
-	<script type="text/javascript">	    
-	    $(document).ready(function() {
+	<script type="text/javascript">
+
+	  function OnchangeSelect() {
 	        // var s1 = [2, 6, 7, 10];
 	        // var s2 = [7, 5, 3, 4];
 	        // var s3 = [14, 9, 3, 8];
 
 	        /* Dynamic data*/
-
-	    urlDataJSON = '/thongke/DataToJSON';
+	   var nam = $("#selectid").val();
+	    urlDataJSON = '/thongke/DataToJSON?nam='+nam;
 	        $.getJSON(urlDataJSON, "", function(data) {
 	            var dataLines = [];
 	            var dataLabels = "";
@@ -43,7 +60,7 @@
       	            });	            
                 Plot(dataLines, dataLabels);
 	         });
-	    });
+	    }
 
 	    function Plot(dataLines, dataLabels) {
 	        var ticks = ['TC Nhà nước', 'TC ngoài Nhà nước', 'TC CT-XH', 'TC nước ngoài'];
@@ -88,20 +105,31 @@
 	        plot.redraw(); // gets rid of previous axis tick markers
 	    }
 	    
-    $(function() {
-        $('.date-picker').datepicker({
-           // changeMonth: true,
-            changeYear: true,
-            showButtonPanel: true,
-            dateFormat: 'yy',
-            onClose: function(dateText, inst) {
-                //var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                $(this).val($.datepicker.formatDate('yy', new Date(Now.year)));
-            }
-        });
-    });
+//    $(function() {
+//        $('.date-picker').datepicker({
+//           // changeMonth: true,
+//            changeYear: true,
+//            showButtonPanel: true,
+//            dateFormat: 'yy',
+//            onClose: function(dateText, inst) {
+//                //var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+//                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+//                $(this).val($.datepicker.formatDate('yy', new Date(Now.year)));
+//            }
+//        });
+//    });
 
+//$(function(){
+//     $('#thongkeForm').submit(function() {
+//            
+//            var input = document.createElement("input");
+//            input.setAttribute("type", "hidden");
+//            input.setAttribute("name", "nam");
+//            input.setAttribute("value", strYear);
+//            $(this).append(input);
+//            return true;
+//            });
+//});
 </script>
     <style type="text/css">
     .ui-datepicker-calendar {
