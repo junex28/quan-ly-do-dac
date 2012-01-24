@@ -6,20 +6,25 @@ using System.Web.Mvc;
 using GIS.ViewModels;
 using GIS.Models;
 using GIS.Helpers;
+using GIS.Models.Repository;
 
 namespace GIS.Controllers
 {
     public class DangKyGiayPhepController : BaseController
     {
         private IFileStore _fileStore;
+        private IHoSoGiayPhepRepository _hsgpRepository;
+        private IDangKyHoatDongRepository _dkhdRespository;
 
         public DangKyGiayPhepController()
-            : this(new DiskFileStore("~/App_Data/Upload/HSToChuc"))
+            : this(new DiskFileStore("~/App_Data/Upload/HSToChuc"), new HoSoGiayPhepRepository(),new DangKyHoatDongRespository())
         { }
 
-        public DangKyGiayPhepController(IFileStore fileStore)
+        public DangKyGiayPhepController(IFileStore fileStore, IHoSoGiayPhepRepository gphdRepository, IDangKyHoatDongRepository dkhdRepository)
         {
             _fileStore = fileStore;
+            _hsgpRepository = gphdRepository;
+            _dkhdRespository = dkhdRepository;
         }
             //
         // GET: /DangKyGiayPhep/
@@ -54,7 +59,10 @@ namespace GIS.Controllers
 
       [HttpPost]
        public ActionResult TaoMoi(ToChucDetailViewModel model){       
-           return null;
+          
+          return null;
+          HoSoGiayPhep hsgp = new HoSoGiayPhep();
+          
        }
 
         public ActionResult ThongTinChung() {
