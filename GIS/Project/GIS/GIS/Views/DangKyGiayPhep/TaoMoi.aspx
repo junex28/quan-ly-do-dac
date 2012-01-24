@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.EnableClientValidation(); %>
-    <% using (Html.BeginForm("DangKy","DangKyGiayPhep", FormMethod.Post ,new { enctype = "multipart/form-data" }))
+    <% using (Html.BeginForm("TaoMoi","DangKyGiayPhep", FormMethod.Post ,new { enctype = "multipart/form-data" }))
        { 
            // Cac loai tinh trang
            int loaigiayphep = 0; // xin cap giay phep moi 
