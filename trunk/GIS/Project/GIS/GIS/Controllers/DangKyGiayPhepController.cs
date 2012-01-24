@@ -15,16 +15,20 @@ namespace GIS.Controllers
         private IFileStore _fileStore;
         private IHoSoGiayPhepRepository _hsgpRepository;
         private IDangKyHoatDongRepository _dkhdRespository;
+        private IThongTinChungRespository _ttcRespository;
 
         public DangKyGiayPhepController()
-            : this(new DiskFileStore("~/App_Data/Upload/HSToChuc"), new HoSoGiayPhepRepository(),new DangKyHoatDongRespository())
+            : this(new DiskFileStore("~/App_Data/Upload/HSToChuc"), new HoSoGiayPhepRepository(),new DangKyHoatDongRespository(),
+                new ThongTinChungRespository())
         { }
 
-        public DangKyGiayPhepController(IFileStore fileStore, IHoSoGiayPhepRepository gphdRepository, IDangKyHoatDongRepository dkhdRepository)
+        public DangKyGiayPhepController(IFileStore fileStore, IHoSoGiayPhepRepository gphdRepository, IDangKyHoatDongRepository dkhdRepository,
+                        IThongTinChungRespository ttcRespository)
         {
             _fileStore = fileStore;
             _hsgpRepository = gphdRepository;
             _dkhdRespository = dkhdRepository;
+            _ttcRespository = ttcRespository;
         }
             //
         // GET: /DangKyGiayPhep/
@@ -58,10 +62,26 @@ namespace GIS.Controllers
        }
 
       [HttpPost]
-       public ActionResult TaoMoi(ToChucDetailViewModel model){       
-          
-          return null;
-          HoSoGiayPhep hsgp = new HoSoGiayPhep();
+       public ActionResult TaoMoi(ToChucDetailViewModel model)
+      {
+          //ToChuc tc = new ToChuc();
+          ThongTinChung ttc = new ThongTinChung();
+          ttc.TenToChuc = model.TenToChuc;
+          ttc.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
+          ttc.HangDoanhNghiep = model.HangDoanhNghiep;
+          ttc.VonLuuDong = model.VonLuuDong;
+          ttc.VonPhapDinh = model.VonPhapDinh;
+          ttc.SoTaiKhoan = model.SoTaiKhoan;
+          ttc.TongSoCanBo = model.TongSoCanBo;
+          ttc.TruSoChinh = model.TruSoChinh;
+          ttc.NguoiDaiDien = model.NguoiDaiDien;
+          ttc.DienThoai = model.DienThoai;
+          ttc.Email = model.Email;
+          ttc.Fax = model.Fax;
+          _ttcRespository.Add(ttc);
+          return View();
+          //return null;
+          //HoSoGiayPhep hsgp = new HoSoGiayPhep();
           
        }
 
