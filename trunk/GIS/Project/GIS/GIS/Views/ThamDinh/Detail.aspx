@@ -154,7 +154,7 @@
             <div class="block prefix_4">
                 <button id="backButton" class="button redmond" onclick="window.location.href='./'">
                     <span class="back">Thoát</span></button>
-                <button id="Button1" class="button redmond">
+                <%= Html.ActionLink("Download", "Download", new { gpid = 1 })%>
             </div>
         </div>
     </div>
