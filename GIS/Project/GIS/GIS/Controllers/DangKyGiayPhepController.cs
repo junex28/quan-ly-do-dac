@@ -43,25 +43,38 @@ namespace GIS.Controllers
        {
            // Get current user
            // Check whether User' Organization is exist (true)
-           //      Load User' Organiztion 
+           //      Load User' Organiztion
            // else new detail
            //return View(model)
 
            ToChucDetailViewModel model = new ToChucDetailViewModel();
-           model.NangLucs = new List<NangLucVM> { new NangLucVM{NganhNghe="sdf",
-                Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2},new NangLucVM{NganhNghe="sdf",
-                Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2} };
+
+           TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;  
+           // Luc tao moi thi chua co gi
+           model.NangLucs = new List<NangLucVM> { };           
            model.NhanLucs = new List<NhanLucVM> { };
            model.ThietBis = new List<ThietBiVM> { };
 
-           model.DSHoatDongSelecteds = new int[] { 2 };
+           //model.NangLucs = new List<NangLucVM> { new NangLucVM{NganhNghe="sdf",
+           //     Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2},new NangLucVM{NganhNghe="sdf",
+           //     Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2} };
+           
+           // Mã nhũng hoạt động khi được chọn từ danh sách hoạt động
+           // Ban đầu thì không có phần tử nào
+
+           model.DSHoatDongSelecteds = new int[]{};
+           //model.DSHoatDongSelecteds = new int[] { 2 };
+
+           // Load danh sách Hoạt động vào đây.
            model.DSHoatDongs = new List<HoatDong> { new HoatDong { MaHoatDong = 1, TenHoatDong = "sdf" }, new HoatDong { MaHoatDong = 2, TenHoatDong = "gfg" } };
+
            model.Camket = "Tôi xin chịu trách nhiệm về toàn bộ nội dung bản đăng ký này.";
 
            return View(model);
        }
 
       [HttpPost]
+
        public ActionResult TaoMoi(ToChucDetailViewModel model)
       {
           //ToChuc tc = new ToChuc();
@@ -80,9 +93,14 @@ namespace GIS.Controllers
           ttc.Fax = model.Fax;
           _ttcRespository.Add(ttc);
           return View();
-          //return null;
+
           //HoSoGiayPhep hsgp = new HoSoGiayPhep();
-          
+          // Lay danh sach nangluc: model.NangLucRow. 
+          //Trả về kiểu định dạng là IEnumerable<NangLucVM>
+          // Nhan luc : model.NhanLucRow
+          // Thiet Bi : model.ThietBiRow
+
+
        }
 
         public ActionResult ThongTinChung() {
