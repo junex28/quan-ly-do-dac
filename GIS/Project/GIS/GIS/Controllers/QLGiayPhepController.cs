@@ -155,7 +155,21 @@ namespace GIS.Controllers
            return View(viewmodel);
        }
 
-     
+       public ActionResult Download(string fn) // fn la cai gi heo
+       {
+           string pfn = Server.MapPath("~/App_Data/Upload/HSToChuc/" + fn);
+           pfn = pfn.Replace("//", "/");
+           if (!System.IO.File.Exists(pfn))
+           {
+               throw new ArgumentException("Invalid file name or file not exists!");
+           }
+           return new BinaryContentResult()
+           {
+               FileName = fn,
+               ContentType = "application/octet-stream",
+               Content = System.IO.File.ReadAllBytes(pfn)
+           };
+       }
 
     }
 }
