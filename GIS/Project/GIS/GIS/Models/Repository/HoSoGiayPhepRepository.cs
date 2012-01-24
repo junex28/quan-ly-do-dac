@@ -48,6 +48,24 @@ namespace GIS.Models
             db.HoSoGiayPheps.DeleteOnSubmit(HoSoGiayPhep);
         }
 
+        public void Update(HoSoGiayPhep hoSoGiayPhep)
+        {
+            HoSoGiayPhep tmp = GetHoSoGiayPhepByID(hoSoGiayPhep.MaHoSo);
+            // Th them may cai set vao vì hình như nó hết session rồi nên ko update db đc đâu
+            tmp.MaToChuc = hoSoGiayPhep.MaToChuc;
+            tmp.MaThongTinChung = hoSoGiayPhep.MaThongTinChung;
+            tmp.NgayCapPhep = hoSoGiayPhep.NgayCapPhep;
+            tmp.NgayHetHan = hoSoGiayPhep.NgayHetHan;
+            tmp.NgayXinPhep = hoSoGiayPhep.NgayXinPhep;
+            tmp.SoGiayPhep = hoSoGiayPhep.SoGiayPhep;
+            tmp.TepDinhKem = hoSoGiayPhep.TepDinhKem;
+            tmp.TinhTrang = hoSoGiayPhep.TinhTrang;
+            tmp.ToChuc = hoSoGiayPhep.ToChuc;
+
+            // ... them dum M roi chay lại thử xem
+            db.SubmitChanges();
+        }
+
         public void Save()
         {
             db.SubmitChanges();
