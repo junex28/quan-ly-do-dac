@@ -5,6 +5,9 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<div>
+ <input name="Nam" id="namid" class="date-picker" />
+</div>
     <div class="box">
         <div id="chart1" style="width:500px; height:250px;"></div>
     </div>
@@ -21,26 +24,6 @@
 	<script type="text/javascript" src="../../Scripts/chart/jqplot.barRenderer.js"></script>
 	<script type="text/javascript" src="../../Scripts/chart/jqplot.barRenderer.min.js"></script>
 	<script type="text/javascript" src="../../Scripts/chart/jqplot.categoryAxisRenderer.min.js"></script>
-	
-	<%--<script type="text/javascript">
-	    jQuery(document).ready(function() {
-	    urlDataJSON = '<%= Url.Action("DataToJSON","ThamDinh") %>';
-	        $.getJSON(urlDataJSON, "", function(data) {
-	            var dataLines = [];
-	            var dataLabels = "";
-	            $.each(data, function(entryindex, entry) {
-	                dataLines.push(entry['Serie']);
-	                dataLabels = dataLabels + entry['Name'];
-	            });
-	            Plot(dataLines, dataLabels);
-	        });
-	    });
-
-	        //Data from database is already an array!
-	        plot = $.jqplot('chart1', dataLines, options);
-	        plot.redraw(); // gets rid of previous axis tick markers
-	    }
-	</script>--%>
 	
 	<script type="text/javascript">	    
 	    $(document).ready(function() {
@@ -61,13 +44,13 @@
                 Plot(dataLines, dataLabels);
 	         });
 	    });
-        
-        function Plot(dataLines, dataLabels) {
- 	        var ticks = ['TC Nhà nước', 'TC ngoài Nhà nước', 'TC CT-XH', 'TC nước ngoài'];
+
+	    function Plot(dataLines, dataLabels) {
+	        var ticks = ['TC Nhà nước', 'TC ngoài Nhà nước', 'TC CT-XH', 'TC nước ngoài'];
 	        s1 = dataLines[0].slice();
 	        s2 = dataLines[1].slice();
 	        s3 = dataLines[2].slice();
-	        
+
 	        plot = $.jqplot('chart1', [s1, s2, s3], {
 	            // Tell the plot to stack the bars.
 	            stackSeries: true,
@@ -75,7 +58,7 @@
 	            seriesDefaults: {
 	                renderer: $.jqplot.BarRenderer,
 	                rendererOptions: {
-	                    // Put a 30 pixel margin between bars.
+	                    // Put a 40 pixel margin between bars.
 	                    barMargin: 30,
 	                    highlightMouseDown: true
 	                },
@@ -93,7 +76,7 @@
 	                yaxis: {
 	                    padMin: 0,
 	                    pad: 1.05,
-	                    tickOptions: { formatString: '$%d' }
+	                    tickOptions: { formatString: '%d' }
 	                }
 	            },
 	            legend: {
@@ -101,16 +84,28 @@
 	                location: 'e',
 	                placement: 'outside'
 	            }
-	        });    
-    plot.redraw(); // gets rid of previous axis tick markers
+	        });
+	        plot.redraw(); // gets rid of previous axis tick markers
+	    }
+	    
+    $(function() {
+        $('.date-picker').datepicker({
+           // changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'yy',
+            onClose: function(dateText, inst) {
+                //var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                $(this).val($.datepicker.formatDate('yy', new Date(Now.year)));
+            }
+        });
+    });
 
-                }
-
-//	        
-//	        $('#chart1').bind('jqplotDataClick',
-//                function(ev, seriesIndex, pointIndex, data) {
-//                    $('#info3').html('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
-//                }
-//            );
 </script>
+    <style type="text/css">
+    .ui-datepicker-calendar {
+        display: none;
+        }
+    </style>
 </asp:Content>
