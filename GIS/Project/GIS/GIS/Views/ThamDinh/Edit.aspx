@@ -96,8 +96,8 @@
                 <label class="grid_6">
                    Số giấy phép :
                 </label>
-                <%= Html.TextBoxFor(m => m.ThamDinh.HoSoGiayPhep.SoGiayPhep)%>
-                <%= Html.ValidationMessageFor(m => m.ThamDinh.HoSoGiayPhep.SoGiayPhep)%>
+                <%= Html.TextBoxFor(m => m.giayphep.SoGiayPhep)%>
+                <%= Html.ValidationMessageFor(m => m.giayphep.SoGiayPhep)%>
             </p>
             
             <% }
