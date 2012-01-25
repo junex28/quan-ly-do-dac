@@ -111,18 +111,6 @@
             </label>
             <%= Html.Encode(Model.giayphep.TepDinhKem) %>
         </p>
-        <p>
-            <label class="grid_6">
-                Hồ sơ nhân lực đính kèm :
-            </label>
-            <%= Html.Encode(Model.giayphep.ThongTinChung.NhanLucs) %>
-        </p>
-        <p>
-            <label class="grid_6">
-                Hồ sơ thiết bị đính kèm :
-            </label>
-            <%= Html.Encode(Model.giayphep.ThongTinChung.TepDinhKem) %>
-        </p>
     </div>
 </div>
 <!-- Đăng ký hoạt động mới-->
