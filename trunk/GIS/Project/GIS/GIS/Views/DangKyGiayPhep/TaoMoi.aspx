@@ -68,6 +68,12 @@
                 </p>
                 <p>
                     <label class="grid_6">
+                        Loại hình tổ chức
+                    </label>
+                     <%= Html.DropDownListFor(m => m.MaLoaiHinhToChuc, new SelectList(Model.loaiHinh, "MaLoaiHinhToChuc", "TenLoaiHinhToChuc"), new { style ="padding: 0.5em; background-color: #FFFFFF;border: 1px solid #BBBBBB;"})%>            
+                </p>
+                <p>
+                    <label class="grid_6">
                         Vốn pháp định :
                     </label>
                     <%= Html.TextBoxFor(m => m.VonPhapDinh, new { @class = "text" })%>
@@ -166,7 +172,6 @@
                         </tbody>
                     </table>
                     <%= Html.ActionLink("Thêm năng lực...", "BlankNangLucRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addNangLucItem" })%>
-
                 </div>
                 <h5>
                     b. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật
@@ -271,7 +276,7 @@
                 </p>
                 <%} %>
                 <% // Neu tochuc co ho so thi hien thi ho so dinh kem cu 
-                    var hosocu = true;
+                    var hosocu = false;
                     if (hosocu)
                     {%>
                 <p>
@@ -320,7 +325,7 @@
             </div>
         </div>
         <%} %>
-        </div>
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
 
