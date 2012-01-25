@@ -16,19 +16,21 @@ namespace GIS.Controllers
         private IHoSoGiayPhepRepository _hsgpRepository;
         private IDangKyHoatDongRepository _dkhdRespository;
         private IThongTinChungRespository _ttcRespository;
+        public ILoaiHinhToChucRepository _loaihinhtochucRepository;
 
         public DangKyGiayPhepController()
             : this(new DiskFileStore("~/App_Data/Upload/HSToChuc"), new HoSoGiayPhepRepository(),new DangKyHoatDongRespository(),
-                new ThongTinChungRespository())
+                new ThongTinChungRespository(), new LoaiHinhToChucRepository())
         { }
 
         public DangKyGiayPhepController(IFileStore fileStore, IHoSoGiayPhepRepository gphdRepository, IDangKyHoatDongRepository dkhdRepository,
-                        IThongTinChungRespository ttcRespository)
+                        IThongTinChungRespository ttcRespository,  ILoaiHinhToChucRepository lhtcRepository)
         {
             _fileStore = fileStore;
             _hsgpRepository = gphdRepository;
             _dkhdRespository = dkhdRepository;
             _ttcRespository = ttcRespository;
+            _loaihinhtochucRepository = lhtcRepository;
         }
             //
         // GET: /DangKyGiayPhep/
@@ -49,11 +51,35 @@ namespace GIS.Controllers
 
            ToChucDetailViewModel model = new ToChucDetailViewModel();
 
-           TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;  
-           // Luc tao moi thi chua co gi
-           model.NangLucs = new List<NangLucVM> { };           
-           model.NhanLucs = new List<NhanLucVM> { };
-           model.ThietBis = new List<ThietBiVM> { };
+           // Get current user
+           TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;
+           List<ToChuc> tcs = tk.ToChucs.ToList(); 
+           // Khi chua co to chuc nao duoc luu
+           if (tcs.Count == 0)
+           {
+               model.NangLucs = new List<NangLucVM> { };
+               model.NhanLucs = new List<NhanLucVM> { };
+               model.ThietBis = new List<ThietBiVM> { };
+               model.DSHoatDongSelecteds = new int[] { };
+               model.DSHoatDongs = new List<HoatDong> { new HoatDong { MaHoatDong = 1, TenHoatDong = "sdf" }, new HoatDong { MaHoatDong = 2, TenHoatDong = "gfg" } };
+
+
+           }
+           // Da co thong tin to chuc cua tai khoan do
+           else
+           {
+               ToChuc tc = tcs[0];
+               model.MaToChuc = tc.MaToChuc;
+               model.DienThoai = tc.DienThoai;
+               model.Email = tc.Email;
+               model.Fax = tc.Fax;
+               model.GiayPhepKinhDoanh = tc.GiayPhepKinhDoanh;
+               model.HangDoanhNghiep = tc.HangDoanhNghiep;
+
+           }
+           model.loaiHinh = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
+
+               model.Camket = "Tôi xin chịu trách nhiệm về toàn bộ nội dung bản đăng ký này.";
 
            //model.NangLucs = new List<NangLucVM> { new NangLucVM{NganhNghe="sdf",
            //     Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2},new NangLucVM{NganhNghe="sdf",
@@ -62,19 +88,15 @@ namespace GIS.Controllers
            // Mã nhũng hoạt động khi được chọn từ danh sách hoạt động
            // Ban đầu thì không có phần tử nào
 
-           model.DSHoatDongSelecteds = new int[]{};
+
            //model.DSHoatDongSelecteds = new int[] { 2 };
 
            // Load danh sách Hoạt động vào đây.
-           model.DSHoatDongs = new List<HoatDong> { new HoatDong { MaHoatDong = 1, TenHoatDong = "sdf" }, new HoatDong { MaHoatDong = 2, TenHoatDong = "gfg" } };
-
-           model.Camket = "Tôi xin chịu trách nhiệm về toàn bộ nội dung bản đăng ký này.";
 
            return View(model);
        }
 
       [HttpPost]
-
        public ActionResult TaoMoi(ToChucDetailViewModel model)
       {
           //ToChuc tc = new ToChuc();
@@ -92,6 +114,9 @@ namespace GIS.Controllers
           ttc.Email = model.Email;
           ttc.Fax = model.Fax;
           _ttcRespository.Add(ttc);
+
+          // Luu vao to chuc.
+
           return View();
 
           //HoSoGiayPhep hsgp = new HoSoGiayPhep();
