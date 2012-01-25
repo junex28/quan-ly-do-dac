@@ -70,7 +70,7 @@
                     <label class="grid_6">
                         Loại hình tổ chức
                     </label>
-                     <%= Html.DropDownListFor(m => m.MaLoaiHinhToChuc, new SelectList(Model.loaiHinh, "MaLoaiHinhToChuc", "TenLoaiHinhToChuc"), new { style ="padding: 0.5em; background-color: #FFFFFF;border: 1px solid #BBBBBB;"})%>            
+                     <%= Html.DropDownListFor(m => m.MaLoaiHinhToChuc, new SelectList(Model.loaiHinh, "MaLoaiHinhToChuc", "TenLoaiHinhToChuc", Model.MaLoaiHinhToChuc),new { style ="padding: 0.5em; background-color: #FFFFFF;border: 1px solid #BBBBBB;"})%>            
                 </p>
                 <p>
                     <label class="grid_6">
