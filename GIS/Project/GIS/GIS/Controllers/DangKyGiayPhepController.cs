@@ -68,18 +68,31 @@ namespace GIS.Controllers
            // Da co thong tin to chuc cua tai khoan do
            else
            {
+               model.NangLucs = new List<NangLucVM> { };
+               model.NhanLucs = new List<NhanLucVM> { };
+               model.ThietBis = new List<ThietBiVM> { };
+               model.DSHoatDongSelecteds = new int[] { };
+               model.DSHoatDongs = new List<HoatDong> { new HoatDong { MaHoatDong = 1, TenHoatDong = "sdf" }, new HoatDong { MaHoatDong = 2, TenHoatDong = "gfg" } };
+
                ToChuc tc = tcs[0];
+               model.TenToChuc = tc.TenToChuc;
                model.MaToChuc = tc.MaToChuc;
                model.DienThoai = tc.DienThoai;
                model.Email = tc.Email;
                model.Fax = tc.Fax;
                model.GiayPhepKinhDoanh = tc.GiayPhepKinhDoanh;
                model.HangDoanhNghiep = tc.HangDoanhNghiep;
-
+               model.MaLoaiHinhToChuc =  (int)tc.MaLoaiHinhToChuc;
+               model.NguoiDaiDien = tc.NguoiDaiDien;
+               model.SoTaiKhoan = tc.SoTaiKhoan;
+               model.TongSoCanBo = tc.TongSoCanBo.GetValueOrDefault(0);
+               model.TruSoChinh = tc.TruSoChinh;
+               model.VonLuuDong = tc.VonLuuDong.GetValueOrDefault(0);
+               model.VonPhapDinh = tc.VonPhapDinh.GetValueOrDefault(0);
            }
            model.loaiHinh = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
 
-               model.Camket = "Tôi xin chịu trách nhiệm về toàn bộ nội dung bản đăng ký này.";
+           model.Camket = "Tôi xin chịu trách nhiệm về toàn bộ nội dung bản đăng ký này.";
 
            //model.NangLucs = new List<NangLucVM> { new NangLucVM{NganhNghe="sdf",
            //     Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2},new NangLucVM{NganhNghe="sdf",
