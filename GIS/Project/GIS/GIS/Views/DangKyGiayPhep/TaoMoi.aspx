@@ -6,13 +6,15 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.EnableClientValidation(); %>
-    <% using (Html.BeginForm("TaoMoi", "DangKyGiayPhep", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    <% using (Html.BeginForm("TaoMoi", "DangKyGiayPhep", FormMethod.Post, new { enctype = "multipart/form-data" , id = "taomoiForm" }))
        {
            // Cac loai tinh trang
            int loaigiayphep = 0; // xin cap giay phep moi 
            // loaigiayphep = 1;  xin cap giay phep bosung 
            // loaigiayphep = 2; // xin cap giay phep gia han 
+           var save = "1";
     %>
+    <input id="save" type="hidden" value="<%=save%>"/>
     <div class="grid_19 alpha">
         <div class="box grid_10 alpha">
             <h3>
@@ -317,6 +319,7 @@
                     <%= Html.ValidationMessageFor(m=>m.Camket)%>
                 </p>
             </div>
+            <input type="hidden" id="Save" value="0" /> 
             <div class="block prefix_4">
                 <button id="saveButton" class="button redmond">
                     <span class="save">Lưu lại</span></button>
@@ -399,6 +402,42 @@
                 file_size_limit: "3072"
             });
 
+            $('#saveButton').click(function() {
+                document.getElementById("save").value = 0;
+                $('#taomoiForm').submit();
+            });
+
+            $('#sendButton').click(function() {
+                // Luu lai
+                var count1 = $("#editorNangLucRows").length;
+                var count2 = $("#editorNhanLucRows").length;
+                var count3 = $("#editorThietBiRows").length;
+//                //var count4 = $("#hoatdongmoi").items.count();
+//                //alert(count4);
+//                //alert(count);
+                if (count1 == 1) {
+                    alert("chưa kê khai năng lực");
+                }
+                else if (count1 == 1) {
+                    alert("chưa liệt kê danh sách người chịu trách nhiệm");
+                }
+                else if (count3 == 1) {
+                    alert("chưa liệt kê danh sách thiết bị");
+                }
+                else {
+                    $('#taomoiForm').submit();
+                }
+            });
+
+            $('#taomoiForm').submit(
+                function() {
+                    var input1 = document.createElement("input");
+                    input1.setAttribute("type", "hidden");
+                    input1.setAttribute("name", "save");
+                    input1.setAttribute("value", $('#save').val());
+                    $(this).append(input1);
+                    return true;
+                });
         });
     </script>
 
