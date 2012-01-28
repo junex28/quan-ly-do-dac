@@ -18,15 +18,26 @@ namespace GIS.Models
             _uploadsFolder = HostingEnvironment.MapPath(location);
         }
 
-        public Guid SaveUploadedFile(HttpPostedFileBase fileBase)
+        //public Guid SaveUploadedFile(HttpPostedFileBase fileBase)
+        //{
+        //    var identifier = Guid.NewGuid();
+        //    string extension = Path.GetExtension(fileBase.FileName);
+             
+        //    fileBase.SaveAs(GetDiskLocation(identifier) + extension);
+        //    return identifier;
+        //}
+
+        public string SaveUploadedFile(HttpPostedFileBase fileBase)
         {
             var identifier = Guid.NewGuid();
             string extension = Path.GetExtension(fileBase.FileName);
-             
-            fileBase.SaveAs(GetDiskLocation(identifier) + extension);
-            return identifier;
-        }
 
+            fileBase.SaveAs(GetDiskLocation(identifier) + extension);
+            string f = identifier.ToString() + extension;
+            return f;
+        }
+        
+        
         private string GetDiskLocation(Guid identifier)
         {
             return Path.Combine(_uploadsFolder, identifier.ToString());

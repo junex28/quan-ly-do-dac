@@ -23,6 +23,13 @@ namespace GIS.Models.Repository
                                select nn).ToPagedList(pageNo, soRecord);
             return nanglucList;
         }
+        public List<ThietBi> GetThietBiByTCID(int tcid)
+        {
+            var list =(from nn in db.ThietBis
+                               where nn.MaToChuc == tcid
+                               select nn).ToList();
+            return list;
+        }
 
         public void Add(ThietBi kknangluc)
         {
