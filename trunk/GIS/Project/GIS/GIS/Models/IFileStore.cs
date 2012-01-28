@@ -5,6 +5,6 @@ namespace GIS.Models
 {
     public interface IFileStore
     {
-        Guid SaveUploadedFile(HttpPostedFileBase fileBase);
+        string SaveUploadedFile(HttpPostedFileBase fileBase);
     }
 }

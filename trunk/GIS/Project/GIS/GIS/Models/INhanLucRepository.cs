@@ -9,6 +9,7 @@ namespace GIS.Models
     {
         IQueryable<NhanLuc> GetNhanLucs();
         IPagedList<NhanLuc> GetNhanLucByID(int tcid, int pageNo);
+        List<NhanLuc> GetNhanLucByTCID(int tcid);
         void Add(NhanLuc NhanLuc);
         void Delete(NhanLuc NhanLuc);
         void Save();
