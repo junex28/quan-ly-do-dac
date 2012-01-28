@@ -37,8 +37,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookmarkReplaced.cs" />
     <Compile Include="DocumentHandling.cs" />
-    <Compile Include="PM32_2010_TT_BTNMTHandling.cs" />
+    <Compile Include="PM32-2010-TT-BTNMT1Handling.cs" />
+    <Compile Include="PM32-2010-TT-BTNMT2Handling.cs" />
+    <Compile Include="PM32-2010-TT-BTNMT6Handling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
