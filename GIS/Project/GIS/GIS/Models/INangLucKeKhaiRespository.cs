@@ -17,7 +17,7 @@ namespace GIS.Models
     {
         IQueryable<NangLucKeKhai> GetNangLucKeKhais();
         IPagedList<NangLucKeKhai> GetNangLucKeKhaiByID(int tcid, int pageNo);
-
+        List<NangLucKeKhai> GetNangLucByTCID(int tcId);
         void Add(NangLucKeKhai NangLucKeKhai);
         void Delete(NangLucKeKhai NangLucKeKhai);
         void Save();
