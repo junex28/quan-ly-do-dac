@@ -341,16 +341,34 @@ namespace GIS.Controllers
         public ActionResult Download(int gpid)
         {
             String outputName = HttpContext.Session.SessionID + DateTime.Now.Ticks + ".docx";
-            String tmpPath = Path.Combine(HostingEnvironment.MapPath("~/App_Data/Templates"), "PM32-2010-TT-BTNMT.docx");
+            String tmpPath = Path.Combine(HostingEnvironment.MapPath("~/App_Data/Templates"), "PM32-2010-TT-BTNMT2.docx");
             String outPath = Path.Combine(HostingEnvironment.MapPath("~/App_Data/Download"), outputName);
-            PM32_2010_TT_BTNMTHandling handling = new PM32_2010_TT_BTNMTHandling();
+            DocumentHandling.DocumentHandling handling = new PM32_2010_TT_BTNMT2Handling();
             ThamDinh td = _thamdinhRepository.GetThamDinhByGPID(gpid);
             List<string> coquans = _thamdinhRepository.GetNguoiThamDinh(td.NguoiThamDinh);
             List<string> tochucs = _thamdinhRepository.GetDaiDienTC(td.NguoiPhiaToChuc);
             DateTime ngaythamdinh = DateTime.Now;
-            if(td.NgayThamDinh!=null)
+            if (td.NgayThamDinh != null)
+            {
                 ngaythamdinh = (DateTime)td.NgayThamDinh;
-            handling.settingInfo("Hồ Chí Minh", new DateTime (ngaythamdinh.Year,ngaythamdinh.Month, ngaythamdinh.Day), td.HoSoGiayPhep.ToChuc.TenToChuc, coquans, tochucs);
+            }
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.DIADIEMTOP, "Hồ Chí Minh");
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.DIADIEM, "Hồ Chí Minh");
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.NGAYTOP, ngaythamdinh.Day);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.NGAY, ngaythamdinh.Day);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.THANGTOP, ngaythamdinh.Month);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.THANG, ngaythamdinh.Month);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.NAMTOP, ngaythamdinh.Year);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.NAM, ngaythamdinh.Year);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.TPCOQUANTHAMDINH, coquans);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.TPTOCHUC, tochucs);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.TINHHOPLEHOSO, td.TinhHopLe);
+            // Xem cai nay co dung ko nha Th heo :D
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.KEKHAILUCLUONGKYTHUAT, td.NangLucNhanVien);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.KEKHAITHIETBICONGNGHE, td.NangLucThietBi);
+            //
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.KETLUAN, td.KetLuan);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.KIENNGHI, td.KienNghi);
             handling.Generate(tmpPath, outPath);
 
             // Download
@@ -392,8 +410,6 @@ namespace GIS.Controllers
                         dataToRead = -1;
                     }
                 }
-
-                
             }
             catch (Exception ex)
             {
@@ -402,6 +418,7 @@ namespace GIS.Controllers
             }
             finally
             {
+                Response.Close();
                 if (iStream != null)
                 {
                     //Close the file.
@@ -411,7 +428,6 @@ namespace GIS.Controllers
                 {
                     System.IO.File.Delete(outPath);
                 }
-                Response.Close();
             }
             return RedirectToAction("Detail", new { gpid = gpid });
         }
