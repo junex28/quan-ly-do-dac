@@ -21,6 +21,11 @@ namespace GIS.Models
             return db.ToChucs.SingleOrDefault(d => d.MaToChuc == id);
         }
 
+        public ToChuc GetToChucByTaiKhoan(int tkId)
+        {
+            return db.ToChucs.SingleOrDefault(d => d.MaTaiKhoan == tkId);
+        }
+
         public void Add(ToChuc tochuc)
         {
             db.ToChucs.InsertOnSubmit(tochuc);

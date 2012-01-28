@@ -25,6 +25,14 @@ namespace GIS.Models.Repository
             return nanglucList;
         }
 
+       public List<NangLucKeKhai> GetNangLucByTCID(int tcId)
+        {
+            var nanglucList = (from nn in db.NangLucKeKhais
+                               where nn.MaToChuc == tcId
+                               select nn).ToList();
+            return nanglucList;
+        }
+
         public void Add(NangLucKeKhai kknangluc)
         {
             db.NangLucKeKhais.InsertOnSubmit(kknangluc);
