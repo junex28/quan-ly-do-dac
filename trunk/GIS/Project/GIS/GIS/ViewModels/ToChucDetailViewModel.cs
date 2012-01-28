@@ -84,8 +84,8 @@ namespace GIS.ViewModels
 
         // Lan 1
         public IEnumerable<NangLucVM> NangLucRow{get; set;}
-        public IEnumerable<NangLucVM> NhanLucRow { get; set; }
-        public IEnumerable<NangLucVM> ThietBiRow { get; set; }
+        public IEnumerable<NhanLucVM> NhanLucRow { get; set; }
+        public IEnumerable<ThietBiVM> ThietBiRow { get; set; }
 
     }
 
@@ -104,7 +104,7 @@ namespace GIS.ViewModels
         public string HoTen { get; set; }
         public string ChucVu { get; set; }
         public string TrinhDoHocVan { get; set; }
-        public int? ThamNien { get; set; }
+        public string ThamNien { get; set; }
     }
 
     public class ThietBiVM {
