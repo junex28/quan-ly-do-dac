@@ -177,7 +177,7 @@ namespace GIS.Controllers
         public ActionResult TaoMoi(ToChucDetailViewModel model, int save)
         {
             TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;
-            List<string> listStr = new List<string>();
+            int msg = 0;
 
             if (save == 1)
             {
@@ -371,112 +371,131 @@ namespace GIS.Controllers
                             }
                         }
                         scope.Complete();
+                        msg = 1;
                     }
                     catch (Exception ex)
                     {
                         //MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Gửi hồ sơ không thành công" }, HttpContext.Response);
+                        msg = 2;
                     }
                 }
             }
             else
             {
-                using (TransactionScope s2 = new TransactionScope())
+                try
                 {
-                    List<ToChuc> tcs = tk.ToChucs.ToList();
-                    if (tcs.Count == 0)
+                    using (TransactionScope s2 = new TransactionScope())
                     {
-                        ToChuc tc = new ToChuc();
-                        tc.TenToChuc = model.TenToChuc;
-                        tc.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
-                        tc.HangDoanhNghiep = model.HangDoanhNghiep;
-                        tc.VonLuuDong = model.VonLuuDong;
-                        tc.VonPhapDinh = model.VonPhapDinh;
-                        tc.SoTaiKhoan = model.SoTaiKhoan;
-                        tc.TongSoCanBo = model.TongSoCanBo;
-                        tc.MaLoaiHinhToChuc = model.MaLoaiHinhToChuc;
-                        tc.TruSoChinh = model.TruSoChinh;
-                        tc.NguoiDaiDien = model.NguoiDaiDien;
-                        tc.DienThoai = model.DienThoai;
-                        tc.Email = model.Email;
-                        tc.Fax = model.Fax;
-                        tc.MaTaiKhoan = tk.MaTaiKhoan;
-                        _tochucRespository.Add(tc);
-                    }
-                    else
-                    {
-                        ToChuc tc = tcs[0];
-                        tc.TenToChuc = model.TenToChuc;
-                        tc.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
-                        tc.HangDoanhNghiep = model.HangDoanhNghiep;
-                        tc.VonLuuDong = model.VonLuuDong;
-                        tc.VonPhapDinh = model.VonPhapDinh;
-                        tc.SoTaiKhoan = model.SoTaiKhoan;
-                        tc.TongSoCanBo = model.TongSoCanBo;
-                        tc.MaLoaiHinhToChuc = model.MaLoaiHinhToChuc;
-                        tc.TruSoChinh = model.TruSoChinh;
-                        tc.NguoiDaiDien = model.NguoiDaiDien;
-                        tc.DienThoai = model.DienThoai;
-                        tc.Email = model.Email;
-                        tc.Fax = model.Fax;
-                        _tochucRespository.Save();
-                    }
+                        List<ToChuc> tcs = tk.ToChucs.ToList();
+                        if (tcs.Count == 0)
+                        {
+                            ToChuc tc = new ToChuc();
+                            tc.TenToChuc = model.TenToChuc;
+                            tc.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
+                            tc.HangDoanhNghiep = model.HangDoanhNghiep;
+                            tc.VonLuuDong = model.VonLuuDong;
+                            tc.VonPhapDinh = model.VonPhapDinh;
+                            tc.SoTaiKhoan = model.SoTaiKhoan;
+                            tc.TongSoCanBo = model.TongSoCanBo;
+                            tc.MaLoaiHinhToChuc = model.MaLoaiHinhToChuc;
+                            tc.TruSoChinh = model.TruSoChinh;
+                            tc.NguoiDaiDien = model.NguoiDaiDien;
+                            tc.DienThoai = model.DienThoai;
+                            tc.Email = model.Email;
+                            tc.Fax = model.Fax;
+                            tc.MaTaiKhoan = tk.MaTaiKhoan;
+                            _tochucRespository.Add(tc);
+                        }
+                        else
+                        {
+                            ToChuc tc = tcs[0];
+                            tc.TenToChuc = model.TenToChuc;
+                            tc.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
+                            tc.HangDoanhNghiep = model.HangDoanhNghiep;
+                            tc.VonLuuDong = model.VonLuuDong;
+                            tc.VonPhapDinh = model.VonPhapDinh;
+                            tc.SoTaiKhoan = model.SoTaiKhoan;
+                            tc.TongSoCanBo = model.TongSoCanBo;
+                            tc.MaLoaiHinhToChuc = model.MaLoaiHinhToChuc;
+                            tc.TruSoChinh = model.TruSoChinh;
+                            tc.NguoiDaiDien = model.NguoiDaiDien;
+                            tc.DienThoai = model.DienThoai;
+                            tc.Email = model.Email;
+                            tc.Fax = model.Fax;
+                            _tochucRespository.Update(tc);
+                        }
 
-                    ToChuc tochuc = _tochucRespository.GetToChucByTaiKhoan(tk.MaTaiKhoan);
-                    List<NhanLuc> listNhanLucCu = _nhanlucRespository.GetNhanLucByTCID(tochuc.MaToChuc);
-                    foreach (var nlCu in listNhanLucCu)
-                    {
-                        _nhanlucRespository.Delete(nlCu);
-                    }
-                    IEnumerable<NhanLucVM> listNhanLuc = model.NhanLucRow;
-                    foreach (var i in listNhanLuc)
-                    {
-                        NhanLuc nl = new NhanLuc();
-                        nl.MaToChuc = tochuc.MaToChuc;
-                        nl.HoTen = i.HoTen;
-                        nl.ChucVu = i.ChucVu;
-                        nl.TrinhDoHocVan = i.TrinhDoHocVan;
-                        nl.ThamNien = i.ThamNien;
-                        _nhanlucRespository.Add(nl);
-                    }
+                        ToChuc tochuc = _tochucRespository.GetToChucByTaiKhoan(tk.MaTaiKhoan);
+                        List<NhanLuc> listNhanLucCu = _nhanlucRespository.GetNhanLucByTCID(tochuc.MaToChuc);
+                        foreach (var nlCu in listNhanLucCu)
+                        {
+                            _nhanlucRespository.Delete(nlCu);
+                        }
+                        IEnumerable<NhanLucVM> listNhanLuc = model.NhanLucRow;
+                        if (listNhanLuc != null)
+                        {
+                            foreach (var i in listNhanLuc)
+                            {
+                                NhanLuc nl = new NhanLuc();
+                                nl.MaToChuc = tochuc.MaToChuc;
+                                nl.HoTen = i.HoTen;
+                                nl.ChucVu = i.ChucVu;
+                                //nl.TrinhDoHocVan = i.TrinhDoHocVan;
+                                nl.ThamNien = i.ThamNien;
+                                _nhanlucRespository.Add(nl);
+                            }
+                        }
 
-                    List<NangLucKeKhai> listNangLucCu = _nanglucRespository.GetNangLucByTCID(tochuc.MaToChuc);
-                    foreach (var nlCu in listNangLucCu)
-                    {
-                        _nanglucRespository.Delete(nlCu);
-                    }
-                    IEnumerable<NangLucVM> listNangLuc = model.NangLucRow;
-                    foreach (var i in listNangLuc)
-                    {
-                        NangLucKeKhai nl = new NangLucKeKhai();
-                        nl.MaToChuc = tochuc.MaToChuc;
-                        nl.NganhNghe = i.NganhNghe;
-                        nl.SoTrenDaiHoc = i.Daihoc;
-                        nl.SoTrungCap = i.TrungCap;
-                        nl.SoCongNhanKyThuat = i.CongNhan;
-                        nl.LoaiKhac = i.LoaiKhac;
-                        _nanglucRespository.Add(nl);
-                    }
+                        List<NangLucKeKhai> listNangLucCu = _nanglucRespository.GetNangLucByTCID(tochuc.MaToChuc);
+                        foreach (var nlCu in listNangLucCu)
+                        {
+                            _nanglucRespository.Delete(nlCu);
+                        }
+                        IEnumerable<NangLucVM> listNangLuc = model.NangLucRow;
+                        if (listNangLuc != null)
+                        {
+                            foreach (var i in listNangLuc)
+                            {
+                                NangLucKeKhai nl = new NangLucKeKhai();
+                                nl.MaToChuc = tochuc.MaToChuc;
+                                nl.NganhNghe = i.NganhNghe;
+                                nl.SoTrenDaiHoc = i.Daihoc;
+                                nl.SoTrungCap = i.TrungCap;
+                                nl.SoCongNhanKyThuat = i.CongNhan;
+                                nl.LoaiKhac = i.LoaiKhac;
+                                _nanglucRespository.Add(nl);
+                            }
+                        }
 
-                    List<ThietBi> listThietBiCu = _thietbiRespository.GetThietBiByTCID(tochuc.MaToChuc);
-                    foreach (var tbCu in listThietBiCu)
-                    {
-                        _thietbiRespository.Delete(tbCu);
+                        List<ThietBi> listThietBiCu = _thietbiRespository.GetThietBiByTCID(tochuc.MaToChuc);
+                        foreach (var tbCu in listThietBiCu)
+                        {
+                            _thietbiRespository.Delete(tbCu);
+                        }
+                        IEnumerable<ThietBiVM> listThietBi = model.ThietBiRow;
+                        if (listThietBi != null)
+                        {
+                            foreach (var i in listThietBi)
+                            {
+                                ThietBi tb = new ThietBi();
+                                tb.MaToChuc = tochuc.MaToChuc;
+                                tb.TenThietBi_CongNghe = i.TenThietBi_CongNghe;
+                                tb.SoLuong = i.SoLuong;
+                                tb.TinhTrang = i.TinhTrang;
+                                tb.GhiChu = i.GhiChu;
+                                _thietbiRespository.Add(tb);
+                            }
+                        }
+                        s2.Complete();
+                        msg = 3;
                     }
-                    IEnumerable<ThietBiVM> listThietBi = model.ThietBiRow;
-                    foreach (var i in listThietBi)
-                    {
-                        ThietBi tb = new ThietBi();
-                        tb.MaToChuc = tochuc.MaToChuc;
-                        tb.TenThietBi_CongNghe = i.TenThietBi_CongNghe;
-                        tb.SoLuong = i.SoLuong;
-                        tb.TinhTrang = i.TinhTrang;
-                        tb.GhiChu = i.GhiChu;
-                        _thietbiRespository.Add(tb);
-                    }
-                    s2.Complete();
+                }
+                catch (Exception ex)
+                {
+                    msg = 4;
                 }
             }
-            return View();
+            return RedirectToAction("ThongBao", new { msg = msg });
 
             //HoSoGiayPhep hsgp = new HoSoGiayPhep();
         }
@@ -509,6 +528,7 @@ namespace GIS.Controllers
             else
             {
                 ToChuc tc = tcs[0];
+                //HoSoGiayPhep hs = _hsgpRepository.get
                 model.NangLucs = new List<NangLucVM> { };
                 List<NangLucKeKhai> listNangLuc = new List<NangLucKeKhai>();
                 listNangLuc = _nanglucRespository.GetNangLucByTCID(tc.MaToChuc);
@@ -536,7 +556,7 @@ namespace GIS.Controllers
                         NhanLucVM nhanluc = new NhanLucVM();
                         nhanluc.HoTen = nl.HoTen;
                         nhanluc.ChucVu = nl.ChucVu;
-                        nhanluc.TrinhDoHocVan = nl.TrinhDoHocVan;
+                        //nhanluc.TrinhDoHocVan = nl.TrinhDoHocVan;
                         nhanluc.ThamNien = nl.ThamNien;
                         model.NhanLucs.Add(nhanluc);
                     }
@@ -601,6 +621,29 @@ namespace GIS.Controllers
         }
 
         [HttpPost]
+        public ActionResult ThongBao(int msg)
+        {
+            if (msg == 1)
+            {
+                MessageHelper.CreateMessage(MessageType.Highlight, "Gửi", new List<string> { "Gửi hồ sơ đăng ký giấy phép thành công" }, HttpContext.Response);
+            }
+            else if(msg == 2)
+            {
+                MessageHelper.CreateMessage(MessageType.Error, "Lỗi", new List<string> { "Lỗi, gửi hồ sơ không thành công, vui lòng xem lại!" }, HttpContext.Response);
+            }
+            else if (msg == 3)
+            {
+                MessageHelper.CreateMessage(MessageType.Highlight, "lưu", new List<string> { "Hồ sơ đăng ký đã được lưu. Bao gồm thông tin chung, danh sách thiết bị, kê khai năng lực và lực lượng đại diện" }, HttpContext.Response);
+            }
+            else if (msg == 4)
+            {
+                MessageHelper.CreateMessage(MessageType.Error, "Lỗi", new List<string> { "Lỗi, Lưu hồ sơ đăng ký không thành công, vui lòng kiểm tra lại!" }, HttpContext.Response);
+            }
+            return View();
+        }
+
+
+        [HttpPost]
         public ActionResult Luu(ToChucDetailViewModel model)
         {
             return View();
@@ -634,6 +677,22 @@ namespace GIS.Controllers
         public string Uploader()
         {
             return _fileStore.SaveUploadedFile(Request.Files[0]);
+        }
+
+        public ActionResult Download(string fn)
+        {
+            string pfn = Server.MapPath("~/App_Data/Upload/HSToChuc/" + fn);
+            pfn = pfn.Replace("//", "/");
+            if (!System.IO.File.Exists(pfn))
+            {
+                throw new ArgumentException("Invalid file name or file not exists!");
+            }
+            return new BinaryContentResult()
+            {
+                FileName = fn,
+                ContentType = "application/octet-stream",
+                Content = System.IO.File.ReadAllBytes(pfn)
+            };
         }
     }
 }
