@@ -226,7 +226,7 @@ namespace GIS.Controllers
             return View("Index");
         }
 
-        public Guid Uploader()
+        public string Uploader()
         {
             return _fileStore.SaveUploadedFile(Request.Files[0]);
         }
