@@ -127,7 +127,7 @@
                     <label class="grid_6">
                         Hồ sơ đăng ký đính kèm :
                     </label>
-                    <%= Html.Encode(Model.giayphep.TepDinhKem) %>
+                   <% Html.ActionLink("Download","Download", new {fn = Model.giayphep.TepDinhKem} %>
                 </p>
             </div>
         </div>
