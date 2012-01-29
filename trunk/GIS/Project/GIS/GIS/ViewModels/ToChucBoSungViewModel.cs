@@ -103,6 +103,8 @@ namespace GIS.ViewModels
         public IEnumerable<ThietBiVM> ThietBiRow { get; set; }
         public IEnumerable<CongTrinhVM> CongTrinhRow { get; set; }
 
+        public IList<string> DSHoatDongDaDKs { get; set; }
+
     }
 
     public class CongTrinhVM{
