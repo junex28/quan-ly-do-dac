@@ -155,7 +155,7 @@ namespace GIS.Controllers
            return View(viewmodel);
        }
 
-       public ActionResult Download(string fn) // fn la cai gi heo
+       public ActionResult Download(string fn) 
        {
            string pfn = Server.MapPath("~/App_Data/Upload/HSToChuc/" + fn);
            pfn = pfn.Replace("//", "/");
