@@ -82,6 +82,8 @@ namespace GIS.ViewModels
         public decimal VonLuuDong { get; set; }
 
         public string Camket { get; set; }
+ 
+        public string LyDo { get; set; }
 
         public IList<NangLucVM> NangLucs { get; set; }
 

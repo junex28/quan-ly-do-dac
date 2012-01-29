@@ -70,6 +70,8 @@ namespace GIS.ViewModels
 
         public string Camket { get; set; }
 
+        public string LyDo { get; set; }
+
         public IList<NangLucVM> NangLucs { get; set; }
 
         public IList<NhanLucVM> NhanLucs { get; set; }
