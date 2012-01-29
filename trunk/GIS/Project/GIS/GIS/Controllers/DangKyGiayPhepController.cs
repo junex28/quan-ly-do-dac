@@ -55,6 +55,7 @@ namespace GIS.Controllers
             return RedirectToAction("TaoMoi");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult TaoMoi()
         {
