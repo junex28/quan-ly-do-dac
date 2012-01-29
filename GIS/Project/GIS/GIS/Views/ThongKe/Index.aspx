@@ -6,6 +6,13 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <div>
+<% using (Html.BeginForm("Download", "ThongKe", FormMethod.Post, new { onsubmit = "return download();" }))
+   { %>
+    <%= Html.Hidden("nam", null, new { id = "selectYear" })%>
+    <input type="submit" value="Download" />
+    <!--<%= Html.ActionLink("Download", "Download", "ThongKe")%>-->
+<% } %>
+
 <p>
 <% 
     var today = DateTime.Today;
@@ -42,7 +49,10 @@
 	<script type="text/javascript" src="../../Scripts/chart/jqplot.categoryAxisRenderer.min.js"></script>
 	
 	<script type="text/javascript">
-
+	    function download() {
+	        $("#selectYear").val($("#selectid").val());
+	        return true;
+	    }
 	  function OnchangeSelect() {
 	        // var s1 = [2, 6, 7, 10];
 	        // var s2 = [7, 5, 3, 4];
