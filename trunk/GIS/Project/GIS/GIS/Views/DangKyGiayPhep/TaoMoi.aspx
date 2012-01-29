@@ -311,6 +311,13 @@
         <%} %>
         <div class="box">
             <div class="block">
+                            <p>
+                    <label class="grid_6">
+                        Lý do :
+                    </label>
+                    <%= Html.TextAreaFor(m => m.LyDo, new { @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m=>m.LyDo)%>
+                </p>
                 <p>
                     <label class="grid_6">
                         Cam kết :
