@@ -577,6 +577,8 @@ namespace GIS.Controllers
                 model.VonPhapDinh = tc.VonPhapDinh.GetValueOrDefault(0);
             }
 
+            model.DSHoatDongDaDKs = new List<string>(){"sfd","sdf"};
+
             model.loaiHinh = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
 
             model.Camket = "Tôi xin chịu trách nhiệm về toàn bộ nội dung bản đăng ký này.";
