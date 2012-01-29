@@ -32,6 +32,24 @@ namespace GIS.Models
             db.SubmitChanges();
         }
 
+        public void Update(ToChuc tochuc)
+        {
+            ToChuc tc = this.GetToChucByID(tochuc.MaToChuc);
+            tc.HangDoanhNghiep = tochuc.HangDoanhNghiep;
+            tc.MaLoaiHinhToChuc = tochuc.MaLoaiHinhToChuc;
+            tc.SoTaiKhoan = tochuc.SoTaiKhoan;
+            tc.NguoiDaiDien = tochuc.NguoiDaiDien;
+            tc.TruSoChinh = tochuc.TruSoChinh;
+            tc.VonPhapDinh = tochuc.VonPhapDinh;
+            tc.VonLuuDong = tochuc.VonLuuDong;
+            tc.DienThoai = tochuc.DienThoai;
+            tc.Email = tochuc.Email;
+            tc.Fax = tochuc.Fax;
+            tc.TongSoCanBo = tochuc.TongSoCanBo;
+
+            db.SubmitChanges();
+        }
+
         public void Delete(ToChuc tochuc)
         {
             db.ToChucs.DeleteOnSubmit(tochuc);

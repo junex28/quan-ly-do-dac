@@ -46,22 +46,23 @@ namespace GIS.Models
             //db.DangKyHoatDongs.DeleteAllOnSubmit(HoSoGiayPhep);
             //db.ThamDinhs.DeleteAllOnSubmit(HoSoGiayPhep.ThamDinhs);
             db.HoSoGiayPheps.DeleteOnSubmit(HoSoGiayPhep);
+            db.SubmitChanges();
         }
 
         public void Update(HoSoGiayPhep hoSoGiayPhep)
         {
             HoSoGiayPhep tmp = GetHoSoGiayPhepByID(hoSoGiayPhep.MaHoSo);
-            // Th them may cai set vao vì hình như nó hết session rồi nên ko update db đc đâu
-            tmp.MaToChuc = hoSoGiayPhep.MaToChuc;
-            tmp.MaThongTinChung = hoSoGiayPhep.MaThongTinChung;
+            //tmp.MaToChuc = hoSoGiayPhep.MaToChuc;
+            //tmp.MaThongTinChung = hoSoGiayPhep.MaThongTinChung;
             tmp.NgayCapPhep = hoSoGiayPhep.NgayCapPhep;
             tmp.NgayHetHan = hoSoGiayPhep.NgayHetHan;
             tmp.NgayXinPhep = hoSoGiayPhep.NgayXinPhep;
             tmp.SoGiayPhep = hoSoGiayPhep.SoGiayPhep;
             tmp.TepDinhKem = hoSoGiayPhep.TepDinhKem;
             tmp.TinhTrang = hoSoGiayPhep.TinhTrang;
-            tmp.ToChuc = hoSoGiayPhep.ToChuc;
-
+            //tmp.ToChuc = hoSoGiayPhep.ToChuc;
+            tmp.LyDo = hoSoGiayPhep.LyDo;
+            tmp.CamKet = hoSoGiayPhep.CamKet;
             // ... them dum M roi chay lại thử xem
             db.SubmitChanges();
         }
