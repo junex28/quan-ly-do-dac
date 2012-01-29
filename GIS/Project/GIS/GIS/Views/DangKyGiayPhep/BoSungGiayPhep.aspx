@@ -388,35 +388,41 @@
                     </p>
                 </div>
             </div>
-             <% 
-            if (loaigiayphep == 1)
-            { %>
-        <div class="box">
-            
-            <h2>
-                <a id="toggle-hoatdongmoi" href="#" style="cursor: pointer;">Đăng ký hoạt động bổ sung</a>
-            </h2>
-            <div class="block prefix_3" id="hoatdongmoi">
-            <p>
-             <label class="grid_6">
+            <% 
+                if (loaigiayphep == 1)
+                { %>
+            <div class="box">
+                <h2>
+                    <a id="toggle-hoatdongmoi" href="#" style="cursor: pointer;">Đăng ký hoạt động bổ sung</a>
+                </h2>
+                <div class="block prefix_3" id="hoatdongmoi">
+                    <p>
+                        <label class="grid_6">
                             Danh sách hoạt động đã đăng ký :
-              </label>
-              <% foreach (string i in Model.DSHoatDongDaDKs)
-                 {%> <%=i %><br />
-                 <%} %>
-            </p>
-            <p>
-             <label class="grid_6" >
+                        </label>
+                        <% foreach (string i in Model.DSHoatDongDaDKs)
+                           {%>
+                        <%=i %><br />
+                        <%} %>
+                    </p>
+                    <p>
+                        <label class="grid_6">
                             Danh sách hoạt động bổ sung :
-              </label>
-               </p>
-                <%= Html.ListBoxFor(m => m.DSHoatDongSelecteds, new MultiSelectList(Model.DSHoatDongs, "MaHoatDong", "TenHoatDong", Model.DSHoatDongSelecteds), new { size=8, @class="multi" })%>
-           
+                        </label>
+                    </p>
+                    <%= Html.ListBoxFor(m => m.DSHoatDongSelecteds, new MultiSelectList(Model.DSHoatDongs, "MaHoatDong", "TenHoatDong", Model.DSHoatDongSelecteds), new { size=8, @class="multi" })%>
+                </div>
             </div>
-        </div>
-        <%} %>
+            <%} %>
             <div class="box">
                 <div class="block">
+                    <p>
+                        <label class="grid_6">
+                            Lý do :
+                        </label>
+                        <%= Html.TextAreaFor(m => m.LyDo, new { @class = "text" })%>
+                        <%= Html.ValidationMessageFor(m=>m.LyDo)%>
+                    </p>
                     <p>
                         <label class="grid_6">
                             Cam kết :
@@ -479,12 +485,12 @@
                 });
                 return false;
             });
-            
+
             $("a.deleteCongTrinhRow").live("click", function() {
                 $(this).parents("tr.editorCongTrinhRow:first").remove();
                 return false;
             });
-            
+
             $("#addNhanLucItem").click(function() {
                 $.ajax({
                     url: this.href,
