@@ -155,7 +155,7 @@ namespace GIS.Controllers
             model.loaiHinh = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
 
             model.Camket = "Tôi xin chịu trách nhiệm về toàn bộ nội dung bản đăng ký này.";
-
+            model.LyDo = "Xin đăng ký giấy phép mới.";
             //model.NangLucs = new List<NangLucVM> { new NangLucVM{NganhNghe="sdf",
             //     Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2},new NangLucVM{NganhNghe="sdf",
             //     Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2} };
@@ -582,7 +582,7 @@ namespace GIS.Controllers
             model.loaiHinh = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
 
             model.Camket = "Tôi xin chịu trách nhiệm về toàn bộ nội dung bản đăng ký này.";
-
+            model.LyDo = "Xin đăng ký bổ sung hoạt động đo đạc"; 
             //model.NangLucs = new List<NangLucVM> { new NangLucVM{NganhNghe="sdf",
             //     Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2},new NangLucVM{NganhNghe="sdf",
             //     Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2} };
