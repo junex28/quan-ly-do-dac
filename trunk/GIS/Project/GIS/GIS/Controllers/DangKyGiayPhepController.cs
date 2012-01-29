@@ -480,6 +480,123 @@ namespace GIS.Controllers
             //HoSoGiayPhep hsgp = new HoSoGiayPhep();
         }
 
+        [HttpGet]
+        public ActionResult BoSungGiayPhep()
+        {
+            // Get current user
+            // Check whether User' Organization is exist (true)
+            //      Load User' Organiztion
+            // else new detail
+            //return View(model)
+
+            ToChucBoSungViewModel model = new ToChucBoSungViewModel();
+
+            // Get current user
+            TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;
+            List<ToChuc> tcs = tk.ToChucs.ToList();
+            // Khi chua co to chuc nao duoc luu
+            if (tcs.Count == 0)
+            {
+                model.NangLucs = new List<NangLucVM> { };
+                model.NhanLucs = new List<NhanLucVM> { };
+                model.ThietBis = new List<ThietBiVM> { };
+                model.DSHoatDongSelecteds = new int[] { };
+                model.DSHoatDongs = new List<HoatDong> { new HoatDong { MaHoatDong = 1, TenHoatDong = "sdf" }, new HoatDong { MaHoatDong = 2, TenHoatDong = "gfg" } };
+
+            }
+            // Da co thong tin to chuc cua tai khoan do
+            else
+            {
+                ToChuc tc = tcs[0];
+                model.NangLucs = new List<NangLucVM> { };
+                List<NangLucKeKhai> listNangLuc = new List<NangLucKeKhai>();
+                listNangLuc = _nanglucRespository.GetNangLucByTCID(tc.MaToChuc);
+                if (listNangLuc != null)
+                {
+                    foreach (var nl in listNangLuc)
+                    {
+                        NangLucVM nangluc = new NangLucVM();
+                        nangluc.NganhNghe = nl.NganhNghe;
+                        nangluc.Daihoc = nl.SoTrenDaiHoc;
+                        nangluc.TrungCap = nl.SoTrungCap;
+                        nangluc.CongNhan = nl.SoCongNhanKyThuat;
+                        nangluc.LoaiKhac = nl.LoaiKhac;
+                        model.NangLucs.Add(nangluc);
+                    }
+                }
+
+                model.NhanLucs = new List<NhanLucVM> { };
+                List<NhanLuc> listNhanLuc = new List<NhanLuc>();
+                listNhanLuc = _nhanlucRespository.GetNhanLucByTCID(tc.MaToChuc);
+                if (listNhanLuc != null)
+                {
+                    foreach (var nl in listNhanLuc)
+                    {
+                        NhanLucVM nhanluc = new NhanLucVM();
+                        nhanluc.HoTen = nl.HoTen;
+                        nhanluc.ChucVu = nl.ChucVu;
+                        nhanluc.TrinhDoHocVan = nl.TrinhDoHocVan;
+                        nhanluc.ThamNien = nl.ThamNien;
+                        model.NhanLucs.Add(nhanluc);
+                    }
+                }
+
+                model.ThietBis = new List<ThietBiVM> { };
+                List<ThietBi> listThietBi = new List<ThietBi>();
+                listThietBi = _thietbiRespository.GetThietBiByTCID(tc.MaToChuc);
+                if (listThietBi != null)
+                {
+                    foreach (var tb in listThietBi)
+                    {
+                        ThietBiVM thietbi = new ThietBiVM();
+                        thietbi.TenThietBi_CongNghe = tb.TenThietBi_CongNghe;
+                        thietbi.SoLuong = tb.SoLuong;
+                        thietbi.GhiChu = tb.GhiChu;
+                        thietbi.TinhTrang = tb.TinhTrang;
+                        model.ThietBis.Add(thietbi);
+                    }
+                }
+
+                model.DSHoatDongSelecteds = new int[] { };
+                model.DSHoatDongs = new List<HoatDong> { new HoatDong { MaHoatDong = 1, TenHoatDong = "sdf" }, new HoatDong { MaHoatDong = 2, TenHoatDong = "gfg" } };
+
+
+                model.TenToChuc = tc.TenToChuc;
+                model.MaToChuc = tc.MaToChuc;
+                model.DienThoai = tc.DienThoai;
+                model.Email = tc.Email;
+                model.Fax = tc.Fax;
+                model.GiayPhepKinhDoanh = tc.GiayPhepKinhDoanh;
+                model.HangDoanhNghiep = tc.HangDoanhNghiep;
+                model.MaLoaiHinhToChuc = (int)tc.MaLoaiHinhToChuc;
+                model.NguoiDaiDien = tc.NguoiDaiDien;
+                model.SoTaiKhoan = tc.SoTaiKhoan;
+                model.TongSoCanBo = tc.TongSoCanBo.GetValueOrDefault(0);
+                model.TruSoChinh = tc.TruSoChinh;
+                model.VonLuuDong = tc.VonLuuDong.GetValueOrDefault(0);
+                model.VonPhapDinh = tc.VonPhapDinh.GetValueOrDefault(0);
+            }
+
+            model.loaiHinh = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
+
+            model.Camket = "Tôi xin chịu trách nhiệm về toàn bộ nội dung bản đăng ký này.";
+
+            //model.NangLucs = new List<NangLucVM> { new NangLucVM{NganhNghe="sdf",
+            //     Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2},new NangLucVM{NganhNghe="sdf",
+            //     Daihoc=1,CongNhan=2,TrungCap=3,LoaiKhac=2} };
+
+            // Mã nhũng hoạt động khi được chọn từ danh sách hoạt động
+            // Ban đầu thì không có phần tử nào
+
+            model.DSHoatDongs = _hoatdongRespository.GetHoatDongs().ToList();
+
+            //model.DSHoatDongSelecteds = 
+
+            // Load danh sách Hoạt động vào đây.
+
+            return View(model);
+        }
+
         [HttpPost]
         public ActionResult Luu(ToChucDetailViewModel model)
         {
@@ -504,6 +621,11 @@ namespace GIS.Controllers
         public ViewResult BlankThietBiRow(string formId)
         {
             return new AjaxViewResult("ThietBiEditorRow", new ThietBiVM()) { UpdateValidationForFormId = formId };
+        }
+
+        public ViewResult BlankCongTrinhRow(string formId)
+        {
+            return new AjaxViewResult("CongTrinhEditorRow", new CongTrinhVM()) { UpdateValidationForFormId = formId };
         }
 
         public string Uploader()
