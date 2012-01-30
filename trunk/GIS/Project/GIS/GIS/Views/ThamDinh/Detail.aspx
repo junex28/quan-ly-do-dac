@@ -102,37 +102,37 @@
                 <% using (Html.BeginForm())
                    {%>
                 <p>
-                    <label class="grid_6">
+                    <label class="grid_6 labelnor">
                         Ngày thẩm định :
                     </label>
                     <%=Html.Encode(Model.ThamDinh.NgayThamDinh.Value.ToShortDateString()) %>
                 </p>
                 <p>
-                    <label class="grid_6">
+                    <label class="grid_6 labelnor">
                         Thành phần cơ quan thẩm định :
                     </label>
                     <%= Html.Encode(Model.ThamDinh.NguoiThamDinh) %>
                 </p>
                 <p>
-                    <label class="grid_6">
+                    <label class="grid_6 labelnor">
                         Thành phần tổ chức đề nghị cấp giấy phép :
                     </label>
                     <%= Html.Encode(Model.ThamDinh.NguoiPhiaToChuc) %>
                 </p>
                 <p>
-                    <label class="grid_6">
+                    <label class="grid_6 labelnor">
                         Thẩm định kê khai lực lượng kỹ thuật :
                     </label>
                     <%= Html.Encode(Model.ThamDinh.NangLucNhanVien) %>
                 </p>
                 <p>
-                    <label class="grid_6">
-                        Kết luận
+                    <label class="grid_6 labelnor">
+                        Kết luận :
                     </label>
                     <%= Html.Encode(Model.ThamDinh.KetLuan) %>
                 </p>
                 <p>
-                    <label class="grid_6">
+                    <label class="grid_6 labelnor">
                         Kiến nghị :
                     </label>
                     <%= Html.Encode(Model.ThamDinh.KienNghi) %>
@@ -140,7 +140,7 @@
                 <% if (true)
                    { %>
                 <p>
-                    <label class="grid_6">
+                    <label class="grid_6 labelnor">
                         Số giấy phép :
                     </label>
                     <%= Html.Encode(Model.ThamDinh.HoSoGiayPhep.SoGiayPhep)%>
