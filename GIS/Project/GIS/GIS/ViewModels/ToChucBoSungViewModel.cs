@@ -33,10 +33,10 @@ namespace GIS.ViewModels
         public string TruSoChinh { get; set; }
         
         [DisplayName("Doanh thu năm")]
-        public decimal DoanhThuNam{ get; set; }
+        public decimal? DoanhThuNam{ get; set; }
 
         [DisplayName("Nộp ngân sách")]
-        public decimal NopNganSach { get; set; }
+        public decimal? NopNganSach { get; set; }
 
         [DisplayName("Doanh thu năm")]
         public string NguoiDaiDien { get; set; }
@@ -57,6 +57,9 @@ namespace GIS.ViewModels
         
         [DisplayName("Tổng số cán bộ")]
         public int TongSoCanBo { get; set; }
+
+        [DisplayName("Số giấy phép")]
+        public string SoGiayPhep { get; set; }
         
         [DisplayName("Tệp đính kèm")]
         public string TepDinhKem { get; set; }
@@ -84,6 +87,10 @@ namespace GIS.ViewModels
         public string Camket { get; set; }
  
         public string LyDo { get; set; }
+
+        public int? TuNam { get; set; }
+
+        public int? DenNam { get; set; }
 
         public IList<NangLucVM> NangLucs { get; set; }
 
