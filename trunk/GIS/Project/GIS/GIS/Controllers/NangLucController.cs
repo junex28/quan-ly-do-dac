@@ -33,7 +33,6 @@ namespace GIS.Controllers
 
         public ActionResult DSNanglucs(int tcid, int page)
         {
-
             var DSNangLuc = _nanglucRepository.GetNangLucKeKhaiByID(tcid,page-1).ToList();
             return PartialView(DSNangLuc);
         }
