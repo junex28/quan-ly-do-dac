@@ -1,6 +1,0 @@
-E:\kltn\GIS\Project\GIS\Project\GIS\DocumentHandling\bin\Debug\DocumentHandling.dll
-E:\kltn\GIS\Project\GIS\Project\GIS\DocumentHandling\bin\Debug\DocumentHandling.pdb
-E:\kltn\GIS\Project\GIS\Project\GIS\DocumentHandling\bin\Debug\Microsoft.Office.Interop.Word.dll
-E:\kltn\GIS\Project\GIS\Project\GIS\DocumentHandling\obj\Debug\ResolveAssemblyReference.cache
-E:\kltn\GIS\Project\GIS\Project\GIS\DocumentHandling\obj\Debug\DocumentHandling.dll
-E:\kltn\GIS\Project\GIS\Project\GIS\DocumentHandling\obj\Debug\DocumentHandling.pdb
