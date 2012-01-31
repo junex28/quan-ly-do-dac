@@ -6,14 +6,21 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.EnableClientValidation(); %>
-    <% using (Html.BeginForm("BoSungGiayPhep", "DangKyGiayPhep", FormMethod.Post, new { enctype = "multipart/form-data", id = "taomoiForm" }))
+    <% using (Html.BeginForm("BoSungGiayPhep", "DangKyGiayPhep", FormMethod.Post, new { enctype = "multipart/form-data", id = "bosungForm" }))
        {
            // Cac loai tinh trang
            //int loaigiayphep = 0; // xin cap giay phep moi 
            int loaigiayphep = 1;  // xin cap giay phep bosung 
            // loaigiayphep = 2; // xin cap giay phep gia han 
            var save = "1";
+           string i = ViewData["sogiayphep"].ToString(); ;
            bool giaypheptontai = true;
+           if (i.Equals("1") == false)
+           {
+               giaypheptontai = false;
+           }
+           
+           
     %>
     <input id="save" type="hidden" value="<%=save%>" />
     <div class="grid_19 alpha">
@@ -35,11 +42,16 @@
             <% if (loaigiayphep == 1 && giaypheptontai)
                {%>
             <p>
-                Số giấy phép :{SoGiayPhep}</p>
+                Số giấy phép :
+                <%=Html.Encode(Model.SoGiayPhep) %></p>
             <p>
-                Cấp ngày : {NgayCapPhep}
-            </p>
-            <%  } %>
+                <%if (Model.NgayCapPhepDoDac != null)
+                  { %>
+                Cấp ngày : <%= Html.Encode(Model.NgayCapPhepDoDac) %>
+            
+            <% } %>
+                   </p>
+              <% } %>
         </div>
         <div class="clear">
         </div>
@@ -64,10 +76,17 @@
                 </p>
                 <p>
                     <label class="grid_6">
-                        Số giấy phép đo đạc :
+                        Số giấy phép:
                     </label>
-                    <%= Html.TextBoxFor(m => m.GiayPhepDoDac, new { @class="text"})%>
-                    <%= Html.ValidationMessageFor(m=>m.GiayPhepDoDac)%>
+                    <% if (giaypheptontai == true)
+                       { %>
+                    <%= Html.TextBoxFor(m => m.SoGiayPhep, new { @class = "text", @disabled = "disabled" })%>
+                    <% }
+                       else
+                       { %>
+                    <%= Html.TextBoxFor(m => m.SoGiayPhep, new { @class = "text"})%>
+                    <%} %>
+                    <%= Html.ValidationMessageFor(m=>m.SoGiayPhep)%>
                 </p>
                 <p>
                     <label class="grid_6">
@@ -278,10 +297,10 @@
                     </label>
                     <select class="grid_2" id="tunamselector" onchange="chageSelect();" style="padding: 0.5em;
                         background-color: #FFFFFF; border: 1px solid #BBBBBB;">
-                        <% for (int i = DateTime.Now.Year; i > 1989; i--)
+                        <% for (int j = DateTime.Now.Year; j > 1989; j--)
                            { %>
-                        <option value="<%=i %>">
-                            <%=i %></option>
+                        <option value="<%=j %>" <%=(Model.TuNam == j)? "selected='selected'":String.Empty %>>
+                            <%=j %></option>
                         <%} %>
                     </select>
                     <label class="grid_3">
@@ -289,10 +308,10 @@
                     </label>
                     <select id="Select1" class="grid_2" onchange="chageSelect();" style="padding: 0.5em;
                         background-color: #FFFFFF; border: 1px solid #BBBBBB;">
-                        <% for (int i = DateTime.Now.Year; i > 1989; i--)
+                        <% for (int j = DateTime.Now.Year; j > 1989; j--)
                            { %>
-                        <option value="<%=i %>">
-                            <%=i %></option>
+                        <option value="<%=j %>" <%=(Model.DenNam == j)? "selected='selected'":String.Empty %>>
+                            <%=j %></option>
                         <%} %>
                     </select>
                 </p>
@@ -342,8 +361,8 @@
                         </thead>
                         <!-- Table body -->
                         <tbody>
-                            <% foreach (var item in Model.ThietBis)
-                                   Html.RenderPartial("DanhSachCongTrinhRow", item);
+                            <% foreach (var item in Model.CongTrinhs)
+                                   Html.RenderPartial("CongTrinhEditorRow", item);
                             %>
                         </tbody>
                     </table>
@@ -368,18 +387,21 @@
                         <br />
                     </p>
                     <%} %>
-                    <% // Neu tochuc co ho so thi hien thi ho so dinh kem cu 
-                        var hosocu = true;
-                        if (hosocu)
-                        {%>
                     <p>
                         <label class="grid_6">
                             Hồ sơ đính kèm cũ :
                         </label>
-                        Tải xuống
+                        <% // Neu tochuc co ho so thi hien thi ho so dinh kem cu 
+                            if (Model.TepDinhKem != null && Model.TepDinhKem != "")
+                            {%>
+                        <%= Html.ActionLink("Tải xuống", "Download", new { fn = Model.TepDinhKem })%>
                     </p>
                     <%
-                        }  %>
+                        }
+                            else
+                            { %>
+                    Không tìm thấy hồ sơ đính kèm cũ
+                    <%} %>
                     <p>
                         <label class="grid_6">
                             Hồ sơ đăng ký đính kèm mới:
@@ -400,10 +422,15 @@
                         <label class="grid_6">
                             Danh sách hoạt động đã đăng ký :
                         </label>
-                        <% foreach (string i in Model.DSHoatDongDaDKs)
-                           {%>
-                        <%=i %><br />
-                        <%} %>
+                        <% int n = 1;
+                           foreach (string j in Model.DSHoatDongDaDKs)
+                           { %>
+                        <p>
+                            <%= n %>.
+                            <%= j %><br />
+                            <% n++; %>
+                        </p>
+                        <% } %>
                     </p>
                     <p>
                         <label class="grid_6">
@@ -544,7 +571,7 @@
 
             $('#saveButton').click(function() {
                 document.getElementById("save").value = 0;
-                $('#taomoiForm').submit();
+                $('#bosungForm').submit();
             });
 
             $('#sendButton').click(function() {
@@ -552,9 +579,9 @@
                 var count1 = $("#editorNangLucRows").length;
                 var count2 = $("#editorNhanLucRows").length;
                 var count3 = $("#editorThietBiRows").length;
-                //                //var count4 = $("#hoatdongmoi").items.count();
-                //                //alert(count4);
-                //                //alert(count);
+                alert(count1);
+                alert(count2);
+                alert(count3);
                 if (count1 == 1) {
                     alert("chưa kê khai năng lực");
                 }
@@ -565,11 +592,11 @@
                     alert("chưa liệt kê danh sách thiết bị");
                 }
                 else {
-                    $('#taomoiForm').submit();
+                    $('#bosungForm').submit();
                 }
             });
 
-            $('#taomoiForm').submit(
+            $('#bosungForm').submit(
                 function() {
                     var input1 = document.createElement("input");
                     input1.setAttribute("type", "hidden");
