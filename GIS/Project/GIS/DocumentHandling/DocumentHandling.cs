@@ -6,6 +6,7 @@ namespace DocumentHandling
 {
     public abstract class DocumentHandling
     {
+        public const string DEFAULT_BLANK = "";
         public const string DEFAULT_VALUE = "...";
 
         private Dictionary<string, BookmarkReplaced> _parameters;
