@@ -27,16 +27,27 @@ namespace GIS.Models.Repository
             return db.HoatDongs.SingleOrDefault(d => d.MaHoatDong == id);
         }
 
+        public bool checkContain(int i)
+        {
+            var k = from hd in db.HoatDongs
+                    where hd.MaHoatDong == i
+                    select hd;
+            if (k != null)
+                return true;
+            return false;
+        }
+
         public void Add(HoatDong hoatdong)
         {
             db.HoatDongs.InsertOnSubmit(hoatdong);
+            db.SubmitChanges();
         }
 
         public void Delete(HoatDong hoatdong)
         {
             db.HoatDongs.DeleteOnSubmit(hoatdong);
+            db.SubmitChanges();
         }
-
         public void Save()
         {
             db.SubmitChanges();

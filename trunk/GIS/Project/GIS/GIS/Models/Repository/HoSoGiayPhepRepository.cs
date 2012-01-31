@@ -31,6 +31,15 @@ namespace GIS.Models
                    select gp; 
         }
 
+        public IList<HoSoGiayPhep> GetHSGPByToChuc(int tcId)
+        {
+            var hs = (from g in db.HoSoGiayPheps
+                     where g.MaToChuc == tcId && (g.TinhTrang == 5 || g.TinhTrang == 8 || g.TinhTrang ==11)
+                     orderby g.MaHoSo descending
+                      select g).ToList() ;
+            return hs;
+        }
+
         public HoSoGiayPhep GetHoSoGiayPhepByID(int id)
         {
             return db.HoSoGiayPheps.SingleOrDefault(d => d.MaHoSo == id);
@@ -39,6 +48,7 @@ namespace GIS.Models
         public void Add(HoSoGiayPhep HoSoGiayPhep)
         {
             db.HoSoGiayPheps.InsertOnSubmit(HoSoGiayPhep);
+            db.SubmitChanges();
         }
 
         public void Delete(HoSoGiayPhep HoSoGiayPhep)
@@ -52,18 +62,14 @@ namespace GIS.Models
         public void Update(HoSoGiayPhep hoSoGiayPhep)
         {
             HoSoGiayPhep tmp = GetHoSoGiayPhepByID(hoSoGiayPhep.MaHoSo);
-            //tmp.MaToChuc = hoSoGiayPhep.MaToChuc;
-            //tmp.MaThongTinChung = hoSoGiayPhep.MaThongTinChung;
             tmp.NgayCapPhep = hoSoGiayPhep.NgayCapPhep;
             tmp.NgayHetHan = hoSoGiayPhep.NgayHetHan;
             tmp.NgayXinPhep = hoSoGiayPhep.NgayXinPhep;
             tmp.SoGiayPhep = hoSoGiayPhep.SoGiayPhep;
             tmp.TepDinhKem = hoSoGiayPhep.TepDinhKem;
             tmp.TinhTrang = hoSoGiayPhep.TinhTrang;
-            //tmp.ToChuc = hoSoGiayPhep.ToChuc;
             tmp.LyDo = hoSoGiayPhep.LyDo;
             tmp.CamKet = hoSoGiayPhep.CamKet;
-            // ... them dum M roi chay lại thử xem
             db.SubmitChanges();
         }
 

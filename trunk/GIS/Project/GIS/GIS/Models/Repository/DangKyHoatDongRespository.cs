@@ -38,12 +38,20 @@ namespace GIS.Models.Repository
                    where dk.SoGiayPhep == hs.SoGiayPhep && dk.LanBoSung == 0
                    select dk;
         }
+
         public IQueryable<HoatDongDuocCap> GetDKHDBoSung(int gpId)
         {
             HoSoGiayPhep hs = db.HoSoGiayPheps.SingleOrDefault(d => d.MaHoSo == gpId);
             return from dk in db.HoatDongDuocCaps
                    where dk.SoGiayPhep == hs.SoGiayPhep && dk.LanBoSung > 0
                    select dk;
+        }
+
+        public IList<HoatDongDuocCap> GetHDDaCapBySoGP(string sogp, int tcId)
+        {
+            return (from dk in db.HoatDongDuocCaps
+                   where dk.SoGiayPhep == sogp && dk.MaToChuc == tcId
+                   select dk).ToList();
         }
 
         public DangKyHoatDong GetDangKysHDByID(int id)
@@ -60,6 +68,13 @@ namespace GIS.Models.Repository
             }
             return listMaHD;
         }
+        public int getSoLanBoSung(int tcId)
+        {
+            var i = (int)(from hd in db.HoatDongDuocCaps
+                     where hd.MaToChuc == tcId
+                     select hd.LanBoSung).Max();
+            return (i + 1);
+        }
 
       /*  public  IEnumerable<HoatDong> GetHoatDongByDangKy(List<DangKyHoatDong> dk)
         {
@@ -75,11 +90,13 @@ namespace GIS.Models.Repository
         public void Add(DangKyHoatDong DangKy)
         {
             db.DangKyHoatDongs.InsertOnSubmit(DangKy);
+            db.SubmitChanges();
         }
 
         public void Delete(DangKyHoatDong DangKy)
         {
             db.DangKyHoatDongs.DeleteOnSubmit(DangKy);
+            db.SubmitChanges();
         }
 
         public void Save()
