@@ -13,7 +13,10 @@ namespace GIS.Models
         IQueryable<HoatDongDuocCap> GetDKHDDaCap(int id);
         IQueryable<HoatDongDuocCap> GetDKHDBoSung(int id);
         //IEnumerable<HoatDong> GetHoatDongByDangKy(List<DangKyHoatDong> dk);
+        IList<HoatDongDuocCap> GetHDDaCapBySoGP(string sogp, int tcId);
         List<int> getSelectedHD(List<DangKyHoatDong> dk);
+        int getSoLanBoSung(int tcId);
+       
         void Add(DangKyHoatDong DangKyHoatDong);
         void Delete(DangKyHoatDong DangKyHoatDong);
         void Save();
