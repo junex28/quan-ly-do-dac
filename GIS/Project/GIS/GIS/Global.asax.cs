@@ -40,11 +40,11 @@ namespace GIS
                 "Paging To Chuc",
                 "tochuc/trang/{page}",
                 new { controller = "ToChuc", action = "List", page = 1 });
-
+            
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "TrangChu", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "GIS", action = "viewer", id = UrlParameter.Optional } // Parameter defaults
             );
 
 
