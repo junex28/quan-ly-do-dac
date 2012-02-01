@@ -417,8 +417,8 @@
                 <h2>
                     <a id="toggle-hoatdongmoi" href="#" style="cursor: pointer;">Đăng ký hoạt động bổ sung</a>
                 </h2>
-                <div class="block prefix_3" id="hoatdongmoi">
-                    <p>
+                <div class="block" id="hoatdongmoi">
+                                    <p>
                         <label class="grid_6">
                             Danh sách hoạt động đã đăng ký :
                         </label>
@@ -437,7 +437,11 @@
                             Danh sách hoạt động bổ sung :
                         </label>
                     </p>
+                    
+                <div class="prefix_3">
+
                     <%= Html.ListBoxFor(m => m.DSHoatDongSelecteds, new MultiSelectList(Model.DSHoatDongs, "MaHoatDong", "TenHoatDong", Model.DSHoatDongSelecteds), new { size=8, @class="multi" })%>
+                </div>
                 </div>
             </div>
             <%} %>

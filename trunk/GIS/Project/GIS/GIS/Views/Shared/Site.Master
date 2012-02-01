@@ -91,7 +91,7 @@
                         <ul>
                             <li><a href="/qlgiayphep">Quản lý giấy phép</a> </li>
                             <li><a href="../12/fluid/jquery/">Quản lý công trình</a> </li>
-                            <li><a href="../12/fluid/none/">Quản lý tài khoản</a> </li>
+                            <li><a href="/TaiKhoan/QuanLyTaiKhoan">Quản lý tài khoản</a> </li>
                         </ul>
                     </li>
                     <li><a href="#WebGis">Đăng ký/Tài khoản</a>
@@ -109,7 +109,7 @@
             <div class="clear">
             </div>
             <div class="grid_5 content-left">
-                &nbsp;</div>
+                <% Html.RenderPartial("LeftMenu"); %></div>
             <div class="grid_19 content-right">
                 <div class="grid_19 message">
                     <% Html.RenderPartial("SystemMessage"); %>
