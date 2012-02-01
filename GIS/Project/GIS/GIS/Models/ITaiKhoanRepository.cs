@@ -16,6 +16,7 @@ namespace GIS.Models
         void Delete(TaiKhoan TaiKhoan);
         void Save();
 
+        bool IsExistUserName(string tentaikhoan);
         MembershipCreateStatus CreateUser(TaiKhoan tk);
         TaiKhoan ValidateUser(String tentaikhoan, String matkhau);
         bool IsInRole(TaiKhoan taikhoan, string nhomquyen);
