@@ -142,6 +142,18 @@ namespace GIS.Models
             catch { return false; }
             return false;
         }
+
+        public bool IsExistUserName(string tentaikhoan) {
+            try
+            {
+                int c = (from a in db.TaiKhoans 
+                         where a.TenTaiKhoan == tentaikhoan
+                             select a.MaTaiKhoan).Count();
+                if (c != 0) return true;
+                else return false;
+            }
+            catch { return true; }
+        }
     }
 
 
