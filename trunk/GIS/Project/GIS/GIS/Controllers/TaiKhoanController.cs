@@ -59,6 +59,12 @@ namespace GIS.Controllers
                 // In a real app, actually register the user now
                 if (ModelState.IsValid)
                 {
+                    if (_TaiKhoanRepository.IsExistUserName(model.TenTaiKhoan))
+                    {
+                        ModelState.AddModelError("", "Tài khoản đã tồn tại");
+                        return View(model);
+                    }
+
                     var tk = new TaiKhoan
                     {
                         TenTaiKhoan = model.TenTaiKhoan,
@@ -71,6 +77,7 @@ namespace GIS.Controllers
                         TinhTrang = 1,
                         NhomNguoiDung = 1
                     };
+
                     var createStatus = _TaiKhoanRepository.CreateUser(tk);
 
                     if (createStatus == MembershipCreateStatus.Success) //success 
