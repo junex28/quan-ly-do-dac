@@ -874,3 +874,104 @@ SPAN.asyncUploader *{line-height: 2em; margin: 0.6px, 2%, 0}
 .multiselectable div { display: inline; }
 .multiselectable .m-selectable-controls { margin-top: 3em; width: 50px; }
 .multiselectable .m-selectable-controls button { margin-top: 1em; }
+
+/*********************** LEFT MENU **************************/
+ul.menu {
+    border-top: 1px solid #BBBBBB;
+    list-style: none outside none;
+}
+ul.menu li {
+    margin: 0;
+}
+ul.menu li a {
+    border-bottom: 1px solid #CCCCCC;
+    display: block;
+    padding: 4px 10px;
+}
+ul.menu li a:hover {
+    background: none repeat scroll 0 0 #EEEEEE;
+}
+ul.menu li a:active {
+    background: none repeat scroll 0 0 #CCCCCC;
+}
+ul.menu ul {
+    list-style: none outside none;
+    margin: 0;
+}
+ul.menu ul li a {
+    padding-left: 30px;
+}
+
+ul.section {
+	border-top:0;
+	margin-bottom:0;
+}
+ul.section li {
+	text-transform:uppercase;
+}
+ul.section li a {
+	background:#2e6e9e;
+	color:#fff;
+}
+ul.section li a span.ui-icon
+{
+    visibility:hidden;
+    }
+ul.section li a:hover {
+	background:#5c9ccc;
+}
+ul.section li a:active {
+	color:#fff;
+	background:#5c9ccc;
+}
+ul.section li li a 
+{
+    color:#00598d;
+	background:#ddd;
+	border-bottom:1px solid #eee;
+}
+ul.section li li a:hover {
+	color:#fff;
+}
+ul.section li li a:active {
+	color:#fff;
+	background:#5c9ccc;
+}
+ul.section ul li {
+	text-transform:none;
+}
+ul.section ul.current li a {
+	background:#dfeffc;
+	border-bottom:1px solid #fff;
+}
+ul.section ul.current li a:hover {
+	background:#79b7e7;
+}
+ul.section ul.current li a:active {
+	background:#5c9ccc;
+}
+ul.section li a.current {
+	color:#fff;
+	background:#5c9ccc;
+}
+ul.section li a.current:hover {
+	background:#2e6e9e;
+}
+ul.section li a.current:active {
+	background:#5c9ccc;
+}
+ul.section li a.active {
+	background:#fff;
+	cursor:default;
+}
+ul.section li.current > a.active,
+ul.section li.current > a.active:hover {
+	color:#fff;
+	background:#666;
+	cursor:default;
+}
+
+.submenu
+{
+    padding:0 0 !important;
+    }
