@@ -41,7 +41,7 @@ namespace GIS.Controllers
             ViewData["page"] = page;
             return View();
         }
-        
+
         // 1. Lan dau vao dangky
         [HttpGet]
         public ActionResult Dangky()
@@ -101,7 +101,7 @@ namespace GIS.Controllers
             return View(model);
 
         }
-        
+
 
 
         // **************************************
@@ -123,8 +123,9 @@ namespace GIS.Controllers
         public ActionResult Dangnhap()
         {
             // Form login
-            if (Request.IsAuthenticated) {
-                return RedirectToAction("Index","TrangChu");
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "TrangChu");
             }
 
             return View();
@@ -133,112 +134,130 @@ namespace GIS.Controllers
         [HttpPost]
         public ActionResult DangNhap(LogOnViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 return View(model);
             }
 
             TaiKhoan user = _TaiKhoanRepository.ValidateUser(model.TenTaiKhoan, MD5Helper.GetHash(model.MatKhau));
-            if (null != user) {
+            if (null != user)
+            {
                 if (user.TinhTrang == 2)
                 {
                     _FormsService.SignIn(user.MaTaiKhoan.ToString(), model.GhiNho);
                     Session[Sessions.AccountID.ToString()] = user.MaTaiKhoan;
                     Session[Sessions.UserName.ToString()] = user.TenTaiKhoan;
                     Session[Sessions.RoleID.ToString()] = user.NhomNguoiDung1.TenNhom;
-                     if (returnUrl != null)
-                     {
-                         return Redirect(returnUrl);
-                     }
-                     else
-                     {
-                         return RedirectToAction("Index", "TrangChu");
-                     }
+                    if (returnUrl != null)
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "TrangChu");
+                    }
                 }
-                else {
+                else
+                {
                     ModelState.AddModelError("", "Tài khoản đăng nhập chưa được kích hoạt.");
                 }
             }
             ModelState.AddModelError("", "Tài khoản đăng nhập không hợp lệ");
             return View(model);
-    
+
         }
 
         // Hien thi thong tin chi tiet mot tai khoan
         // taikhoan/chitiet
         // taikhoan/chitiet/id
         [HttpGet]
-        public ActionResult ChiTiet(int? id) {
+        public ActionResult ChiTiet(int? id)
+        {
             // Authenticated
-                try
+            try
+            {
+                // Neu la chu tai khoan thi hien thi edit tai khoan                    
+                if (Request.IsAuthenticated)
                 {
-                    // Neu la chu tai khoan thi hien thi edit tai khoan                    
-                     if (Request.IsAuthenticated) {
-                         //TaiKhoan user  = this.CurrentUser;
-                         TaiKhoan user = _TaiKhoanRepository.GetTaiKhoanByID(id.GetValueOrDefault(this.CurrentUser.MaTaiKhoan));
-                         RegisterViewModel Model = new RegisterViewModel();
-                         
-                         if (null!=user) {
-                             Model.MaTaiKhoan = user.MaTaiKhoan;
-                             Model.TenTaiKhoan = user.TenTaiKhoan;
-                             Model.HoTen = user.HoTen;
-                             Model.DiaChi = user.DiaChi;
-                             Model.Email = user.Email;
-                             Model.CMND = user.CMND;
-                             Model.Coquan = user.CoQuan;
-                             Model.MatKhau = user.MatKhau;
-                         }
+                    //TaiKhoan user  = this.CurrentUser;
+                    TaiKhoan user = _TaiKhoanRepository.GetTaiKhoanByID(id.GetValueOrDefault(this.CurrentUser.MaTaiKhoan));
+                    RegisterViewModel Model = new RegisterViewModel();
 
-                         return View(Model);
-                        }
+                    if (null != user)
+                    {
+                        Model.MaTaiKhoan = user.MaTaiKhoan;
+                        Model.TenTaiKhoan = user.TenTaiKhoan;
+                        Model.HoTen = user.HoTen;
+                        Model.DiaChi = user.DiaChi;
+                        Model.Email = user.Email;
+                        Model.CMND = user.CMND;
+                        Model.Coquan = user.CoQuan;
+                        Model.MatKhau = user.MatKhau;
+                    }
+
+                    return View(Model);
                 }
-                catch (Exception) { 
-                    MessageHelper.CreateMessage(MessageType.Error, "",new List<string>{"error when display user"}, HttpContext.Response);
-                }
+            }
+            catch (Exception)
+            {
+                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when display user" }, HttpContext.Response);
+            }
             return RedirectToLogin();
         }
 
         [HttpGet]
         [Authorize]
-        public ActionResult CapNhat(int id) {
+        public ActionResult CapNhat(int id)
+        {
             try
             {
                 // Neu la chu tai khoan hoac admin thi hien thi edit tai khoan                    
-                    //TaiKhoan user  = this.CurrentUser;
-                    TaiKhoan user = _TaiKhoanRepository.GetTaiKhoanByID(id);
-                    TaiKhoan editor = this.CurrentUser;
-                    if (editor.MaTaiKhoan == user.MaTaiKhoan || editor.NhomNguoiDung1.TenNhom.Equals("SuperAdmin"))
+                //TaiKhoan user  = this.CurrentUser;
+                TaiKhoan user = _TaiKhoanRepository.GetTaiKhoanByID(id);
+                TaiKhoan editor = this.CurrentUser;
+                if (editor.MaTaiKhoan == user.MaTaiKhoan || editor.NhomNguoiDung1.TenNhom.Equals("SuperAdmin"))
+                {
+                    RegisterViewModel Model = new RegisterViewModel();
+
+                    if (null != user)
                     {
-                        RegisterViewModel Model = new RegisterViewModel();
-
-                        if (null != user)
-                        {
-                            Model.MaTaiKhoan = user.MaTaiKhoan;
-                            Model.TenTaiKhoan = user.TenTaiKhoan;
-                            Model.HoTen = user.HoTen;
-                            Model.DiaChi = user.DiaChi;
-                            Model.Email = user.Email;
-                            Model.CMND = user.CMND;
-                            Model.Coquan = user.CoQuan;
-                            Model.MatKhau = user.MatKhau;
-                            Model.NhapLaiMatKhau = user.MatKhau;
-                        }
-
-                        return View(Model);
-                    }
-                    else {
-                        return View("NotAllowed"); 
+                        Model.MaTaiKhoan = user.MaTaiKhoan;
+                        Model.TenTaiKhoan = user.TenTaiKhoan;
+                        Model.HoTen = user.HoTen;
+                        Model.DiaChi = user.DiaChi;
+                        Model.Email = user.Email;
+                        Model.CMND = user.CMND;
+                        Model.Coquan = user.CoQuan;
+                        Model.MatKhau = user.MatKhau;
+                        Model.NhapLaiMatKhau = user.MatKhau;
                     }
 
-                    // return 
+                    return View(Model);
+                }
+                else
+                {
+                    return View("NotAllowed");
+                }
+
+                // return 
             }
             catch (Exception)
             {
                 MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "error when update user" }, HttpContext.Response);
-                return RedirectToAction("Index","TrangChu");
+                return RedirectToAction("Index", "TrangChu");
             }
         }
 
-        [Authorize]       
+        [Authorize]
+        [RoleFilter(Roles = "1")]
+        public ActionResult capnhattaikhoan()
+        {
+            TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;
+            int tkId = tk.MaTaiKhoan;
+            return RedirectToAction("CapNhat", new {id = tkId });
+        }
+
+        [RoleFilter(Roles = "1")]
         [HttpPost]
         public ActionResult CapNhat(RegisterViewModel model, int id)
         {
@@ -246,31 +265,31 @@ namespace GIS.Controllers
             {
                 // Neu la chu tai khoan hoac admin thi hien thi edit tai khoan                    
                 //TaiKhoan user  = this.CurrentUser;
-                           var myCaptcha = Request.Form["myCaptcha"];
-                           if (CaptchaHelper.VerifyAndExpireSolution(HttpContext, myCaptcha, model.Captcha))
-                           {
+                var myCaptcha = Request.Form["myCaptcha"];
+                if (CaptchaHelper.VerifyAndExpireSolution(HttpContext, myCaptcha, model.Captcha))
+                {
 
-                               if (ModelState.IsValid)
-                               {
-                                   TaiKhoan user = _TaiKhoanRepository.GetTaiKhoanByID(id);
-                                   TaiKhoan editor = this.CurrentUser;
-                                   if (editor.MaTaiKhoan == user.MaTaiKhoan || editor.NhomNguoiDung1.TenNhom.Equals("SuperAdmin"))
-                                   {
-                                       user.HoTen = model.HoTen;
-                                       user.CoQuan = model.Coquan;
-                                       user.CMND = model.CMND;
-                                       user.DiaChi = model.DiaChi;
-                                       user.Email = model.Email;
+                    if (ModelState.IsValid)
+                    {
+                        TaiKhoan user = _TaiKhoanRepository.GetTaiKhoanByID(id);
+                        TaiKhoan editor = this.CurrentUser;
+                        if (editor.MaTaiKhoan == user.MaTaiKhoan || editor.NhomNguoiDung1.TenNhom.Equals("SuperAdmin"))
+                        {
+                            user.HoTen = model.HoTen;
+                            user.CoQuan = model.Coquan;
+                            user.CMND = model.CMND;
+                            user.DiaChi = model.DiaChi;
+                            user.Email = model.Email;
 
-                                       _TaiKhoanRepository.Save();
-                                       return RedirectToAction("ChiTiet", "TaiKhoan", new { id = id});
-                                   }
-                                   else
-                                   {
-                                       return View("NotAllowed");
-                                   }
-                               }
-                           }
+                            _TaiKhoanRepository.Save();
+                            return RedirectToAction("ChiTiet", "TaiKhoan", new { id = id });
+                        }
+                        else
+                        {
+                            return View("NotAllowed");
+                        }
+                    }
+                }
                 return View(model);
                 // return 
             }
@@ -295,18 +314,18 @@ namespace GIS.Controllers
                         .OrderBy(sidx + " " + sord)
                         .Skip(pageIndex * pageSize)
                         .Take(pageSize).AsQueryable();
-            
-                var jsonData = new
-                {
-                    total = totalPages,
-                    page = page,
-                    records = totalRecords,
-                    rows = (
-                        from u in models
-                        select new
-                        {
-                            id = u.MaTaiKhoan,
-                            cell = new string[] {
+
+            var jsonData = new
+            {
+                total = totalPages,
+                page = page,
+                records = totalRecords,
+                rows = (
+                    from u in models
+                    select new
+                    {
+                        id = u.MaTaiKhoan,
+                        cell = new string[] {
                            u.MaTaiKhoan.ToString(),
                            u.TenTaiKhoan,
                            u.NhomNguoiDung1.TenNhom,
@@ -314,12 +333,26 @@ namespace GIS.Controllers
                            u.Email,
                            u.TinhTrangTaiKhoan.DienGiai                           
                         }
-                        })
-                };
+                    })
+            };
 
-                return Json(jsonData, JsonRequestBehavior.AllowGet);
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult NotExist()
+        {
+            return View();
+        }
+
+        public ActionResult ChiTietToChuc()
+        {
+            TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;
+            if (tk.ToChucs.Count == 0)
+            {
+                return RedirectToAction("NotExist");
             }
-
+            ToChuc tc = tk.ToChucs[0];
+            return RedirectToAction("ChiTiet","ToChuc", new {id = tc.MaToChuc});
         }
     }
-
+}

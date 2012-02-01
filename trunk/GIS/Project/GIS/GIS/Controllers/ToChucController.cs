@@ -86,7 +86,7 @@ namespace GIS.Controllers
 
         //
         // GET: /tochuc/{id}/chitiet
-
+       
         public ActionResult ChiTiet(int id)
         {
             ToChuc tochuc = _tochucRepository.GetToChucByID(id);
