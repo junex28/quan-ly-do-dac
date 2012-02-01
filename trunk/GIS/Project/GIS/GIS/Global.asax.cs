@@ -26,6 +26,12 @@ namespace GIS
             );
 
             routes.MapRoute(
+                "Quản lý Tài Khoản",
+                "taikhoan/quanlytaikhoan",
+                new { controller = "TaiKhoan", action = "Index" }
+            );
+
+            routes.MapRoute(
                 "Chi Tiet Tai Khoan",
                 "taikhoan/{id}/chitiet",
                 new { controller = "TaiKhoan", action = "ChiTiet" }
