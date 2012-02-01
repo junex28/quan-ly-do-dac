@@ -12,8 +12,6 @@
                 <a id="toggle-thamdinh" href="#" style="cursor: pointer;">Chi tiết tổ chức</a>
             </h2>
             <div class="block" id="thamdinh">
-                <% using (Html.BeginForm())
-                   {%>
                 <p>
                     <label class="grid_6">
                         Tên tổ chức :
@@ -86,8 +84,6 @@
                     </label>
                     <%= Html.Encode(Model.toChuc.VonLuuDong)%>
                 </p>
-                
-                <%} %>
             </div>
         </div>
         <div class="box">
