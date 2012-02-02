@@ -109,7 +109,7 @@
                 mtype: "GET",
                 datatype: "json",
                 //postdata: { sId: 0 },
-                colNames: ['Mã hồ sơ', 'Tên tổ chức', 'Ngày xin phép', 'Tình trạng giấy phép'],
+                colNames: ['Mã hồ sơ', 'Tên tổ chức', 'Ngày xin phép', 'Tình trạng giấy phép'],
                 colModel: [
                 { name: 'MaHoSo', index: 'MaHoSo', width: 50, align: 'left', sortable: false },
                 { name: 'TenToChuc', index: 'TenToChuc', width: 50, align: 'left', sortable: true },

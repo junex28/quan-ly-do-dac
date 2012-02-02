@@ -75,7 +75,7 @@
             </p>
             <p>
                 <label class="grid_6">
-                    Kết luận
+                    Kết luận :
                 </label>
                 <%= Html.TextAreaFor(m=>m.KetLuan) %>
                 <%= Html.ValidationMessageFor(m => m.KetLuan)%>
@@ -95,6 +95,12 @@
                 </label>
                 <%= Html.TextBoxFor(m => m.SoGiayPhep, new {@class="text"})%>
                 <%= Html.ValidationMessageFor(m => m.SoGiayPhep)%>
+            </p>
+             <p>
+                <label class="grid_6">
+                   Ngày cấp phép :
+                </label>
+                <%=Html.TextBoxFor(m=>m.NgayCapPhep) %>
             </p>
             
             <% } %>
@@ -128,7 +134,9 @@
 
         $(function() {
         $("#NgayThamDinh").datepicker({ dateFormat: 'dd/mm/yy' });
+        $("#NgayCapPhep").datepicker({ dateFormat: 'dd/mm/yy' });
         });
+        
         $(function() {
 
             $('#xetduyetButton').click(function() {
