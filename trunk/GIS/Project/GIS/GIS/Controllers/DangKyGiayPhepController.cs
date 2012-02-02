@@ -1151,5 +1151,11 @@ namespace GIS.Controllers
                     Content = System.IO.File.ReadAllBytes(pfn)
                 };
         }
+
+        public ActionResult KetQuaHoSo() {
+            ThamDinhEditViewModel model = new ThamDinhEditViewModel();
+           
+            return View(model);
+        }
     }
 }
