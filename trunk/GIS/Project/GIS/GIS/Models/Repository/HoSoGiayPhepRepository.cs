@@ -51,7 +51,7 @@ namespace GIS.Models
                     where hs.MaToChuc == tcId
                     orderby hs.MaHoSo descending
                     select hs).ToList();
-            if (m != null)
+            if (m != null && m.Count != 0)
             {
                 HoSoGiayPhep hs = m[0];
                 if (hs.TinhTrang == 1)
