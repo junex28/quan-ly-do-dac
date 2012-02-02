@@ -27,7 +27,7 @@ namespace GIS.Models.Repository
                         where nn.MaToChuc == tcid
                         select nn).ToList();
             BaoCaoHoatDong baocao = new BaoCaoHoatDong();
-            if (list != null)
+            if (list != null && list.Count != 0)
             {
                 baocao = list[0];
             }
