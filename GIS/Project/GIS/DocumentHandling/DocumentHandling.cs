@@ -148,6 +148,7 @@ namespace DocumentHandling
         {
             object saveChanges = WdSaveOptions.wdDoNotSaveChanges;
             object missing = System.Reflection.Missing.Value;
+            document.Close(ref saveChanges, ref missing, ref missing);
             Application.Quit(ref saveChanges, ref missing, ref missing);
         }
 
