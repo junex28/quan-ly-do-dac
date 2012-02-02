@@ -36,17 +36,6 @@
     <script type="text/javascript" src="/Scripts/jquery.validate.min.js"></script>
 
     <script type="text/javascript" src="/Scripts/MicrosoftMvcJQueryValidation.js"></script>
-    
-    <!-- Script for multi select -->
-    <%-- <script src="/Scripts/multiselectable.js" type="text/javascript"></script>--%>
-    
-    <%-- <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/Custom.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/redmond/jquery-ui-1.8.24.custom.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/template/soria/soria.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/superfish/superfish.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/ui.jqgrid.css" rel="stylesheet" type="text/css" />
-   --%>
    
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
 </head>
@@ -65,7 +54,6 @@
                     Hệ thống quản lý ĐO ĐẠC & BẢN ĐỒ</h1>
                 <!-- Your website name end -->
             </div>
-
     
             <!-- Header end -->
             <!-- Menu -->
@@ -81,10 +69,10 @@
                     </li>
                     <li><a href="/dangkygiayphep/Index">Đăng ký giấy phép</a>
                         <ul>
-                            <li><a href="/dangkygiayphep/taomoi">Đăng ký hoạt động</a> </li>
-                            <li><a href="/bosunggiayphep/bosunggiayphep">Bổ sung hoạt động</a></li>                        
-                            <li><a href="/giahangiayphep">Xin gia hạn </a></li>
-                            <li><a href="/giayphep">Xin gia hạn </a></li>
+                            <li><a href="/dangkygiayphep/TaoMoi">Đăng ký hoạt động</a> </li>
+                            <li><a href="/dangkygiayphep/BoSungGiayPhep">Bổ sung hoạt động</a></li>                        
+                            <li><a href="/dangkygiayphep/GiaHanGiayPhep">Xin gia hạn </a></li>
+                            <li><a href="/dangkygiayphep/XemKetQua">Xem kết quả </a></li>
                         </ul>
                     </li>
                     <li><a href="/qlgiayphep/index">Quản lý</a>
