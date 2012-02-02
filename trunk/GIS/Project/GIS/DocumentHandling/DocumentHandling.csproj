@@ -42,6 +42,7 @@
     <Compile Include="PM32-2010-TT-BTNMT1Handling.cs" />
     <Compile Include="PM32-2010-TT-BTNMT2Handling.cs" />
     <Compile Include="PM32-2010-TT-BTNMT6Handling.cs" />
+    <Compile Include="PM32-2010-TT-BTNMT7Handling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
