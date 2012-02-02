@@ -138,6 +138,8 @@ namespace GIS.Controllers
             model.giayphep = _gphdRepository.GetHoSoGiayPhepByID(gpid);
             model.thongtinchung = gpchitiet;
             model.ThamDinh = td;
+            model.NgayCapPhep = DateTime.Now.Date;
+            model.NgayThamDinh = DateTime.Now.Date;
             //model.m = gpid; 
             return View(model);
         } 
