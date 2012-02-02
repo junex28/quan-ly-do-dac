@@ -45,17 +45,54 @@ namespace GIS.Models
             return db.HoSoGiayPheps.SingleOrDefault(d => d.MaHoSo == id);
         }
 
+        public int Check(int tcId)
+        {
+            var m = (from hs in db.HoSoGiayPheps
+                    where hs.MaToChuc == tcId
+                    orderby hs.MaHoSo descending
+                    select hs).ToList();
+            if (m != null)
+            {
+                HoSoGiayPhep hs = m[0];
+                if (hs.TinhTrang == 1)
+                    return 1;
+                else if (hs.TinhTrang == 2)
+                    return 2;
+                else if (hs.TinhTrang == 3)
+                    return 3;
+                else if (hs.TinhTrang == 4)
+                    return 4;
+                else if (hs.TinhTrang == 5)
+                    return 5;
+                else if (hs.TinhTrang == 6)
+                    return 6;
+                else if (hs.TinhTrang == 7)
+                    return 7;
+                else if (hs.TinhTrang == 8)
+                    return 8;
+                else if (hs.TinhTrang == 9)
+                    return 9;
+                else if (hs.TinhTrang == 10)
+                    return 10;
+                else if (hs.TinhTrang == 11)
+                    return 11;
+                else return 12;
+            }
+            return 0;
+        }
+
         public void Add(HoSoGiayPhep HoSoGiayPhep)
         {
             db.HoSoGiayPheps.InsertOnSubmit(HoSoGiayPhep);
             db.SubmitChanges();
         }
 
-        public void Delete(HoSoGiayPhep HoSoGiayPhep)
+        public void Delete(HoSoGiayPhep hoso)
         {
             //db.DangKyHoatDongs.DeleteAllOnSubmit(HoSoGiayPhep);
             //db.ThamDinhs.DeleteAllOnSubmit(HoSoGiayPhep.ThamDinhs);
-            db.HoSoGiayPheps.DeleteOnSubmit(HoSoGiayPhep);
+            HoSoGiayPhep tmp = GetHoSoGiayPhepByID(hoso.MaHoSo);
+            tmp.TinhTrang = 12;
             db.SubmitChanges();
         }
 
