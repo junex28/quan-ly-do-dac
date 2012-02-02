@@ -52,6 +52,9 @@ namespace GIS.ViewModels
 
         public GiayPhepDetailModel thongtinchung { get; set; }
 
-        public string SoGiayPhep { get; set; } 
+        public string SoGiayPhep { get; set; }
+
+        [DisplayName("Ngày cấp phép")]
+        public DateTime NgayCapPhep { get; set; }
     }
 }
