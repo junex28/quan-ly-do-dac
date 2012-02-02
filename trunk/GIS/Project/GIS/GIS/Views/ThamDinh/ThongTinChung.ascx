@@ -100,6 +100,43 @@
         </div>
     </div>
 </div>
+<!-- Kiểm tra loại giấy phép -->
+ <%     
+     if (true)
+           {%>
+        <div class="box">
+            <h2>
+                <a id="toggle-baocaothhd" href="#" style="cursor: pointer;">Báo cáo tình hình hoạt động</a>
+            </h2>
+            <div class="block" id="baocaothhd">
+                 <p>
+                    <label class="grid_2 prefix_4">
+                        Từ năm:
+                    </label>
+                    
+                    <label class="grid_3">
+                        Đến năm:
+                    </label>
+                   
+                </p>
+                <p>
+                    <label class="grid_6">
+                        Doanh thu năm:
+                    </label>
+                </p>
+                <p>
+                    <label class="grid_6">
+                        Nộp ngân sách:
+                    </label>
+               </p>
+                 <h5>Danh sách công trình đã thực hiện</h5>
+        <div class="box">
+            <div id="congtrinhresult">
+            </div>
+        </div>
+            </div>
+        </div>
+        <%} %>
 <div class="box">
     <h2>
         <a id="toggle-hoso" href="#" style="cursor: pointer;">Hồ sơ đính kèm</a>
@@ -259,10 +296,15 @@
         $("#thietbiresult").load("/thietbi/dsthietbis", { page: pageNo, tcid: tcid });
     }
 
+    function doAjaxPageCongTrinh(pageNo, tcid) {
+        $("#congtrinhresult").load("/bccongtrinh/dscongtrinh", { page: pageNo, tcid: tcid });
+    }
+
     $(document).ready(function() {
         var tcid = '<%=Model.giayphep.ToChuc.MaToChuc%>';
         doAjaxPageNangLuc(1, tcid);
         doAjaxPageNhanLuc(1, tcid);
         doAjaxPageThietBi(1, tcid);
+        doAjaxPageCongTrinh(1, tcid);
     });
 </script>
