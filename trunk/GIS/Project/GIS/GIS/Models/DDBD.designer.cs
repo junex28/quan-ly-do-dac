@@ -645,8 +645,6 @@ namespace GIS.Models
 		
 		private System.Nullable<int> _TongSoCanBo;
 		
-		private string _TepDinhKem;
-		
 		private string _HangDoanhNghiep;
 		
 		private System.Nullable<decimal> _VonLuuDong;
@@ -691,8 +689,6 @@ namespace GIS.Models
     partial void OnEmailChanged();
     partial void OnTongSoCanBoChanging(System.Nullable<int> value);
     partial void OnTongSoCanBoChanged();
-    partial void OnTepDinhKemChanging(string value);
-    partial void OnTepDinhKemChanged();
     partial void OnHangDoanhNghiepChanging(string value);
     partial void OnHangDoanhNghiepChanged();
     partial void OnVonLuuDongChanging(System.Nullable<decimal> value);
@@ -932,26 +928,6 @@ namespace GIS.Models
 					this._TongSoCanBo = value;
 					this.SendPropertyChanged("TongSoCanBo");
 					this.OnTongSoCanBoChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_TepDinhKem", DbType="NVarChar(500)")]
-		public string TepDinhKem
-		{
-			get
-			{
-				return this._TepDinhKem;
-			}
-			set
-			{
-				if ((this._TepDinhKem != value))
-				{
-					this.OnTepDinhKemChanging(value);
-					this.SendPropertyChanging();
-					this._TepDinhKem = value;
-					this.SendPropertyChanged("TepDinhKem");
-					this.OnTepDinhKemChanged();
 				}
 			}
 		}
@@ -2433,7 +2409,7 @@ namespace GIS.Models
 			}
 		}
 		
-		[Column(Storage="_TenHoatDong", DbType="NVarChar(50)")]
+		[Column(Storage="_TenHoatDong", DbType="NVarChar(500)")]
 		public string TenHoatDong
 		{
 			get
@@ -2478,6 +2454,8 @@ namespace GIS.Models
 		
 		private System.Nullable<int> _MaThongTinChung;
 		
+		private System.Nullable<int> _LoaiGiayPhep;
+		
 		private EntitySet<DangKyHoatDong> _DangKyHoatDongs;
 		
 		private EntitySet<ThamDinh> _ThamDinhs;
@@ -2514,6 +2492,8 @@ namespace GIS.Models
     partial void OnTepDinhKemChanged();
     partial void OnMaThongTinChungChanging(System.Nullable<int> value);
     partial void OnMaThongTinChungChanged();
+    partial void OnLoaiGiayPhepChanging(System.Nullable<int> value);
+    partial void OnLoaiGiayPhepChanged();
     #endregion
 		
 		public HoSoGiayPhep()
@@ -2754,6 +2734,26 @@ namespace GIS.Models
 					this._MaThongTinChung = value;
 					this.SendPropertyChanged("MaThongTinChung");
 					this.OnMaThongTinChungChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_LoaiGiayPhep", DbType="Int")]
+		public System.Nullable<int> LoaiGiayPhep
+		{
+			get
+			{
+				return this._LoaiGiayPhep;
+			}
+			set
+			{
+				if ((this._LoaiGiayPhep != value))
+				{
+					this.OnLoaiGiayPhepChanging(value);
+					this.SendPropertyChanging();
+					this._LoaiGiayPhep = value;
+					this.SendPropertyChanged("LoaiGiayPhep");
+					this.OnLoaiGiayPhepChanged();
 				}
 			}
 		}
