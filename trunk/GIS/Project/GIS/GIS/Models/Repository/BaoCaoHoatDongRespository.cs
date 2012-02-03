@@ -33,6 +33,18 @@ namespace GIS.Models.Repository
             }
             return baocao;
         }
+        public BaoCaoHoatDong GetBaoCaoHoatDongByTTC(int ttcid)
+        {
+            var list = (from nn in db.BaoCaoHoatDongs
+                        where nn.MaThongTinChung == ttcid
+                        select nn).ToList();
+            BaoCaoHoatDong baocao = new BaoCaoHoatDong();
+            if (list != null && list.Count > 0)
+            {
+                baocao = list[0];
+            }
+            return baocao;
+        }
 
         public void Add(BaoCaoHoatDong baocao)
         {

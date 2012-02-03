@@ -65,8 +65,6 @@ namespace DocumentHandling
                 case TOCHUCCANHAN:
                 case GPDKKD:
                 case HANGDOANHNGHIEP:
-                case VONPHAPDINH:
-                case VONLUUDONG:
                 case SOTAIKHOAN:
                 case SONHANVIEN:
                 case TRUSOCHINH:
@@ -80,7 +78,11 @@ namespace DocumentHandling
                 case BOSUNG1:
                 case BOSUNG2:
                 case BOSUNG3:
-                    Parameters[name] = BookmarkReplacedFactory.getInLineValue((string)value);
+                    Parameters[name] = BookmarkReplacedFactory.getInLineValue(value.ToString());
+                    break;
+                case VONPHAPDINH:
+                case VONLUUDONG:
+                    Parameters[name] = BookmarkReplacedFactory.getInLineValue(string.Format("{0:0,0}", value));
                     break;
                 case LUCLUONGKYTHUATNGANHNGHE:
                 case LUCLUONGKYTHUATNGUOICHIUTRACHNHIEM:
