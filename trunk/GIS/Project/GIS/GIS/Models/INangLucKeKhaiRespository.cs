@@ -16,8 +16,9 @@ namespace GIS.Models
     public interface INangLucKeKhaiRespository
     {
         IQueryable<NangLucKeKhai> GetNangLucKeKhais();
-        IPagedList<NangLucKeKhai> GetNangLucKeKhaiByID(int tcid, int pageNo);
+        IPagedList<NangLucKeKhai> GetNangLucKeKhaiByTTCID(int ttcid, int pageNo);
         List<NangLucKeKhai> GetNangLucByTCID(int tcId);
+        List<NangLucKeKhai> GetNangLucKeKhaiByTTC(int ttcid);
         void Add(NangLucKeKhai NangLucKeKhai);
         void Delete(NangLucKeKhai NangLucKeKhai);
         void Save();

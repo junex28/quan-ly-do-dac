@@ -8,7 +8,8 @@ namespace GIS.Models
     public interface IThietBiRepository
     {
         IQueryable<ThietBi> GetThietBis();
-        IPagedList<ThietBi> GetThietBiByID(int tcid, int pageNo);
+        IPagedList<ThietBi> GetThietBiByTTCID(int ttcid, int pageNo);
+        List<ThietBi> GetThietBiByTTC(int ttcid);
         List<ThietBi> GetThietBiByTCID(int tcid);
         void Add(ThietBi ThietBi);
         void Delete(ThietBi ThietBi);
