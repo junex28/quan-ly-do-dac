@@ -72,7 +72,7 @@
                             <li><a href="/dangkygiayphep/TaoMoi">Đăng ký hoạt động</a> </li>
                             <li><a href="/dangkygiayphep/BoSungGiayPhep">Bổ sung hoạt động</a></li>                        
                             <li><a href="/dangkygiayphep/GiaHanGiayPhep">Xin gia hạn </a></li>
-                            <li><a href="/dangkygiayphep/XemKetQua">Xem kết quả </a></li>
+                            <li><a href="/dangkygiayphep/KetQuaHoSo">Xem kết quả </a></li>
                         </ul>
                     </li>
                     <li><a href="/qlgiayphep/index">Quản lý</a>
