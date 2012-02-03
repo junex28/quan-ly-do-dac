@@ -11,7 +11,9 @@ namespace GIS.Models
         IQueryable<HoSoGiayPhep> GetGPHDByTinhTrang(int Id, string strSearch);
         HoSoGiayPhep GetHoSoGiayPhepByID(int id);
         IList<HoSoGiayPhep> GetHSGPByToChuc(int tcId);
+        List<HoSoGiayPhep> GetHSListByTCID(int tcId);
         int Check(int tcId);
+        int Check(IList<HoSoGiayPhep> list);
         void Add(HoSoGiayPhep HoSoGiayPhep);
         void Delete(HoSoGiayPhep HoSoGiayPhep);
         void Update(HoSoGiayPhep HoSoGiayPhep);
