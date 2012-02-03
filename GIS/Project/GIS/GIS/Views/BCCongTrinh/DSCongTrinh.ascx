@@ -1,9 +1,12 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<GIS.ViewModels.CongTrinhVM>>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<GIS.Models.BaoCaoCongTrinh>>" %>
 
 <table class="mytable">    
     <!-- Table header -->    
           <thead>
                             <tr>
+                                <th>
+                                    STT
+                                </th>
                                 <th style="width: 200px;">
                                     Tên công trình
                                 </th>
@@ -34,10 +37,12 @@
     		<tr>
 				<td ><%=i %></td>
 				<td ><%= item.TenCongTrinh %> </td>
-				<td ><%= item.ChuDauTu.ToString() %></td>
-				<td ><%= item.CongDoanDaThiCong.ToString() %></td>
-				<td ><%= item.GiaTriThucHien.ToString() %></td>
-				<td ><%= item.GhiChu.ToString() %></td>				
+				<td ><%= item.ChuDauTu %></td>
+				<td ><%= item.CongDoanDaThiCong %></td>
+				<td ><%= item.GiaTriDaThucHien%></td>
+				<td ><%= item.ThoiGianThucHien %></td>				
+				<td ><%= item.GhiChu %></td>				
+				
 			</tr>	
 			<%       
           }
