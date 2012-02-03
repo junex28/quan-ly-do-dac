@@ -30,7 +30,7 @@ namespace GIS.Models
                    where gp.TinhTrang == Id
                    select gp; 
         }
-
+        // lấy những hs đã hoạt động (xin phép thành công) có mã tc
         public IList<HoSoGiayPhep> GetHSGPByToChuc(int tcId)
         {
             var hs = (from g in db.HoSoGiayPheps
@@ -39,7 +39,15 @@ namespace GIS.Models
                       select g).ToList() ;
             return hs;
         }
-
+        // lấy all hs có mã tc
+        public List<HoSoGiayPhep> GetHSListByTCID(int tcId)
+        {
+            var m = (from hs in db.HoSoGiayPheps
+                     where hs.MaToChuc == tcId
+                     orderby hs.MaHoSo descending
+                     select hs).ToList();
+            return m;
+        }
         public HoSoGiayPhep GetHoSoGiayPhepByID(int id)
         {
             return db.HoSoGiayPheps.SingleOrDefault(d => d.MaHoSo == id);
@@ -54,6 +62,39 @@ namespace GIS.Models
             if (m != null && m.Count != 0)
             {
                 HoSoGiayPhep hs = m[0];
+                if (hs.TinhTrang == 1)
+                    return 1;
+                else if (hs.TinhTrang == 2)
+                    return 2;
+                else if (hs.TinhTrang == 3)
+                    return 3;
+                else if (hs.TinhTrang == 4)
+                    return 4;
+                else if (hs.TinhTrang == 5)
+                    return 5;
+                else if (hs.TinhTrang == 6)
+                    return 6;
+                else if (hs.TinhTrang == 7)
+                    return 7;
+                else if (hs.TinhTrang == 8)
+                    return 8;
+                else if (hs.TinhTrang == 9)
+                    return 9;
+                else if (hs.TinhTrang == 10)
+                    return 10;
+                else if (hs.TinhTrang == 11)
+                    return 11;
+                else return 12;
+            }
+            return 0;
+        }
+
+        public int Check(IList<HoSoGiayPhep> list)
+        {
+            
+            if (list != null && list.Count != 0)
+            {
+                HoSoGiayPhep hs = list[0];
                 if (hs.TinhTrang == 1)
                     return 1;
                 else if (hs.TinhTrang == 2)
