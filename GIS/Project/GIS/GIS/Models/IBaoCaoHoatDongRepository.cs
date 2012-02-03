@@ -10,6 +10,7 @@ namespace GIS.Models
         IQueryable<BaoCaoHoatDong> GetBaoCaoHoatDongs();
         IPagedList<BaoCaoHoatDong> GetBaoCaoHoatDongByTCID(int tcid, int pageNo);
         BaoCaoHoatDong GetBaoCaoHoatDongByTC(int tcid);
+        BaoCaoHoatDong GetBaoCaoHoatDongByTTC(int ttcid);
 
         void Add(BaoCaoHoatDong BaoCaoHoatDong);
         void Delete(BaoCaoHoatDong BaoCaoHoatDong);

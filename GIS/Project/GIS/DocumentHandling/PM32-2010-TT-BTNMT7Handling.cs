@@ -57,9 +57,11 @@ namespace DocumentHandling
                 case TENTOCHUC:
                 case GIAYPHEPHOATDONGSO:
                 case GIAYPHEPHOATDONGCAPNGAY:
-                case DOANHTHUNAM:
-                case NOPNGANSACHNAM:
                     Parameters[name] = BookmarkReplacedFactory.getInLineValue(value.ToString());
+                    break;
+                case NOPNGANSACHNAM:
+                case DOANHTHUNAM:
+                    Parameters[name] = BookmarkReplacedFactory.getInLineValue(string.Format("{0:0,0}", value));
                     break;
                 case CONGTRINHDODACBANDO:
                     Parameters[name] = BookmarkReplacedFactory.getTableValue((List<List<string>>)value);

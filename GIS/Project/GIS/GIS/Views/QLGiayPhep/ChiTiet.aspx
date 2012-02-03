@@ -4,6 +4,8 @@
     Chi tiết giấy phép
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <%= Html.ActionLink("Download báo cáo", "DownloadBaoCao", new { id = Model.giayphep.MaHoSo }) %>
+    <%= Html.ActionLink("Download bản đăng ký", "DownloadBanDangKy", new { id = Model.giayphep.MaHoSo })%>
     <div class="grid_19 alpha">
         <h3>
             Thông tin hồ sơ
@@ -120,7 +122,7 @@
         </div>
         <% if (Model.giayphep.LoaiGiayPhep == 2 || Model.giayphep.LoaiGiayPhep == 3)
            {
-               var bchd = Model.giayphep.ThongTinChung.BaoCaoHoatDongs.Single(m => m.MaThongTinChung == Model.giayphep.MaThongTinChung);
+               var bchd = Model.giayphep.ThongTinChung.BaoCaoHoatDongs.Where(m => m.MaThongTinChung == Model.giayphep.MaThongTinChung).First();
         %>
         <div class="box">
             <h2>
