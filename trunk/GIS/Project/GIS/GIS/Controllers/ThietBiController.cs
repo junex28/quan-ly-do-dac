@@ -32,10 +32,10 @@ namespace GIS.Controllers
             return View();
         }
 
-        public ActionResult DSThietBis(int tcid, int page)
+        public ActionResult DSThietBis(int ttcid, int page)
         {
 
-            var DSThietBi= _ThietBiRepository.GetThietBiByID(tcid,page-1).ToList();
+            var DSThietBi= _ThietBiRepository.GetThietBiByTTCID(ttcid,page-1).ToList();
             return PartialView(DSThietBi);
         }
     }
