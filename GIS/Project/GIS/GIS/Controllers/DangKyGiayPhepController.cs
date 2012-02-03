@@ -1669,12 +1669,34 @@ namespace GIS.Controllers
             return View(msg);
         }
 
-        [HttpPost]
-        public ActionResult Luu(ToChucDetailViewModel model)
+        [HttpGet]
+        public ActionResult KetQuaHoSo()
         {
-            return View();
-        }
+            ThamDinhEditViewModel model = new ThamDinhEditViewModel();
+            TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;
+            List<ToChuc> tcs = tk.ToChucs.ToList();
+            if (tcs.Count == 0)
+            {
+                return RedirectToAction("ThongBao", new { iMsg = 14 });
+            }
+            ToChuc tc = tcs[0];
+            
+            List<HoSoGiayPhep> listHS = _hsgpRepository.GetHSListByTCID(tc.MaToChuc);
+            if (listHS != null || listHS.Count == 0)
+            {
+                int check = _hsgpRepository.Check(listHS);
+                HoSoGiayPhep hs = listHS[0];
+                model.giayphep = hs;
+                List<ThamDinh> tds = hs.ThamDinhs.ToList();
+                if (tds != null && tds.Count != 0)
+                {
+                    ThamDinh td = tds[0];
+                    model.ThamDinh = td;
+                }
+            }
+            return View(model);
 
+        }
         public ActionResult ThongTinChung()
         {
             return View();
@@ -1723,12 +1745,6 @@ namespace GIS.Controllers
                 ContentType = "application/octet-stream",
                 Content = System.IO.File.ReadAllBytes(pfn)
             };
-        }
-
-        public ActionResult KetQuaHoSo() {
-            ThamDinhEditViewModel model = new ThamDinhEditViewModel();
-           
-            return View(model);
         }
     }
 }
