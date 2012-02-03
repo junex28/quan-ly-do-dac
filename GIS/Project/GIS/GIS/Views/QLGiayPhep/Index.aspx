@@ -82,7 +82,7 @@
                 if (!selr || selr.length <= 0) {
                     alert('Chưa chọn giấy phép nào');
                 } else {
-                    var isOk = confirm("Bạn muốn xóa những giấy phép này?");
+                    var isOk = confirm("Bạn muốn Hủy những giấy phép này?");
                     if (isOk) {
                         for (var i = 0; i < selr.length; i++) {
                             var input = document.createElement("input");
@@ -133,9 +133,10 @@
 
         function chageSelect() {
             //salert($("#selector").val());
-            actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER"} ) %>';
-            st = actionUrl.replace('PLACEHOLDER', $("#selector").val());
-            $("#grid").setGridParam({ url: st }).trigger('reloadGrid');
+//            actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER"} ) %>';
+//            st = actionUrl.replace('PLACEHOLDER', $("#selector").val());
+            //            $("#grid").setGridParam({ url: st }).trigger('reloadGrid');
+            gridReload();
         }
 
         var timeoutHnd;
@@ -182,26 +183,28 @@
             <button id="editButton" class="button redmond">
                 <span class="edit">Sửa</span></button>
             <button id="deleteButton" class="button redmond">
-                <span class="delete">Xóa</span></button>
+                <span class="delete">Hủy</span></button>
         </div>
         <div class="box">
-            <form>
             <label>
-                Danh sách giấy phép:
+                Danh sách hồ sơ:
             </label>
+            <form>
             <select id="selector" onchange="chageSelect();" style="padding: 0.5em; background-color: #FFFFFF;
                 border: 1px solid #BBBBBB;">
                 <option value="0" selected="selected">Tất cả</option>
                 <option value="1">DS xin mới đang chờ thẩm định</option>
                 <option value="2">DS xin mới không đủ điều kiện</option>
                 <option value="3">DS giấy phép hết hạn</option>
-                <option value="3">DS xin mới đủ điều kiện</option>
-                <option value="4">DS xin bổ sung hoạt động</option>
-                <option value="5">DS xin bổ sung hoạt động thất bại</option>
-                <option value="6">DS xin bổ sung hoạt động thành công</option>
-                <option value="7">DS xin gia hạn</option>
-                <option value="8">DS xin gia hạn thất bại</option>
-                <option value="9">DS xin gia hạn thành công</option>
+                <option value="4">DS xin mới đủ điều kiện nhưng chưa có số giấy phép</option>
+                <option value="5">DS đã được cấp giấy phép  </option>
+                <option value="6">DS xin bổ sung hoạt động</option>
+                <option value="7">DS xin bổ sung hoạt động thất bại</option>
+                <option value="8">DS xin bổ sung hoạt động thành công</option>
+                <option value="9">DS xin gia hạn</option>
+                <option value="10">DS xin gia hạn thất bại</option>
+                <option value="11">DS xin gia hạn thành công</option>
+                <option value="12">DS đã hủy giấy phép</option>
             </select>
             </form>
         </div>
@@ -234,5 +237,5 @@
     <% using (Html.BeginForm("chitiet", "qlgiayphep", FormMethod.Get, new { id = "detailForm" })) { } %>
     <% using (Html.BeginForm("Edit", "QLGiayPhep", FormMethod.Get, new { id = "editForm" })) { } %>
     <% using (Html.BeginForm("ThamDinh", "ThamDinh", FormMethod.Get, new { id = "thamdinhForm" })) { } %>
-    <% using (Html.BeginForm("Delete", "QLGiayPhep", FormMethod.Post, new { id = "deleteForm" })) { } %>
+    <% using (Html.BeginForm("HuyGiayPhep", "QLGiayPhep", FormMethod.Post, new { id = "deleteForm" })) { } %>
 </asp:Content>
