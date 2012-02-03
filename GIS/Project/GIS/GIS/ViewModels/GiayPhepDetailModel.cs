@@ -18,6 +18,7 @@ namespace GIS.ViewModels
         public IQueryable<HoatDongDuocCap> DangKyBoSung { get; set; }
         public IEnumerable<HoatDong> hoatdong { get; set; }
         public IList<NangLucKeKhai> nangluc { get; set; }
+        public int MaBaoCao { get; set; }
         //public IEnumerable<SelectListItem> selectListItems{get; set;}
         //public IEnumerable<Stri> availableItems
        
