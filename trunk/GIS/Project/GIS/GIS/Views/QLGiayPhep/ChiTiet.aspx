@@ -127,7 +127,12 @@
                     <label class="grid_6">
                         Hồ sơ đăng ký đính kèm :
                     </label>
-                   <%= Html.ActionLink("Download", "Download", new { fn = Model.giayphep.TepDinhKem })%>
+                    <% if(Model.giayphep.TepDinhKem != null && Model.giayphep.TepDinhKem != "") %>
+                    {
+                        <%= Html.ActionLink("Download", "Download", new { fn = Model.giayphep.TepDinhKem })%>
+                   <%} else{%>
+                   Không có tệp đính kèm
+                   <%} %>
                 </p>
             </div>
         </div>
