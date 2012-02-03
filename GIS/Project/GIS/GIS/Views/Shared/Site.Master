@@ -80,6 +80,7 @@
                             <li><a href="/qlgiayphep/index">Quản lý giấy phép</a> </li>
                             <li><a href="../12/fluid/jquery/">Quản lý công trình</a> </li>
                             <li><a href="/taikhoan/index">Quản lý tài khoản</a> </li>
+                            <li><a href="/thongke/index">Thống kê</a> </li>
                         </ul>
                     </li>
                     <li><a href="/taikhoan/index">Đăng ký/Tài khoản</a>
