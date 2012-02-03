@@ -118,6 +118,43 @@
                 </div>
             </div>
         </div>
+        <% if (Model.giayphep.LoaiGiayPhep == 2 || Model.giayphep.LoaiGiayPhep == 3)
+           {
+               var bchd = Model.giayphep.ThongTinChung.BaoCaoHoatDongs.Single(m => m.MaThongTinChung == Model.giayphep.MaThongTinChung);
+        %>
+        <div class="box">
+            <h2>
+                <a id="toggle-baocaothhd" href="#" style="cursor: pointer;">Báo cáo tình hình hoạt động</a>
+            </h2>
+            <div class="block" id="baocaothhd">
+                <p>
+                    <label class="grid_2 prefix_4">
+                        Từ năm:<%= bchd.TuNam%>
+                    </label>
+                    <label class="grid_3">
+                        Đến năm:<%= bchd.DenNam%>
+                    </label>
+                </p>
+                <p>
+                    <label class="grid_6">
+                        Doanh thu năm:<%= bchd.DoanhThu.Value.ToString().Replace(",0000", "")%>
+                    </label>
+                </p>
+                <p>
+                    <label class="grid_6">
+                        Nộp ngân sách:
+                        <%= bchd.NopNganSach.Value.ToString().Replace(",0000", "")%>
+                    </label>
+                </p>
+            </div>
+            <h5>
+                Danh sách công trình đã thực hiện</h5>
+            <div class="box">
+                <div id="congtrinhresult">
+                </div>
+            </div>
+        </div>
+        <%} %>
         <div class="box">
             <h2>
                 <a id="toggle-hoso" href="#" style="cursor: pointer;">Hồ sơ đính kèm</a>
@@ -127,12 +164,14 @@
                     <label class="grid_6">
                         Hồ sơ đăng ký đính kèm :
                     </label>
-                    <% if(Model.giayphep.TepDinhKem != null && Model.giayphep.TepDinhKem != "") %>
-                    {
-                        <%= Html.ActionLink("Download", "Download", new { fn = Model.giayphep.TepDinhKem })%>
-                   <%} else{%>
-                   Không có tệp đính kèm
-                   <%} %>
+                    <% if (Model.giayphep.TepDinhKem == null || Model.giayphep.TepDinhKem == "")
+                       {%>
+                    Không có tệp đính kèm
+                    <% }
+                       else
+                       {%>
+                    <%= Html.ActionLink("Download", "Download", new { fn = Model.giayphep.TepDinhKem })%>
+                    <%} %>
                 </p>
             </div>
         </div>
@@ -221,12 +260,14 @@
                         Danh sách hoạt động xin bổ sung đang xét:
                     </label>
                     <ul class="grid_6">
-                        <% foreach (var item in Model.DangKy)
+                        <% int count = 1;
+                           foreach (var item in Model.DangKy)
                            {
                         %>
                         <li>
-                            <%= item.HoatDong.TenHoatDong%></li>
-                        <%} %>
+                            <%=count %>.<%= item.HoatDong.TenHoatDong%></li>
+                        <% count++;
+                           } %>
                     </ul>
                 </p>
             </div>
@@ -258,7 +299,7 @@
             </div>
         </div>
     </div>
-          <% using (Html.BeginForm("ThamDinh", "ThamDinh", FormMethod.Post, new { id = "thamdinhForm" })) { } %>
+    <% using (Html.BeginForm("ThamDinh", "ThamDinh", FormMethod.Post, new { id = "thamdinhForm" })) { } %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
 
@@ -279,24 +320,30 @@
                 return true;
             });
         });
-        
-        function doAjaxPageNangLuc(pageNo, tcid) {
-            $("#nanglucresult").load("/nangluc/dsnanglucs", { page: pageNo, tcid: tcid });
+
+        function doAjaxPageNangLuc(pageNo, ttcid) {
+            $("#nanglucresult").load("/nangluc/dsnanglucs", { page: pageNo, ttcid: ttcid });
         }
 
-        function doAjaxPageNhanLuc(pageNo, tcid) {
-            $("#nhanlucresult").load("/nhanluc/dsnhanlucs", { page: pageNo, tcid: tcid });
+        function doAjaxPageNhanLuc(pageNo, ttcid) {
+            $("#nhanlucresult").load("/nhanluc/dsnhanlucs", { page: pageNo, ttcid: ttcid });
         }
 
-        function doAjaxPageThietBi(pageNo, tcid) {
-            $("#thietbiresult").load("/thietbi/dsthietbis", { page: pageNo, tcid: tcid });
+        function doAjaxPageThietBi(pageNo, ttcid) {
+            $("#thietbiresult").load("/thietbi/dsthietbis", { page: pageNo, ttcid: ttcid });
+        }
+
+        function doAjaxPageCongTrinh(pageNo, ttcid) {
+            $("#congtrinhresult").load("/bccongtrinh/dscongtrinh", { page: pageNo, bcid: bcid });
         }
 
         $(document).ready(function() {
-            var tcid = '<%=Model.giayphep.ToChuc.MaToChuc%>';
-            doAjaxPageNangLuc(1, tcid);
-            doAjaxPageNhanLuc(1, tcid);
-            doAjaxPageThietBi(1, tcid);
+            var ttcid = '<%=Model.giayphep.ThongTinChung.MaThongTinChung%>';
+            var bcid = '<%=Model.MaBaoCao %>';
+            doAjaxPageNangLuc(1, ttcid);
+            doAjaxPageNhanLuc(1, ttcid);
+            doAjaxPageThietBi(1, ttcid);
+            doAjaxPageCongTrinh(1, bcid);
         });
         
     </script>
