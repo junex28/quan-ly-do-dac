@@ -81,7 +81,10 @@
                {%>
             <p>
                 Cấp ngày :
+               <% if (Model.giayphep.NgayCapPhep != null)
+                  { %>
                 <%=Html.Encode(Model.giayphep.NgayCapPhep.Value.ToShortDateString())%>
+                <%} %>
             </p>
             <% }
                else
@@ -105,7 +108,10 @@
                     <label class="grid_6 labelnor">
                         Ngày thẩm định :
                     </label>
-                    <%=Html.Encode(Model.ThamDinh.NgayThamDinh.Value.ToShortDateString()) %>
+                    <% if (Model.ThamDinh.NgayThamDinh != null)
+                       { %>
+                         <%=Html.Encode(Model.ThamDinh.NgayThamDinh.Value.ToShortDateString())%>
+                    <%} %>
                 </p>
                 <p>
                     <label class="grid_6 labelnor">
@@ -137,7 +143,7 @@
                     </label>
                     <%= Html.Encode(Model.ThamDinh.KienNghi) %>
                 </p>
-                <% if (true)
+                <% if (Model.giayphep.SoGiayPhep != null && Model.giayphep.SoGiayPhep != "")
                    { %>
                 <p>
                     <label class="grid_6 labelnor">

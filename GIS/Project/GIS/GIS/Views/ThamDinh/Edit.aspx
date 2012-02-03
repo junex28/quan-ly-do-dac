@@ -95,16 +95,19 @@
                     <%= Html.TextAreaFor(m=>m.ThamDinh.KienNghi) %>
                     <%= Html.ValidationMessageFor(m => m.ThamDinh.KienNghi)%>
                 </p>
-                <% if (true)
+                <% if (Model.giayphep.SoGiayPhep == null && Model.giayphep.SoGiayPhep == "")
                    { %>
                 <p>
                     <label class="grid_6">
                         Số giấy phép :
                     </label>
                     <%= Html.TextBoxFor(m => m.giayphep.SoGiayPhep)%>
+                   <% }else{%>
+                    <%= Html.TextBoxFor(m => m.giayphep.SoGiayPhep, new {@disabled = "disabled"})%>
+                    <%}%>
                     <%= Html.ValidationMessageFor(m => m.giayphep.SoGiayPhep)%>
                 </p>
-                <% }
+                
                }
                 %>
             </div>
