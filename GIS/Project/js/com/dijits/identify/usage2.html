@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Identify Dijit - customized</title>
+    <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/1.4/js/dojo/dijit/themes/tundra/tundra.css">
+    <script type="text/javascript">
+      djConfig = {
+        baseUrl: "./",
+        modulePaths: { "dijits": "./dijits" }
+      };
+    </script>
+    <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=1.4" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("dijits.identify.Identify");
+            
+      var map, identifyDijit;
+
+      function initialize() {
+        var initialExtent = new esri.geometry.Extent(-122.580, 45.482, -122.571, 45.488, new esri.SpatialReference({wkid:4326}));
+        map = new esri.Map("map_canvas", {extent: initialExtent});
+        dojo.connect(map, "onLayerAdd", mapLoaded);
+        
+        map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_Imagery_World_2D/MapServer/"));
+        map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Portland/Portland_ESRI_LandBase_AGO/MapServer/", { opacity: 0.65 }));
+      }
+      
+      function mapLoaded() {
+        // wait for the layers to be loaded and accessible
+        if (map.layerIds.length === 2) {
+          identifyDijit = new dijits.identify.Identify({ 
+            map: map,
+            label: "Identify features",
+            defaultTolerance: 2,
+            mapServices: [
+              {
+                url: "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Portland/Portland_ESRI_LandBase_AGO/MapServer/",
+                name: "Portland Landbase",
+                layerIds: [ 2, 3, 4 ],
+                layerOption: esri.tasks.IdentifyParameters.LAYER_OPTION_ALL,
+                displayOptions: {
+                  "2": { layerAlias: "Tax Lot", attributes: [ "TLID", "RNO", "LANDUSE", "SITEADDR", "SITECITY" ], fieldAliases: { "TLID": "Tax Lot ID", "SITEADDR": "Address", "SITECITY": "City Name" } },
+                  "3": { displayFieldName: "BUILD_ID", attributes: [ "BUILD_ID", "TL_ADDRESS", "SPLIT" ] },
+                  "4": { displayFieldName: "ZONEGEN_CL", attributes: [ "CITY", "ZONE", "ZONE_CLASS", "ZONEGEN_CL" ] }
+                }
+              }
+            ],
+            fillSymbol: new esri.symbol.SimpleFillSymbol(
+              esri.symbol.SimpleFillSymbol.STYLE_SOLID, 
+              new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([ 64, 64, 64, 1 ]), 2), 
+              new dojo.Color([ 0, 0, 255, 0.5 ])
+            ),
+            locationMarker: new esri.symbol.SimpleMarkerSymbol(
+              esri.symbol.SimpleMarkerSymbol.STYLE_CROSS, 
+              12, 
+              new esri.symbol.SimpleLineSymbol( esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([ 255, 0, 0 ]), 3 )
+            )
+          });
+          identifyDijit.startup();
+          dojo.style(dojo.byId("status"), "display", "none");
+        }
+      }
+      
+      dojo.addOnLoad(initialize);
+    </script>
+  </head>
+
+  <body class="tundra">
+    <p style="font-size: small; font-family: Arial Unicode MS,Arial,sans-serif;">
+      <b>Click on the map to identify features.</b>
+      <br/>- To configure this dijit, click the <img src='./dijits/identify/images/gear.png' /> icon located on the top-right corner of the dijit.
+      <br/>- You can detach the dijit from the map by clicking the <img src='./dijits/identify/images/attached.png' /> icon on the top-left corner.
+      <br/>- Select View -> Page Source in the menu bar for source code 
+      <br/>- See <a href="./dijits/identify/doc/identify.html" target="_blank">Developer Documentation</a> for the dijit
+    </p>
+    <div id="map_canvas" style="position: relative; width: 700px; height: 500px; border: 1px solid #000;">
+      <span id="status" style="position: absolute; z-index: 999; right:5px; top:5px; background-color: black; color: white; padding: 3px; font-size: small; font-family: Arial Unicode MS,Arial,sans-serif; border: solid 1px white;">
+        Please wait...
+      </span>
+    </div>
+  </body>
+</html>

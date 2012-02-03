@@ -1,0 +1,52 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2008 ESRI
+//
+// All rights reserved under the copyright laws of the United States.
+// You may freely redistribute and use this software, with or
+// without modification, provided you include the original copyright
+// and use restrictions.  See use restrictions in the file:
+// <install location>/FlexViewer/License.txt
+//
+////////////////////////////////////////////////////////////////////////////////
+{
+	search: {
+		layers: [
+			{
+				name: "Mốc trọng lực",
+				url: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandomoc/MapServer/1",
+				expression: "SoHieu = '[value]'",
+				textSearchField: "SoHieu",
+				textSearchSampleValue: "QTB.526",
+				graphicalSearch: true,
+				fields: ["SoHieu","CapHang","LoaiMoc","HeQuyChieu","TinhTrang","NamThanhLap"],
+				titleField: "SoHieu",
+				linkField: "",				
+			},
+			{
+				name: "Mốc toạ độ",
+				url: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandomoc/MapServer/2",
+				expression: "SoHieu = '[value]'",
+				textSearchField: "SoHieu",
+				textSearchSampleValue: "QTB.526",
+				graphicalSearch: true,
+				fields: ["SoHieu","CapHang","LoaiMoc","HeQuyChieu","TinhTrang","NamThanhLap"],
+				titleField: "SoHieu",
+				linkField: "",				
+			},
+			{
+				name: "Mốc độ cao",
+				url: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandomoc/MapServer/3",
+				expression: "SoHieu = '[value]'",
+				textSearchField: "SoHieu",
+				textSearchSampleValue: "QTB.526",
+				graphicalSearch: true,
+				fields: ["SoHieu","CapHang","LoaiMoc","HeQuyChieu","TinhTrang","NamThanhLap"],
+				titleField: "SoHieu",
+				linkField: "",				
+			}
+		],
+		zoomScale: 10000,
+		pinIcon: "assets/images/icons/i_pushpin.png"
+	}
+}
