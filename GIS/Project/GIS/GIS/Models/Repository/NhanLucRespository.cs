@@ -15,15 +15,22 @@ namespace GIS.Models.Repository
             return db.NhanLucs.AsQueryable();
         }
 
-        public IPagedList<NhanLuc> GetNhanLucByID(int tcid, int pageNo)
+        public IPagedList<NhanLuc> GetNhanLucByTTCID(int ttcid, int pageNo)
         {
             int soRecord = 5;
             var nhanlucList = (from nn in db.NhanLucs
-                               where nn.MaToChuc == tcid
+                               where nn.MaThongTinChung == ttcid
                                select nn).ToPagedList(pageNo, soRecord);
             return nhanlucList;
         }
 
+        public List<NhanLuc> GetNhanLucByTTC(int ttcid)
+        {
+            var nhanlucList = (from nn in db.NhanLucs
+                               where nn.MaThongTinChung == ttcid
+                               select nn).ToList();
+            return nhanlucList;
+        }
         public List<NhanLuc> GetNhanLucByTCID(int tcid)
         {
             return  (from nn in db.NhanLucs

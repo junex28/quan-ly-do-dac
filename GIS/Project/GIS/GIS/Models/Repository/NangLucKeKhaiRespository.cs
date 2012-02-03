@@ -16,12 +16,20 @@ namespace GIS.Models.Repository
         {
             return db.NangLucKeKhais.AsQueryable();
         }
-        public IPagedList<NangLucKeKhai> GetNangLucKeKhaiByID(int tcid, int pageNo)
+        public IPagedList<NangLucKeKhai> GetNangLucKeKhaiByTTCID(int ttcid, int pageNo)
         {
             int soRecord =5;
             var nanglucList= (from nn in db.NangLucKeKhais
-                    where nn.MaToChuc == tcid
+                    where nn.MaThongTinChung == ttcid
                     select nn).ToPagedList(pageNo,soRecord);
+            return nanglucList;
+        }
+
+        public List<NangLucKeKhai> GetNangLucKeKhaiByTTC(int ttcid)
+        {
+            var nanglucList = (from nn in db.NangLucKeKhais
+                               where nn.MaThongTinChung == ttcid
+                               select nn).ToList();
             return nanglucList;
         }
 
