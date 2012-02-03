@@ -102,8 +102,10 @@
 </div>
 <!-- Kiểm tra loại giấy phép -->
  <%     
-     if (true)
-           {%>
+     if (Model.giayphep.LoaiGiayPhep == 2 || Model.giayphep.LoaiGiayPhep == 3)
+     {
+         var bchd = Model.giayphep.ThongTinChung.BaoCaoHoatDongs.Single(m => m.MaThongTinChung == Model.giayphep.MaThongTinChung);
+           %>
         <div class="box">
             <h2>
                 <a id="toggle-baocaothhd" href="#" style="cursor: pointer;">Báo cáo tình hình hoạt động</a>
@@ -111,22 +113,21 @@
             <div class="block" id="baocaothhd">
                  <p>
                     <label class="grid_2 prefix_4">
-                        Từ năm:
+                        Từ năm:<%= bchd.TuNam %>
                     </label>
                     
                     <label class="grid_3">
-                        Đến năm:
-                    </label>
-                   
-                </p>
-                <p>
-                    <label class="grid_6">
-                        Doanh thu năm:
+                        Đến năm:<%= bchd.DenNam%>
                     </label>
                 </p>
                 <p>
                     <label class="grid_6">
-                        Nộp ngân sách:
+                        Doanh thu năm:<%= bchd.DoanhThu.Value.ToString().Replace(",0000", "")%>
+                    </label>
+                </p>
+                <p>
+                    <label class="grid_6">
+                        Nộp ngân sách: <%= bchd.NopNganSach.Value.ToString().Replace(",0000","")%>
                     </label>
                </p>
                  <h5>Danh sách công trình đã thực hiện</h5>
@@ -146,7 +147,14 @@
             <label class="grid_6">
                 Hồ sơ đăng ký đính kèm :
             </label>
-            <%= Html.Encode(Model.giayphep.TepDinhKem) %>
+            <% if (Model.giayphep.TepDinhKem == null || Model.giayphep.TepDinhKem == "")
+               { %>
+                  Không có tệp đính kèm
+            <%}
+               else
+               {%>
+                    <%= Html.Encode(Model.giayphep.TepDinhKem)%>
+            <%} %>
         </p>
     </div>
 </div>
@@ -237,7 +245,7 @@
 </div>
 <!-- Đăng ký gia hạn giấy phép-->
 <% }
-   else if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 6)
+   else if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 9 )
    {%>
 <div class="box clearfix">
     <h2>
@@ -284,27 +292,28 @@
 
 <% }%>
 <script type="text/javascript">
-    function doAjaxPageNangLuc(pageNo, tcid) {
-        $("#nanglucresult").load("/nangluc/dsnanglucs", { page: pageNo, tcid: tcid });
+    function doAjaxPageNangLuc(pageNo, ttcid) {
+        $("#nanglucresult").load("/nangluc/dsnanglucs", { page: pageNo, ttcid: ttcid });
     }
 
-    function doAjaxPageNhanLuc(pageNo, tcid) {
-        $("#nhanlucresult").load("/nhanluc/dsnhanlucs", { page: pageNo, tcid: tcid });
+    function doAjaxPageNhanLuc(pageNo, ttcid) {
+        $("#nhanlucresult").load("/nhanluc/dsnhanlucs", { page: pageNo, ttcid: ttcid });
     }
 
-    function doAjaxPageThietBi(pageNo, tcid) {
-        $("#thietbiresult").load("/thietbi/dsthietbis", { page: pageNo, tcid: tcid });
+    function doAjaxPageThietBi(pageNo, ttcid) {
+        $("#thietbiresult").load("/thietbi/dsthietbis", { page: pageNo, ttcid: ttcid });
     }
 
-    function doAjaxPageCongTrinh(pageNo, tcid) {
-        $("#congtrinhresult").load("/bccongtrinh/dscongtrinh", { page: pageNo, tcid: tcid });
+    function doAjaxPageCongTrinh(pageNo, bcid) {
+        $("#congtrinhresult").load("/bccongtrinh/dscongtrinh", { page: pageNo, bcid: bcid });
     }
 
     $(document).ready(function() {
-        var tcid = '<%=Model.giayphep.ToChuc.MaToChuc%>';
-        doAjaxPageNangLuc(1, tcid);
-        doAjaxPageNhanLuc(1, tcid);
-        doAjaxPageThietBi(1, tcid);
-        doAjaxPageCongTrinh(1, tcid);
+        var ttcid = '<%=Model.giayphep.ThongTinChung.MaThongTinChung%>';
+        var bcid = '<%= Model.MaBaoCao %>';
+        doAjaxPageNangLuc(1, ttcid);
+        doAjaxPageNhanLuc(1, ttcid);
+        doAjaxPageThietBi(1, ttcid);
+        doAjaxPageCongTrinh(1, bcid);
     });
 </script>
