@@ -31,9 +31,9 @@ namespace GIS.Controllers
             return View();
         }
 
-        public ActionResult DSNanglucs(int tcid, int page)
+        public ActionResult DSNanglucs(int ttcid, int page)
         {
-            var DSNangLuc = _nanglucRepository.GetNangLucKeKhaiByID(tcid,page-1).ToList();
+            var DSNangLuc = _nanglucRepository.GetNangLucKeKhaiByTTCID(ttcid,page-1).ToList();
             return PartialView(DSNangLuc);
         }
 

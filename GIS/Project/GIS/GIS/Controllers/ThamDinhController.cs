@@ -86,6 +86,8 @@ namespace GIS.Controllers
         {
             //ThamDinh thamdinh = new ThamDinh();
             HoSoGiayPhep hs = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+            BaoCaoHoatDong bc = new BaoCaoHoatDong();
+            bc = hs.ThongTinChung.BaoCaoHoatDongs.SingleOrDefault(m => m.MaThongTinChung == hs.MaThongTinChung);
             var dangky = _dkhdRespository.GetDangKyHDs(gpid);
             var hdDaCap = _dkhdRespository.GetDKHDDaCap(gpid);
             var hdBoSung = _dkhdRespository.GetDKHDBoSung(gpid);
@@ -101,7 +103,8 @@ namespace GIS.Controllers
                 giayphep = hs,
                 hoatdong = hoatdongList,
                 DangKyDaCap = hdDaCap,
-                DangKyBoSung = hdBoSung
+                DangKyBoSung = hdBoSung,
+                MaBaoCao = bc.MaBaoCao
                 // nangluc = nanglucList
             };
             ThamDinh thamdinh = _thamdinhRepository.GetThamDinhByGPID(gpid);
@@ -114,7 +117,15 @@ namespace GIS.Controllers
         [HttpGet]
         public ActionResult Create(int gpid)
         {
-            HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+
+            HoSoGiayPhep hs = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+            BaoCaoHoatDong bc = new BaoCaoHoatDong();
+            bc = hs.ThongTinChung.BaoCaoHoatDongs.SingleOrDefault(m => m.MaThongTinChung == hs.MaThongTinChung);
+            int k = 0;
+            if (bc != null)
+            {
+                k = bc.MaBaoCao;
+            }
             var dangky = _dkhdRespository.GetDangKyHDs(gpid);
             var hdDaCap = _dkhdRespository.GetDKHDDaCap(gpid);
             var hdBoSung = _dkhdRespository.GetDKHDBoSung(gpid);
@@ -127,10 +138,11 @@ namespace GIS.Controllers
             var gpchitiet = new GiayPhepDetailModel
             {
                 DangKy = dangky,
-                giayphep = gphd,
+                giayphep = hs,
                 hoatdong = hoatdongList,
                 DangKyDaCap = hdDaCap,
-                DangKyBoSung = hdBoSung
+                DangKyBoSung = hdBoSung,
+                MaBaoCao = bc.MaBaoCao
                 // nangluc = nanglucList
             };
             var td = _thamdinhRepository.GetThamDinhByGPID(gpid);
@@ -138,8 +150,6 @@ namespace GIS.Controllers
             model.giayphep = _gphdRepository.GetHoSoGiayPhepByID(gpid);
             model.thongtinchung = gpchitiet;
             model.ThamDinh = td;
-            model.NgayCapPhep = DateTime.Now.Date;
-            model.NgayThamDinh = DateTime.Now.Date;
             //model.m = gpid; 
             return View(model);
         } 
@@ -195,10 +205,12 @@ namespace GIS.Controllers
         }
         //
         // GET: /ThamDinh/Edit/5
-
+        [HttpGet]
         public ActionResult Edit(int gpid)
         {
-            HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+            HoSoGiayPhep hs = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+            BaoCaoHoatDong bc = new BaoCaoHoatDong();
+            bc = hs.ThongTinChung.BaoCaoHoatDongs.SingleOrDefault(m => m.MaThongTinChung == hs.MaThongTinChung);
             var dangky = _dkhdRespository.GetDangKyHDs(gpid);
             var hdDaCap = _dkhdRespository.GetDKHDDaCap(gpid);
             var hdBoSung = _dkhdRespository.GetDKHDBoSung(gpid);
@@ -211,10 +223,11 @@ namespace GIS.Controllers
             var gpchitiet = new GiayPhepDetailModel
             {
                 DangKy = dangky,
-                giayphep = gphd,
+                giayphep = hs,
                 hoatdong = hoatdongList,
                 DangKyDaCap = hdDaCap,
-                DangKyBoSung = hdBoSung
+                DangKyBoSung = hdBoSung,
+                MaBaoCao = bc.MaBaoCao
                 // nangluc = nanglucList
             };
             var td = _thamdinhRepository.GetThamDinhByGPID(gpid);
@@ -222,6 +235,7 @@ namespace GIS.Controllers
             model.giayphep = _gphdRepository.GetHoSoGiayPhepByID(gpid);
             model.thongtinchung = gpchitiet;
             model.ThamDinh = td;
+            model.ThamDinh.NguoiThamDinh.Replace(";", "\r");
             //model.m = gpid; 
             return View(model);
         }
@@ -270,19 +284,24 @@ namespace GIS.Controllers
 
                 ThamDinh td = _thamdinhRepository.GetThamDinhByGPID(gpid);
                 td.MaHoSo = gpid;
+                if (model.ThamDinh.NgayThamDinh == null)
+                    model.ThamDinh.NgayThamDinh = DateTime.Today; 
                 td.NgayThamDinh = (DateTime)model.ThamDinh.NgayThamDinh;
-                td.NguoiThamDinh = model.ThamDinh.NguoiThamDinh;
-                td.NguoiPhiaToChuc = model.ThamDinh.NguoiPhiaToChuc;
+                string strNguoiThamDinh = model.ThamDinh.NguoiThamDinh;
+                td.NguoiThamDinh = strNguoiThamDinh.Replace("\r\n", ";"); 
+                td.NguoiPhiaToChuc = model.ThamDinh.NguoiPhiaToChuc.Replace("\r\n", ";");
                 td.TinhHopLe = model.ThamDinh.TinhHopLe;
                 td.NangLucNhanVien = model.ThamDinh.NangLucNhanVien;
                 td.NangLucThietBi = model.ThamDinh.NangLucThietBi;
                 td.KetLuan = model.ThamDinh.KetLuan;
                 td.KienNghi = model.ThamDinh.KienNghi;
+                if (save == 1)
+                    td.TinhTrangThamDinh = true;
                 _thamdinhRepository.Save();
             }
             catch
             {
-                return View();
+                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Lỗi khi lưu biên bản thẩm định" }, HttpContext.Response);
             }
             return RedirectToAction("Index", "QLGiayPhep");
         }
@@ -325,19 +344,10 @@ namespace GIS.Controllers
                 return RedirectToAction("Create", "Thamdinh", new { gpid = id });
             }
             else{
-                if (hs.TinhTrangGiayPhep.MaTinhTrang == 4 || hs.TinhTrangGiayPhep.MaTinhTrang == 6 || hs.TinhTrangGiayPhep.MaTinhTrang == 9)
-                {
-                    return RedirectToAction("Edit", "ThamDinh", new { gpid =id});
+                if (td.TinhTrangThamDinh == false)
+                   return RedirectToAction("Edit", "ThamDinh", new { gpid = id });
+                return RedirectToAction("Detail", "ThamDinh", new { gpid = id });
                 }
-                else
-                    return RedirectToAction("Detail", "ThamDinh", new { gpid = id });
-            }
-            // ngược lại tuỳ theo loại 
-            //Kiem tra ho so da co tham dinh chua
-            // Neu chua co thi 
-
-            // redirect den ThamDinh/Create/
-            
         }
 
         public ActionResult Download(int gpid)

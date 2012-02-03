@@ -21,6 +21,7 @@ namespace GIS.Controllers
         private IDangKyHoatDongRepository _dkhdRespository;
         private IHoatDongRepository _hoatdongRespository;
         private INangLucKeKhaiRespository _nanglucRespository;
+        //private IBaoCaoHoatDongRepository _bchdRespository;
 
        public QLGiayPhepController()
             : this(new ToChucRepository(), new TaiKhoanRepository(), new HoSoGiayPhepRepository(),
@@ -31,7 +32,8 @@ namespace GIS.Controllers
 
        public QLGiayPhepController(IToChucRepository tochucRepository, ITaiKhoanRepository taikhoanRepository,
            IHoSoGiayPhepRepository gphdRepository, ITinhTrangGiayPhepRepository ttgpRepository, 
-           IDangKyHoatDongRepository dkhdRespository, IHoatDongRepository hoatdongRepository, INangLucKeKhaiRespository nanglucRespository)
+           IDangKyHoatDongRepository dkhdRespository, IHoatDongRepository hoatdongRepository,
+           INangLucKeKhaiRespository nanglucRespository)
         {
             this._tochucRepository = tochucRepository;
             this._taikhoanRepository = taikhoanRepository;
@@ -40,6 +42,7 @@ namespace GIS.Controllers
             this._dkhdRespository = dkhdRespository;
             this._hoatdongRespository = hoatdongRepository;
            this._nanglucRespository = nanglucRespository;
+          // this._bchdRespository = bchdRespository;
         }
         //
         // GET: /GiayPhep/
@@ -67,6 +70,9 @@ namespace GIS.Controllers
                case 7: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(7, search); break;
                case 8: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(8, search); break;
                case 9: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(9, search); break;
+               case 10: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(10, search); break;
+               case 11: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(11, search); break;
+               case 12: listGiayPhep = _gphdRepository.GetGPHDByTinhTrang(12, search); break;
            }
 
            var pageIndex = Convert.ToInt32(page) - 1;
@@ -105,29 +111,28 @@ namespace GIS.Controllers
             HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(id);
             if (gphd == null)
             {
-                return new FileNotFoundResult { Message = "Không có giấy phép trên" };
+                return RedirectToAction("ThongBao", new {iMsg = 2});
+            }
+            BaoCaoHoatDong bc = new BaoCaoHoatDong();
+            bc = gphd.ThongTinChung.BaoCaoHoatDongs.SingleOrDefault(m=>m.MaThongTinChung == gphd.MaThongTinChung);
+            int k = 0;
+            if (bc != null)
+            {
+                k = bc.MaBaoCao;
             }
             var dangkyMoi = _dkhdRespository.GetDangKyHDMoi(id);
             var dangkyDuocCap = _dkhdRespository.GetDKHDDaCap(id);
             var dangkyBS = _dkhdRespository.GetDKHDBoSung(id);
-            //var maHDList = _dkhdRespository.getSelectedHD(dangky.ToList<DangKyHoatDong>());
-            //var hoatdongList = new List<HoatDong>();
-            //foreach (int i in maHDList)
-            //{
-            //    hoatdongList.Add(_hoatdongRespository.GetHoatDongByID(i));
-            //}
-
             var model = new GiayPhepDetailModel
             {
                 DangKy = dangkyMoi,
                 DangKyDaCap = dangkyDuocCap,
                 DangKyBoSung = dangkyBS,
-                giayphep = gphd
+                giayphep = gphd,
+                MaBaoCao = k
                 //hoatdong = hoatdongList
                // nangluc = nanglucList
             };
-
-            // Dieu huong view 
             return View(model);
         }
 
@@ -155,13 +160,23 @@ namespace GIS.Controllers
            return View(viewmodel);
        }
 
+       public ActionResult HuyGiayPhep(int[] ids)
+       {
+           foreach (int i in ids)
+           {
+               HoSoGiayPhep hs = _gphdRepository.GetHoSoGiayPhepByID(i);
+               _gphdRepository.Delete(hs);
+           }
+           return Redirect("Index");
+       }
+
        public ActionResult Download(string fn) 
        {
            string pfn = Server.MapPath("~/App_Data/Upload/HSToChuc/" + fn);
            pfn = pfn.Replace("//", "/");
            if (!System.IO.File.Exists(pfn))
            {
-               throw new ArgumentException("Invalid file name or file not exists!");
+               return RedirectToAction("ThongBao", new {iMsg = 1});
            }
            return new BinaryContentResult()
            {
@@ -170,6 +185,10 @@ namespace GIS.Controllers
                Content = System.IO.File.ReadAllBytes(pfn)
            };
        }
-
+       public ActionResult ThongBao(int iMsg)
+       {
+           var msg= iMsg;
+           return View(msg);
+       }
     }
 }

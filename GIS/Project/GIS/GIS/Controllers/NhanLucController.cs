@@ -32,10 +32,10 @@ namespace GIS.Controllers
             return View();
         }
 
-        public ActionResult DSNhanLucs(int tcid, int page)
+        public ActionResult DSNhanLucs(int ttcid, int page)
         {
 
-            var DSNhanLuc= _nhanlucRepository.GetNhanLucByID(tcid,page-1).ToList();
+            var DSNhanLuc= _nhanlucRepository.GetNhanLucByTTCID(ttcid,page-1).ToList();
             return PartialView(DSNhanLuc);
         }
 
