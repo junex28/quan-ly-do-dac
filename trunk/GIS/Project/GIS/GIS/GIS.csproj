@@ -86,12 +86,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\BinaryContentResult.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\Dynamic.cs" />
     <Compile Include="Helpers\EncryptionHelper.cs" />
     <Compile Include="Helpers\FileNotFoundResult.cs" />
-    <Compile Include="Helpers\Del_FileUploadJsonResult.cs" />
     <Compile Include="Helpers\IPagedList.cs" />
     <Compile Include="Helpers\JqGridData.cs" />
     <Compile Include="Helpers\JqGridExtensions.cs" />
@@ -102,20 +102,22 @@
     <Compile Include="Helpers\PagingLinqExtensions.cs" />
     <Compile Include="Helpers\SerializationHelper.cs" />
     <Compile Include="Models\A_RuleViolation.cs" />
+    <Compile Include="Models\IBaoCaoCongTrinhRespository.cs" />
     <Compile Include="Models\IFileStore.cs" />
+    <Compile Include="Models\IHoSoGiayPhepRepository.cs" />
+    <Compile Include="Models\INangLucKeKhaiRespository.cs" />
+    <Compile Include="Models\Repository\BaoCaoCongTrinhRespository.cs" />
+    <Compile Include="Models\Repository\BaoCaoHoatDongRespository.cs" />
     <Compile Include="Models\Repository\DangKyHoatDongRespository.cs" />
     <Compile Include="Models\Repository\DiskFileStore.cs" />
-    <Compile Include="Models\Repository\GiayPhepMoiRepository.cs" />
-    <Compile Include="Models\IGiayPhepMoiRespository.cs" />
     <Compile Include="Models\ITinhTrangTaiKhoanRepository.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\MyMembershipProvider.cs" />
     <Compile Include="Models\Repository\HoatDongRespository.cs" />
+    <Compile Include="Models\Repository\HoSoGiayPhepRepository.cs" />
     <Compile Include="Models\Repository\LoaiHinhToChucRepository.cs" />
-    <Compile Include="Models\Repository\GiayPhepHoatDongRepository.cs" />
     <Compile Include="Models\ILoaiHinhToChucRepository.cs" />
     <Compile Include="Models\IHoatDongRepository.cs" />
-    <Compile Include="Models\IGiayPhepHoatDongRepository.cs" />
     <Compile Include="Models\IDangKyHoatDongRepository.cs" />
     <Compile Include="Models\ICongTrinhRepository.cs" />
     <Compile Include="Models\ICongDoanThucHienRepository.cs" />
@@ -125,10 +127,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DDBD.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\IKieuSanPhamRepository.cs" />
     <Compile Include="Models\ILoaiQuyenRepository.cs" />
     <Compile Include="Models\ILoaiSanPhamRepository.cs" />
-    <Compile Include="Models\ILoaiThamDinhRepository.cs" />
     <Compile Include="Models\INhanLucRepository.cs" />
     <Compile Include="Models\INhomNguoiDungRepository.cs" />
     <Compile Include="Models\IQuanHuyenRepository.cs" />
@@ -136,15 +136,16 @@
     <Compile Include="Models\IQuyenCuaNhomRepository.cs" />
     <Compile Include="Models\IThietBiRepository.cs" />
     <Compile Include="Models\IThamDinhRepository.cs" />
-    <Compile Include="Models\ITinhTrangXetDuyetRepository.cs" />
     <Compile Include="Models\ITinhTrangGiayPhepRepository.cs" />
     <Compile Include="Models\ITinhThanhRepository.cs" />
     <Compile Include="Models\ITaiKhoanRepository.cs" />
     <Compile Include="Models\ISanPhamRepository.cs" />
     <Compile Include="Models\IToChucRepository.cs" />
-    <Compile Include="Models\Repository\LoaiThamDinhResposiroty.cs" />
+    <Compile Include="Models\Repository\NangLucKeKhaiRespository.cs" />
+    <Compile Include="Models\Repository\NhanLucRespository.cs" />
     <Compile Include="Models\Repository\TaiKhoanRepository.cs" />
     <Compile Include="Models\Repository\ThamDinhRespository.cs" />
+    <Compile Include="Models\Repository\ThietBiRespository.cs" />
     <Compile Include="Models\Repository\TinhTrangGiayPhepRepository.cs" />
     <Compile Include="Models\Repository\TinhTrangTaiKhoanRepository.cs" />
     <Compile Include="Models\Repository\ToChucRepository.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="ViewModels\GiayPhepDetailModel.cs" />
     <Compile Include="ViewModels\LogOnViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\ThamDinhEditViewModel.cs" />
     <Compile Include="ViewModels\ToChucDetailViewModel.cs" />
     <Compile Include="ViewModels\ToChucListViewModel.cs" />
   </ItemGroup>
@@ -738,6 +740,12 @@
     <Content Include="Views\TaiKhoan\Index.aspx" />
     <Content Include="Views\TaiKhoan\NotAllowed.aspx" />
     <Content Include="Views\ToChuc\TaoMoi.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DocumentHandling\DocumentHandling.csproj">
+      <Project>{28071D23-5079-4553-8DA6-969C2CF3908F}</Project>
+      <Name>DocumentHandling</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Upload\HSToChuc\" />

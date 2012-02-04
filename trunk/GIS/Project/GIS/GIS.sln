@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIS", "GIS\GIS.csproj", "{2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIS.Tests", "GIS.Tests\GIS.Tests.csproj", "{F967AF05-F281-4091-A8A9-664B1D6F8582}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentHandling", "DocumentHandling\DocumentHandling.csproj", "{28071D23-5079-4553-8DA6-969C2CF3908F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{F967AF05-F281-4091-A8A9-664B1D6F8582}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F967AF05-F281-4091-A8A9-664B1D6F8582}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F967AF05-F281-4091-A8A9-664B1D6F8582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28071D23-5079-4553-8DA6-969C2CF3908F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28071D23-5079-4553-8DA6-969C2CF3908F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28071D23-5079-4553-8DA6-969C2CF3908F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28071D23-5079-4553-8DA6-969C2CF3908F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
