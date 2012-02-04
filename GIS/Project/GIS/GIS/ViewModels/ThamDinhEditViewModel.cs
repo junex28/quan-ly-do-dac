@@ -56,5 +56,8 @@ namespace GIS.ViewModels
 
         [DisplayName("Ngày cấp phép")]
         public DateTime NgayCapPhep { get; set; }
+
+        [DisplayName("Ngày hết hạn")]
+        public DateTime NgayHetHan { get; set; }
     }
 }
