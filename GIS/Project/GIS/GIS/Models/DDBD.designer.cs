@@ -108,7 +108,7 @@ namespace GIS.Models
     #endregion
 		
 		public DDBDDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLDDBDConnectionString1"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLDDBDConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
