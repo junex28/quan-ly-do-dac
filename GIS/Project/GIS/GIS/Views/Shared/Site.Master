@@ -58,41 +58,9 @@
             <!-- Header end -->
             <!-- Menu -->
             <div class="grid_24">
-                <ul class="nav main">
-                    <li><a href="#Home"><span class="">Trang chủ</span></a> </li>
-                    <li><a href="#WebGis">Web GIS</a>
-                        <ul>
-                            <li><a href="#WebGis/">Hướng dẫn</a> </li>
-                            <li><a href="">Bản đồ</a> </li>
-                            <li><a href="">Quản lý</a> </li>
-                        </ul>
-                    </li>
-                    <li><a href="/dangkygiayphep/Index">Đăng ký giấy phép</a>
-                        <ul>
-                            <li><a href="/dangkygiayphep/TaoMoi">Đăng ký hoạt động</a> </li>
-                            <li><a href="/dangkygiayphep/BoSungGiayPhep">Bổ sung hoạt động</a></li>                        
-                            <li><a href="/dangkygiayphep/GiaHanGiayPhep">Xin gia hạn </a></li>
-                            <li><a href="/dangkygiayphep/KetQuaHoSo">Xem kết quả </a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/qlgiayphep/index">Quản lý</a>
-                        <ul>
-                            <li><a href="/qlgiayphep/index">Quản lý giấy phép</a> </li>
-                            <li><a href="../12/fluid/jquery/">Quản lý công trình</a> </li>
-                            <li><a href="/taikhoan/index">Quản lý tài khoản</a> </li>
-                            <li><a href="/thongke/index">Thống kê</a> </li>
-                        </ul>
-                    </li>
-                    <li><a href="/taikhoan/index">Đăng ký/Tài khoản</a>
-                        <ul>
-                            <li><a href="/taikhoan/chitiet">Thông tin tài khoản</a> </li>
-                            <li><a href="/taikhoan/capnhattaikhoan">Đổi mật khẩu</a></li>
-                            <li><a href="/taikhoan/chitiettochuc">Thông tin tổ chức</a></li>
-                            <li><a href="../12/fluid/none/">Lịch sử thẩm định</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#WebGis">Đăng nhập/Đăng xuất</a> </li>
-                </ul>
+
+            <% Html.RenderPartial("Navigation"); %>
+                
             </div>
             <!-- Menu end -->
             <div class="clear">
@@ -126,26 +94,3 @@
     </div>
 </body>
 </html>
-<%--<div class="page">
-        <div class="header">
-            <div class="siteLogo">
-                <a href="<%= Url.Action("Index", "TrangChu") %>">
-                    <img alt="HTQL do dac ban do" src="../../Content/images/logo.png" /></a>
-            </div>
-            <div class="siteLogin"><% Html.RenderPartial("LogOnUserControl"); %></div>
-            <div class="siteMenu">
-                <div class="siteMenuContent">
-                    <%= Html.MvcSiteMap().Menu("TopMenu", 0, 2, true, true) %>
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="contentLeft">
-                <%= Html.MvcSiteMap().Menu("LeftMenu", 1, 2, false, false) %>
-            </div>
-            <div class="contentRight">
-                <% Html.RenderPartial("SystemMessage"); %>
-                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-            </div>
-        </div>
-    </div>--%>
