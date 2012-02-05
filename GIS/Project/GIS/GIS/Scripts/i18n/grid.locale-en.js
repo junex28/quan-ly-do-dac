@@ -12,7 +12,7 @@ $.jgrid = {
 		recordtext: "View {0} - {1} of {2}",
 		emptyrecords: "No records to view",
 		loadtext: "Loading...",
-		pgtext : "Trang {0} của {1}"
+		pgtext : "Trang {0} của {1}"
 	},
 	search : {
 		caption: "Search...",
