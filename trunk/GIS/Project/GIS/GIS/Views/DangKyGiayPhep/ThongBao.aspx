@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        ThongBao</h2>
+        Thông báo</h2>
     <span style="color: Red">
         <% var i = Model;
             string iStr = i.ToString();
@@ -82,7 +82,7 @@
           %>     
                
     <br />
-    <input type="button" value="Trở về" onclick="window.location.href='/trangchu/index'" />
+    <input class="button redmond" type="button" value="Trở về" onclick="window.location.href='/trangchu/index'" />
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
 </asp:Content>
