@@ -50,7 +50,7 @@ namespace GIS
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "GIS", action = "viewer", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "TrangChu", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
 
