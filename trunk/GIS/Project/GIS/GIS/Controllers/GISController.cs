@@ -14,9 +14,9 @@ namespace GIS.Controllers
             return View("Viewer");
         }
 
-        public ActionResult Code()
+        public ActionResult Old()
         {
-            return View();
+            return View("Index");
         }
 
         public ActionResult Viewer() {
