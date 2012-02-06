@@ -1,12 +1,11 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
 <%@ Import Namespace= "GIS.Models" %>
 <ul class="nav main">                
-                    <li><a href="#Home"><span class="">Trang chủ</span></a> </li>
+                    <li><a href="/trangchu/index"><span class="">Trang chủ</span></a> </li>
                     <li><a href="#WebGis">Web GIS</a>
                         <ul>
                             <li><a href="#WebGis/">Hướng dẫn</a> </li>
-                            <li><a href="">Bản đồ</a> </li>
-                            <li><a href="">Quản lý</a> </li>
+                            <li><a href="">Bản đồ</a> </li>                            
                         </ul>
                     </li>
                     <li><a href="/dangkygiayphep/Index">Đăng ký giấy phép</a>
