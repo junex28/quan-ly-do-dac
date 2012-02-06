@@ -142,7 +142,7 @@ namespace GIS.Controllers
                 hoatdong = hoatdongList,
                 DangKyDaCap = hdDaCap,
                 DangKyBoSung = hdBoSung,
-                MaBaoCao = bc.MaBaoCao
+                MaBaoCao = k
                 // nangluc = nanglucList
             };
             var td = _thamdinhRepository.GetThamDinhByGPID(gpid);
@@ -209,8 +209,14 @@ namespace GIS.Controllers
         public ActionResult Edit(int gpid)
         {
             HoSoGiayPhep hs = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+            ThamDinh td = _thamdinhRepository.GetThamDinhByGPID(hs.MaHoSo);
+            if (td != null && td.TinhTrangThamDinh == true)
+            {
+                return RedirectToAction("thongbao", new { iMsg = true});
+            }
             BaoCaoHoatDong bc = new BaoCaoHoatDong();
             bc = hs.ThongTinChung.BaoCaoHoatDongs.SingleOrDefault(m => m.MaThongTinChung == hs.MaThongTinChung);
+
             var dangky = _dkhdRespository.GetDangKyHDs(gpid);
             var hdDaCap = _dkhdRespository.GetDKHDDaCap(gpid);
             var hdBoSung = _dkhdRespository.GetDKHDBoSung(gpid);
@@ -227,15 +233,15 @@ namespace GIS.Controllers
                 hoatdong = hoatdongList,
                 DangKyDaCap = hdDaCap,
                 DangKyBoSung = hdBoSung,
-                MaBaoCao = bc.MaBaoCao
+                MaBaoCao = bc == null ? 0 : bc.MaBaoCao
                 // nangluc = nanglucList
             };
-            var td = _thamdinhRepository.GetThamDinhByGPID(gpid);
+//            var td = _thamdinhRepository.GetThamDinhByGPID(gpid);
             ThamDinhEditViewModel model = new ThamDinhEditViewModel();
             model.giayphep = _gphdRepository.GetHoSoGiayPhepByID(gpid);
             model.thongtinchung = gpchitiet;
             model.ThamDinh = td;
-            model.ThamDinh.NguoiThamDinh.Replace(";", "\r");
+            model.ThamDinh.NguoiThamDinh.Replace(";", System.Environment.NewLine);
             //model.m = gpid; 
             return View(model);
         }

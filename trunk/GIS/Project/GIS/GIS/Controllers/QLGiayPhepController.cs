@@ -49,13 +49,15 @@ namespace GIS.Controllers
         }
         //
         // GET: /GiayPhep/
-
+        [Authorize]
+        [RoleFilter(Roles="4")]
        public ActionResult Index([DefaultValue(1)] int page)
        {
            ViewData["page"] = page;
            return View();
        }
-      
+      [Authorize]
+        [RoleFilter(Roles = "4")]
        public ActionResult ListData(int sId, string sidx, string search, string sord, int page, int rows)
        {
            int i = sId;
@@ -109,7 +111,8 @@ namespace GIS.Controllers
 
            return Json(jsonData, JsonRequestBehavior.AllowGet);
        }
-       
+      [Authorize]
+      [RoleFilter(Roles = "4")]
         public ActionResult ChiTiet(int id){
             HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(id);
             if (gphd == null)
@@ -138,31 +141,58 @@ namespace GIS.Controllers
             };
             return View(model);
         }
-
+      [Authorize]
+      [RoleFilter(Roles = "4")]
        public ActionResult Edit(int id)
        {
-           var EditedGPHD = _gphdRepository.GetHoSoGiayPhepByID(id);
-           var dkhdList = _dkhdRespository.GetDangKyHDs(id);
-           var hoatdongList = _hoatdongRespository.GetHoatDongs().ToList<HoatDong>();
-           var selectedMaHDList = _dkhdRespository.getSelectedHD(dkhdList.ToList<DangKyHoatDong>());
-           var selectedHDList = new List<HoatDong>();
-           foreach (int i in selectedMaHDList)
+           //var EditedGPHD = _gphdRepository.GetHoSoGiayPhepByID(id);
+           //var dkhdList = _dkhdRespository.GetDangKyHDs(id);
+           //var hoatdongList = _hoatdongRespository.GetHoatDongs().ToList<HoatDong>();
+           //var selectedMaHDList = _dkhdRespository.getSelectedHD(dkhdList.ToList<DangKyHoatDong>());
+           //var selectedHDList = new List<HoatDong>();
+           //foreach (int i in selectedMaHDList)
+           //{
+           //    selectedHDList.Add(hoatdongList[i]);
+           //}
+           //var m = new MultiSelectList(hoatdongList, "MaHoatDong", "TenHoatDong",
+           //          selectedHDList.Select(x => x.MaHoatDong));
+           //ViewData["hoatdong"] = m;
+           //var viewmodel = new GiayPhepDetailModel
+           //{
+           //    giayphep = EditedGPHD,
+           //   DangKy = dkhdList,
+           //   //HoatDong = m;
+           //};
+
+           HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(id);
+           if (gphd == null)
            {
-               selectedHDList.Add(hoatdongList[i]);
+               return RedirectToAction("ThongBao", new { iMsg = 2 });
            }
-           var m = new MultiSelectList(hoatdongList, "MaHoatDong", "TenHoatDong",
-                     selectedHDList.Select(x => x.MaHoatDong));
-           ViewData["hoatdong"] = m;
-           var viewmodel = new GiayPhepDetailModel
+           BaoCaoHoatDong bc = new BaoCaoHoatDong();
+           bc = gphd.ThongTinChung.BaoCaoHoatDongs.SingleOrDefault(m => m.MaThongTinChung == gphd.MaThongTinChung);
+           int k = 0;
+           if (bc != null)
            {
-               giayphep = EditedGPHD,
-              DangKy = dkhdList,
-              //HoatDong = m;
+               k = bc.MaBaoCao;
+           }
+           var dangkyMoi = _dkhdRespository.GetDangKyHDMoi(id);
+           var dangkyDuocCap = _dkhdRespository.GetHDDaCapBySoGP(gphd.SoGiayPhep, gphd.ToChuc.MaToChuc);
+           var dangkyBS = _dkhdRespository.GetDKHDBoSung(id);
+           var model = new GiayPhepDetailModel
+           {
+               DangKy = dangkyMoi,
+               DangKyDaCap = dangkyDuocCap.AsQueryable(),
+               DangKyBoSung = dangkyBS,
+               giayphep = gphd,
+               MaBaoCao = k
+               //hoatdong = hoatdongList
+               // nangluc = nanglucList
            };
-
-           return View(viewmodel);
+           return View(model);
        }
-
+      [Authorize]
+      [RoleFilter(Roles = "4")]
        public ActionResult HuyGiayPhep(int[] ids)
        {
            foreach (int i in ids)
@@ -172,7 +202,8 @@ namespace GIS.Controllers
            }
            return Redirect("Index");
        }
-
+      [Authorize]
+      [RoleFilter(Roles = "4")]
        public ActionResult Download(string fn) 
        {
            string pfn = Server.MapPath("~/App_Data/Upload/HSToChuc/" + fn);
@@ -204,7 +235,7 @@ namespace GIS.Controllers
 
             IBaoCaoHoatDongRepository bchdRepo = new BaoCaoHoatDongRespository();
             IBaoCaoCongTrinhRespository bcctRepo = new BaoCaoCongTrinhRespository();
-            BaoCaoHoatDong bchd = bchdRepo.GetBaoCaoHoatDongByTTC(hs.MaThongTinChung.Value);
+            BaoCaoHoatDong bchd = bchdRepo.GetBaoCaoHoatDongByTC(hs.MaThongTinChung.Value);
             if (bchd == null) {
                 return RedirectToAction("ChiTiet", new { id = id });
             }
