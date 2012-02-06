@@ -11,11 +11,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 using System.Web.Caching;
+using GIS.Models;
 
 public class proxy : IHttpHandler {
 	
     public void ProcessRequest (HttpContext context) {
         string uri = "";
+        
+        //if (((EnhancedPrincipal)context.User).Data.NhomNguoiDung != 4) {
+        //    context.Response.End(); 
+        //}
+        
         if (context.Request.QueryString.Count > 0)
         {
             uri = context.Request.QueryString[0];
