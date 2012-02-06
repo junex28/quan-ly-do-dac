@@ -7,15 +7,15 @@
     <div class="grid_19 alpha">
         <div class="box grid_10 alpha">
             <h3>
-                Thẩm định hồ sơ
+                Edit hồ sơ
                 <% 
-                    if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 1)
+                    if (Model.giayphep.LoaiGiayPhep == 1)
                     {%>
                 đăng ký giấy phép<% }
-                else if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 9)
+                else if (Model.giayphep.LoaiGiayPhep == 2)
                 {%>
                 đăng ký bổ sung hoạt động<% }
-                else if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang == 6)
+                else if (Model.giayphep.LoaiGiayPhep == 3)
                 {%>
                 đăng ký gia hạn<% }%>
             </h3>
@@ -58,7 +58,7 @@
                     <label class="grid_6">
                         Ngày thẩm định :
                     </label>
-                    <%=Html.TextBoxFor(m=>m.ThamDinh.NgayThamDinh) %>
+                    <%= Html.TextBox("ThamDinh.NgayThamDinh", Model.ThamDinh.NgayThamDinh.Value.ToString("dd/MM/yyyy")) %>
                 </p>
                 <p>
                     <label class="grid_6">
@@ -95,19 +95,22 @@
                     <%= Html.TextAreaFor(m=>m.ThamDinh.KienNghi) %>
                     <%= Html.ValidationMessageFor(m => m.ThamDinh.KienNghi)%>
                 </p>
-                <% if (Model.giayphep.SoGiayPhep == null && Model.giayphep.SoGiayPhep == "")
-                   { %>
                 <p>
                     <label class="grid_6">
                         Số giấy phép :
                     </label>
+                    <% if (Model.giayphep.SoGiayPhep == null && Model.giayphep.SoGiayPhep == "")
+                       { %>
+                    
                     <%= Html.TextBoxFor(m => m.giayphep.SoGiayPhep)%>
-                   <% }else{%>
+                    <% }
+                       else
+                       { %>
                     <%= Html.TextBoxFor(m => m.giayphep.SoGiayPhep, new {@disabled = "disabled"})%>
                     <%}%>
                     <%= Html.ValidationMessageFor(m => m.giayphep.SoGiayPhep)%>
                 </p>
-                
+                <%
                }
                 %>
             </div>
