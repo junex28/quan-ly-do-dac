@@ -2344,8 +2344,8 @@ PhysOpts=</a:ModelOptionsText>
 <c:GenerationOrigins>
 <o:Shortcut Id="o3">
 <a:ObjectID>F5D08B94-9DFE-4308-8212-0D6B88EF3910</a:ObjectID>
-<a:Name>PhysicalDataModel_2</a:Name>
-<a:Code>PHYSICALDATAMODEL_2</a:Code>
+<a:Name>final</a:Name>
+<a:Code>FINAL</a:Code>
 <a:CreationDate>1322901245</a:CreationDate>
 <a:Creator>thuongthuong</a:Creator>
 <a:ModificationDate>1322901245</a:ModificationDate>
@@ -2816,8 +2816,8 @@ Shadow=0</a:DisplayPreferences>
 <o:ReferenceSymbol Id="o6">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-54312,-3519), (-53312,10996))</a:Rect>
-<a:ListOfPoints>((-53726,-3519),(-53899,10996))</a:ListOfPoints>
+<a:Rect>((-61038,-3457), (-46564,10996))</a:Rect>
+<a:ListOfPoints>((-53712,-3457),(-53878,10996))</a:ListOfPoints>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -2836,8 +2836,8 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o10">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-83850,-5235), (-56728,-4783))</a:Rect>
-<a:ListOfPoints>((-83850,-5028),(-56728,-4991))</a:ListOfPoints>
+<a:Rect>((-83793,-6237), (-56774,-4764))</a:Rect>
+<a:ListOfPoints>((-83793,-5032),(-56774,-4949))</a:ListOfPoints>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -2856,8 +2856,8 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o13">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-47273,-7032), (-21643,-5529))</a:Rect>
-<a:ListOfPoints>((-21643,-5780),(-47273,-5731))</a:ListOfPoints>
+<a:Rect>((-47128,-6987), (-21708,-5522))</a:Rect>
+<a:ListOfPoints>((-21708,-5799),(-47128,-5699))</a:ListOfPoints>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -2876,8 +2876,8 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o16">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-63199,-27030), (-54862,-12598))</a:Rect>
-<a:ListOfPoints>((-63199,-27030),(-54862,-12598))</a:ListOfPoints>
+<a:Rect>((-66364,-27030), (-51890,-12660))</a:Rect>
+<a:ListOfPoints>((-63199,-27030),(-54870,-12660))</a:ListOfPoints>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -2896,8 +2896,8 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o19">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-52125,-27404), (-35204,-14091))</a:Rect>
-<a:ListOfPoints>((-35204,-27404),(-52125,-14091))</a:ListOfPoints>
+<a:Rect>((-52272,-27404), (-35204,-14173))</a:Rect>
+<a:ListOfPoints>((-35204,-27404),(-52078,-14173))</a:ListOfPoints>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -2916,7 +2916,7 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o22">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-28482,-31888), (-6089,-31436))</a:Rect>
+<a:Rect>((-28482,-31887), (-6089,-31437))</a:Rect>
 <a:ListOfPoints>((-6089,-31703),(-28482,-31622))</a:ListOfPoints>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
@@ -2996,7 +2996,7 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o34">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-77378,-59309), (-55248,-58857))</a:Rect>
+<a:Rect>((-77378,-59308), (-55248,-58858))</a:Rect>
 <a:ListOfPoints>((-55248,-59071),(-77378,-59096))</a:ListOfPoints>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
@@ -3056,7 +3056,7 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o43">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-127891,-59943), (-110970,-59491))</a:Rect>
+<a:Rect>((-127891,-59942), (-110970,-59492))</a:Rect>
 <a:ListOfPoints>((-110970,-59718),(-127891,-59716))</a:ListOfPoints>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
@@ -3096,7 +3096,7 @@ CARD 0 Arial,8,N</a:FontList>
 <o:TableSymbol Id="o8">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-61725,9290), (-47347,13289))</a:Rect>
+<a:Rect>((-61964,9290), (-47108,13289))</a:Rect>
 <a:LineColor>12615680</a:LineColor>
 <a:FillColor>16570034</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -3119,7 +3119,7 @@ TableComment 0 Arial,8,N</a:FontList>
 <o:TableSymbol Id="o7">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-62064,-15757), (-46820,-409))</a:Rect>
+<a:Rect>((-62218,-15862), (-46666,-304))</a:Rect>
 <a:LineColor>12615680</a:LineColor>
 <a:FillColor>16570034</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -3142,7 +3142,7 @@ TableComment 0 Arial,8,N</a:FontList>
 <o:TableSymbol Id="o14">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-25449,-9639), (-12369,909))</a:Rect>
+<a:Rect>((-25603,-9709), (-12215,979))</a:Rect>
 <a:LineColor>12615680</a:LineColor>
 <a:FillColor>16570034</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -3188,7 +3188,7 @@ TableComment 0 Arial,8,N</a:FontList>
 <o:TableSymbol Id="o11">
 <a:CreationDate>1322901243</a:CreationDate>
 <a:ModificationDate>1322901243</a:ModificationDate>
-<a:Rect>((-95005,-9013), (-79701,-385))</a:Rect>
+<a:Rect>((-95129,-9069), (-79577,-329))</a:Rect>
 <a:LineColor>12615680</a:LineColor>
 <a:FillColor>16570034</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -5928,13 +5928,13 @@ DAT 1322901245</a:History>
 </o:TargetModel>
 <o:TargetModel Id="o203">
 <a:ObjectID>08E02437-3429-425D-B625-31A70BBDE93D</a:ObjectID>
-<a:Name>PhysicalDataModel_2</a:Name>
-<a:Code>PHYSICALDATAMODEL_2</a:Code>
+<a:Name>final</a:Name>
+<a:Code>FINAL</a:Code>
 <a:CreationDate>1322901245</a:CreationDate>
 <a:Creator>thuongthuong</a:Creator>
-<a:ModificationDate>1322901245</a:ModificationDate>
+<a:ModificationDate>1328479935</a:ModificationDate>
 <a:Modifier>thuongthuong</a:Modifier>
-<a:TargetModelURL>file:///C|/Users/thuongthuong/Desktop/PhysicalDataModel_2.pdm</a:TargetModelURL>
+<a:TargetModelURL>file:///E|/kltn/design/GDB/PhysicalDataModel_2.pdm</a:TargetModelURL>
 <a:TargetModelID>3D61A7EF-A051-4A5A-85C6-8393FEB61C2F</a:TargetModelID>
 <a:TargetModelClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetModelClassID>
 <c:SessionShortcuts>
