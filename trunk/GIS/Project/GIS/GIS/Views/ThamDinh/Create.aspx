@@ -52,48 +52,13 @@
                 </label>
                 <%=Html.TextBoxFor(m=>m.NgayThamDinh) %>
             </p>
-            <p>
-                <label class="grid_6">
-                    Thành phần cơ quan thẩm định :
-                </label>
-                <%= Html.TextAreaFor(m=>m.NguoiThamDinh) %>
-                <%= Html.ValidationMessageFor(m => m.NguoiThamDinh)%>
-            </p>
-            <p>
-                <label class="grid_6">
-                    Thành phần tổ chức đề nghị cấp giấy phép :
-                </label>
-                <%= Html.TextAreaFor(m=>m.NguoiPhiaToChuc) %>
-                <%= Html.ValidationMessageFor(m => m.NguoiPhiaToChuc)%>
-            </p>
-            <p>
-                <label class="grid_6">
-                    Thẩm định kê khai lực lượng kỹ thuật :
-                </label>
-                <%= Html.TextAreaFor(m=>m.NangLucNhanVien) %>
-                <%= Html.ValidationMessageFor(m => m.NangLucNhanVien)%>
-            </p>
-            <p>
-                <label class="grid_6">
-                    Kết luận :
-                </label>
-                <%= Html.TextAreaFor(m=>m.KetLuan) %>
-                <%= Html.ValidationMessageFor(m => m.KetLuan)%>
-            </p>
-            <p>
-                <label class="grid_6">
-                    Kiến nghị :
-                </label>
-                <%= Html.TextAreaFor(m=>m.KienNghi) %>
-                <%= Html.ValidationMessageFor(m => m.KienNghi)%>
-            </p>
             <% if (true)
                { %>
             <p>
                 <label class="grid_6">
                    Số giấy phép :
                 </label>
-                <%= Html.TextBoxFor(m => m.SoGiayPhep, new {@class="text"})%>
+                <%= Html.TextBoxFor(m => m.giayphep.SoGiayPhep, new {@class="text"})%>
                 <%= Html.ValidationMessageFor(m => m.SoGiayPhep)%>
             </p>
              <p>
@@ -102,11 +67,15 @@
                 </label>
                 <%=Html.TextBoxFor(m=>m.NgayCapPhep) %>
             </p>
-            
+            <p>
+             <label class="grid_6">
+                   Ngày hết hạn :
+                </label>
+                <%=Html.TextBoxFor(m=>m.NgayHetHan) %>
+            </p>
             <% } %>
             <input type="hidden" id="Save" value="0" /> 
             <input type="hidden" id="KhongDuyet" value="0" /> 
-                   
             <%}
                 %>
         </div>
@@ -134,6 +103,7 @@
 
         $(function() {
         $("#NgayThamDinh").datepicker({ dateFormat: 'dd/mm/yy' });
+        $("#NgayCapPhep").datepicker({ dateFormat: 'dd/mm/yy' });
         $("#NgayCapPhep").datepicker({ dateFormat: 'dd/mm/yy' });
         });
         
