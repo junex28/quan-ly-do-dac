@@ -1,0 +1,24 @@
+/*
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2008 ESRI
+//
+// All rights reserved under the copyright laws of the United States.
+// You may freely redistribute and use this software, with or
+// without modification, provided you include the original copyright
+// and use restrictions.  See use restrictions in the file:
+// <install location>/FlexViewer/License.txt
+//
+////////////////////////////////////////////////////////////////////////////////
+*/
+{
+	livelayer: {
+		layer: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandomoc/MapServer/2",
+		query: "OBJECTID > 0",
+		fields: ["SoHieu","CapHang","LoaiMoc","HeQuyChieu","TinhTrang","NamThanhLap"],
+		titleField: "SoHieu",
+		linkField: "",
+		refreshRate: 600, //seconds
+		zoomScale: 5000
+	}
+}

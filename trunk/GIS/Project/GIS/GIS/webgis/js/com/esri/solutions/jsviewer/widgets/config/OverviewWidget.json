@@ -1,0 +1,23 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2008 ESRI
+//
+// All rights reserved under the copyright laws of the United States.
+// You may freely redistribute and use this software, with or
+// without modification, provided you include the original copyright
+// and use restrictions.  See use restrictions in the file:
+// <install location>/FlexViewer/License.txt
+//
+////////////////////////////////////////////////////////////////////////////////
+//{
+//	overview: {
+//		mapservice: "http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer",
+//		servicetype: "tiled"
+//	}
+//}
+{
+	overview: {
+		mapservice: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandonen/MapServer",
+		servicetype: "tiled"
+	}
+}
