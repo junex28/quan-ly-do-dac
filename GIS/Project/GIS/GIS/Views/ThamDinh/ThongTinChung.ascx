@@ -104,7 +104,7 @@
  <%     
      if (Model.giayphep.LoaiGiayPhep == 2 || Model.giayphep.LoaiGiayPhep == 3)
      {
-         var bchd = Model.giayphep.ThongTinChung.BaoCaoHoatDongs.Single(m => m.MaThongTinChung == Model.giayphep.MaThongTinChung);
+          var bchd = Model.giayphep.ThongTinChung.BaoCaoHoatDongs.SingleOrDefault(m => m.MaThongTinChung == Model.giayphep.MaThongTinChung);
            %>
         <div class="box">
             <h2>
@@ -113,21 +113,21 @@
             <div class="block" id="baocaothhd">
                  <p>
                     <label class="grid_2 prefix_4">
-                        Từ năm:<%= bchd.TuNam %>
+                        Từ năm:<%= bchd == null || bchd.TuNam == null ? "" : bchd.TuNam.Value.ToString() %>
                     </label>
                     
                     <label class="grid_3">
-                        Đến năm:<%= bchd.DenNam%>
+                        Đến năm:<%= bchd == null || bchd.DenNam == null ? "" : bchd.DenNam.Value.ToString() %>
                     </label>
                 </p>
                 <p>
                     <label class="grid_6">
-                        Doanh thu năm:<%= bchd.DoanhThu.Value.ToString().Replace(",0000", "")%>
+                        Doanh thu năm:<%= bchd == null || bchd.DoanhThu == null ? "" : string.Format("{0:0,0}", bchd.DoanhThu.Value) %>
                     </label>
                 </p>
                 <p>
                     <label class="grid_6">
-                        Nộp ngân sách: <%= bchd.NopNganSach.Value.ToString().Replace(",0000","")%>
+                        Nộp ngân sách: <%= bchd == null || bchd.NopNganSach == null ? "" : string.Format("{0:0,0}", bchd.NopNganSach.Value)%>
                     </label>
                </p>
                  <h5>Danh sách công trình đã thực hiện</h5>
