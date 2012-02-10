@@ -21,9 +21,22 @@ namespace GIS.Models
             return db.TaiKhoans.AsQueryable();
         }
 
-        public TaiKhoan GetTaiKhoanByID(int id)
+        public TaiKhoan GetTaiKhoanByID(int? id)
         {
             return db.TaiKhoans.SingleOrDefault(d => d.MaTaiKhoan == id);
+        }
+
+        public IQueryable<TaiKhoan> GetTaiKhoanBySearch(string strSearch)
+        {
+            IQueryable<TaiKhoan> list;
+            if (strSearch != null)
+            {
+               list  = (from tk in db.TaiKhoans
+                           where tk.TenTaiKhoan.ToUpper().Contains(strSearch.ToUpper())
+                           select tk);
+               return list;
+            }
+            return null;
         }
 
         public void Delete(TaiKhoan TaiKhoan)
