@@ -15,9 +15,6 @@
         <div class="clear">
         </div>
         <div class="box">
-            <h2>
-                <a id="toggle-thongtinchung" href="#" style="cursor: pointer;">Điền thông tin</a>
-            </h2>
             <div class="block">
                 <p>
                     <label class="grid_6">
