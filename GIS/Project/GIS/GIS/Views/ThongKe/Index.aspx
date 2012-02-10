@@ -9,7 +9,7 @@
 <% using (Html.BeginForm("Download", "ThongKe", FormMethod.Post, new { onsubmit = "return download();" }))
    { %>
     <%= Html.Hidden("nam", null, new { id = "selectYear" })%>
-    <input type="submit" value="Download" />
+    
     <!--<%= Html.ActionLink("Download", "Download", "ThongKe")%>-->
 <% } %>
 
@@ -34,6 +34,8 @@
     <div class="box">
         <div id="chart1" style="width:500px; height:250px;"></div>
     </div>
+    <div class="clear"></div>
+    <input  class="button redmond"  type="submit" value="Download" />
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
@@ -49,9 +51,25 @@
 	<script type="text/javascript" src="../../Scripts/chart/jqplot.categoryAxisRenderer.min.js"></script>
 	
 	<script type="text/javascript">
+	    $(document).ready(function() {
+	        updateChart();
+	    });
 	    function download() {
 	        $("#selectYear").val($("#selectid").val());
 	        return true;
+	    }
+	    function updateChart() {
+	        var nam = $("#selectid").val();
+	        urlDataJSON = '/thongke/DataToJSON?nam=' + nam;
+	        $.getJSON(urlDataJSON, "", function(data) {
+	            var dataLines = [];
+	            var dataLabels = "";
+	            $.each(data, function(entryindex, entry) {
+	                dataLines.push(entry['SoLieu']);
+	                dataLabels = dataLabels + entry['LoaiCapPhep'];
+	            });
+	            Plot(dataLines, dataLabels);
+	        });
 	    }
 	  function OnchangeSelect() {
 	        // var s1 = [2, 6, 7, 10];
@@ -59,17 +77,7 @@
 	        // var s3 = [14, 9, 3, 8];
 
 	        /* Dynamic data*/
-	   var nam = $("#selectid").val();
-	    urlDataJSON = '/thongke/DataToJSON?nam='+nam;
-	        $.getJSON(urlDataJSON, "", function(data) {
-	            var dataLines = [];
-	            var dataLabels = "";
-	            $.each(data, function(entryindex, entry) {
-	                dataLines.push(entry['SoLieu']);
-	                dataLabels = dataLabels + entry['LoaiCapPhep'];
-      	            });	            
-                Plot(dataLines, dataLabels);
-	         });
+	      updateChart()
 	    }
 
 	    function Plot(dataLines, dataLabels) {
