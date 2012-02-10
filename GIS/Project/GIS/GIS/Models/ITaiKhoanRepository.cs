@@ -9,8 +9,9 @@ namespace GIS.Models
     public interface ITaiKhoanRepository
     {
         IQueryable<TaiKhoan> GetTaiKhoans();
-        TaiKhoan GetTaiKhoanByID(int id);
+        TaiKhoan GetTaiKhoanByID(int? id);
         TaiKhoan GetTaiKhoanByName(String tentaikhoan);
+        IQueryable<TaiKhoan> GetTaiKhoanBySearch(string strSearch);
 
         int Add(TaiKhoan TaiKhoan);
         void Delete(TaiKhoan TaiKhoan);
