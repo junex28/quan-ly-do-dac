@@ -116,14 +116,14 @@
                     <label class="grid_6">
                         Vốn pháp định :
                     </label>
-                    <%= Html.TextBoxFor(m => m.VonPhapDinh, new { @class = "text" })%>
+                     <%= Html.TextBox("VonPhapDinh", string.Format("{0:0}", Model.VonPhapDinh), new { @class = "text" })%>
                     <%= Html.ValidationMessageFor(m=>m.VonPhapDinh)%>
                 </p>
                 <p>
                     <label class="grid_6">
                         Vốn lưu động :
                     </label>
-                    <%= Html.TextBoxFor(m => m.VonLuuDong, new { @class = "text" })%>
+                    <%= Html.TextBox("VonLuuDong", string.Format("{0:0}", Model.VonLuuDong), new { @class = "text" })%>
                     <%= Html.ValidationMessageFor(m=>m.VonLuuDong)%>
                 </p>
                 <p>

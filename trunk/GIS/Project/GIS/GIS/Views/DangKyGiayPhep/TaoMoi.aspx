@@ -78,14 +78,16 @@
                     <label class="grid_6">
                         Vốn pháp định :
                     </label>
-                    <%= Html.TextBoxFor(m => m.VonPhapDinh, new { @class = "text" })%>
+                    <%= Html.TextBox("VonPhapDinh", string.Format("{0:0}", Model.VonPhapDinh), new { @class = "text" })%>
+                    <!-- <%= Html.TextBoxFor(m => m.VonPhapDinh, new { @class = "text" })%> -->
                     <%= Html.ValidationMessageFor(m=>m.VonPhapDinh)%>
                 </p>
                 <p>
                     <label class="grid_6">
                         Vốn lưu động :
                     </label>
-                    <%= Html.TextBoxFor(m => m.VonLuuDong, new { @class = "text" })%>
+                    <%= Html.TextBox("VonLuuDong", string.Format("{0:0}", Model.VonLuuDong), new { @class = "text" })%>
+                    <!-- <%= Html.TextBoxFor(m => m.VonLuuDong, new { @class = "text" })%> -->
                     <%= Html.ValidationMessageFor(m=>m.VonLuuDong)%>
                 </p>
                 <p>
@@ -416,24 +418,24 @@
 
             $('#sendButton').click(function() {
                 // Luu lai
-                var count1 = $("#editorNangLucRows").length;
-                var count2 = $("#editorNhanLucRows").length;
-                var count3 = $("#editorThietBiRows").length;
-//                //var count4 = $("#hoatdongmoi").items.count();
-//                //alert(count4);
-//                //alert(count);
-                if (count1 == 1) {
-                    alert("chưa kê khai năng lực");
-                }
-                else if (count1 == 1) {
-                    alert("chưa liệt kê danh sách người chịu trách nhiệm");
-                }
-                else if (count3 == 1) {
-                    alert("chưa liệt kê danh sách thiết bị");
-                }
-                else {
-                    $('#taomoiForm').submit();
-                }
+                var count1 = $("#editorNangLucRows").size();
+                var count2 = $("#editorNhanLucRows").size();
+                var count3 = $("#editorThietBiRows").rows.count;
+                alert(count1);
+                alert(count2);
+                alert(count3);
+//                if (count1 == 1) {
+//                    alert("chưa kê khai năng lực");
+//                }
+//                else if (count1 == 1) {
+//                    alert("chưa liệt kê danh sách người chịu trách nhiệm");
+//                }
+//                else if (count3 == 1) {
+//                    alert("chưa liệt kê danh sách thiết bị");
+//                }
+//                else {
+//                    $('#taomoiForm').submit();
+//                }
             });
 
             $('#taomoiForm').submit(
