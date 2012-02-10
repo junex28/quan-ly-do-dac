@@ -7,6 +7,12 @@
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
     <script type="text/javascript">
         $(function() {
+            $('#newButton').click(function() {
+            $.ajax({
+                type:'GET',
+                url: '/ToChuc/TaoMoi'
+                });
+            });
             $('#editButton').click(function() {
                 $('#editForm').submit();
             });
@@ -20,20 +26,18 @@
             });
 
             $("#grid").jqGrid({
-                caption:'DANH SÁCH TỔ CHỨC',
+                caption: 'DANH SÁCH TỔ CHỨC',
                 url: '<%= Url.Action("ListData","ToChuc") %>',
                 editurl: '',
                 mtype: "GET",
                 datatype: "json",
-                colNames: ['Mã Tổ Chức', 'Tên Tổ Chức', 'Loại Hình Tổ Chức', 'Số Giấy Phép', 'Thời Gian Hết Hạn', 'Điện Thoại', 'Trụ Sở Chính'],
+                colNames: ['Mã Tổ Chức', 'Tên Tổ Chức', 'Người đại diện', 'Trụ Sở Chính', "Điện thoại"],
                 colModel: [
                 { name: 'MaToChuc', index: 'MaToChuc', width: 10, align: 'left', sortable: false },
                 { name: 'TenToChuc', index: 'TenToChuc', width: 40, align: 'left', sortable: true },
-                { name: 'LoaiHinhToChuc', index: 'LoaiHinhToChuc', width: 40, align: 'left', sortable: true },
-                { name: 'SoGiayPhep', index: 'SoGiayPhep', width: 40, align: 'left', sortable: false },
-                { name: 'ThoiGianHetHan', index: 'ThoiGianHetHan', width: 40, align: 'left', sortable: true },
-                { name: 'DienThoai', index: 'DienThoai', width: 40, align: 'left', sortable: false },
-                { name: 'TruSoChinh', index: 'TruSoChinh', width: 50, align: 'left', sortable: false}],
+                { name: 'NguoiDaiDien', index: 'SoGiayPhep', width: 40, align: 'left', sortable: false },
+                { name: 'TruSoChinh', index: 'TruSoChinh', width: 50, align: 'left', sortable: false },
+                { name: 'DienThoai', index: 'DienThoai', width: 40, align: 'left', sortable: false}],
                 page: '<%= ViewData["page"] %>',
                 rowNum: 20,
                 rowList: [10, 20, 50],
@@ -49,6 +53,20 @@
                 }
             });
 
+
+            //            $('#newForm').submit(function() {
+
+            //                    var input = document.createElement("input");
+            //                    input.setAttribute("type", "hidden");
+            //                    input.setAttribute("name", "id");
+            //                    input.setAttribute("value", selr[0]);
+            //                    $(this).append(input);
+            //                    return true;
+            //                } else {
+            //                    alert("Chọn chỉ một tổ chức để chỉnh sửa!");
+            //                }
+            //                return false;
+            //            });
             $('#detailForm').submit(function() {
                 var selr = jQuery('#grid').jqGrid('getGridParam', 'selarrrow');
                 if (!selr || selr.length < 1) {
@@ -65,7 +83,7 @@
                 }
                 return false;
             });
-            
+
             $('#editForm').submit(function() {
                 var selr = jQuery('#grid').jqGrid('getGridParam', 'selarrrow');
                 if (!selr || selr.length < 1) {
@@ -83,7 +101,7 @@
                 return false;
             });
 
-           
+
             $('#deleteForm').submit(function() {
                 var selr = jQuery('#grid').jqGrid('getGridParam', 'selarrrow');
                 if (!selr || selr.length <= 0) {
@@ -110,16 +128,16 @@
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
     <%--<h2>Danh Sách Tổ Chức</h2>--%>
     <div class="box">
-        <button id="detailButton" class="button green"><span class="detail">Chi tiết</span></button>
-        <button id="editButton" class="button green"><span class="edit">Sửa</span></button>
-        <button id="deleteButton" class="button green"><span class="delete">Xóa</span></button>
+        <button id="newButton" class="button redmond"><span class="detail">Tạo mới</span></button>
+        <button id="detailButton" class="button redmond"><span class="detail">Chi tiết</span></button>
+        <button id="editButton" class="button redmond"><span class="edit">Sửa</span></button>
+        <button id="deleteButton" class="button redmond"><span class="delete">Xóa</span></button>
     </div>
     <div class="box">
             <table id="grid"></table>
             <div id="pager"></div>
     </div>
 
-    
     <% using (Html.BeginForm("ChiTiet", "ToChuc", FormMethod.Get, new { id = "detailForm" })) { } %>
     <% using (Html.BeginForm("CapNhat", "ToChuc", FormMethod.Get, new { id = "editForm" })) { } %>
     <% using (Html.BeginForm("Xoa", "ToChuc", FormMethod.Post, new { id = "deleteForm" })) { } %>

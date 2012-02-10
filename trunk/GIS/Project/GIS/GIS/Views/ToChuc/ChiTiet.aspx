@@ -60,29 +60,29 @@
                     </label>
                     <%= Html.Encode(Model.toChuc.Fax)%>
                 </p>
-                 <p>
+                <p>
                     <label class="grid_6">
                         Email :
                     </label>
                     <%= Html.Encode(Model.toChuc.Email)%>
                 </p>
-                 <p>
+                <p>
                     <label class="grid_6">
                         Tổng số cán bộ :
                     </label>
-                    <%= Html.Encode(Model.toChuc.TongSoCanBo)%>
+                    <%= Html.Encode(Model.toChuc.TongSoCanBo.GetValueOrDefault(0))%>
                 </p>
                 <p>
                     <label class="grid_6">
                         Vốn pháp định:
                     </label>
-                    <%= Html.Encode(Model.toChuc.VonPhapDinh)%>
+                    <%= Html.Encode(string.Format("0:0",Model.toChuc.VonPhapDinh))%>
                 </p>
                 <p>
                     <label class="grid_6">
-                       Vốn lưu động :
+                        Vốn lưu động :
                     </label>
-                    <%= Html.Encode(Model.toChuc.VonLuuDong)%>
+                    <%= Html.Encode(string.Format("0:0",Model.toChuc.VonLuuDong.GetValueOrDefault(0)))%>
                 </p>
             </div>
         </div>
@@ -91,12 +91,11 @@
                 <button id="backButton" class="button redmond" onclick="window.location.href='./'">
                     <span class="back">Thoát</span></button>
             </div>
+            <div class="block prefix_4">
+                <button id="editButton" class="button redmond" onclick="window.location.href='./'">
+                    <span class="back">Chỉnh sửa </span>
+                </button>
+            </div>
         </div>
     </div>
 </asp:Content>
-<%--
-        <%= Html.ActionLink("Edit", "Edit", new { id=Model.toChuc.MaToChuc }) %>
-        |
-        <%= Html.ActionLink("Back to List", "Index") %>
-    </p>
-</asp:Content>--%>
