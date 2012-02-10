@@ -37,6 +37,7 @@
       </div>
       <div class="clear"></div> 
      <% Html.RenderPartial("ThongTinChung", Model.thongtinchung); %>
+
     <div class="box">
         <h2>
             <a id="toggle-thamdinh" href="#" style="cursor: pointer;">Biên bản thẩm định</a>
@@ -93,9 +94,8 @@
         </div>
     </div>
     
-    
-    
-    
+    </div>
+   
 </asp:Content>
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
 
