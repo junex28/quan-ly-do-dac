@@ -148,7 +148,7 @@ namespace GIS.Controllers
                 _taikhoanRepository.Save();
                 return RedirectToAction("thongbao", "qltaikhoan", new { iMsg = 1, id= id });
             }
-            catch (Exception ex)
+            catch
             {
                 return RedirectToAction("thongbao", "qltaikhoan", new { iMsg = 2 , id = id});
             }
