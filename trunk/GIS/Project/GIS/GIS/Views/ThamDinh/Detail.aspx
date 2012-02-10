@@ -73,26 +73,14 @@
             </h3>
         </div>
         <div class="box grid_8 omega" style="text-align: right">
-            <% if (Model.giayphep.TinhTrangGiayPhep.MaTinhTrang != 1)
+            <% if (Model.giayphep.SoGiayPhep != null)
                {%>
             <p>
                 Số giấy phép :<%=Html.Encode(Model.giayphep.SoGiayPhep)%></p>
-            <% if (Model.giayphep.NgayCapPhep != null)
-               {%>
             <p>
                 Cấp ngày :
-               <% if (Model.giayphep.NgayCapPhep != null)
-                  { %>
-                <%=Html.Encode(Model.giayphep.NgayCapPhep.Value.ToShortDateString())%>
+                <%= Model.giayphep.NgayCapPhep == null || Model.giayphep.NgayCapPhep.ToString() == "" ? ""  :(Model.giayphep.NgayCapPhep.Value.ToShortDateString())%>
                 <%} %>
-            </p>
-            <% }
-               else
-               {%>
-            <p>
-                Cấp ngày :</p>
-            <%} %>
-            <%  }%>
         </div>
         <div class="clear">
         </div>
@@ -110,38 +98,38 @@
                     </label>
                     <% if (Model.ThamDinh.NgayThamDinh != null)
                        { %>
-                         <%=Html.Encode(Model.ThamDinh.NgayThamDinh.Value.ToShortDateString())%>
+                    <%=Html.Encode(Model.ThamDinh.NgayThamDinh.Value.ToShortDateString())%>
                     <%} %>
                 </p>
                 <p>
                     <label class="grid_6 labelnor">
                         Thành phần cơ quan thẩm định :
                     </label>
-                    <%= Html.Encode(Model.ThamDinh.NguoiThamDinh) %>
+                    <%= Html.Encode(Model.ThamDinh.NguoiThamDinh)%>
                 </p>
                 <p>
                     <label class="grid_6 labelnor">
                         Thành phần tổ chức đề nghị cấp giấy phép :
                     </label>
-                    <%= Html.Encode(Model.ThamDinh.NguoiPhiaToChuc) %>
+                    <%= Html.Encode(Model.ThamDinh.NguoiPhiaToChuc)%>
                 </p>
                 <p>
                     <label class="grid_6 labelnor">
                         Thẩm định kê khai lực lượng kỹ thuật :
                     </label>
-                    <%= Html.Encode(Model.ThamDinh.NangLucNhanVien) %>
+                    <%= Html.Encode(Model.ThamDinh.NangLucNhanVien)%>
                 </p>
                 <p>
                     <label class="grid_6 labelnor">
                         Kết luận :
                     </label>
-                    <%= Html.Encode(Model.ThamDinh.KetLuan) %>
+                    <%= Html.Encode(Model.ThamDinh.KetLuan)%>
                 </p>
                 <p>
                     <label class="grid_6 labelnor">
                         Kiến nghị :
                     </label>
-                    <%= Html.Encode(Model.ThamDinh.KienNghi) %>
+                    <%= Html.Encode(Model.ThamDinh.KienNghi)%>
                 </p>
                 <% if (Model.giayphep.SoGiayPhep != null && Model.giayphep.SoGiayPhep != "")
                    { %>
@@ -151,16 +139,15 @@
                     </label>
                     <%= Html.Encode(Model.ThamDinh.HoSoGiayPhep.SoGiayPhep)%>
                 </p>
-                <% }
-               }
-                %>
+                <% }%>
+                <%} %>
             </div>
         </div>
         <div class="box">
             <div class="block prefix_4">
                 <button id="backButton" class="button redmond" onclick="window.location.href='./'">
                     <span class="back">Thoát</span></button>
-                   <%= Html.ActionLink("Download", "Download", new { gpid = 1 })%>
+                <%= Html.ActionLink("Download", "Download", new { gpid = 1 })%>
             </div>
         </div>
     </div>
