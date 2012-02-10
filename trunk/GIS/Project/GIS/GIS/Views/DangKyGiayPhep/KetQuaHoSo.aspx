@@ -53,8 +53,11 @@
                         <%} %>
                 </p>
                 <!--Biên bản thẩm định-->
-                <%if (Model.ThamDinh != null || Model.ThamDinh.TinhTrangThamDinh != null || Model.ThamDinh.TinhTrangThamDinh != false)
-                  {%>
+                <%if (Model.ThamDinh != null )
+                  {
+                      if (Model.ThamDinh.TinhTrangThamDinh != null || Model.ThamDinh.TinhTrangThamDinh != false)
+                      {
+                      %>
                 <p>
                     <label class="grid_6">
                         Ngày thẩm định :
@@ -126,7 +129,8 @@
                     </label>
                     <%= Html.Encode(Model.ThamDinh.KienNghi)%>
                 </p>
-                <%}
+                <% }
+                  }
                   else
                   { %> 
                   <span style="color:Red">Hồ sơ này vẫn chưa được thẩm định. Xin vui lòng xem kết quả thẩm định sau!</span>
