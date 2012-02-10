@@ -369,7 +369,7 @@ namespace GIS.Controllers
                         scope.Complete();
                         msg = 20;
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         //MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Gửi hồ sơ không thành công" }, HttpContext.Response);
                         msg = 21;
@@ -436,6 +436,7 @@ namespace GIS.Controllers
                                 nl.MaToChuc = tochuc.MaToChuc;
                                 nl.HoTen = i.HoTen;
                                 nl.ChucVu = i.ChucVu;
+                                nl.TrinhDoHocVan = i.TrinhDoHocVan;
                                 nl.ThamNien = i.ThamNien;
                                 _nhanlucRespository.Add(nl);
                             }
@@ -485,7 +486,7 @@ namespace GIS.Controllers
                         msg = 22;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     msg = 23;
                 }
@@ -926,7 +927,7 @@ namespace GIS.Controllers
                         scope.Complete();
                         msg = 1;
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         //MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Gửi hồ sơ không thành công" }, HttpContext.Response);
                         msg = 2;
@@ -1075,7 +1076,7 @@ namespace GIS.Controllers
                         msg = 3;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     msg = 4;
                 }
@@ -1504,7 +1505,7 @@ namespace GIS.Controllers
                         scope.Complete();
                         msg = 1;
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         //MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Gửi hồ sơ không thành công" }, HttpContext.Response);
                         msg = 2;
@@ -1653,7 +1654,7 @@ namespace GIS.Controllers
                         msg = 3;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     msg = 4;
                 }

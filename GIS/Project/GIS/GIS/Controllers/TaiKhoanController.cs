@@ -74,7 +74,7 @@ namespace GIS.Controllers
                         DiaChi = model.DiaChi,
                         CoQuan = model.Coquan,
                         CMND = model.CMND,
-                        TinhTrang = 1,
+                        TinhTrang = 2,
                         NhomNguoiDung = 1
                     };
 
@@ -142,7 +142,7 @@ namespace GIS.Controllers
             TaiKhoan user = _TaiKhoanRepository.ValidateUser(model.TenTaiKhoan, MD5Helper.GetHash(model.MatKhau));
             if (null != user)
             {
-                if (user.TinhTrang == 2)
+                if (user.TinhTrang > 1)
                 {
                     _FormsService.SignIn(user.MaTaiKhoan.ToString(), model.GhiNho);
                     Session[Sessions.AccountID.ToString()] = user.MaTaiKhoan;

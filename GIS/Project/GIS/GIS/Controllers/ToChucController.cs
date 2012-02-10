@@ -85,9 +85,15 @@ namespace GIS.Controllers
         //
         // GET: /tochuc/{id}/chitiet
         [Authorize]
-        [RoleFilter(Roles = "4")]
+        [RoleFilter(Roles = "2,4")]
         public ActionResult ChiTiet(int id)
         {
+            TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;
+            if (tk.NhomNguoiDung != null && tk.NhomNguoiDung == 2)
+            {
+                return RedirectToAction("thongbao",new {iMsg = 1 });
+            }
+
             ToChuc tochuc = _tochucRepository.GetToChucByID(id);
 
             if (tochuc == null)
@@ -153,7 +159,6 @@ namespace GIS.Controllers
                 MessageHelper.CreateMessage(MessageType.Error, "error", new List<string> {"Lỗi: cập nhật thông tin tổ chức không thành công, vui lòng kiểm tra lại thông tin"},HttpContext.Response);
                 return View(model);
             }
-            return View(model);
         }
 
 
@@ -237,5 +242,14 @@ namespace GIS.Controllers
         {
             return _fileStore.SaveUploadedFile(Request.Files[0]);
         }
+
+        public ActionResult ThongBao(int iMsg)
+        {
+            var msg = iMsg;
+            return View(msg);
+        }
+
+             
+
     }
 }

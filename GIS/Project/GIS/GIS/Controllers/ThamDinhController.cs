@@ -160,7 +160,7 @@ namespace GIS.Controllers
         [HttpPost]
         public ActionResult Create(ThamDinhEditViewModel model, int gpid)
         {
-            bool iMsg = true;
+            //bool iMsg = true;
             try
             {
                 ThamDinh td = new ThamDinh();
@@ -182,7 +182,7 @@ namespace GIS.Controllers
             {
                // MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "lỗi khi lưu biên bản thẩm định" }, HttpContext.Response);
                 //listMsg.Add("lỗi khi lưu biên bản thẩm định");
-                iMsg = false;
+                //iMsg = false;
             }
             //return RedirectToAction("ThongBao", "Thamdinh", new { iMsg1 = iMsg });
             return RedirectToAction("Index", "QLGiayPhep");
