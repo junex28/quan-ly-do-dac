@@ -586,18 +586,18 @@
                 alert(count1);
                 alert(count2);
                 alert(count3);
-                if (count1 == 1) {
-                    alert("chưa kê khai năng lực");
-                }
-                else if (count1 == 1) {
-                    alert("chưa liệt kê danh sách người chịu trách nhiệm");
-                }
-                else if (count3 == 1) {
-                    alert("chưa liệt kê danh sách thiết bị");
-                }
-                else {
-                    $('#bosungForm').submit();
-                }
+//                if (count1 == 1) {
+//                    alert("chưa kê khai năng lực");
+//                }
+//                else if (count1 == 1) {
+//                    alert("chưa liệt kê danh sách người chịu trách nhiệm");
+//                }
+//                else if (count3 == 1) {
+//                    alert("chưa liệt kê danh sách thiết bị");
+//                }
+//                else {
+//                    $('#bosungForm').submit();
+//                }
             });
 
             $('#bosungForm').submit(
