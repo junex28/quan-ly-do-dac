@@ -104,7 +104,7 @@
         $(function() {
         $("#NgayThamDinh").datepicker({ dateFormat: 'dd/mm/yy' });
         $("#NgayCapPhep").datepicker({ dateFormat: 'dd/mm/yy' });
-        $("#NgayCapPhep").datepicker({ dateFormat: 'dd/mm/yy' });
+        $("#NgayHetHan").datepicker({ dateFormat: 'dd/mm/yy' });
         });
         
         $(function() {
