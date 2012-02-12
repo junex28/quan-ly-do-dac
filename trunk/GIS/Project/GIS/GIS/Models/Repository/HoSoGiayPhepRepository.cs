@@ -53,7 +53,14 @@ namespace GIS.Models
         }
         public HoSoGiayPhep GetHoSoGiayPhepByID(int id)
         {
-            return db.HoSoGiayPheps.SingleOrDefault(d => d.MaHoSo == id);
+            HoSoGiayPhep hsgp = db.HoSoGiayPheps.SingleOrDefault(d => d.MaHoSo == id);
+            if (hsgp.TinhTrang == 8 || hsgp.TinhTrang == 5 || hsgp.TinhTrang == 11) {
+                if (hsgp.NgayHetHan < DateTime.Now) {
+                    hsgp.TinhTrang = 3;
+                    db.SubmitChanges();
+                }
+            }
+            return hsgp;
         }
 
         public int Check(int tcId)
