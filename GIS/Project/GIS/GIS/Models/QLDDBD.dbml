@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="DDBD" Class="QLDDBDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=THUONGTHUONG-PC\SQLEXPRESS;Initial Catalog=DDBD;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DDBDConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BANDO" Member="BanDos">
+    <Type Name="BanDo">
+      <Column Name="OBJECTID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaBanDo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MaSanPham" Type="System.Decimal" DbType="Decimal(38,8)" CanBeNull="true" />
+      <Column Name="MaLoaiBanDo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NamThucHien" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="NamHoanThanh" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="NamChinhLy" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TiLe" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Shape" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MOCDOCAO" Member="MocDoCaos">
+    <Type Name="MocDoCao">
+      <Column Name="OBJECTID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoHieu" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MaSanPham" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CapHang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoaiMoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HeQuyChieu" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="HeDoCao" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NamThanhLap" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Shape" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MOCTOADO" Member="MocToaDos">
+    <Type Name="MocToaDo">
+      <Column Name="OBJECTID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoHieu" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MaSanPham" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CapHang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoaiMoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HeQuyChieu" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NamThanhLap" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Shape" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MOCTRONGLUC" Member="MocTrongLucs">
+    <Type Name="MocTrongLuc">
+      <Column Name="OBJECTID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoHieu" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MaSanPham" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CapHang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoaiMoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HeQuyChieu" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NamThanhLap" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Shape" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
