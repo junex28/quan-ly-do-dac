@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="QLDDBD">
+  <DataContextMoniker Name="/QLDDBDDataContext" />
+  <nestedChildShapes>
+    <classShape Id="56a52638-c30c-4483-9fb7-44d0365d50df" absoluteBounds="0.75, 0.75, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/QLDDBDDataContext/BanDo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0fc58fa4-8510-44bd-8ab9-05b2a9215098" absoluteBounds="0.765, 1.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="969c2db6-0b98-489b-9af4-d2eda1c6cdfc" absoluteBounds="4.5, 1.125, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/QLDDBDDataContext/MocDoCao" />
+      <nestedChildShapes>
+        <elementListCompartment Id="841ba28d-9e83-4146-b10f-f39b7a6724c1" absoluteBounds="4.5150000000000006, 1.585, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9335cd13-31d3-4c2a-81cf-81de31e0442e" absoluteBounds="0.75, 4.75, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/QLDDBDDataContext/MocToaDo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2afa59f8-a52b-43bf-be9c-186e3949a26f" absoluteBounds="0.765, 5.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f2ca086b-a0f9-4e8a-8fb9-acf3d7eb5416" absoluteBounds="3.75, 4.75, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/QLDDBDDataContext/MocTrongLuc" />
+      <nestedChildShapes>
+        <elementListCompartment Id="237449c4-7a45-4a5e-92f4-ee0d11b7c226" absoluteBounds="3.765, 5.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
