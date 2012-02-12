@@ -64,14 +64,17 @@ namespace GIS.ViewModels
 
         public string HangDoanhNghiep { get; set; }
 
+        [RegularExpression(@"^([0-9]*|\d*\.\d{1}?\d*)$", ErrorMessage="Chỉ điền số")]
         public decimal VonPhapDinh { get; set; }
 
+        [RegularExpression(@"^([0-9]*|\d*\.\d{1}?\d*)$", ErrorMessage = "Chỉ điền số")]
         public decimal VonLuuDong { get; set; }
 
         public string Camket { get; set; }
 
         public string LyDo { get; set; }
 
+        
         public IList<NangLucVM> NangLucs { get; set; }
 
         public IList<NhanLucVM> NhanLucs { get; set; }

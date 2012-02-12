@@ -33,9 +33,11 @@ namespace GIS.ViewModels
         public string TruSoChinh { get; set; }
         
         [DisplayName("Doanh thu năm")]
+        [RegularExpression(@"^([0-9]*|\d*\.\d{1}?\d*)$", ErrorMessage = "Chỉ điền số")]
         public decimal? DoanhThuNam{ get; set; }
 
         [DisplayName("Nộp ngân sách")]
+        [RegularExpression(@"^([0-9]*|\d*\.\d{1}?\d*)$", ErrorMessage = "Chỉ điền số")]
         public decimal? NopNganSach { get; set; }
 
         [DisplayName("Doanh thu năm")]
@@ -80,8 +82,10 @@ namespace GIS.ViewModels
 
         public string HangDoanhNghiep { get; set; }
 
+        [RegularExpression(@"^([0-9]*|\d*\.\d{1}?\d*)$", ErrorMessage = "Chỉ điền số")]
         public decimal VonPhapDinh { get; set; }
 
+        [RegularExpression(@"^([0-9]*|\d*\.\d{1}?\d*)$", ErrorMessage = "Chỉ điền số")]
         public decimal VonLuuDong { get; set; }
 
         public string Camket { get; set; }

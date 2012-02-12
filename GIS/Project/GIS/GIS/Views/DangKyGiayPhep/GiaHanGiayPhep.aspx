@@ -177,8 +177,8 @@
             <div class="block" id="nangluc">
                 <h4>
                     1. Lực lượng kỹ thuật</h4>
-                <h5>
-                    a. Lực lượng kỹ thuật phân tích theo ngành nghề</h5>
+                <h5>a. Lực lượng kỹ thuật phân tích theo ngành nghề</h5>
+                <span id="NangLuc_Validation" class="field-validation-error" style="display:none">Cần có ít nhât một lực lượng kỹ thuật</span>
                 <div class="box">
                     <table class="mytable" id="editorNangLucRows">
                         <!-- Table header -->
@@ -213,9 +213,8 @@
                     </table>
                     <%= Html.ActionLink("Thêm năng lực...", "BlankNangLucRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addNangLucItem" })%>
                 </div>
-                <h5>
-                    b. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật
-                    chính</h5>
+                <h5>b. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật chính</h5>
+                <span id="NhanLuc_Validation" class="field-validation-error" style="display:none">Cần có ít nhât một nhân lực</span>
                 <div class="box">
                     <table class="mytable" id="editorNhanLucRows">
                         <!-- Table header -->
@@ -247,8 +246,8 @@
                     </table>
                     <%= Html.ActionLink("Thêm nhân lực...", "BlankNhanLucRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addNhanLucItem" })%>
                 </div>
-                <h5>
-                    c. Danh sách thiết bị công nghệ</h5>
+                <h5>c. Danh sách thiết bị công nghệ</h5>
+                <span id="ThietBi_Validation" class="field-validation-error" style="display:none">Cần có ít nhât một thiết bị</span>
                 <div class="box">
                     <table class="mytable" id="editorThietBiRows">
                         <!-- Table header -->
@@ -317,14 +316,16 @@
                     <label class="grid_6">
                         Doanh thu năm:
                     </label>
-                    <%= Html.TextBoxFor(m => m.DoanhThuNam, new { @class = "text" })%>
+                    <%= Html.TextBox("DoanhThuNam", string.Format("{0:0}", Model.VonLuuDong), new { @class = "text" })%>
+                    <!-- <%= Html.TextBoxFor(m => m.DoanhThuNam, new { @class = "text" })%> -->
                     <%= Html.ValidationMessageFor(m=>m.DoanhThuNam)%>
                 </p>
                 <p>
                     <label class="grid_6">
                         Nộp ngân sách:
                     </label>
-                    <%= Html.TextBoxFor(m => m.NopNganSach, new { @class = "text" })%>
+                    <%= Html.TextBox("NopNganSach", string.Format("{0:0}", Model.VonLuuDong), new { @class = "text" })%>
+                    <!-- <%= Html.TextBoxFor(m => m.NopNganSach, new { @class = "text" })%> -->
                     <%= Html.ValidationMessageFor(m=>m.NopNganSach)%>
                 </p>
                 <h5>
@@ -590,6 +591,37 @@
 
             $('#GiaHanForm').submit(
                 function() {
+                    $("#NangLuc_Validation").hide();
+                    $("#NhanLuc_Validation").hide();
+                    $("#ThietBi_Validation").hide();
+
+                    var nangLucRows = $(this).find('.editorNangLucRow');
+                    var nhanLucRows = $(this).find('.editorNhanLucRow');
+                    var thietBiRows = $(this).find('.editorThietBiRow');
+
+                    var nangLucSize = nangLucRows.size();
+                    var nhanLucSize = nhanLucRows.size();
+                    var thietBiSize = thietBiRows.size();
+
+                    //                    for (var i = 0; i < rows.size(); i++) {
+                    //                        var row = rows.get(i);
+                    //                        var cols = $(row).find('input');
+                    //                        var firstCol = cols.get(0);
+                    //                        alert($(firstCol).val());
+                    //                        if ($.trim($(firstCol).val()) == '') {
+                    //                            $(row).remove();
+                    //                            nhanlucSize--;
+                    //                        }
+                    //                    }
+                    if (nangLucSize <= 0) {
+                        $("#NangLuc_Validation").show();
+                    }
+                    if (nhanLucSize <= 0) {
+                        $("#NhanLuc_Validation").show();
+                    }
+                    if (thietBiSize <= 0) {
+                        $("#ThietBi_Validation").show();
+                    }
                     var input1 = document.createElement("input");
                     input1.setAttribute("type", "hidden");
                     input1.setAttribute("name", "save");
