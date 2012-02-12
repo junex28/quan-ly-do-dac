@@ -24,6 +24,6 @@
         <td> <%= Html.TextBoxFor(x => x.TrungCap, new { style = "width:99%;height:96%;" })%></td> 
         <td> <%= Html.TextBoxFor(x => x.CongNhan, new { style = "width:99%;height:96%;" })%> </td>
         <td> <%= Html.TextBoxFor(x => x.LoaiKhac, new { style = "width:99%;height:96%;" })%> </td>
-        <td> <a href="#" class="deleteNangLucRow">Xoá</a><td>
+        <td> <a href="#" class="deleteNangLucRow">Xoá</a></td>
             <% } %>
 </tr>    

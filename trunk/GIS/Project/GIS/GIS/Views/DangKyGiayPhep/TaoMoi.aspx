@@ -139,10 +139,9 @@
                 <a id="toggle-nangluc" href="#" style="cursor: pointer;">Kê khai năng lực</a>
             </h2>
             <div class="block" id="nangluc">
-                <h4>
-                    1. Lực lượng kỹ thuật</h4>
-                <h5>
-                    a. Lực lượng kỹ thuật phân tích theo ngành nghề</h5>
+                <h4>1. Lực lượng kỹ thuật</h4>
+                <h5>a. Lực lượng kỹ thuật phân tích theo ngành nghề</h5>
+                <span id="NangLuc_Validation" class="field-validation-error" style="display:none">Cần có ít nhât một lực lượng kỹ thuật</span>
                 <div class="box">
                     <table class="mytable" id="editorNangLucRows">
                         <!-- Table header -->
@@ -177,9 +176,8 @@
                     </table>
                     <%= Html.ActionLink("Thêm năng lực...", "BlankNangLucRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addNangLucItem" })%>
                 </div>
-                <h5>
-                    b. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật
-                    chính</h5>
+                <h5>b. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật chính</h5>
+                <span id="NhanLuc_Validation" class="field-validation-error" style="display:none">Cần có ít nhât một nhân lực</span>
                 <div class="box">
                     <table class="mytable" id="editorNhanLucRows">
                         <!-- Table header -->
@@ -211,8 +209,8 @@
                     </table>
                     <%= Html.ActionLink("Thêm nhân lực...", "BlankNhanLucRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addNhanLucItem" })%>
                 </div>
-                <h5>
-                    c. Danh sách thiết bị công nghệ</h5>
+                <h5>c. Danh sách thiết bị công nghệ</h5>
+                <span id="ThietBi_Validation" class="field-validation-error" style="display:none">Cần có ít nhât một thiết bị</span>
                 <div class="box">
                     <table class="mytable" id="editorThietBiRows">
                         <!-- Table header -->
@@ -424,22 +422,58 @@
                 alert(count1);
                 alert(count2);
                 alert(count3);
-//                if (count1 == 1) {
-//                    alert("chưa kê khai năng lực");
-//                }
-//                else if (count1 == 1) {
-//                    alert("chưa liệt kê danh sách người chịu trách nhiệm");
-//                }
-//                else if (count3 == 1) {
-//                    alert("chưa liệt kê danh sách thiết bị");
-//                }
-//                else {
-//                    $('#taomoiForm').submit();
-//                }
+                //                if (count1 == 1) {
+                //                    alert("chưa kê khai năng lực");
+                //                }
+                //                else if (count1 == 1) {
+                //                    alert("chưa liệt kê danh sách người chịu trách nhiệm");
+                //                }
+                //                else if (count3 == 1) {
+                //                    alert("chưa liệt kê danh sách thiết bị");
+                //                }
+                //                else {
+                //                    $('#taomoiForm').submit();
+                //                }
             });
 
             $('#taomoiForm').submit(
                 function() {
+                    $("#NangLuc_Validation").hide();
+                    $("#NhanLuc_Validation").hide();
+                    $("#ThietBi_Validation").hide();
+
+                    var nangLucRows = $(this).find('.editorNangLucRow');
+                    var nhanLucRows = $(this).find('.editorNhanLucRow');
+                    var thietBiRows = $(this).find('.editorThietBiRow');
+
+                    var nangLucSize = nangLucRows.size();
+                    var nhanLucSize = nhanLucRows.size();
+                    var thietBiSize = thietBiRows.size();
+
+                    //                    for (var i = 0; i < rows.size(); i++) {
+                    //                        var row = rows.get(i);
+                    //                        var cols = $(row).find('input');
+                    //                        var firstCol = cols.get(0);
+                    //                        alert($(firstCol).val());
+                    //                        if ($.trim($(firstCol).val()) == '') {
+                    //                            $(row).remove();
+                    //                            nhanlucSize--;
+                    //                        }
+                    //                    }
+                    if (nangLucSize <= 0) {
+                        $("#NangLuc_Validation").show();
+                    }
+                    if (nhanLucSize <= 0) {
+                        $("#NhanLuc_Validation").show();
+                    }
+                    if (thietBiSize <= 0) {
+                        $("#ThietBi_Validation").show();
+                    }
+                    
+                    if (nangLucSize <= 0 || nhanLucSize <= 0 || thietBiSize <= 0) {
+                        return false;
+                    }
+                    
                     var input1 = document.createElement("input");
                     input1.setAttribute("type", "hidden");
                     input1.setAttribute("name", "save");
