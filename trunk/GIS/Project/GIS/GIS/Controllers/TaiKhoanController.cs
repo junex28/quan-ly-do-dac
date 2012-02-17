@@ -228,8 +228,8 @@ namespace GIS.Controllers
                         Model.Email = user.Email;
                         Model.CMND = user.CMND;
                         Model.Coquan = user.CoQuan;
-                        Model.MatKhau = user.MatKhau;
-                        Model.NhapLaiMatKhau = user.MatKhau;
+                       // Model.MatKhau = user.MatKhau;
+                        //Model.NhapLaiMatKhau = user.MatKhau;
                     }
 
                     return View(Model);
@@ -249,7 +249,6 @@ namespace GIS.Controllers
         }
 
         [Authorize]
-        [RoleFilter(Roles = "1")]
         public ActionResult capnhattaikhoan()
         {
             TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;
@@ -273,6 +272,11 @@ namespace GIS.Controllers
                     {
                         TaiKhoan user = _TaiKhoanRepository.GetTaiKhoanByID(id);
                         TaiKhoan editor = this.CurrentUser;
+                        if(user.MatKhau!= MD5Helper.GetHash(model.MatKhau))
+                        {
+                            MessageHelper.CreateMessage(MessageType.Error,"Lỗi:", new List<string>{"Mật khẩu không đúng"},HttpContext.Response);
+                            return View(model);
+                        }
                         if (editor.MaTaiKhoan == user.MaTaiKhoan || editor.NhomNguoiDung1.TenNhom.Equals("SuperAdmin"))
                         {
                             user.HoTen = model.HoTen;
@@ -280,7 +284,7 @@ namespace GIS.Controllers
                             user.CMND = model.CMND;
                             user.DiaChi = model.DiaChi;
                             user.Email = model.Email;
-
+                            user.MatKhau = MD5Helper.GetHash(model.NhapLaiMatKhau);
                             _TaiKhoanRepository.Save();
                             return RedirectToAction("ChiTiet", "TaiKhoan", new { id = id });
                         }
