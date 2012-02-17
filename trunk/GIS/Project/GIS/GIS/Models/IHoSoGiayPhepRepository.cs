@@ -12,6 +12,9 @@ namespace GIS.Models
         HoSoGiayPhep GetHoSoGiayPhepByID(int id);
         IList<HoSoGiayPhep> GetHSGPByToChuc(int tcId);
         List<HoSoGiayPhep> GetHSListByTCID(int tcId);
+        //HoSoGiayPhep GetHoSoGiayPhepByID(int id);
+        HoSoGiayPhep GetHSGPByToChucId(int tcId);
+        HoSoGiayPhep GetHSListBySoGP(string sogp);
         int Check(int tcId);
         int Check(IList<HoSoGiayPhep> list);
         void Add(HoSoGiayPhep HoSoGiayPhep);

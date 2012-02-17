@@ -32,8 +32,8 @@ namespace GIS.Models
     partial void OnCreated();
     #endregion
 		
-		public QLDDBDDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DDBDConnectionString"].ConnectionString, mappingSource)
+		public QLDDBDDataContext() :
+        base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DDBDConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
