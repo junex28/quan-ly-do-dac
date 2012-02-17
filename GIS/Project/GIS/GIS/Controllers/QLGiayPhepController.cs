@@ -145,25 +145,6 @@ namespace GIS.Controllers
       [RoleFilter(Roles = "4")]
        public ActionResult Edit(int id)
        {
-           //var EditedGPHD = _gphdRepository.GetHoSoGiayPhepByID(id);
-           //var dkhdList = _dkhdRespository.GetDangKyHDs(id);
-           //var hoatdongList = _hoatdongRespository.GetHoatDongs().ToList<HoatDong>();
-           //var selectedMaHDList = _dkhdRespository.getSelectedHD(dkhdList.ToList<DangKyHoatDong>());
-           //var selectedHDList = new List<HoatDong>();
-           //foreach (int i in selectedMaHDList)
-           //{
-           //    selectedHDList.Add(hoatdongList[i]);
-           //}
-           //var m = new MultiSelectList(hoatdongList, "MaHoatDong", "TenHoatDong",
-           //          selectedHDList.Select(x => x.MaHoatDong));
-           //ViewData["hoatdong"] = m;
-           //var viewmodel = new GiayPhepDetailModel
-           //{
-           //    giayphep = EditedGPHD,
-           //   DangKy = dkhdList,
-           //   //HoatDong = m;
-           //};
-
            HoSoGiayPhep gphd = _gphdRepository.GetHoSoGiayPhepByID(id);
            if (gphd == null)
            {
@@ -385,6 +366,7 @@ namespace GIS.Controllers
                 handling.SettingParam(PM32_2010_TT_BTNMT1Handling.GPDKKD, thongTinChung.GiayPhepKinhDoanh);
                 handling.SettingParam(PM32_2010_TT_BTNMT1Handling.HANGDOANHNGHIEP, thongTinChung.HangDoanhNghiep);
                 handling.SettingParam(PM32_2010_TT_BTNMT1Handling.VONPHAPDINH, thongTinChung.VonPhapDinh);
+                handling.SettingParam(PM32_2010_TT_BTNMT1Handling.VONLUUDONG, thongTinChung.VonLuuDong);
                 handling.SettingParam(PM32_2010_TT_BTNMT1Handling.SOTAIKHOAN, thongTinChung.SoTaiKhoan);
                 handling.SettingParam(PM32_2010_TT_BTNMT1Handling.SONHANVIEN, thongTinChung.TongSoCanBo);
                 handling.SettingParam(PM32_2010_TT_BTNMT1Handling.TRUSOCHINH, thongTinChung.TruSoChinh);
@@ -453,7 +435,7 @@ namespace GIS.Controllers
                 hoatDongs.Add(hoatDong);
             }
             handling.SettingParam(PM32_2010_TT_BTNMT1Handling.NOIDUNGHOATDONG, hoatDongs); // check
-            handling.SettingParam(PM32_2010_TT_BTNMT1Handling.BANDANGKYSO, hs.SoGiayPhep); // check
+            handling.SettingParam(PM32_2010_TT_BTNMT1Handling.BANDANGKYSO, hs.MaHoSo); // check
             DateTime ngayHieuLuc = DateTime.Now;
             if (hs.NgayCapPhep != null && hs.NgayCapPhep.HasValue) {
                 ngayHieuLuc = hs.NgayCapPhep.Value;

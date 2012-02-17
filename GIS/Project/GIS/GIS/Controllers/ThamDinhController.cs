@@ -21,7 +21,7 @@ namespace GIS.Controllers
         private IThamDinhRepository _thamdinhRepository;
         private IHoSoGiayPhepRepository _gphdRepository;
         private IDangKyHoatDongRepository _dkhdRespository;
-        private IHoatDongRepository _hoatdongRespository; // may cai nay ko de toan cuc dc dau heo
+        private IHoatDongRepository _hoatdongRespository; 
 
         public ThamDinhController()
             : this(new ThamDinhRespository(), new HoSoGiayPhepRepository(), new DangKyHoatDongRespository(), new HoatDongRespository())
@@ -44,42 +44,6 @@ namespace GIS.Controllers
             return View();
         }
 
-        //public ActionResult ListData(int sid, string sidx, string sord, int page, int rows)
-        //{
-        //    var listThamDinhs = _thamdinhRepository.GetThamDinhByGPID(sid);
-        //    var pageIndex = Convert.ToInt32(page) - 1;
-        //    var pageSize = rows;
-        //    var totalRecords = listThamDinhs.Count();
-        //    var totalPages = (int)Math.Ceiling(totalRecords / (float)pageSize);
-
-        //    // This is possible because I'm using the LINQ Dynamic Query Library
-        //    var models = listThamDinhs
-        //            .OrderBy(sidx + " " + sord)
-        //            .Skip(pageIndex * pageSize)
-        //            .Take(pageSize).AsQueryable();
-
-        //    var jsonData = new
-        //    {
-        //        total = totalPages,
-        //        page = page,
-        //        records = totalRecords,
-        //        rows = (
-        //            from u in models
-        //            select new
-        //            {
-        //                id = u.MaThamDinh,
-        //                cell = new string[] {
-        //                   u.MaThamDinh.ToString(),
-        //                   u.HoSoGiayPhep.ToChuc.TenToChuc,
-        //                   u.NgayThamDinh.Value.ToShortDateString(),
-        //                   u.KienNghi,
-        //                }
-        //            })
-        //    };
-
-        //    return Json(jsonData, JsonRequestBehavior.AllowGet);
-        //}
-        //
         // GET: /ThamDinh/Details/5
 
         public ActionResult Detail(int gpid)
@@ -104,7 +68,7 @@ namespace GIS.Controllers
                 hoatdong = hoatdongList,
                 DangKyDaCap = hdDaCap,
                 DangKyBoSung = hdBoSung,
-                MaBaoCao = bc.MaBaoCao
+                MaBaoCao = (bc == null? 0 : bc.MaBaoCao)
                 // nangluc = nanglucList
             };
             ThamDinh thamdinh = _thamdinhRepository.GetThamDinhByGPID(gpid);
@@ -146,8 +110,13 @@ namespace GIS.Controllers
                 // nangluc = nanglucList
             };
             var td = _thamdinhRepository.GetThamDinhByGPID(gpid);
+            if (td == null)
+            {
+                td = new ThamDinh();
+            }
             ThamDinhEditViewModel model = new ThamDinhEditViewModel();
             model.giayphep = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+           // model.SoGiayPhep = model.giayphep.SoGiayPhep;
             model.thongtinchung = gpchitiet;
             model.ThamDinh = td;
             //model.m = gpid; 
@@ -158,7 +127,7 @@ namespace GIS.Controllers
         // POST: /ThamDinh/Create
 
         [HttpPost]
-        public ActionResult Create(ThamDinhEditViewModel model, int gpid)
+        public ActionResult Create(ThamDinhEditViewModel model, int gpid, int save,string sogiayphep)
         {
             //bool iMsg = true;
             try
@@ -173,19 +142,152 @@ namespace GIS.Controllers
                 td.NangLucThietBi = model.NangLucThietBi;
                 td.KetLuan = model.KetLuan;
                 td.KienNghi = model.KienNghi;
+                //td.TinhTrangThamDinh = (save == 1 ? false: true );
                 _thamdinhRepository.Add(td);
-               
-                //return RedirectToAction("Index", "TrangChu");
-               // MessageHelper.CreateMessage(MessageType.Highlight, "Title", listMsg, HttpContext.Response);
+
+                HoSoGiayPhep hs = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+                //duyet
+                if (save == 2)
+                {
+                    if (hs.TinhTrang == 1)
+                    {
+                        if (model.SoGiayPhep != null && model.SoGiayPhep != "")
+                        {
+                            hs.SoGiayPhep = model.SoGiayPhep;
+                            hs.TinhTrang = 5;
+                            hs.NgayCapPhep = model.NgayCapPhep;
+                            hs.NgayHetHan = model.NgayHetHan;
+                            _gphdRepository.Save();
+                            //if (model.NgayCapPhep != null && model.NgayCapPhep.ToString() != "")
+                            //{
+                            //    hs.NgayCapPhep = model.NgayCapPhep;
+                            //    hs.TinhTrang = 5;
+                            //    hs.NgayHetHan = model.NgayCapPhep.AddYears(5);
+                            //    _gphdRepository.Save();
+                            //}
+                            //else
+                            //{
+                            //    MessageHelper.CreateMessage(MessageType.Error,"",new List<string>{"Vui lòng thêm ngày cấp phép"}, HttpContext.Response);
+                            //return View(model);
+                            //}
+                        }
+                        else
+                            hs.TinhTrang = 4;
+                        _gphdRepository.Save();
+                    }
+                    else if (hs.TinhTrang == 6)
+                    {
+                        hs.TinhTrang = 8;
+                        //hs.SoGiayPhep = model.giayphep.SoGiayPhep;
+                        hs.NgayCapPhep = model.NgayCapPhep;
+                        HoSoGiayPhep hs1 = _gphdRepository.GetHSListBySoGP(sogiayphep);
+                        if (hs1 != null && hs1.MaHoSo != null)
+                        {
+                            hs.NgayHetHan = hs1.NgayHetHan;
+                            _gphdRepository.Save();
+                        }
+                        else
+                        {
+                            if (model.NgayHetHan != null && model.NgayHetHan.ToString() != "")
+                            {
+                                hs.NgayHetHan = model.NgayHetHan;
+                                _gphdRepository.Save();
+                            }
+                            else 
+                            {
+                                MessageHelper.CreateMessage(MessageType.Error,"", new List<string>{"Vui lòng điền ngày hết hạn"},HttpContext.Response);
+                                return View(model);
+                             }
+                        }
+                       // hs.NgayHetHan = 
+                        //hs.NgayCapPhep =
+                        _gphdRepository.Save();
+                    }
+                    else if (hs.TinhTrang == 9)
+                    {
+                        hs.NgayCapPhep = model.NgayCapPhep;
+                        HoSoGiayPhep hs1 = _gphdRepository.GetHSListBySoGP(sogiayphep);
+                        if (hs1 != null && hs1.MaHoSo != null)
+                        {
+                            hs.NgayHetHan = hs1.NgayHetHan;
+                            _gphdRepository.Save();
+                        }
+                        else
+                        {
+                            if (model.NgayHetHan != null && model.NgayHetHan.ToString() != "")
+                            {
+                                hs.NgayHetHan = model.NgayHetHan;
+                                _gphdRepository.Save();
+                            }
+                            else
+                            {
+                                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Vui lòng điền ngày hết hạn" }, HttpContext.Response);
+                                return View(model);
+                            }
+                        }
+                        //if (hs1 != null)
+                        //{
+                        //    hs.NgayHetHan = hs1.NgayHetHan.Value.AddYears(3);
+                        //    _gphdRepository.Save();
+                        //}
+                        //else
+                        //{
+                        //    if (model.NgayHetHan != null)
+                        //    {
+                        //        hs.NgayHetHan = model.NgayHetHan;
+                        //        _gphdRepository.Save();
+                        //    }
+                        //    else
+                        //    {
+                        //        MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Vui lòng điền thêm ngày hết hạn" }, HttpContext.Response);
+                        //        return View(model);
+                        //    }
+                        //}
+                        hs.TinhTrang = 11;
+                        _gphdRepository.Save();
+                    }
+                    td.TinhTrangThamDinh = true;
+                    _thamdinhRepository.Save();
+                        
+                }
+                    //khong duyet
+                else if (save == 0)
+                {
+                    if (hs.TinhTrang == 1)
+                    {
+                        hs.TinhTrang = 2;
+                        _gphdRepository.Update(hs);
+                    }
+                    else if (hs.TinhTrang == 6)
+                    {
+                        hs.TinhTrang = 7;
+                        _gphdRepository.Update(hs);
+                    }
+                    else if (hs.TinhTrang == 9)
+                    {
+                        hs.TinhTrang = 10;
+                        _gphdRepository.Update(hs);
+                    }
+                    td.TinhTrangThamDinh = true;
+                }
+                    ///lưu
+                else if (save == 1)
+                {
+                    //??
+                    if (model.SoGiayPhep != null && model.SoGiayPhep != "")
+                    {
+                        hs.SoGiayPhep = model.SoGiayPhep;
+                    }
+                    td.TinhTrangThamDinh = false;
+                    _gphdRepository.Save();
+                }
             }
-            catch (Exception)
+            catch 
             {
-               // MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "lỗi khi lưu biên bản thẩm định" }, HttpContext.Response);
-                //listMsg.Add("lỗi khi lưu biên bản thẩm định");
-                //iMsg = false;
+                MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "lỗi khi lưu biên bản thẩm định" }, HttpContext.Response);
+                return View(model);
             }
-            //return RedirectToAction("ThongBao", "Thamdinh", new { iMsg1 = iMsg });
-            return RedirectToAction("Index", "QLGiayPhep");
+            return RedirectToAction("Detail", "ThamDinh", new { gpid =gpid});
         }
 
         public ActionResult ThongBao(bool iMsg1)
@@ -241,7 +343,8 @@ namespace GIS.Controllers
             model.giayphep = _gphdRepository.GetHoSoGiayPhepByID(gpid);
             model.thongtinchung = gpchitiet;
             model.ThamDinh = td;
-            model.ThamDinh.NguoiThamDinh.Replace(";", System.Environment.NewLine);
+            model.ThamDinh.NguoiThamDinh = model.ThamDinh.NguoiThamDinh.Replace(";", System.Environment.NewLine);
+            model.ThamDinh.NguoiPhiaToChuc = model.ThamDinh.NguoiPhiaToChuc.Replace(";", System.Environment.NewLine);
             //model.m = gpid; 
             return View(model);
         }
@@ -256,6 +359,8 @@ namespace GIS.Controllers
             try
             {
                 var hs = _gphdRepository.GetHoSoGiayPhepByID(gpid);
+                ThamDinh td = _thamdinhRepository.GetThamDinhByGPID(gpid);
+                //khong duyet
                 if (save == 0)
                 {
                     if (hs.TinhTrangGiayPhep.MaTinhTrang == 1)
@@ -265,34 +370,43 @@ namespace GIS.Controllers
                     else if (hs.TinhTrangGiayPhep.MaTinhTrang == 9)
                         hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(10);
                 }
+                    //duyet
                 else if (save == 1)
                 {
                     if (hs.TinhTrangGiayPhep.MaTinhTrang == 1)
                     {
                         if (model.giayphep.SoGiayPhep == null)
+                        {
                             hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(4);
+                            //_gphdRepository.Save();
+                        }
                         else
                         {
                             hs.SoGiayPhep = model.giayphep.SoGiayPhep;
                             hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(5);
+                           // _gphdRepository.Save();
                         }
                     }
                     else if (hs.TinhTrangGiayPhep.MaTinhTrang == 4 && model.giayphep.SoGiayPhep != null){
                         hs.SoGiayPhep = model.giayphep.SoGiayPhep;
                         hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(5);
+                       // _gphdRepository.Save();
                     }
                     else if (hs.TinhTrangGiayPhep.MaTinhTrang == 6)
                         hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(8);
                     else if (hs.TinhTrangGiayPhep.MaTinhTrang == 9)
                         hs.TinhTrangGiayPhep = ttgpRepository.GetTinhTrangGiayPhepByID(11);
+                    //_gphdRepository.Save();
                 }
-                _gphdRepository.Save();
-
-                ThamDinh td = _thamdinhRepository.GetThamDinhByGPID(gpid);
+                //luu
+                //_gphdRepository.Update(hs);
                 td.MaHoSo = gpid;
-                if (model.ThamDinh.NgayThamDinh == null)
-                    model.ThamDinh.NgayThamDinh = DateTime.Today; 
-                td.NgayThamDinh = (DateTime)model.ThamDinh.NgayThamDinh;
+                if (model.NgayThamDinh == null)
+                    td.NgayThamDinh = DateTime.Today;
+                else
+                {
+                    td.NgayThamDinh = (DateTime)model.NgayThamDinh;
+                }
                 string strNguoiThamDinh = model.ThamDinh.NguoiThamDinh;
                 td.NguoiThamDinh = strNguoiThamDinh.Replace("\r\n", ";"); 
                 td.NguoiPhiaToChuc = model.ThamDinh.NguoiPhiaToChuc.Replace("\r\n", ";");
@@ -301,7 +415,7 @@ namespace GIS.Controllers
                 td.NangLucThietBi = model.ThamDinh.NangLucThietBi;
                 td.KetLuan = model.ThamDinh.KetLuan;
                 td.KienNghi = model.ThamDinh.KienNghi;
-                if (save == 1)
+                if (save == 1 || save == 0)
                     td.TinhTrangThamDinh = true;
                 _thamdinhRepository.Save();
             }
@@ -309,7 +423,7 @@ namespace GIS.Controllers
             {
                 MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Lỗi khi lưu biên bản thẩm định" }, HttpContext.Response);
             }
-            return RedirectToAction("Index", "QLGiayPhep");
+            return RedirectToAction("Detail", "ThamDinh", new { gpid = gpid });
         }
 
         //
@@ -346,7 +460,7 @@ namespace GIS.Controllers
             HoSoGiayPhep hs = _gphdRepository.GetHoSoGiayPhepByID(id);
             ThamDinh td = _thamdinhRepository.GetThamDinhByGPID(id);
             if ( td == null )
-            {
+            { 
                 return RedirectToAction("Create", "Thamdinh", new { gpid = id });
             }
             else{
@@ -356,13 +470,14 @@ namespace GIS.Controllers
                 }
         }
 
-        public ActionResult Download(int gpid)
+        public ActionResult Download(int tdid, int gpid)
         {
             String outputName = HttpContext.Session.SessionID + DateTime.Now.Ticks + ".docx";
             String tmpPath = Path.Combine(HostingEnvironment.MapPath("~/App_Data/Templates"), "PM32-2010-TT-BTNMT2.docx");
             String outPath = Path.Combine(HostingEnvironment.MapPath("~/App_Data/Download"), outputName);
             DocumentHandling.DocumentHandling handling = new PM32_2010_TT_BTNMT2Handling();
-            ThamDinh td = _thamdinhRepository.GetThamDinhByGPID(gpid);
+            ThamDinh td = _thamdinhRepository.GetThamDinhById(tdid);
+            HoSoGiayPhep gp = _gphdRepository.GetHoSoGiayPhepByID(gpid);
             List<string> coquans = _thamdinhRepository.GetNguoiThamDinh(td.NguoiThamDinh);
             List<string> tochucs = _thamdinhRepository.GetDaiDienTC(td.NguoiPhiaToChuc);
             DateTime ngaythamdinh = DateTime.Now;
@@ -378,10 +493,10 @@ namespace GIS.Controllers
             handling.SettingParam(PM32_2010_TT_BTNMT2Handling.THANG, ngaythamdinh.Month);
             handling.SettingParam(PM32_2010_TT_BTNMT2Handling.NAMTOP, ngaythamdinh.Year);
             handling.SettingParam(PM32_2010_TT_BTNMT2Handling.NAM, ngaythamdinh.Year);
+            handling.SettingParam(PM32_2010_TT_BTNMT2Handling.TENTOCHUC, gp.ToChuc.TenToChuc);
             handling.SettingParam(PM32_2010_TT_BTNMT2Handling.TPCOQUANTHAMDINH, coquans);
             handling.SettingParam(PM32_2010_TT_BTNMT2Handling.TPTOCHUC, tochucs);
             handling.SettingParam(PM32_2010_TT_BTNMT2Handling.TINHHOPLEHOSO, td.TinhHopLe);
-            // Xem cai nay co dung ko nha Th heo :D
             handling.SettingParam(PM32_2010_TT_BTNMT2Handling.KEKHAILUCLUONGKYTHUAT, td.NangLucNhanVien);
             handling.SettingParam(PM32_2010_TT_BTNMT2Handling.KEKHAITHIETBICONGNGHE, td.NangLucThietBi);
             //

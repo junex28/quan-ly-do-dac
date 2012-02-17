@@ -431,7 +431,7 @@ namespace GIS.Controllers
             return View(moc);
         }
         [HttpPost]
-        public ActionResult CapNhat(int id, int loai, Moc model)
+        public ActionResult CapNhat(int id, int loai, int tt)
         {
             try
             {
@@ -439,31 +439,34 @@ namespace GIS.Controllers
                 {
                     MocToaDo moctd = new MocToaDo();
                     moctd = _moctoado.GetMocToaDoByID(id);
+                    moctd.TinhTrang = tt;
                     _moctoado.Update(moctd);
-                    return RedirectToAction("ChiTiet", new { id = id, loai = loai });
+                    
                 }
                 else if (loai == 2)
                 {
                     MocDoCao mocdc = new MocDoCao();
                     mocdc = _mocdocao.GetMocDoCaoByID(id);
+                    mocdc.TinhTrang = tt;
                     _mocdocao.Update(mocdc);
-                    return RedirectToAction("ChiTiet", new { id = id, loai = loai });
+                   
                 }
                 else if (loai == 3)
                 {
                     MocTrongLuc moctl = new MocTrongLuc();
                     moctl = _moctrongluc.GetMocTrongLucByID(id);
+                    moctl.TinhTrang = tt;
                     _moctrongluc.Update(moctl);
-                    return RedirectToAction("ChiTiet", new { id = id, loai = loai });
+                  
                 }
-                throw new Exception();
+               // throw new Exception();
             }
             catch
             {
                 MessageHelper.CreateMessage(MessageType.Error, "", new List<string>{"Cập nhật tình trạng mốc không thành công.\n Vui lòng thử lại."}, HttpContext.Response);
-                return View(model);
+               // return View("chitiet", new { id =id, loai=loai});
             }
-
+            return RedirectToAction("ChiTiet", new { id = id, loai = loai });
         }
     }
 }

@@ -85,7 +85,10 @@ namespace GIS.Controllers
                 //kiểm tra được phép đăng ký mới hay không
                 int check = _hsgpRepository.Check(tc.MaToChuc);
                 if (check == 1 || check == 4 || check == 5 || check == 6 || check == 8 || check == 9 || check == 11)
-                    return RedirectToAction("ThongBao", new { iMsg = check });
+                {
+                    ViewData["mataikhoan"] = tk.MaTaiKhoan;
+                    return RedirectToAction("thongbao", new { iMsg = check });
+                }
 
                 model.NangLucs = new List<NangLucVM> { };
                 List<NangLucKeKhai> listNangLuc = new List<NangLucKeKhai>();
@@ -172,16 +175,16 @@ namespace GIS.Controllers
         {
             TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;
             int msg = 0;
-
+           
             if (save == 1)
             {
-                using (TransactionScope scope = new TransactionScope())
-                {
+                //using (TransactionScope scope = new TransactionScope())
+               // {
                     try
                     {
                         ThongTinChung ttc = new ThongTinChung();
-                        using (TransactionScope s1 = new TransactionScope())
-                        {
+                        //using (TransactionScope s1 = new TransactionScope())
+                        //{
                             ttc.TenToChuc = model.TenToChuc;
                             ttc.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
                             ttc.HangDoanhNghiep = model.HangDoanhNghiep;
@@ -199,8 +202,8 @@ namespace GIS.Controllers
 
                             // Luu vao to chuc neu chua co hoac update 
                             //ToChuc t = _tochucRespository.GetToChucByID(model.MaToChuc);
-                            List<ToChuc> tcs = tk.ToChucs.ToList();
-                            if (tcs.Count == 0)
+                            ToChuc tc = _tochucRespository.GetToChucByTaiKhoan(tk.MaTaiKhoan);
+                            if (tc == null)
                             {
                                 ToChuc tc1 = new ToChuc();
                                 tc1.TenToChuc = model.TenToChuc;
@@ -221,7 +224,7 @@ namespace GIS.Controllers
                             }
                             else
                             {
-                                ToChuc t = tcs[0];
+                                ToChuc t = tc;
                                 t.TenToChuc = model.TenToChuc;
                                 t.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
                                 t.HangDoanhNghiep = model.HangDoanhNghiep;
@@ -237,8 +240,8 @@ namespace GIS.Controllers
                                 t.Fax = model.Fax;
                                 _tochucRespository.Update(t);
                             }
-                            s1.Complete();
-                        }
+                            //s1.Complete();
+                            //}
                         // xoa nhung nangluckekhai co MaToChuc va them vao nangluckekhai co MaToChuc moi
                         // them những nangluckekhai co MaThongTinChung
 
@@ -366,22 +369,25 @@ namespace GIS.Controllers
                                 _dkhdRespository.Add(dk);
                             }
                         }
-                        scope.Complete();
                         msg = 20;
                     }
+                       // scope.Complete();
+                    //msg = 20;
+                   // }
                     catch
                     {
-                        //MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Gửi hồ sơ không thành công" }, HttpContext.Response);
-                        msg = 21;
+                        MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Gửi hồ sơ không thành công" }, HttpContext.Response);
+                        model.loaiHinh = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
+                        return View(model);
+                        //msg = 21;
                     }
-                }
             }
             else
             {
                 try
                 {
-                    using (TransactionScope s2 = new TransactionScope())
-                    {
+                    //using (TransactionScope s2 = new TransactionScope())
+                   // {
                         List<ToChuc> tcs = tk.ToChucs.ToList();
                         if (tcs.Count == 0)
                         {
@@ -482,13 +488,15 @@ namespace GIS.Controllers
                                 _thietbiRespository.Add(tb);
                             }
                         }
-                        s2.Complete();
+                       // s2.Complete();
                         msg = 22;
-                    }
+                    //}
                 }
                 catch
                 {
-                    msg = 23;
+                    MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Lỗi khi lưu hồ sơ đăng ký" }, HttpContext.Response);
+                    model.loaiHinh = _loaihinhtochucRepository.GetLoaiHinhToChucs().ToList();
+                    return View(model);
                 }
             }
             return RedirectToAction("ThongBao", new { iMsg = msg });
@@ -674,12 +682,12 @@ namespace GIS.Controllers
 
             if (save == 1)
             {
-                using (TransactionScope scope = new TransactionScope())
+                //using (TransactionScope scope = new TransactionScope())
                 {
                     try
                     {
                         ThongTinChung ttc = new ThongTinChung();
-                        using (TransactionScope s1 = new TransactionScope())
+                        //using (TransactionScope s1 = new TransactionScope())
                         {
                             ttc.TenToChuc = model.TenToChuc;
                             ttc.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
@@ -736,7 +744,7 @@ namespace GIS.Controllers
                                 t.Fax = model.Fax;
                                 _tochucRespository.Update(t);
                             }
-                            s1.Complete();
+                           // s1.Complete();
                         }
                         // xoa nhung nangluckekhai co MaToChuc va them vao nangluckekhai co MaToChuc moi
                         // them những nangluckekhai co MaThongTinChung
@@ -924,13 +932,13 @@ namespace GIS.Controllers
                             }
                         }
 
-                        scope.Complete();
-                        msg = 1;
+                        //scope.Complete();
+                        msg = 20;
                     }
                     catch
                     {
                         //MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Gửi hồ sơ không thành công" }, HttpContext.Response);
-                        msg = 2;
+                        msg = 21;
                     }
                 }
             }
@@ -938,8 +946,8 @@ namespace GIS.Controllers
             {
                 try
                 {
-                    using (TransactionScope s2 = new TransactionScope())
-                    {
+                   // using (TransactionScope s2 = new TransactionScope())
+                    //{
                         List<ToChuc> tcs = tk.ToChucs.ToList();
                         if (tcs.Count == 0)
                         {
@@ -1072,13 +1080,13 @@ namespace GIS.Controllers
                             }
                         }
 
-                        s2.Complete();
-                        msg = 3;
-                    }
+                       // s2.Complete();
+                        msg = 22;
+                   // }
                 }
                 catch
                 {
-                    msg = 4;
+                    msg = 23;
                 }
             }
             return RedirectToAction("ThongBao", new { iMsg = msg });
@@ -1266,13 +1274,13 @@ namespace GIS.Controllers
 
             if (save == 1)
             {
-                using (TransactionScope scope = new TransactionScope())
-                {
+               // using (TransactionScope scope = new TransactionScope())
+                //{
                     try
                     {
                         ThongTinChung ttc = new ThongTinChung();
-                        using (TransactionScope s1 = new TransactionScope())
-                        {
+                        //using (TransactionScope s1 = new TransactionScope())
+                        //{
                             ttc.TenToChuc = model.TenToChuc;
                             ttc.GiayPhepKinhDoanh = model.GiayPhepKinhDoanh;
                             ttc.HangDoanhNghiep = model.HangDoanhNghiep;
@@ -1328,8 +1336,8 @@ namespace GIS.Controllers
                                 t.Fax = model.Fax;
                                 _tochucRespository.Update(t);
                             }
-                            s1.Complete();
-                        }
+                          //  s1.Complete();
+                        //}
                         // xoa nhung nangluckekhai co MaToChuc va them vao nangluckekhai co MaToChuc moi
                         // them những nangluckekhai co MaThongTinChung
 
@@ -1435,12 +1443,26 @@ namespace GIS.Controllers
                         //thêm những row báo cáo công trình mới
 
                         BaoCaoHoatDong bchd1 = _bchdRespository.GetBaoCaoHoatDongByTC(tochuc.MaToChuc);
-                        // bchd1.MaToChuc = tochuc.MaToChuc;
-                        bchd1.TuNam = model.TuNam;
-                        bchd1.DenNam = model.DenNam;
-                        bchd1.DoanhThu = model.DoanhThuNam.GetValueOrDefault(0);
-                        bchd1.NopNganSach = model.NopNganSach.GetValueOrDefault(0);
-                        _bchdRespository.Update(bchd1);
+                        if (bchd1 != null && bchd1.MaBaoCao != 0)
+                        {
+                            // bchd1.MaToChuc = tochuc.MaToChuc;
+                            bchd1.TuNam = model.TuNam;
+                            bchd1.DenNam = model.DenNam;
+                            bchd1.DoanhThu = model.DoanhThuNam.GetValueOrDefault(0);
+                            bchd1.NopNganSach = model.NopNganSach.GetValueOrDefault(0);
+                            _bchdRespository.Update(bchd1);
+                        }
+                        else
+                        {
+                            BaoCaoHoatDong b = new BaoCaoHoatDong();
+                            b.MaToChuc = tochuc.MaToChuc;
+                            b.TuNam = model.TuNam;
+                            b.DenNam = model.DenNam;
+                            b.DoanhThu = model.DoanhThuNam.GetValueOrDefault(0);
+                            b.NopNganSach = model.NopNganSach.GetValueOrDefault(0);
+                            _bchdRespository.Add(b);
+                        }
+                        bchd1 = _bchdRespository.GetBaoCaoHoatDongByTC(tochuc.MaToChuc);
                         BaoCaoHoatDong bchd2 = new BaoCaoHoatDong();
                         bchd2.MaThongTinChung = ttc.MaThongTinChung;
                         bchd2.TuNam = model.TuNam;
@@ -1502,22 +1524,22 @@ namespace GIS.Controllers
                         }
                         _hsgpRepository.Add(hs);
 
-                        scope.Complete();
-                        msg = 1;
+                        //scope.Complete();
+                        msg = 20;
                     }
                     catch
                     {
                         //MessageHelper.CreateMessage(MessageType.Error, "", new List<string> { "Gửi hồ sơ không thành công" }, HttpContext.Response);
-                        msg = 2;
+                        msg = 21;
                     }
-                }
+               // }
             }
             else
             {
                 try
                 {
-                    using (TransactionScope s2 = new TransactionScope())
-                    {
+                    //using (TransactionScope s2 = new TransactionScope())
+                   // {
                         List<ToChuc> tcs = tk.ToChucs.ToList();
                         if (tcs.Count == 0)
                         {
@@ -1621,12 +1643,27 @@ namespace GIS.Controllers
                         /// cập nhật báo cáo hoạt động có mã tổ chức, xóa hết báo cáo công trình có mã báo cáo vừa update
                         /// thêm bc công trình với mã báo cáo cũ
                         BaoCaoHoatDong bchd1 = _bchdRespository.GetBaoCaoHoatDongByTC(tochuc.MaToChuc);
-                        bchd1.MaToChuc = tochuc.MaToChuc;
-                        bchd1.TuNam = model.TuNam;
-                        bchd1.DenNam = model.DenNam;
-                        bchd1.DoanhThu = model.DoanhThuNam.GetValueOrDefault(0);
-                        bchd1.NopNganSach = model.NopNganSach.GetValueOrDefault(0);
-                        _bchdRespository.Update(bchd1);
+                    
+                        if (bchd1 != null && bchd1.MaBaoCao != 0)
+                        {
+                           // bchd1.MaToChuc = tochuc.MaToChuc;
+                            bchd1.TuNam = model.TuNam;
+                            bchd1.DenNam = model.DenNam;
+                            bchd1.DoanhThu = model.DoanhThuNam.GetValueOrDefault(0);
+                            bchd1.NopNganSach = model.NopNganSach.GetValueOrDefault(0);
+                            _bchdRespository.Update(bchd1);
+                        }
+                        else
+                        {
+                            BaoCaoHoatDong b = new BaoCaoHoatDong();
+                            b.MaToChuc = tochuc.MaToChuc;
+                            b.TuNam = model.TuNam;
+                            b.DenNam = model.DenNam;
+                            b.DoanhThu = model.DoanhThuNam.GetValueOrDefault(0);
+                            b.NopNganSach = model.NopNganSach.GetValueOrDefault(0);
+                            _bchdRespository.Add(b);
+                            bchd1 = _bchdRespository.GetBaoCaoHoatDongByTC(tochuc.MaToChuc);
+                        }
 
                         List<BaoCaoCongTrinh> congtrinhListCu = _bcctRespository.GetBCCTByBCHD(bchd1.MaBaoCao);
                         foreach (var bc in congtrinhListCu)
@@ -1649,14 +1686,13 @@ namespace GIS.Controllers
                                 _bcctRespository.Add(bc);
                             }
                         }
-
-                        s2.Complete();
-                        msg = 3;
-                    }
+                        //s2.Complete();
+                        msg = 22;
+                   // }
                 }
                 catch
                 {
-                    msg = 4;
+                    msg = 23;
                 }
             }
             return RedirectToAction("ThongBao", new { iMsg = msg });
@@ -1671,6 +1707,7 @@ namespace GIS.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult KetQuaHoSo()
         {
             ThamDinhEditViewModel model = new ThamDinhEditViewModel();
@@ -1746,6 +1783,45 @@ namespace GIS.Controllers
                 ContentType = "application/octet-stream",
                 Content = System.IO.File.ReadAllBytes(pfn)
             };
+        }
+        public ActionResult HuongDan()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult ChiTiet()
+        {
+            TaiKhoan tk = ((EnhancedPrincipal)HttpContext.User).Data;
+            int id = tk.MaTaiKhoan;
+            List<ToChuc> tcs = tk.ToChucs.ToList();
+            if (tcs.Count == 0)
+            {
+                return RedirectToAction("ThongBao", new { iMsg = 14 });
+            }
+            ToChuc tc = tcs[0];
+            HoSoGiayPhep gphd = _hsgpRepository.GetHSGPByToChucId(tc.MaToChuc);
+            BaoCaoHoatDong bc = new BaoCaoHoatDong();
+            bc = gphd.ThongTinChung.BaoCaoHoatDongs.SingleOrDefault(m=>m.MaThongTinChung == gphd.MaThongTinChung);
+            int k = 0;
+            if (bc != null)
+            {
+                k = bc.MaBaoCao;
+            }
+            var dangkyMoi = _dkhdRespository.GetDangKyHDMoi(id);
+            var dangkyDuocCap = _dkhdRespository.GetDKHDDaCap(id);
+            var dangkyBS = _dkhdRespository.GetDKHDBoSung(id);
+            var model = new GiayPhepDetailModel
+            {
+                DangKy = dangkyMoi,
+                DangKyDaCap = dangkyDuocCap,
+                DangKyBoSung = dangkyBS,
+                giayphep = gphd,
+                MaBaoCao = k
+                //hoatdong = hoatdongList
+               // nangluc = nanglucList
+            };
+            return View(model);
         }
     }
 }
