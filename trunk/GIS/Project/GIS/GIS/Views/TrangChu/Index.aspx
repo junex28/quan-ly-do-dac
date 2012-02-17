@@ -5,7 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%= Html.Encode(ViewData["Message"]) %></h2>
+    <h2>Hệ thống quản lý thông tin đo đạc bản đồ</h2>
     <p>
         Hệ thống quản lý đăng ký giấy phép hoạt động trực tuyến
     </p>

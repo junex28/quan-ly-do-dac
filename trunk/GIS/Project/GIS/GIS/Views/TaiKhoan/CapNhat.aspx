@@ -7,7 +7,7 @@
 <asp:Content ID="registerContent" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.EnableClientValidation(); %>
     <%= Html.ValidationSummary(true, "Cập nhật Tài Khoản thất bại. Xin vui lòng sửa lỗi và nhập lại.") %>
-    <% using (Html.BeginForm("CapNhat","TaiKhoan",FormMethod.Post))
+    <% using (Html.BeginForm("CapNhat", "TaiKhoan", FormMethod.Post, new { id = "xetduyetForm" }))
        {  %>
     <div class="grid_19 alpha">
         <h3>
@@ -16,67 +16,90 @@
         </div>
         <div class="box">
             <div class="block">
+                 <p>
+                    <label class="grid_6">
+                        Mật khẩu cũ
+                    </label>
+                    <%= Html.TextBoxFor(m => m.MatKhau, new { @type = "password", @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m => m.MatKhau)%>
+                </p>
                 <p>
                     <label class="grid_6">
-                        Tên tài khoản
+                        Mật khẩu mới
                     </label>
-                    <%= Html.TextBoxFor(m => m.TenTaiKhoan, new { disabled = "true", @class = "text" })%>
-                    <%= Html.ValidationMessageFor(m => m.TenTaiKhoan) %>
+                    <%= Html.TextBoxFor(m => m.NhapLaiMatKhau, new { @type = "password", @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m => m.NhapLaiMatKhau)%>
                 </p>
-                                <p>
+                <p>
                     <label class="grid_6">
                         Địa chỉ email
                     </label>
-                            <%= Html.TextBoxFor(m => m.Email, new { @class = "text" })%>
-                            <%= Html.ValidationMessageFor(m => m.Email) %>
+                    <%= Html.TextBoxFor(m => m.Email, new { @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m => m.Email)%>
                 </p>
-                                                <p>
+                <p>
                     <label class="grid_6">
                         Họ và tên
                     </label>
-                            <%= Html.TextBoxFor(m => m.HoTen, new { @class = "text" })%>
-                            <%= Html.ValidationMessageFor(m => m.HoTen) %>
+                    <%= Html.TextBoxFor(m => m.HoTen, new { @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m => m.HoTen)%>
                 </p>
-                                                <p>
+                <p>
                     <label class="grid_6">
                         Địa chỉ
                     </label>
-                            <%= Html.TextBoxFor(m => m.DiaChi, new { @class = "text" })%>
-                            <%= Html.ValidationMessageFor(m => m.DiaChi) %>
+                    <%= Html.TextBoxFor(m => m.DiaChi, new { @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m => m.DiaChi)%>
                 </p>
-                                                <p>
+                <p>
                     <label class="grid_6">
                         Số CMND
                     </label>
-                       <%= Html.TextBoxFor(m => m.CMND, new { @class = "text" })%>
-                            <%= Html.ValidationMessageFor(m => m.CMND) %>
+                    <%= Html.TextBoxFor(m => m.CMND, new { @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m => m.CMND)%>
                 </p>
-                                                <p>
+                <p>
                     <label class="grid_6">
-                       Địa chỉ cơ quan
+                        Địa chỉ cơ quan
                     </label>
-                          <%= Html.TextBoxFor(m => m.Coquan, new { @class = "text" })%>
-                            <%= Html.ValidationMessageFor(m => m.Coquan) %>
+                    <%= Html.TextBoxFor(m => m.Coquan, new { @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m => m.Coquan)%>
                 </p>
-                 <p>
+                <p>
                     <label class="grid_6">
-                      Captcha
-                    
+                        Captcha
                     </label>
-                     <%= Html.Captcha("myCaptcha") %>
-     </p>
-                                 <p>
+                    <%= Html.Captcha("myCaptcha")%>
+                </p>
+                <p>
                     <label class="grid_6">
-                      Nhập ký tự ở trên
+                        Nhập ký tự ở trên
                     </label>
-                            <%= Html.TextBoxFor(m => m.Captcha, new { @class = "text" })%>
-                            <%= Html.ValidationMessageFor( m => m.Captcha  ) %>
+                    <%= Html.TextBoxFor(m => m.Captcha, new { @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m => m.Captcha)%>
                 </p>
                 <div class="block prefix_4">
                     <input type="reset" value="Làm mới" class="button redmond" />
-                        <input type="submit" value="Lưu lại" class="button redmond" /></div>
+                  <button id="xetduyetButton" class="button redmond">
+                    <span class="duyet">Cập nhật</span></button>
             </div>
         </div>
-
         <% } %>
+</asp:Content>
+<asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
+<script type="text/javascript">
+             $(function() {
+                 $('#xetduyetButton').click(function() {
+                $('#xetduyetForm').submit();
+            });
+             $('#xetduyetForm').submit(function() {
+                    var input = document.createElement("input");
+                    input.setAttribute("type", "hidden");
+                    input.setAttribute("name", "id");
+                    input.setAttribute("value", "<%=Model.MaTaiKhoan%>");
+                    $(this).append(input);
+                    return true;
+            });
+            });
+</script>
 </asp:Content>

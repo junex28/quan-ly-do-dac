@@ -8,9 +8,10 @@ chi tiết mốc công trình
 
 <div class="grid_19 alpha">
         <div class="box">
-            <h2>
-                <a id="toggle-moc" href="#" style="cursor: pointer;">Chi tiết mốc</a>
-            </h2>
+            <h3>
+            Thông tin mốc công trình</h3>
+        <div class="clear">
+        </div>
             <div class="block" >
                 <p>
                     <label class="grid_6">
@@ -76,7 +77,7 @@ chi tiết mốc công trình
         </div>
         <div class="box">
             <div class="block prefix_4">
-                <button id="backButton" class="button redmond" onclick="window.location.href='./'">
+                <button id="backButton" class="button redmond" onclick="window.location.href='/TrangChu/Index'">
                     <span class="back">Thoát</span></button>
                 <button id="editButton" class="button redmond" >
                     <span class="Chỉnh sửa">Chỉnh sửa </span>

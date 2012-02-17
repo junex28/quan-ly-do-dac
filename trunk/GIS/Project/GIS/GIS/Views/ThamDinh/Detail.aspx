@@ -120,6 +120,12 @@
                     <%= Html.Encode(Model.ThamDinh.NangLucNhanVien)%>
                 </p>
                 <p>
+                <p>
+                    <label class="grid_6 labelnor">
+                        Thẩm định năng lực thiết bị :
+                    </label>
+                    <%= Html.Encode(Model.ThamDinh.NangLucThietBi)%>
+                </p>
                     <label class="grid_6 labelnor">
                         Kết luận :
                     </label>
@@ -147,7 +153,7 @@
             <div class="block prefix_4">
                 <button id="backButton" class="button redmond" onclick="window.location.href='./'">
                     <span class="back">Thoát</span></button>
-                <%= Html.ActionLink("Download", "Download", new { gpid = 1 })%>
+                <%= Html.ActionLink("Download", "Download", new { tdid = Model.ThamDinh.MaThamDinh, gpid= Model.giayphep.MaHoSo})%>
             </div>
         </div>
     </div>

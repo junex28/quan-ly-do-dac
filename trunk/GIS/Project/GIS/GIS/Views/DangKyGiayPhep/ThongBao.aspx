@@ -11,23 +11,25 @@
             string iStr = i.ToString();
             switch (iStr)
             {
-            case "1" :{%>
-        Bạn đã gửi một hồ sơ đăng ký giấy phép mới. Hồ sơ đang được thẩm định.
+                case "1":
+                    {%>
+        Bạn đã gửi một hồ sơ đăng ký giấy phép mới. Hồ sơ đang được thẩm định.<br />
+        Click vào <a href="/dangkygiayphep/chitiet">đây</a>
         <% }break; 
             case "2":{%>
-        Tổ chức này hiện tại chưa được cấp phép hoạt động đo đạc bản đồ. Vui
+        Tổ chức này hiện tại chưa được cấp phép hoạt động đo đạc bản đồ.<br /> Vui
         lòng gửi hồ sơ đăng ký giấy phép mới tại <a href="/dangkygiayphep/taomoi">đây</a>
         <% } break;
            case "3":{%>
-        Giấy phép được cấp cho tổ chức này đã hết hạn. Vui lòng gửi hồ sơ đăng
+        Giấy phép được cấp cho tổ chức này đã hết hạn. <br />Vui lòng gửi hồ sơ đăng
         ký giấy phép mới tại <a href="/dangkygiayphep/taomoi">đây</a>
         <% } break;
            case "4":{%>
-        Bạn đã gủi một hồ sơ đăng ký mới. Hồ sơ đã được thẩm định thành công.
+        Bạn đã gủi một hồ sơ đăng ký mới. Hồ sơ đã được thẩm định thành công.<br />
         Vui lòng không gửi thêm hồ sơ khác.
         <% } break;
            case "5":{%>
-        Tổ chức hiện tại đã được cấp phép hoạt động. Vui lòng không gửi thêm
+        Tổ chức hiện tại đã được cấp phép hoạt động. <br /> Vui lòng không gửi thêm
         hồ sơ đăng ký khác.
         <% } break;
           case "6":{%>
@@ -42,25 +44,28 @@
         <% } break;
           case "9":{%>
           Bạn đã gửi một hồ sơ xin gia hạn giấy phép hoạt động.Hồ sơ đang được
-        thẩm định. Xin vui lòng không gửi thêm hồ sơ xin phép mới.
+        thẩm định.<br /> Xin vui lòng không gửi thêm hồ sơ xin phép mới.
         <% } break;
         case "10":{%>
            Bạn đã gửi một hồ sơ xin gia hạn giấy phép hoạt động nhưng kết quả không
-        đạt. Vui lòng gửi lại hồ sơ đăng ký gia hạn tại <a href="">đây</a>
+        đạt. <br />Vui lòng gửi lại hồ sơ đăng ký gia hạn tại <a href="">đây</a>
         <% } break;
          case "11":{%>
           Bạn đã gửi một hồ sơ xin gia hạn giấy phép hoạt động.Hồ sơ đang được
-        thẩm định. Xin vui lòng không gửi thêm hồ sơ xin phép mới.
+        thẩm định. <br />Xin vui lòng không gửi thêm hồ sơ xin phép mới.
         <% } break;
           case "12":{%>
-           Giấy phép hoạt động của tổ chức này hiện tại đã bị hủy. Vui lòng gửi
+           Giấy phép hoạt động của tổ chức này hiện tại đã bị hủy. <br />Vui lòng gửi
         hồ sơ đăng ký giấy phép mới tại <a href="/dangkygiayphep/taomoi">đây </a>
         <% } break;
            case "13":{%>
            Giấy phép của tổ chức này vẫn hoạt động bình thường, chưa đến thời
-        gian gia hạn. Chúng tôi sẽ nhận hồ sơ xin gia hạn trước khi giấy phép hết
-        hạn ít nhất 30 ngày và nhiều nhất là 60 ngày. Vui lòng gửi hồ sơ gia
+        gian gia hạn. <br />Chúng tôi sẽ nhận hồ sơ xin gia hạn trước khi giấy phép hết
+        hạn ít nhất 30 ngày và nhiều nhất là 60 ngày.<br /> Vui lòng gửi hồ sơ gia
         hạn trong thời gian quy đinh. Xin cảm ơn! </span>
+        <% } break;
+         case "14":{%>
+           Không tìm thấy chi tiết hồ sơ đang được thẩm định</span>
         <% } break;
          case "20":{%>
               Gửi hồ sơ đăng ký thành công. Hồ sơ đã được lưu và chờ thẩm định. </span>
@@ -71,7 +76,7 @@
         <% } break;
          case "22":{%>
              Lưu hồ sơ thành công. Thông tin chung, danh sách thiết bị, danh sách người
-    chịu trách nhiệm, báo cáo công trình, danh sách lực lượng kỹ thuật phân
+    chịu trách nhiệm,<br /> báo cáo công trình, danh sách lực lượng kỹ thuật phân
     tích sẽ được lưu lại. </span>
         <% } break;
          case "23":{%>

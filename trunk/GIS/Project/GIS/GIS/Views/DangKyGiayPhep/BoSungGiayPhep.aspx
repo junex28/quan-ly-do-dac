@@ -372,6 +372,7 @@
                     <%= Html.ActionLink("Thêm công trình...", "BlankCongTrinhRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addCongTrinhItem" })%>
                 </div>
             </div>
+            </div>
             <%} %>
             <div class="box">
                 <h2>

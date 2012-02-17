@@ -132,10 +132,6 @@
         });
 
         function chageSelect() {
-            //salert($("#selector").val());
-//            actionUrl = '<%= Url.Action("ListData", "QLGiayPhep", new { sid = "PLACEHOLDER"} ) %>';
-//            st = actionUrl.replace('PLACEHOLDER', $("#selector").val());
-            //            $("#grid").setGridParam({ url: st }).trigger('reloadGrid');
             gridReload();
         }
 
@@ -218,9 +214,6 @@
                     <span class="search"></span>
                 </button>
             </p>
-            <p>
-                <input type="checkbox" id="autosearch" onclick="enableAutosubmit(this.checked)" />
-                &nbsp;Tự động</p>
             <div id="search" style="visibility: hidden; width: 10px; height: 10px">
             </div>
         </div>
