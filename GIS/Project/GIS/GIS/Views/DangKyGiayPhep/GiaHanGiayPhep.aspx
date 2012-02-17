@@ -17,8 +17,6 @@
            {
                giaypheptontai = false;
            }
-           
-           
     %>
     <input id="save" type="hidden" value="<%=save%>" />
     <div class="grid_19 alpha">
@@ -45,11 +43,11 @@
             <p>
                 <%if (Model.NgayCapPhepDoDac != null)
                   { %>
-                Cấp ngày : <%= Html.Encode(Model.NgayCapPhepDoDac.ToShortDateString()) %>
-            
+                Cấp ngày :
+                <%= Html.Encode(Model.NgayCapPhepDoDac.ToString("dd/mm/yyyy")) %>
+                <% } %>
+            </p>
             <% } %>
-                   </p>
-              <% } %>
         </div>
         <div class="clear">
         </div>
@@ -90,7 +88,9 @@
                     <label class="grid_6">
                         Ngày cấp phép :
                     </label>
-                    <%= Html.TextBoxFor(m => m.NgayCapPhepDoDac, new { @class = "date-picker text" })%>
+                    <%= Html.TextBox("NgayCapPhepDoDac", Model.NgayCapPhepDoDac.ToString("dd/mm/yyyy"), new { @class = "date-picker text" })%>
+                    <!-- <%= Html.TextBoxFor(m => m.NgayCapPhepDoDac, new { @class = "date-picker text" })%> -->
+                    <span id="NgayCapPhepDoDac_validation" style="display:none" class="field-validation-error"><span>Ngày cấp phép không hợp lệ.</span></span>
                 </p>
                 <p>
                     <label class="grid_6">
@@ -116,7 +116,7 @@
                     <label class="grid_6">
                         Vốn pháp định :
                     </label>
-                     <%= Html.TextBox("VonPhapDinh", string.Format("{0:0}", Model.VonPhapDinh), new { @class = "text" })%>
+                    <%= Html.TextBox("VonPhapDinh", string.Format("{0:0}", Model.VonPhapDinh), new { @class = "text" })%>
                     <%= Html.ValidationMessageFor(m=>m.VonPhapDinh)%>
                 </p>
                 <p>
@@ -177,8 +177,10 @@
             <div class="block" id="nangluc">
                 <h4>
                     1. Lực lượng kỹ thuật</h4>
-                <h5>a. Lực lượng kỹ thuật phân tích theo ngành nghề</h5>
-                <span id="NangLuc_Validation" class="field-validation-error" style="display:none">Cần có ít nhât một lực lượng kỹ thuật</span>
+                <h5>
+                    a. Lực lượng kỹ thuật phân tích theo ngành nghề</h5>
+                <span id="NangLuc_Validation" class="field-validation-error" style="display: none">Cần
+                    có ít nhât một lực lượng kỹ thuật</span>
                 <div class="box">
                     <table class="mytable" id="editorNangLucRows">
                         <!-- Table header -->
@@ -213,8 +215,11 @@
                     </table>
                     <%= Html.ActionLink("Thêm năng lực...", "BlankNangLucRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addNangLucItem" })%>
                 </div>
-                <h5>b. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật chính</h5>
-                <span id="NhanLuc_Validation" class="field-validation-error" style="display:none">Cần có ít nhât một nhân lực</span>
+                <h5>
+                    b. Danh sách người chịu trách nhiệm trước pháp luật và người phụ trách kỹ thuật
+                    chính</h5>
+                <span id="NhanLuc_Validation" class="field-validation-error" style="display: none">Cần
+                    có ít nhât một nhân lực</span>
                 <div class="box">
                     <table class="mytable" id="editorNhanLucRows">
                         <!-- Table header -->
@@ -246,8 +251,10 @@
                     </table>
                     <%= Html.ActionLink("Thêm nhân lực...", "BlankNhanLucRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addNhanLucItem" })%>
                 </div>
-                <h5>c. Danh sách thiết bị công nghệ</h5>
-                <span id="ThietBi_Validation" class="field-validation-error" style="display:none">Cần có ít nhât một thiết bị</span>
+                <h5>
+                    c. Danh sách thiết bị công nghệ</h5>
+                <span id="ThietBi_Validation" class="field-validation-error" style="display: none">Cần
+                    có ít nhât một thiết bị</span>
                 <div class="box">
                     <table class="mytable" id="editorThietBiRows">
                         <!-- Table header -->
@@ -292,7 +299,7 @@
                     <label class="grid_2">
                         Từ năm:
                     </label>
-                    <select class="grid_2" id="tunamselector" onchange="chageSelect();" style="padding: 0.5em;
+                    <select name="TuNam" class="grid_2" id="tunamselector" onchange="chageSelect();" style="padding: 0.5em;
                         background-color: #FFFFFF; border: 1px solid #BBBBBB;">
                         <% for (int j = DateTime.Now.Year; j > 1989; j--)
                            { %>
@@ -303,7 +310,7 @@
                     <label class="grid_3">
                         Đến năm:
                     </label>
-                    <select id="Select1" class="grid_2" onchange="chageSelect();" style="padding: 0.5em;
+                    <select name="DenNam" id="Select1" class="grid_2" onchange="chageSelect();" style="padding: 0.5em;
                         background-color: #FFFFFF; border: 1px solid #BBBBBB;">
                         <% for (int j = DateTime.Now.Year; j > 1989; j--)
                            { %>
@@ -368,99 +375,105 @@
                     <%= Html.ActionLink("Thêm công trình...", "BlankCongTrinhRow", new { formId = ViewContext.FormContext.FormId}, new { id = "addCongTrinhItem" })%>
                 </div>
             </div>
-            <%} %>
-            <div class="box">
-                <h2>
-                    <a id="toggle-hoso" href="#" style="cursor: pointer;">Hồ sơ đính kèm</a>
-                </h2>
-                <div class="block" id="hoso">
-                    <% 
+        </div>
+        <%} %>
+        <div class="box">
+            <h2>
+                <a id="toggle-hoso" href="#" style="cursor: pointer;">Hồ sơ đính kèm</a>
+            </h2>
+            <div class="block" id="hoso">
+                <% 
                         if ((loaigiayphep == 1))
                         { %>
-                    <p>
-                        <label>
-                            Nội dung hồ sơ đính kèm gồm:</label></p>
-                    <p style="padding-left: 50px;">
-                        1. Giấy phép hoạt động bản đồ đã được cấp.<br />
-                        2. Giấy tờ khác.
-                        <br />
-                    </p>
-                    <%} %>
-                    <p>
-                        <label class="grid_6">
-                            Hồ sơ đính kèm cũ :
-                        </label>
-                        <% // Neu tochuc co ho so thi hien thi ho so dinh kem cu 
+                <p>
+                    <label>
+                        Nội dung hồ sơ đính kèm gồm:</label></p>
+                <p style="padding-left: 50px;">
+                    1. Giấy phép hoạt động bản đồ đã được cấp.<br />
+                    2. Giấy tờ khác.
+                    <br />
+                </p>
+                <%} %>
+                <p>
+                    <label class="grid_6">
+                        Hồ sơ đính kèm cũ :
+                    </label>
+                    <% // Neu tochuc co ho so thi hien thi ho so dinh kem cu 
                             if (Model.TepDinhKem != null && Model.TepDinhKem != "")
                             {%>
-                        <%= Html.ActionLink("Tải xuống", "Download", new { fn = Model.TepDinhKem })%>
-                    </p>
-                    <%
+                    <%= Html.ActionLink("Tải xuống", "Download", new { fn = Model.TepDinhKem })%>
+                </p>
+                <%
                         }
                             else
                             { %>
-                    Không tìm thấy hồ sơ đính kèm cũ
-                    <%} %>
-                    <p>
-                        <label class="grid_6">
-                            Hồ sơ đăng ký đính kèm mới:
-                        </label>
-                        <input type="file" id="tepdinhkem" name="tepdinhkem" />
-                    </p>
-                </div>
+                Không tìm thấy hồ sơ đính kèm cũ
+                <%} %>
+                <p>
+                    <label class="grid_6">
+                        Hồ sơ đăng ký đính kèm mới:
+                    </label>
+                    <input type="file" id="tepdinhkem" name="tepdinhkem" />
+                </p>
             </div>
-            <% 
+        </div>
+        <% 
                 if (loaigiayphep == 2)
                 { %>
-            <div class="box">
-                <h2>
-                    <a id="toggle-hoatdongmoi" href="#" style="cursor: pointer;">Hoạt động đã đăng ký</a>
-                </h2>
-                <div class="block" id="hoatdongmoi">
-                                    <p>
-                        <label class="grid_6">
-                            Danh sách hoạt động đã đăng ký :
-                        </label>
-                        <% int n = 1;
-                           foreach (string j in Model.DSHoatDongDaDKs)
-                           { %>
-                        <p>
-                            <%= n %>.
-                            <%= j %><br />
-                            <% n++; %>
-                        </p>
-                        <% } %>
-                    </p>
-                </div>
-            </div>
-            <%} %>
-            <div class="box">
-                <div class="block">
+        <div class="box">
+            <h2>
+                <a id="toggle-hoatdongmoi" href="#" style="cursor: pointer;">Hoạt động đã đăng ký</a>
+            </h2>
+            <div class="block" id="hoatdongmoi">
+                <p>
+                    <label class="grid_6">
+                        Danh sách hoạt động đã đăng ký :
+                    </label>
+                    <% if (Model.DSHoatDongDaDKs != null)
+                           {
+                               int n = 1;
+                               foreach (string j in Model.DSHoatDongDaDKs)
+                               { %>
                     <p>
-                        <label class="grid_6">
-                            Lý do :
-                        </label>
-                        <%= Html.TextAreaFor(m => m.LyDo, new { @class = "text" })%>
-                        <%= Html.ValidationMessageFor(m=>m.LyDo)%>
+                        <%= n%>.
+                        <%= j%><br />
+                        <% n++; %>
                     </p>
-                    <p>
-                        <label class="grid_6">
-                            Cam kết :
-                        </label>
-                        <%= Html.TextAreaFor(m => m.Camket, new { @class = "text" })%>
-                        <%= Html.ValidationMessageFor(m=>m.Camket)%>
-                    </p>
-                </div>
-                <input type="hidden" id="Save" value="0" />
-                <div class="block prefix_4">
-                    <button id="saveButton" class="button redmond">
-                        <span class="save">Lưu lại</span></button>
-                    <button id="sendButton" class="button redmond">
-                        <span class="send">Gửi đi</span></button>
-                </div>
+                    <% }
+                           } else {%>
+                    Không có dữ liệu về hoạt động đã đăng ký
+                    <%}%>
+                </p>
             </div>
-            <%} %>
         </div>
+        <%} %>
+        <div class="box">
+            <div class="block">
+                <p>
+                    <label class="grid_6">
+                        Lý do :
+                    </label>
+                    <%= Html.TextAreaFor(m => m.LyDo, new { @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m=>m.LyDo)%>
+                </p>
+                <p>
+                    <label class="grid_6">
+                        Cam kết :
+                    </label>
+                    <%= Html.TextAreaFor(m => m.Camket, new { @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m=>m.Camket)%>
+                </p>
+            </div>
+            <input type="hidden" id="Save" value="0" />
+            <div class="block prefix_4">
+                <button id="saveButton" class="button redmond">
+                    <span class="save">Lưu lại</span></button>
+                <button id="sendButton" class="button redmond">
+                    <span class="send">Gửi đi</span></button>
+            </div>
+        </div>
+        <%} %>
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
 
@@ -479,22 +492,11 @@
             $('.multi').multiselectable({
                 selectableLabel: 'Danh sách hoạt động',
                 selectedLabel: 'Danh sách đã chọn'
-            })
-        });
+            });
+            //});
 
-        $(function() {
-            $('.date-picker').datepicker({
-                changeDate: true,
-                changeMonth: true,
-                changeYear: true,
-                showButtonPanel: true,
-                dateFormat: 'dd-mm-yy',
-                onClose: function(dateText, inst) {
-                    var day = $("#ui-datepicker-div .ui-datepicker-date :selected").val();
-                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                    $(this).datepicker('setDate', new Date(year, month, dateText));
-                }
+            $(function() {
+                $(".date-picker").datepicker({ dateFormat: 'dd/mm/yy' });
             });
 
             $("#addCongTrinhItem").click(function() {
@@ -568,60 +570,61 @@
             });
 
             $('#sendButton').click(function() {
-                // Luu lai
-                var count1 = $("#editorNangLucRows").length;
-                var count2 = $("#editorNhanLucRows").length;
-                var count3 = $("#editorThietBiRows").length;
-                alert(count1);
-                alert(count2);
-                alert(count3);
-                if (count1 == 1) {
-                    alert("chưa kê khai năng lực");
+
+                $("#NangLuc_Validation").hide();
+                $("#NhanLuc_Validation").hide();
+                $("#ThietBi_Validation").hide();
+
+                var nangLucRows = $(this).find('.editorNangLucRow');
+                var nhanLucRows = $(this).find('.editorNhanLucRow');
+                var thietBiRows = $(this).find('.editorThietBiRow');
+
+                var nangLucSize = nangLucRows.size();
+                var nhanLucSize = nhanLucRows.size();
+                var thietBiSize = thietBiRows.size();
+
+                if (nangLucSize <= 0) {
+                    $("#NangLuc_Validation").show();
                 }
-                else if (count1 == 1) {
-                    alert("chưa liệt kê danh sách người chịu trách nhiệm");
+                if (nhanLucSize <= 0) {
+                    $("#NhanLuc_Validation").show();
                 }
-                else if (count3 == 1) {
-                    alert("chưa liệt kê danh sách thiết bị");
+                if (thietBiSize <= 0) {
+                    $("#ThietBi_Validation").show();
                 }
-                else {
-                    $('#GiaHanForm').submit();
-                }
+                $('#GiaHanForm').submit();
             });
 
             $('#GiaHanForm').submit(
                 function() {
-                    $("#NangLuc_Validation").hide();
-                    $("#NhanLuc_Validation").hide();
-                    $("#ThietBi_Validation").hide();
-
-                    var nangLucRows = $(this).find('.editorNangLucRow');
-                    var nhanLucRows = $(this).find('.editorNhanLucRow');
-                    var thietBiRows = $(this).find('.editorThietBiRow');
-
-                    var nangLucSize = nangLucRows.size();
-                    var nhanLucSize = nhanLucRows.size();
-                    var thietBiSize = thietBiRows.size();
-
-                    //                    for (var i = 0; i < rows.size(); i++) {
-                    //                        var row = rows.get(i);
-                    //                        var cols = $(row).find('input');
-                    //                        var firstCol = cols.get(0);
-                    //                        alert($(firstCol).val());
-                    //                        if ($.trim($(firstCol).val()) == '') {
-                    //                            $(row).remove();
-                    //                            nhanlucSize--;
-                    //                        }
-                    //                    }
-                    if (nangLucSize <= 0) {
-                        $("#NangLuc_Validation").show();
+                    $("#NgayCapPhepDoDac_validation").hide();
+                    var value = $(".date-picker").val();
+                    re = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+                    var dateValid = true;
+                    if (value != '') {
+                        if (regs = value.match(re)) { // day value between 1 and 31
+                            if (regs[1] < 1 || regs[1] > 31) {
+                                dateValid = false;
+                            }
+                            // month value between 1 and 12
+                            if (regs[2] < 1 || regs[2] > 12) {
+                                dateValid = false;
+                            }
+                            // year value between 1902 and 2012
+                            if (regs[3] < 1902 || regs[3] > (new Date()).getFullYear()) {
+                                dateValid = false;
+                            }
+                        }
+                        else {
+                            dateValid = false;
+                        }
                     }
-                    if (nhanLucSize <= 0) {
-                        $("#NhanLuc_Validation").show();
+                    if (!dateValid) {
+                        $("#NgayCapPhepDoDac_validation").show();
+                        return false;
                     }
-                    if (thietBiSize <= 0) {
-                        $("#ThietBi_Validation").show();
-                    }
+
+
                     var input1 = document.createElement("input");
                     input1.setAttribute("type", "hidden");
                     input1.setAttribute("name", "save");
@@ -629,59 +632,9 @@
                     $(this).append(input1);
                     return true;
                 });
+
         });
 
     </script>
 
 </asp:Content>
-<%--                    <div id="editorNangLucRows">
-                        <% foreach (var item in Model.NangLucs)
-                               Html.RenderPartial("NangLucEditorRow", item);
-                        %>
-                    </div>--%>
-<%--<fieldset>
-                        <p>
-                            <label class="grid_4">
-                                Ngành nghề :
-                            </label>
-                            <input class="text" type="text" id="nangluc_nganhnghe" name="nangluc_nganhnghe" />
-                        </p>
-                        <p>
-                            <label class="grid_4">
-                                Đại học trở lên :
-                            </label>
-                            <input class="text grid_2" id="nangluc_daihoc" name="nangluc_daihoc" />
-                            <label class="grid_3">
-                                Trung cấp :
-                            </label>
-                            <input class="text grid_2" type="text" id="Text2" name="nangluc_nganhnghe" />
-                        </p>
-                        <p>
-                            <label class="grid_4">
-                                Công nhân kỹ thuật :
-                            </label>
-                            <input class="text grid_2" type="text" id="Text3" name="nangluc_nganhnghe" />
-                            <label class="grid_3">
-                                Loại khác :
-                            </label>
-                            <input class="text grid_2" type="text" id="Text4" name="nangluc_nganhnghe" />
-                            <span class="prefix_1">
-                                <button id="AddNangLucButton" class="button redmond">
-                                    <span class="add">Thêm vào</span></button>
-                            </span>
-                        </p>
-                    </fieldset>--%>
-<%-- %>/*
-            $("#addNangLucItem").click(function() {
-                $.ajax({
-                    url: this.href,
-                    cache: false,
-                    success: function(html) { $("#editorNangLucRows").append(html); }
-                });
-                return false;
-            });
-
-            $("a.deleteNangLucRow").live("click", function() {
-                $(this).parents("div.editorNangLucRow:first").remove();
-                return false;
-            });*/--%>

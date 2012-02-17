@@ -18,6 +18,7 @@
     var today = DateTime.Today;
     int strToday = today.Year;
     %>
+    <div class="clear"> <br /></div>
     <select id ="selectid" onchange="OnchangeSelect()"> 
     <%
     for (int i = 1998; i < strToday; i++)

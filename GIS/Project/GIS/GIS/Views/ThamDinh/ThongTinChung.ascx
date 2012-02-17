@@ -26,13 +26,13 @@
             <label class="grid_6">
                 Vốn pháp định :
             </label>
-            <%= Html.Encode(Model.giayphep.ToChuc.VonPhapDinh) %>
+            <%= Html.Encode(string.Format("{0:0,0}", Model.giayphep.ToChuc.VonPhapDinh)) %>
         </p>
         <p>
             <label class="grid_6">
                 Vốn lưu động :
             </label>
-            <%= Html.Encode(Model.giayphep.ToChuc.VonLuuDong) %>
+            <%= Html.Encode(string.Format("{0:0,0}", Model.giayphep.ToChuc.VonLuuDong)) %>
         </p>
         <p>
             <label class="grid_6">
@@ -121,14 +121,12 @@
                     </label>
                 </p>
                 <p>
-                    <label class="grid_6">
-                        Doanh thu năm:<%= bchd == null || bchd.DoanhThu == null ? "" : string.Format("{0:0,0}", bchd.DoanhThu.Value) %>
-                    </label>
+                    <label class="grid_6">Doanh thu năm:</label>
+                    <%= bchd == null || bchd.DoanhThu == null ? "" : string.Format("{0:0,0}", bchd.DoanhThu.Value) %>
                 </p>
                 <p>
-                    <label class="grid_6">
-                        Nộp ngân sách: <%= bchd == null || bchd.NopNganSach == null ? "" : string.Format("{0:0,0}", bchd.NopNganSach.Value)%>
-                    </label>
+                    <label class="grid_6">Nộp ngân sách:</label>
+                    <%= bchd == null || bchd.NopNganSach == null ? "" : string.Format("{0:0,0}", bchd.NopNganSach.Value)%>
                </p>
                  <h5>Danh sách công trình đã thực hiện</h5>
         <div class="box">
@@ -153,7 +151,7 @@
             <%}
                else
                {%>
-                    <%= Html.Encode(Model.giayphep.TepDinhKem)%>
+                     <%= Html.ActionLink("Download", "Download","QLGiayPhep", new { fn = Model.giayphep.TepDinhKem },null)%>
             <%} %>
         </p>
     </div>

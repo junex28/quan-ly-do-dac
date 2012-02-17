@@ -74,6 +74,13 @@
                     </label>
                      <%= Html.DropDownListFor(m => m.MaLoaiHinhToChuc, new SelectList(Model.loaiHinh, "MaLoaiHinhToChuc", "TenLoaiHinhToChuc", Model.MaLoaiHinhToChuc),new { style ="padding: 0.5em; background-color: #FFFFFF;border: 1px solid #BBBBBB;"})%>            
                 </p>
+                 <p>
+                    <label class="grid_6">
+                        Người đại diện :
+                    </label>
+                    <%= Html.TextBoxFor(m => m.NguoiDaiDien, new { @class = "text" })%>
+                    <%= Html.ValidationMessageFor(m=>m.NguoiDaiDien)%>
+                </p>
                 <p>
                     <label class="grid_6">
                         Vốn pháp định :
@@ -485,54 +492,3 @@
     </script>
 
 </asp:Content>
-<%--                    <div id="editorNangLucRows">
-                        <% foreach (var item in Model.NangLucs)
-                               Html.RenderPartial("NangLucEditorRow", item);
-                        %>
-                    </div>--%>
-<%--<fieldset>
-                        <p>
-                            <label class="grid_4">
-                                Ngành nghề :
-                            </label>
-                            <input class="text" type="text" id="nangluc_nganhnghe" name="nangluc_nganhnghe" />
-                        </p>
-                        <p>
-                            <label class="grid_4">
-                                Đại học trở lên :
-                            </label>
-                            <input class="text grid_2" id="nangluc_daihoc" name="nangluc_daihoc" />
-                            <label class="grid_3">
-                                Trung cấp :
-                            </label>
-                            <input class="text grid_2" type="text" id="Text2" name="nangluc_nganhnghe" />
-                        </p>
-                        <p>
-                            <label class="grid_4">
-                                Công nhân kỹ thuật :
-                            </label>
-                            <input class="text grid_2" type="text" id="Text3" name="nangluc_nganhnghe" />
-                            <label class="grid_3">
-                                Loại khác :
-                            </label>
-                            <input class="text grid_2" type="text" id="Text4" name="nangluc_nganhnghe" />
-                            <span class="prefix_1">
-                                <button id="AddNangLucButton" class="button redmond">
-                                    <span class="add">Thêm vào</span></button>
-                            </span>
-                        </p>
-                    </fieldset>--%>
-<%-- %>/*
-            $("#addNangLucItem").click(function() {
-                $.ajax({
-                    url: this.href,
-                    cache: false,
-                    success: function(html) { $("#editorNangLucRows").append(html); }
-                });
-                return false;
-            });
-
-            $("a.deleteNangLucRow").live("click", function() {
-                $(this).parents("div.editorNangLucRow:first").remove();
-                return false;
-            });*/--%>

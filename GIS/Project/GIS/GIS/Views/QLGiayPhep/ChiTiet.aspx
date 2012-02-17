@@ -46,13 +46,13 @@
                     <label class="grid_6">
                         Vốn pháp định :
                     </label>
-                    <%= Html.Encode(Model.giayphep.ThongTinChung.VonPhapDinh) %>
+                    <%= Html.Encode(string.Format("{0:0,0}", Model.giayphep.ThongTinChung.VonPhapDinh))%>
                 </p>
                 <p>
                     <label class="grid_6">
                         Vốn lưu động :
                     </label>
-                    <%= Html.Encode(Model.giayphep.ThongTinChung.VonLuuDong) %>
+                    <%= Html.Encode(string.Format("{0:0,0}", Model.giayphep.ThongTinChung.VonLuuDong)) %>
                 </p>
                 <p>
                     <label class="grid_6">
@@ -216,11 +216,18 @@
                         Danh sách đã được cấp:
                     </label>
                     <ul class="grid_6">
-                        <% foreach (var item in Model.DangKyDaCap)
-                           {%>
+                        <% if (Model.DangKyDaCap != null)
+                           {
+                               foreach (var item in Model.DangKyDaCap)
+                               {%>
                         <li>
                             <%= item.TenHoatDong%></li>
-                        <%} %>
+                                <%}
+                           }
+                           else
+                           {%>
+                           Không tồn tại danh sách hoạt động đã cấp trong cơ sở dữ liệu
+                           <%} %>
                     </ul>
                 </p>
             </div>
@@ -233,12 +240,19 @@
                         Danh sách bổ sung:
                     </label>
                     <ul class="grid_6">
-                        <% foreach (var item in Model.DangKyBoSung)
+                        <% if (Model.DangKyBoSung != null)
                            {
+                               foreach (var item in Model.DangKyBoSung)
+                               {
                         %>
                         <li>
                             <%= item.TenHoatDong%></li>
-                        <%} %>
+                        <%}
+                           }
+                           else
+                           {%>
+                            Không tồn tại danh sách hoạt động bổ sung trong cơ sở dữ liệu
+                           <%} %>
                     </ul>
                 </p>
             </div>

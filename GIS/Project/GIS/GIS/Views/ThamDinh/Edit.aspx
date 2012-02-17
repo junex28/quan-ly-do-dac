@@ -58,7 +58,8 @@
                     <label class="grid_6">
                         Ngày thẩm định :
                     </label>
-                    <%= Html.TextBox("ThamDinh.NgayThamDinh", Model.ThamDinh.NgayThamDinh.Value.ToString("dd/MM/yyyy")) %>
+                    <%= Html.TextBox("NgayThamDinh", Model.NgayThamDinh.ToString("dd/MM/yyyy"), new { @class = "date-picker text" })%>
+                     <span id="NgayCapPhepDoDac_validation" style="display:none" class="field-validation-error"><span>Ngày thẩm định không hợp lệ.</span></span>
                 </p>
                 <p>
                     <label class="grid_6">
@@ -99,10 +100,9 @@
                     <label class="grid_6">
                         Số giấy phép :
                     </label>
-                    <% if (Model.giayphep.SoGiayPhep == null && Model.giayphep.SoGiayPhep == "")
+                    <% if (Model.giayphep.SoGiayPhep == null || Model.giayphep.SoGiayPhep == "")
                        { %>
-                    
-                    <%= Html.TextBoxFor(m => m.giayphep.SoGiayPhep)%>
+                    <%= Html.TextBoxFor(m => m.giayphep.SoGiayPhep, new { @id="sogiayphep"})%>
                     <% }
                        else
                        { %>
@@ -110,6 +110,31 @@
                     <%}%>
                     <%= Html.ValidationMessageFor(m => m.giayphep.SoGiayPhep)%>
                 </p>
+                <p>
+                <label class="grid_6">
+                   Ngày cấp phép :
+                </label>
+                 <%= Html.TextBox("NgayCapPhep", Model.NgayCapPhep.ToString("dd/MM/yyyy"), new {@class = "date-picker text" })%>
+                 <span id="Span1" style="display:none" class="field-validation-error"><span>Vui lòng nhập ngày cấp phép</span></span>
+            </p>
+             <p>
+                <label class="grid_6">
+                   Ngày hết hạn :
+                </label>
+                <% if (Model.giayphep.LoaiGiayPhep == 3)
+                   {%>
+                 <%= Html.TextBox("NgayHetHan", DateTime.Now.AddYears(3).ToString("dd/MM/yyyy"), new {  @class = "date-picker text" })%>
+                 <%}
+                   else if (Model.giayphep.LoaiGiayPhep == 1)
+                   { %>
+                    <%= Html.TextBox("NgayHetHan", DateTime.Now.AddYears(5).ToString("dd/MM/yyyy"), new { @class = "date-picker text" })%>
+                 <%}
+                   else
+                   {%>
+                   <%= Html.TextBoxFor(m=>m.giayphep.NgayHetHan, new { @class = "date-picker text" })%>
+                       <%} %>
+                  <span id="Span2" style="display:none" class="field-validation-error"><span>Ngày gia hạn không hợp lệ </span></span>
+            </p>
                 <%
                }
                 %>
@@ -146,30 +171,65 @@
         });
         
         $(function() {
-        $("#ThamDinh_NgayThamDinh").datepicker({ dateFormat: 'dd/mm/yy' });
+        $(".date-picker").datepicker({ dateFormat: 'dd/mm/yy' });
         });
         
         var save;
         $(function() {
             $('#xetduyetButton').click(function() {
             //alert("aa");
-                document.getElementById("save").value = 1;
-                $('#xetduyetForm').submit();
+            $("#Span1").hide();
+                save = 1;
+                if ($("#sogiayphep").val() != '') {
+                    if ($("#NgayCapPhep").val() == '') {
+                        $("#Span1").show();
+                    }
+                    else {
+                        $('#xetduyetForm').submit();
+                    }
+                }
             });
 
             $('#khongduyetButton').click(function() {
-                document.getElementById("save").value = 0;
+                save = 0;
                 $('#xetduyetForm').submit();
             });
 
             $('#luuButton').click(function() {
                 // Luu lai
-                document.getElementById("save").value = 2;
+                save = 2;
                 $('#xetduyetForm').submit();
             });
 
             $('#xetduyetForm').submit(
                 function() {
+                    $("#NgayCapPhepDoDac_validation").hide();
+                    var value = $(".date-picker").val();
+                    re = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+                    var dateValid = true;
+                    if (value != '') {
+                        if (regs = value.match(re)) { // day value between 1 and 31
+                            if (regs[1] < 1 || regs[1] > 31) {
+                                dateValid = false;
+                            }
+                            // month value between 1 and 12
+                            if (regs[2] < 1 || regs[2] > 12) {
+                                dateValid = false;
+                            }
+                            // year value between 1902 and 2012
+                            if (regs[3] < 1902 || regs[3] > (new Date()).getFullYear()) {
+                                dateValid = false;
+                            }
+                        }
+                        else {
+                            dateValid = false;
+                        }
+                    }
+                    if (!dateValid) {
+                        $("#NgayCapPhepDoDac_validation").show();
+                        return false;
+                    }
+
                     var input = document.createElement("input");
                     input.setAttribute("type", "hidden");
                     input.setAttribute("name", "gpid");
@@ -179,7 +239,7 @@
                     var input1 = document.createElement("input");
                     input1.setAttribute("type", "hidden");
                     input1.setAttribute("name", "save");
-                    input1.setAttribute("value", $('#save').val());
+                    input1.setAttribute("value", save);
                     $(this).append(input1);
                     return true;
                 });
