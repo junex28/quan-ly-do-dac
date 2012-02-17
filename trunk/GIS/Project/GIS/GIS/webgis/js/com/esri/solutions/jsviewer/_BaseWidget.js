@@ -57,7 +57,7 @@ dojo.declare(
 				item.buttonText = dojo.attr(item, "buttonText");
 			});
 			this.showPanel(0);
-			console.log("_BaseWidget postCreate finished");
+			//console.log("_BaseWidget postCreate finished");
 		},
 		
 		onShowPanel: function(index) {
@@ -141,7 +141,7 @@ dojo.declare(
 				
 				params.load = dojo.hitch(this, function(response, ioArgs) {
 					//console.log("_BaseWidget::setConfig::load success");
-					this.configData = response;
+					this.configData = JSON.parse(response);
 					return response; // Always return response
 				});
 				
@@ -163,7 +163,7 @@ dojo.declare(
 
 			this.widgets = {};
 			children.forEach(dojo.hitch(this, function(item, idx) {
-				//console.debug(idx + ": " + item.declaredClass + " name: " + item.name);
+				console.debug(idx + ": " + item.declaredClass + " name: " + item.name);
 				if (item.name) {
 					this.widgets[item.name] = item;
 				}

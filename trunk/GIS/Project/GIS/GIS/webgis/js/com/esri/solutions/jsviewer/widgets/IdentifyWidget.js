@@ -1,16 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Copyright © 2008 ESRI
-//
-// All rights reserved under the copyright laws of the United States.
-// You may freely redistribute and use this software, with or
-// without modification, provided you include the original copyright
-// and use restrictions.  See use restrictions in the file:
-// <install location>/JSViewer/License.txt
+// NguyenTanThuong - UIT - 01223830793 - nguyentanthuong1989@gmail.com
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-dojo.provide("com.esri.solutions.jsviewer.widgets.LocateWidget");
+dojo.provide("com.esri.solutions.jsviewer.widgets.IdentifyWidget");
 
 dojo.require("com.esri.solutions.jsviewer._BaseWidget");
 dojo.require("com.esri.solutions.jsviewer._MapGraphicsMaintainer");
@@ -18,7 +12,7 @@ dojo.require("com.esri.solutions.jsviewer._MapGraphicsMaintainer");
 // I18N
 dojo.require("dojo.string");
 dojo.require("dojo.i18n");
-dojo.requireLocalization("com.esri.solutions.jsviewer.widgets", "LocateWidgetStrings");
+dojo.requireLocalization("com.esri.solutions.jsviewer.widgets", "IdentifyWidgetStrings");
 
 // for GUI purposes
 dojo.require("dijit.form.Button");
@@ -30,34 +24,33 @@ dojo.require("com.esri.solutions.jsviewer.ResultList");
 dojo.require("dojo.data.ItemFileReadStore");
 
 // for Locating
-dojo.require("esri.tasks.locator");
+dojo.require("esri.tasks.identify")
 
 dojo.require("com.esri.solutions.jsviewer.util");
 
 dojo.declare(
-	"com.esri.solutions.jsviewer.widgets.LocateWidget",
+	"com.esri.solutions.jsviewer.widgets.IdentifyWidget",
 	[com.esri.solutions.jsviewer._BaseWidget, com.esri.solutions.jsviewer._MapGraphicsMaintainer],
 	{
-		constructor: function(/*Object*/ params) {
-			this.locatorFields = [];
+		constructor: function(/*Object*/ params) {			
 		},
 		
-		templatePath: dojo.moduleUrl("com.esri.solutions.jsviewer", "widgets/templates/LocateWidget.html"),
+		templatePath: dojo.moduleUrl("com.esri.solutions.jsviewer", "widgets/templates/IdentifyWidget.html"),
 		
 		_initialized: false,
 		
-		locatorUrl: "",
-		locator: null,
-		
-		geometryUrl: "",
-		geometry: null,
-		
+		identifyUrl: "",
+		identify: null,
+		identifyParams: null,
+		ientifyTask: null,
+		pinIcon: "",
 		iconUrl: "",
 		smallIconUrl: "",
-		symbol: null,
-		
+		symbols: null,
+				
 		loaderNode: null,
 		messageNode: null,
+		zoomScale: null,
 		
 		i18nStrings: null,
 		
@@ -66,6 +59,24 @@ dojo.declare(
 				this.inherited(arguments);
 	
 				if (this.configData) {
+					this.identifyUrl = this.configData.identifyTask.idenUrl;
+					this.zoomScale = this.configData.identifyTask.zoomScale;					
+					}				
+				// Init i18n
+				this.i18nStrings = dojo.i18n.getLocalization("com.esri.solutions.jsviewer.widgets", "IdentifyWidgetStrings");
+			}
+			catch (err) { 
+				console.error("IdentifyWidget: postMixInProperties" + err); }		
+		},
+					
+		/*			
+       identifyParams.returnGeometry = true;
+       identifyParams.layerIds = [0,2];
+       identifyParams.layerOption = esri.tasks.IdentifyParameters.LAYER_OPTION_ALL;
+       identifyParams.width  = map.width;
+       identifyParams.height = map.height;
+					
+					 
 					this.geometryUrl = this.configData.locate.geometry;
 					this.locatorUrl = this.configData.locate.locator;
 					this.minGeocodeScore = parseInt(this.configData.locate.minGeocodeScore, 10);
@@ -76,20 +87,26 @@ dojo.declare(
 					
 					// Init the geometry service
 					this.geometry = new esri.tasks.GeometryService(this.geometryUrl);
-					dojo.connect(this.geometry, "onProjectComplete", dojo.hitch(this, "projectCallback"));
-				}
+					dojo.connect(this.geometry, "onProjectComplete", dojo.hitch(this, "projectCallback"));*/
 				
-				// Init i18n
-				this.i18nStrings = dojo.i18n.getLocalization("com.esri.solutions.jsviewer.widgets", "LocateWidgetStrings");
-			}
-			catch (err) { console.error(err); }		
-		},
 		
 		postCreate: function() {
 			try {
 				this.inherited(arguments);
+				
+				dojo.parser.parse(this.domNode);
+				
+				// Init the loader animation
+				this.loaderNode = dojo.query(".loader", this.domNode)[0];
+				this.loaderNode.src = dojo.moduleUrl("com.esri.solutions.jsviewer", "assets/images/loader.gif");
 
-				// Populate locator fields
+				}
+			catch (err) { console.error(err); }
+		},
+
+
+/*
+				// Populate identify fields
 				var params = {
 					url: this.locatorUrl + "?f=pjson",
 					handleAs: "json",
@@ -103,10 +120,8 @@ dojo.declare(
 				
 				// Init the loader animation
 				this.loaderNode = dojo.query(".loader", this.domNode)[0];
-				this.loaderNode.src = dojo.moduleUrl("com.esri.solutions.jsviewer", "assets/images/loader.gif");
-			}
-			catch (err) { console.error(err); }
-		},
+				this.loaderNode.src = dojo.moduleUrl("com.esri.solutions.jsviewer", "assets/images/loader.gif");*/
+			
 		
 		startup: function() {
 			this.inherited(arguments);
@@ -114,7 +129,47 @@ dojo.declare(
 
 			try {
 				this.getAllNamedChildDijits();
+				console.log("IdentifyWidget::startup ");
+				console.log(this.widgets);
+				this.connects.push(dojo.connect(this.widgets.btnIdentify, "onClick", this, "onIdentify"));
 				
+				if (this.configData){
+					this.identifyParams = new esri.tasks.IdentifyParameters();
+					this.identifyParams.tolerance = this.configData.identifyTask.idenTolerance;
+					this.identifyParams.returnGeometry = true;
+					this.identifyParams.layerIds = this.configData.identifyTask.idenIds;
+					this.identifyParams.layerOption = esri.tasks.IdentifyParameters.LAYER_OPTION_VISIBLE;
+					this.identifyParams.width = this.map.width;
+					this.identifyParams.height = this.map.height;		
+				
+					this.identifyTask = new esri.tasks.IdentifyTask(this.configData.identifyTask.idenUrl);
+				}
+				
+				// Init the map graphic symbol
+				this.iconUrl = dojo.moduleUrl("com.esri.solutions.jsviewer", this.pinIcon).path;
+				this.smallIconUrl = com.esri.solutions.jsviewer.util.getSmallIcon(this.iconUrl);
+				// Create map symbols
+				this.symbols = {
+					point: new esri.symbol.PictureMarkerSymbol(this.iconUrl, 40, 40),
+					line: new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0,255,255]), 2),
+					polygon: new esri.symbol.SimpleFillSymbol(
+						esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+						new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0,255,255]), 2),
+						new dojo.Color([0,255,255,0.5]))
+				};				
+				
+				// Grab the message node for future use
+				this.messageNode = dojo.query(".resultsMsg", this.domNode)[0];
+				this.setMessage(this.i18nStrings.msgReady);
+				
+				// Listen to result selection messages
+				this.connects.push(dojo.connect(this.widgets.results, "onResultClick", this, "onResultClick"));
+				this.connects.push(dojo.connect(this.widgets.results, "onResultHover", this, "onResultHover"));
+
+				this.clearResults();
+				this._initialized = true;
+				
+							/*
 				// Projections dropdown
 				var projData = {
 					identifier: "wkid",
@@ -163,18 +218,177 @@ dojo.declare(
 				// Testing
 				//setTimeout(dojo.hitch(this, function() {
 				//	this.onAddressLocate();
-				//}), 500);
+				//}), 500);*/
 			}
 			catch (err) {
 				console.error(err);
 			}
 		},
 		
+		onIdentify: function(evt){
+			try{			
+			console.log(evt);
+			if(evt && evt.target){				
+				console.log("OnIdentify is start");
+				var params = {
+					onClick: dojo.hitch(this, function(evt) { this.executeIdentifyTask(evt); }),
+					label: evt.target.title
+				}				
+				dojo.publish("identifyRequestEvent", [params]);
+			}	
+			}catch(err){
+				console.error("IdentifyWidget::onIdentity " + err)
+			}
+			
+		},
+		
+		executeIdentifyTask: function(evt){
+			try{	
+					console.log("IdentifyWidget::executeIdentifyTask");					
+					this.identifyParams.geometry = evt.mapPoint;
+        			this.identifyParams.mapExtent = this.map.extent;       
+        			this.identifyTask.execute(this.identifyParams,dojo.hitch(this,"identifyCallback"));        	
+					
+			}catch(err){
+				console.error("IdentifyWidget::executeIdentifyTask " + err);
+			}	
+		},
+		
+		identifyCallback: function(identifyResults){
+		  	// response is an array of identify result objects    
+          	// Let's return an array of features.
+			try{
+			console.log("Identifywidget::identityCallback");				
+			if(identifyResults){
+					var locations = [];
+					console.log(identifyResults);
+					console.log("So ket qua identify ");
+					console.log(this.configData);									
+					identifyResults.forEach(function(result,idx,arr){
+					var link = null;		
+					var feature = result.feature;
+					var content = "<table>";
+					var shortcontent = "<table>";
+					var stitle = null;
+					
+            		feature.attributes.layerName = result.layerName;
+					
+					if(result.layerName ==='MocToaDo' || result.layerName ==='MocDoCao' || result.layerName ==='MocTrongLuc')	{
+						// Set Content here	
+						console.log("IdentifyWidget::identifyCallback");
+						content+= "<tr><td> Cấp hạng </td><td>"; //+ this.tenCapHang(f.attributes['CapHang']) + "</td></tr>";
+						content+= "<tr><td> Loại mốc </td><td>"; //+ this.tenLoaiMoc(f.attributes['LoaiMoc']) + "</td></tr>";
+						content+= "<tr><td> Hệ quy chiếu </td><td>"; //+ f.attributes['HeQuyChieu'] + "</td></tr>";
+						content+= "<tr><td> Năm thành lập </td><td>"; //+ f.attributes['NamThanhLap'] + "</td></tr>";
+						content+= "<tr><td> Tình trạng </td><td>"; //+ this.tenTinhTrang(f.attributes['TinhTrang']) + "</td></tr>";		
+														
+						shortcontent+= "<tr><td> Loại mốc </td><td>" ; //+ this.tenLoaiMoc(f.attributes['LoaiMoc']) + "</td></tr>";
+						shortcontent+= "<tr><td> Tình trạng </td><td>" ; //+ this.tenTinhTrang(f.attributes['TinhTrang']) + "</td></tr>";
+						
+						stitle = "Số hiệu đặt đây";										
+					}
+					else if(result.layerName ==='TyLe50000'){		// Ban do ty le
+						content+= "Bản đồ đặt đây";
+						
+						shortcontent += "Bản đồ con";
+						
+						stitle = "Số hiệu đặt đây";
+						
+					}else{
+						content+= "Thông tin chưa cập nhật";
+						shortcontent+= "Thông tin chưa cập nhật";				
+					}//default
+					shortcontent += "</table>";					
+					content += "</table>";	
+					
+					var attrs = {
+		                "title": stitle,
+						"shortcontent": shortcontent,
+		                "content": content,
+		                "link": link
+		            };
+										
+					var sym = null;
+					var loc = null;
+
+					
+					switch (feature.geometry.type) {
+						case "point":
+							sym = this.symbols.point;
+							loc = feature.geometry;
+							break;
+						case "multipoint":
+							sym = this.symbols.point;
+							loc = feature.geometry.getExtent().getCenter();
+							break;
+						case "polyline":
+							sym = this.symbols.line;
+							var nPts = f.geometry.paths[0].length;
+							var idx = Math.round(nPts / 2);
+							loc = feature.geometry.getPoint(0, idx);
+							break;
+						default:
+							sym = this.symbols.polygon;
+							// For multiring geometries, choose one
+							if (feature.geometry.rings && feature.geometry.rings.length > 1) {
+								var p = new esri.geometry.Polygon(feature.geometry.spatialReference);
+								p.addRing(feature.geometry.rings[0]);
+								var ext = p.getExtent();
+								loc = ext.getCenter();
+							}
+							else {
+								var ext = feature.geometry.getExtent();
+								loc = ext.getCenter();
+							}
+							break;
+					}
+					
+					var g = new esri.Graphic(feature.geometry, sym, attrs);
+					var zoomScale = this.zoomScale;
+					if (layer.zoomScale) {
+						zoomScale = layer.zoomScale;
+					}
+					
+					this.widgets.results.add({
+						title: attrs.title,
+						shortcontent: attrs.shortcontent,
+						content: attrs.content,
+						iconUrl: this.smallIconUrl,
+						graphic: g,
+						location: loc,
+						link: attrs.link,
+						zoomScale: zoomScale
+					});
+					
+					this.addGraphic(g);
+					this.widgets.results.add(params);
+	
+				});
+				
+				var msg = this.i18nStrings.msgFound;
+				msg = dojo.string.substitute(msg, [this.widgets.results.count]);
+				this.setMessage(msg);
+				this.clearResults();
+				this.onShowPanel(4);
+				
+				if (resultCountBeforeAddingThese === 0) {
+					this.widgets.results.selectFirstItem();
+				}
+				dojo.publish("identifyRequestEvent", [params]);
+			}
+	
+			}catch(err){
+				console.error("IdentifyWidget::identifyCallback " +err);
+			}				  
+   		}
+		,
+		
 		shutdown: function() {
 			this.clearResults();
 			dojo.publish("widgetHighlightEvent", [null]);
 			this.inherited(arguments);
-		},
+		}		
+		,
 		
 		setupConstrainedFields: function() {
 			try {
@@ -252,7 +466,7 @@ dojo.declare(
 					}
 					
 					this.locatorFields.push(name);
-					//this.geocodingInputTable.insertBefore(tr, this.geocodingButtonRow);
+					this.geocodingInputTable.insertBefore(tr, this.geocodingButtonRow);
 				}
 				this.setupConstrainedFields();
 			}
@@ -300,7 +514,7 @@ dojo.declare(
 			try {
 				this.setMessage(this.i18nStrings["msgLocate"], true);
 				this.clearResults();
-				this.onShowPanel(1);
+				this.onShowPanel(2);
 				
 				var x = this.widgets.longitude.getValue();
 				var y = this.widgets.latitude.getValue();

@@ -81,6 +81,8 @@ dojo.declare("com.esri.solutions.jsviewer.DataManager",
 							return "proxy.ashx?uri=" + url;
 						};
 						esriConfig.defaults.io.proxyUrl = "proxy.ashx";
+						//esriConfig.defaults.io.alwaysUseProxy = true;
+
 						break;
 					case ("php"):
 						console.log("DataManager proxy type php");
@@ -111,7 +113,8 @@ dojo.declare("com.esri.solutions.jsviewer.DataManager",
 			if (request) {
 				//console.dir(request);
 				request.url = this.proxyUrlProc(request.url);
-				//console.debug("munged url: " + request.url);
+				console.debug("munged url: " + request.url);
+				//dojo.xhrGet(request);
 				dojo.xhrGet(request);
 			}
 		},

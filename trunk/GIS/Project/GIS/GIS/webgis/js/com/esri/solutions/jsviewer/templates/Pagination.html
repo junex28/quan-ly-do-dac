@@ -1,0 +1,29 @@
+
+    <div class="paginator" dojoattachpoint="containerNode">
+    	<table>
+		<tr>
+        <td>
+            <div style="display:block" class="widgetButton wbFirst firstNode" dojoAttachEvent="onclick:onFirstClick" title="${first}">
+            </div>
+        </td>
+        <td>
+            <div style="display:block" class="widgetButton wbPrev prevNode" dojoAttachEvent="onclick:onPrevClick" title="${prev}">
+            </div>
+        </td>
+        <td>
+            <div name="pageNumInfoNode" class="pageNumInfoNode" dojoattachpoint="pageNumInfoNode">
+                title="${pageNumInfoNode}"
+            </div>
+        </td>
+        <td>
+        <div style="display:block" class="widgetButton wbNext nextNode" dojoAttachEvent="onclick:onNextClick" title="${next}">
+        </div>
+        </td>
+        <td>
+            <div style="display:block" class="widgetButton wbLast lastNode" dojoAttachEvent="onclick:onLastClick" title="${last}">
+            </div>
+        </td>
+		</tr>
+		</table>
+    </div>
+

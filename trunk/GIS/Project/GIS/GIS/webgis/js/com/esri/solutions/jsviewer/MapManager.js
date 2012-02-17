@@ -1,6 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Copyright © 2008 ESRI
+// Edited 2012 - NguyenTanThuong UIT 01223830793 
 //
 // All rights reserved under the copyright laws of the United States.
 // You may freely redistribute and use this software, with or
@@ -22,11 +23,14 @@ dojo.requireLocalization("com.esri.solutions.jsviewer", "MapManagerStrings");
 dojo.require("esri.map");
 dojo.require("esri.toolbars.navigation");
 dojo.require("esri.toolbars.draw");
+dojo.require("esri.toolbars.edit");
 
 dojo.require("com.esri.solutions.jsviewer.Highlight");
 dojo.require("com.esri.solutions.jsviewer.InfoPopup");
+dojo.require("com.esri.solutions.jsviewer.EditPopup");
 dojo.require("dijits.identify.Identify");
 dojo.require("dijits.identify.InfoWindowConnector");
+
 
 
 dojo.declare("com.esri.solutions.jsviewer.MapManager",
@@ -34,6 +38,7 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	{
 	    constructor: function(/*Object*/params) {
 	        this.pinnedInfoPopups = [];
+			this.pinnedEditPopups = [];
 	        this.toolNames = {};
 	    },
 
@@ -48,10 +53,14 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 
 	    navToolbar: null,
 	    drawToolbar: null,
+		editToolbar: null,
+		//identify: null, 
 
 	    _drawEventHandle: null,
+		_indentifyHandle: null ,
 
 	    infoPopup: null,
+		editPopup: null,
 	    highlight: null,
 
 	    postMixInProperties: function() {
@@ -67,6 +76,10 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	        this.toolNames[esri.toolbars.Navigation.PAN] = this.i18nStrings.navPanTool;
 	        this.toolNames[esri.toolbars.Navigation.ZOOM_IN] = this.i18nStrings.navZoomInTool;
 	        this.toolNames[esri.toolbars.Navigation.ZOOM_OUT] = this.i18nStrings.navZoomOutTool;
+			//this.toolNames[esri.toolbars.Edit.MOVE] = this.i18nStrings.editMoveTool;
+			//this.toolNames[esri.toolbars.Edit.EDIT_VERTICES] = this.i18nStrings.editEditVerticesTool;
+			//this.toolNames[esri.toolbars.Edit.ROTATE] = this.i18nStrings.editEditVerticesTool;
+			//this.toolNames[esri.toolbars.Edit.SCALE] = this.i18nStrings.editEditVerticesTool;
 	    },
 
 	    postCreate: function() {
@@ -74,10 +87,13 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	        dojo.subscribe("configLoadedEvent", this, "onConfig");
 	        dojo.subscribe("menuItemClickedEvent", this, "onMenuClick");
 	        dojo.subscribe("widgetHighlightEvent", this, "onWidgetHighlight");
+			dojo.subscribe("widgetEditAttributeEvent", this, "onEditAttribute");
 	        dojo.subscribe("widgetNavRequestEvent", this, "onNavRequest");
 	        dojo.subscribe("widgetDrawRequestEvent", this, "onDrawRequest");
 	        dojo.subscribe("mapResizeRequestEvent", this, "onResizeRequest");
 	        dojo.subscribe("identifyRequestEvent", this, "onIdentifyRequest");
+			dojo.subscribe("widgetEditRequestEvent", this,"onEditRequest");
+			dojo.subscribe("DeletedGraphicEvent",this,"onDeletedGraphic");
 	    },
 
 	    startup: function() {
@@ -107,6 +123,7 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	            var ext = configData.map.initialExtent;
 	            params.extent = new esri.geometry.Extent(ext[0], ext[1], ext[2], ext[3], null);
 	        }
+			
 
 	        this.map = new esri.Map(this.mapId, params);
 
@@ -132,6 +149,7 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	            // Init toolbars
 	            this.navToolbar = new esri.toolbars.Navigation(this.map);
 	            this.drawToolbar = new esri.toolbars.Draw(this.map);
+				this.editToolbar = new esri.toolbars.Edit(this.map);
 
 	            // Connect layer change events
 	            dojo.connect(map, "onLayerAdd", function(layer) {
@@ -245,16 +263,16 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	                    case "zoomfull":
 	                        this.zoomToFullExtent();
 	                        break;
-	                    case "identify":
-	                        this.onIdentifyRequest();
-	                        break;
+						case "quan1":
+							this.zoomToDistrict("quan1");
+							break;	
 	                }
 	            }
 	        }
 	    },
 
 	    onWidgetHighlight: function(/*esri.Graphic*/g, /*esri.geometry.Point*/location, /*boolean*/forceNav, /*Number*/zoomScale) {
-	        // g is the graphic in the map that the widget wants highlighted and infoboxed
+	       	// g is the graphic in the map that the widget wants highlighted and infoboxed
 	        if (g && location) {
 	            try {
 	                // Pan & zoom map if the location isn't in the center of the map
@@ -295,7 +313,7 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	                this.highlight.setCoords(location);
 	                this.highlight.setMode("flashing");
 
-	                // Show InfoPopup
+	                // Show EditPopup
 	                if (this.infoPopup === null) {
 	                    var theDiv = document.createElement("div");
 	                    var mapDiv = dojo.byId(this.map.id);
@@ -362,7 +380,14 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	                dojo.disconnect(this._drawEventHandle);
 	                this._drawEventHandle = null;
 	            }
+				
+				if (this._indentifyHandle) {
+					dojo.disconnect(this._identifyHandle)
+	                this._identifyHandle = null;
+	            }
+
 	            this.drawToolbar.deactivate();
+				this.editToolbar.deactivate();
 
 	            // Activate the navigation toolbar
 	            if (navType) {
@@ -387,6 +412,7 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	        try {
 	            // Deactivate navigation toolbars for starters
 	            this.navToolbar.deactivate();
+				this.editToolbar.deactivate();
 	            this.drawToolbar.deactivate();
 
 	            // Disconnect any previous drawing listener
@@ -396,8 +422,9 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	            }
 
 	            //Kill the identify Tool
-	            if (this._identifyDijit) {
-	                this._identifyDijit._disconnectHandlers();
+	            if (this._indentifyHandle) {
+					dojo.disconnect(this._identifyHandle)
+	                this._identifyHandle = null;
 	            }
 
 
@@ -430,7 +457,8 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	    },
 
 	    onResizeRequest: function(/*Object*/box) {
-	        var mapDiv = dojo.byId(this.map.id);
+	       try{
+		   	var mapDiv = dojo.byId(this.map.id);
 	        dojo.style(mapDiv, {
 	            position: "absolute",
 	            left: box.l + "px",
@@ -440,79 +468,223 @@ dojo.declare("com.esri.solutions.jsviewer.MapManager",
 	        });
 	        this.map.resize();
 	        dojo.publish("mapResizedEvent", [box]);
-	    },
+
+		   }catch(err){
+		   		console.error("MapManager::onResizeRequest "+ err);
+		   }
+		    	    },
 
 
-	    onIdentifyRequest: function() {
+	    onIdentifyRequest: function(params) {
 	        // Deactivate drawing and Navigation toolbars for starters
-	        try {
-	            this.navToolbar.deactivate();
+	        try {	
+			
+				console.log("MapManager::onIdentifyRequest ");
+				console.log(params);
+				this.navToolbar.deactivate();
 	            this.drawToolbar.deactivate();
-
+				this.editToolbar.deactivate();
+								            
 	            if (this._drawEventHandle) {
 	                dojo.disconnect(this._drawEventHandle);
 	                this._drawEventHandle = null;
 	            }
-
-	            if (this._identifyDijit) {
-	                console.debug("identify before destroy:", this._identifyDijit);
-	                if (this._identifyDijit._destroyed === true) {
-	                    //this._identifyDijit.destroy();
-	                    this._identifyDijit = null;
-	                }
-	                else {
-	                    if (this._identifyDijit._created === true) {
-	                        this._identifyDijit.destroy();
-	                        this._identifyDijit = null;
-	                    }
-	                }
-	                this._identifyDijit = null;
-
-	                console.debug("identify after destroy:", this._identifyDijit);
-	            }
-
-
-	            var identifyParams = {
-	                map: this.map,
-	                label: "Identify features DH",
-	                defaultTolerance: 2,
-	                mapServices: [
-	                    {
-	                        url: "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Portland/Portland_ESRI_LandBase_AGO/MapServer/",
-	                        name: "Portland Landbase",
-	                        layerIds: [2, 3, 4],
-	                        layerOption: esri.tasks.IdentifyParameters.LAYER_OPTION_ALL,
-	                        displayOptions: {
-	                            "2": { layerAlias: "Tax Lot", attributes: ["TLID", "RNO", "LANDUSE", "SITEADDR", "SITECITY"], fieldAliases: { "TLID": "Tax Lot ID", "SITEADDR": "Address", "SITECITY": "City Name"} },
-	                            "3": { displayFieldName: "BUILD_ID", attributes: ["BUILD_ID", "TL_ADDRESS", "SPLIT"] },
-	                            "4": { displayFieldName: "ZONEGEN_CL", attributes: ["CITY", "ZONE", "ZONE_CLASS", "ZONEGEN_CL"] }
-	                        }
-	                    }
-	                //	                    ,
-	                //	                    {
-	                //	                        url: "http://iris-dev/ArcGIS/rest/services/ATP/DH_ATP_Active_Instructors/MapServer",
-	                //	                        name: "InstructorMap",
-	                //	                        layerIds: [0],
-	                //	                        layerOption: esri.tasks.IdentifyParameters.LAYER_OPTION_ALL,
-	                //	                        displayOptions: {
-	                //	                            "0": { displayFieldName: "Name", layerAlias: "The Instructors", attributes: ["Company", "Name", "Address"] }
-	                //	                        }
-	                //	                    }
-	                //                        
-                        ]
-	            };
-
-	            this._identifyDijit = new dijits.identify.Identify(identifyParams);
-
-	            //activate the identify tool
-	            this._identifyDijit.startup();
-
-	            dojo.publish("mapToolChangedEvent", ["Identify Tool"]);
+				
+				
+				if(params){
+					this._identifyHandle = dojo.connect(this.map, "onClick", params.onClick);
+					dojo.publish("mapToolChangedEvent", params.label);				
+				}
+				else{
+					dojo.publish("mapToolChangedEvent", []);
+				}
+					            
 	        }
 	        catch (err) {
 	            console.error("MapManager::Identify Tool", err);
 	        }
 
-	    }
+	    },
+		
+		onEditRequest: function(/*Object*/params) {
+
+	        try {
+	            // Deactivate navigation toolbars for starters
+				console.log("Map Manager::onEditRequest");
+	            this.navToolbar.deactivate();
+	            this.drawToolbar.deactivate();
+				this.editToolbar.deactivate();
+
+	            // Disconnect any previous drawing listener
+	            if (this._drawEventHandle) {
+	                dojo.disconnect(this._drawEventHandle);
+	                this._drawEventHandle = null;
+	            }
+				
+				if (this._indentifyHandle) {
+					dojo.disconnect(this._identifyHandle)
+	                this._identifyHandle = null;
+	            }
+
+
+	            // Activate the edit toolbar
+	            if (params) {	                
+	                this.editToolbar.activate(params.tool, params.graphic, params.options);
+	                dojo.publish("mapToolChangedEvent", [params.label]);
+				 }
+	            else {
+	                this.editToolbar.deactivate();
+	                dojo.publish("mapToolChangedEvent", []);
+	            }
+	        }
+	        catch (err) {
+	            console.error("MapManager::onEditRequest", err);
+	        }
+	    },
+		
+		onEditAttribute: function( /*ResultItem*/res,/*esri.Graphic*/g, /*esri.geometry.Point*/ location, /*boolean*/ forceNav, /*Number*/ zoomScale){
+			// g is the graphic in the map that the widget wants highlighted and infoboxed
+			console.log("onEditAttribute is startup")
+			console.log(g);
+			console.log(location);
+			if (g && location) {
+				try {
+					// Pan & zoom map if the location isn't in the center of the map
+					if (forceNav) {
+						var zoomToExt = null;
+						if (zoomScale) {
+							if (dojo.isString(zoomScale)) {
+								zoomScale = parseInt(zoomScale);
+							}
+							if (zoomScale > 1) {
+								var currentScale = com.esri.solutions.jsviewer.util.scale.calculateScale(this.map);
+								// expand/shrink the scale to match zoomScale
+								if (zoomScale / currentScale > 2 || zoomScale / currentScale < 0.5) {
+									zoomToExt = this.map.extent.expand(zoomScale / currentScale);
+									zoomToExt = zoomToExt.centerAt(location);
+								}
+							}
+						}
+						if (!zoomToExt) {
+							var ext = this.map.extent.expand(0.5);
+							if (!ext.contains(location)) {
+								zoomToExt = this.map.extent;
+								zoomToExt = zoomToExt.centerAt(location);
+							}
+						}
+						
+						if (zoomToExt) {
+							this.map.setExtent(zoomToExt);
+						}
+					}
+					else {
+						if (!this.map.extent.contains(location)) {
+							return;
+						}
+					}
+					
+					// Highlight Result
+					this.highlight.setCoords(location);
+					this.highlight.setMode("flashing");
+					
+					// Show EditPopup
+					if (this.editPopup === null) {
+						var theDiv = document.createElement("div");
+						var mapDiv = dojo.byId(this.map.id);
+						mapDiv.appendChild(theDiv);
+						var epopup = new com.esri.solutions.jsviewer.EditPopup({
+							map: this.map
+						}, theDiv);
+						this.editPopup = epopup
+						
+						// Connect Close and Pin events
+						// Use of closures to ensure handles are disconnected
+						// and to maintain a link to the correct infoPopup
+						var closeHandle = dojo.connect(epopup, "onClose", dojo.hitch(this, function(){
+							dojo.disconnect(closeHandle);
+							if (this.editPopup === epopup) {
+								this.editPopup = null;
+								if (this.highlight) {
+									this.highlight.setMode("off");
+								}
+							}
+							else {
+								for (var i = 0; i < this.pinnedEditPopups.length; i++) {
+									if (this.pinnedEditPopups[i] === epopup) {
+										this.pinnedEditPopups.splice(i, 1);
+										break;
+									}
+								}
+							}
+							epopup.destroyRecursive();
+						}));
+						
+						var pinHandle = dojo.connect(epopup, "onPin", dojo.hitch(this, function(){
+							dojo.disconnect(pinHandle);
+							if (this.editPopup === epopup) {
+								this.editPopup = null;
+								this.pinnedEditPopups.push(epopup);
+								if (this.highlight) {
+									this.highlight.setMode("off");
+								}
+							}
+						}));
+					}
+					
+					//console.log("DAY LA g.Attributes" );
+					//console.log(g.attributes);
+					
+					this.editPopup.setInfo(g.attributes);
+					this.editPopup.setResultItem(res);
+					this.editPopup.setCoords(location);
+					if (this.editPopup.visible === false) {
+						this.editPopup.show();
+					}
+				} 
+				catch (err) {
+					console.error("Error highlighting widget result", err);
+				}
+			}
+			else {
+				if (this.highlight) {
+					this.highlight.setMode("off");
+				}
+				if (this.editPopup) {
+					this.editPopup.hide();
+				}
+			}
+		},
+		
+		zoomToDistrict : function(district){
+			console.log("go to zoomtodistrict");
+			console.log(this.configData);
+	       var coords = this.configData.map.fullExtent;
+		   
+	       var extents = this.configData.map.extents;
+		   
+		   extents.forEach(dojo.hitch(this,function(extent,idx,arr){
+				if(extent.id == district){
+					coords = extent.value;
+				}		   	
+		   }));  	
+			console.log(coords);				
+			var extent = new esri.geometry.Extent(coords[0], coords[1], coords[2], coords[3], null);
+			this.map.setExtent(extent);
+		},
+		
+		onDeletedGraphic : function(evt){
+			console.log("onDeleteGraphic");
+			console.log(evt);
+			if(evt){
+				if (this.highlight) {
+					this.highlight.setMode("off");
+				}
+				if (this.editPopup) {
+					this.editPopup.hide();
+				}
+				evt.destroyRecursive();
+			}
+		}
+		
 	}
 );

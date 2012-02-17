@@ -115,6 +115,7 @@ dojo.declare("com.esri.solutions.jsviewer.ResultItem",
 		suppressImages: false,
 		zoomScale: null,
 		
+		
 		templatePath: dojo.moduleUrl("com.esri.solutions.jsviewer", "templates/ResultItem.html"),
 		
 		postCreate: function() {
@@ -150,7 +151,8 @@ dojo.declare("com.esri.solutions.jsviewer.ResultItem",
 			this.content = content;
 			//this.contentNode.innerHTML = content;
 			//dojo.setSelectable(this.domNode, false);
-		},
+		}		
+		,
 		
 		setLink: function(/*URL*/ url) {
 			this.link = url;

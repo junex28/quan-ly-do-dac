@@ -35,7 +35,7 @@ dojo.declare("com.esri.solutions.jsviewer.InfoPopup",
 		postCreate: function() {
 			if (this.map) {
 				this.connects.push(dojo.connect(this.map, "onExtentChange", this, "extentChangeHandler"));
-				this.connects.push(dojo.connect(this.map, "onPan", this, "panHandler"));
+				this.connects.push(dojo.connect(this.map, "onPan", this, "panHandler"));	
 			}
 			dojo.setSelectable(this.domNode, false);
 			

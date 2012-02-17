@@ -69,6 +69,7 @@ dojo.declare("com.esri.solutions.jsviewer.ConfigManager",
 				map: {
 					baseMaps: [],
 					liveMaps: [],
+					extents: [],
 					fullExtent: null,
 					initialExtent: null
 				},
@@ -148,6 +149,21 @@ dojo.declare("com.esri.solutions.jsviewer.ConfigManager",
 				arr[idx] = parseFloat(str);
 			};
 			
+			
+			var extentNodes = this.getNodes("extents","extent",response);
+			
+			extentNodes.forEach(dojo.hitch(this,function(node,idx,arr){
+				var extentid = this.getAttribute(node, "id");
+				var ebox = this.getValue(node);
+				var ecoords = ebox.split(" ",4);
+				dojo.forEach(ecoords, boxToCoords);
+				var extent = {
+					id : this.getAttribute(node, "id"),
+					value : ecoords
+				}; 			
+				this.configData.map.extents.push(extent);				
+			}));			
+			
 			var box = this.getAttribute(mapNode, "initialExtent");
 			var coords = box.split(" ", 4);
 			dojo.forEach(coords, boxToCoords);
@@ -156,6 +172,7 @@ dojo.declare("com.esri.solutions.jsviewer.ConfigManager",
 			coords = box.split(" ", 4);
 			dojo.forEach(coords, boxToCoords);
 			this.configData.map.fullExtent = coords;
+			
 			
 			// Nav Tools
 			//console.log("configData.navTools loading...");

@@ -1,0 +1,16 @@
+<div class="widgetContent" dojoAttachPoint="containerNode">
+	<div class="widgetPanel" buttonIcon="assets/images/small_icons/i_mailbox.png" buttonText="${i18nStrings.panelTitle0}">
+		<table class="widgetTable">	
+			<tr><td>
+				<button name="btnIdentify" type="button" dojoType="dijit.form.Button" title="${i18nStrings.btnIdentify}" >${i18nStrings.btnIdentify}</button>
+			</td></tr>
+									
+		</table>
+	</div>	
+	<div class="widgetPanel" buttonIcon="assets/images/small_icons/i_table.png" buttonText="${i18nStrings.panelTitle1}">
+		<table>
+			<tr><td><img class="loader" src="" alt="spinner" /></td><td class="resultsMsg"></td></tr>
+		</table>
+		<div name="results" dojoType="com.esri.solutions.jsviewer.ResultList"></div>
+	</div>
+</div>
