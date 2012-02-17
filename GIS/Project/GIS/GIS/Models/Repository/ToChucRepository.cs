@@ -23,7 +23,22 @@ namespace GIS.Models
 
         public ToChuc GetToChucByTaiKhoan(int tkId)
         {
-            return db.ToChucs.SingleOrDefault(d => d.MaTaiKhoan == tkId);
+            //try
+            //{
+                var list = (from tc in db.ToChucs
+                            where tc.MaTaiKhoan.GetValueOrDefault(0)== tkId
+                            select tc);
+                if (list != null && list.Count()!=0)
+                    return list.ToList()[0];
+                //return db.ToChucs.Single(tc => tc.MaTaiKhoan == tkId);
+
+            //}
+            //catch(Exception e)
+            //{
+             //   throw e;
+                return null;
+            //}
+            //return null;
         }
 
         public void Add(ToChuc tochuc)
