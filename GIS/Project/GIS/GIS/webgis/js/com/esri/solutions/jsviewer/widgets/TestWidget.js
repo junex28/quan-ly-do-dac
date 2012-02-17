@@ -10,11 +10,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-dojo.provide("com.esri.solutions.jsviewer.widgets.MocLayerWidget");
+dojo.provide("com.esri.solutions.jsviewer.widgets.TestWidget");
 
 dojo.require("com.esri.solutions.jsviewer._BaseWidget");
 dojo.require("com.esri.solutions.jsviewer._MapGraphicsMaintainer");
-
+dojo.require("esri.layers.FeatureLayer");
 // I18N
 dojo.require("dojo.string");
 dojo.require("dojo.i18n");
@@ -24,15 +24,16 @@ dojo.requireLocalization("com.esri.solutions.jsviewer.widgets", "MocLayerWidgetS
 dojo.require("com.esri.solutions.jsviewer.ResultList");
 dojo.require("com.esri.solutions.jsviewer.Pagination");
 
+
 dojo.declare(
-	"com.esri.solutions.jsviewer.widgets.MocLayerWidget",
+	"com.esri.solutions.jsviewer.widgets.TestWidget",
 	[com.esri.solutions.jsviewer._BaseWidget, com.esri.solutions.jsviewer._MapGraphicsMaintainer],
 	{
 	    constructor: function(/*Object*/ params) {
 		},
 		
 		//separate template file versus inline tempalte creation
-		templatePath:  dojo.moduleUrl("com.esri.solutions.jsviewer", "widgets/templates/MocLayerWidget.html"),
+		templatePath:  dojo.moduleUrl("com.esri.solutions.jsviewer", "widgets/templates/TestWidget.html"),
 		
 		layerUrl: "",
 		titleField: "",
@@ -59,8 +60,9 @@ dojo.declare(
 		pageInfo : null,
 		paginator: null,
 		
+		
 	    postMixInProperties: function() {
-			console.log("MocLayerWidget postMixInProperties");
+			console.log("TestWidget postMixInProperties");
 			try {
 			    //super
 				this.inherited(arguments);
@@ -88,7 +90,7 @@ dojo.declare(
 		},
 		
 		postCreate: function(){
-			console.log("MocLayerWidget postCreate");
+			console.log("TestWidget postCreate");
 		    try{
 		        //super
 		        this.inherited(arguments);
@@ -98,20 +100,22 @@ dojo.declare(
 				this.loaderNode = dojo.query(".loader", this.domNode)[0];
 				//moduleURL creates an object representing an URL which is then set to the loader img src attribute
                 this.loaderNode.src = dojo.moduleUrl("com.esri.solutions.jsviewer", "assets/images/loader.gif");
-		    	
+				
 				//initialize loader where dojo.query where css class = "paginator"
 				this.paginator = dojo.query(".paginator", this.domNode)[0];
-			}
+				//console.log("paginator"+ this.paginator);
+		    }
 		    catch (err) { console.error(err); }
 		},
 		
 		startup: function(){
-			console.log("MocLayerWidget startup");
+			console.log("TestWidget startup");
 		    //super
 		    this.inherited(arguments);
 			if (!this._initialized) {
 				try {
 					this.getAllNamedChildDijits();
+					//console.dir(this.widgets);
 					
 					//initialze the map graphic sysmbol
 					this.iconURL = dojo.moduleUrl("com.esri.solutions.jsviewer", this.icon).path;
@@ -128,11 +132,10 @@ dojo.declare(
 					this.connects.push(dojo.connect(this.widgets.results, "onResultClick", this, "onResultClick"));
 					this.connects.push(dojo.connect(this.widgets.results, "onResultHover", this, "onResultHover"));
 					this.clearResults();
-					
-						// Listen to pagination 
+									
+					// Listen to pagination 
 					this.connects.push(dojo.connect(this.widgets.paginator,"onPageChange" ,this, "onPageChange"));
 	
-					
 					this._initialized = true;
 					
 				} 
@@ -157,7 +160,7 @@ dojo.declare(
 				this._fetchInterval = null;
 			}
 			this.clearResults();
-			dojo.publish("widgetHighlightEvent", [null]);
+			dojo.publish("widgetHighlightEvent", [null]);		
 			this.inherited(arguments);
 		},
 		
@@ -190,6 +193,7 @@ dojo.declare(
 					featureLayer.queryIds(qParams, dojo.hitch(this,function(objectIds) {
              			 this.fetchRecords(objectIds);
             		}));
+										
 					/*
 					var qParams = new esri.tasks.Query();
 					qParams.returnGeometry = true;
@@ -219,8 +223,8 @@ dojo.declare(
 												
 						this.totalPage = objectIds.length;
 						this.widgets.paginator.setRowPerPage(this.rowPerPage);						
-						this.widgets.paginator.setPageInfo(this.currentPage,this.pageInfo.totalPages);
-						console.log("page info h" + JSON.stringify(this.pageInfo));
+						this.widgets.paginator.setPageInfo(this.currentPage,this.pageInfo.totalPages);						
+						//console.log("page info h" + JSON.stringify(this.pageInfo));
 						this.widgets.paginator.refresh(); 
 						
 						dojo.style(this.paginator, "display", "");
@@ -233,8 +237,7 @@ dojo.declare(
 			else{
 				dojo.style(this.paginator, "display", "none");	
 			}
-			
-			
+						
 				var msg = this.i18nStrings.msgFound;
 				msg = dojo.string.substitute(msg, [objectIds.length]);
 
@@ -299,6 +302,7 @@ dojo.declare(
             featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW, dojo.hitch(this, function(features){
                 this.updateGrid(features, pageNumber);
             }));
+			//console.log("sdffds");
 			}catch(err){
 				console.error("queryRecordsByPage " + err );
 			}
@@ -365,9 +369,11 @@ dojo.declare(
 				console.error("updateGrid "+ err);
 			}
 		}
-,
-
+		,
+		
 		queryCallback: function(featureSet) {
+			try{
+			
 			if (featureSet && featureSet.features) {
 				var locations = [];
 				
@@ -420,7 +426,10 @@ dojo.declare(
 			var msg = this.i18nStrings.msgFound;
 			msg = dojo.string.substitute(msg, [this.widgets.results.count]);
 			this.setMessage(msg);
-		},
+		
+			}catch(err){
+				console.error("queryCallback "+ err);
+			}	},
 		
 		tenLoaiMoc: function(coded){
 			if(coded){
@@ -485,12 +494,13 @@ dojo.declare(
 				dojo.publish("widgetHighlightEvent", [null]);
 			}
 		},
-				
+		
 		onPageChange : function(current){
 			console.log("onPageChange is running");
 			this.clearResults();
 			 this.queryRecordsByPage(current);
 		}
+	
 		
 	}
 );

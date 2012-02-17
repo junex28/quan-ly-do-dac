@@ -34,9 +34,13 @@ dojo.declare("com.esri.solutions.jsviewer.WidgetManager",
 		
 		postCreate: function() {
 			//console.log("WidgetManager postCreate");
-			dojo.subscribe("configLoadedEvent", this, "onConfig");
-			dojo.subscribe("mapLoadedEvent", this, "onMapLoad");
-			dojo.subscribe("menuItemClickedEvent", this, "onMenuClick");
+			try{
+				dojo.subscribe("configLoadedEvent", this, "onConfig");
+				dojo.subscribe("mapLoadedEvent", this, "onMapLoad");
+				dojo.subscribe("menuItemClickedEvent", this, "onMenuClick");				
+			}catch(err){
+				console.error("WidgetManager::postCreate " +err);
+			}
 		},
 		
 		startup: function() {

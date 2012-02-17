@@ -25,10 +25,9 @@
 					 "SC","SD","TN","TX","UT","VA","WA","WI","WV","WY"]
 		},
 		minGeocodeScore: 50,
-		geometry: "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
+		geometry: "http://127.0.0.1/ArcGIS/rest/services/QLDD/Geometry/GeometryServer",
 		projections: [
-			{name: "", wkid: -1},
-			{name: "UTM Zone 10N", wkid: 26910}
+			{name: "", wkid: -1}
 		]
 	}
 }

@@ -39,6 +39,8 @@ dojo.declare(
 		postCreate: function() {
 			// Get references to nodes
 			//console.log("WidgetContainer postCreate");
+			try{
+			
 			this.showHideButton = dojo.query(".wbHide", this.domNode)[0];
 			this._scrollDiv = dojo.query(".widgetContainerControls", this.domNode)[0];
 			this._containerPadding = dojo.style(this.domNode, "paddingTop");
@@ -50,7 +52,10 @@ dojo.declare(
 			dojo.subscribe("mapResizedEvent", this, "onMapResize");
 			
 			//console.log("WidgetContainer postCreate end");
-		},
+	
+			}catch(err){
+				console.error("WidgetContainer::postCreate "+ err);
+			}		},
 		
 		startup: function() {
 			if(this._started){ return; }

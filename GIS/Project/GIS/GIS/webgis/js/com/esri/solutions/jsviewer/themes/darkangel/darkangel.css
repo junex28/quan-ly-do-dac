@@ -113,6 +113,26 @@
 	background-image: url(../../assets/images/widget/w_pin.png);
 }
 
+.wbBookmark {
+	background-image: url(../../assets/images/widget/w_pin.png);
+}
+
+.wbFirst{
+	background-image: url(../../assets/images/widget/w_first.png);
+}
+
+.wbPrev{
+	background-image: url(../../assets/images/widget/w_prev.png);
+}
+
+.wbNext{
+	background-image: url(../../assets/images/widget/w_next.png);
+}
+
+.wbLast{
+	background-image: url(../../assets/images/widget/w_last.png);
+} 
+
 .widgetPanel {
 	background: url("images/000_70.png") repeat;
     /*background-color: black;*/
@@ -222,7 +242,7 @@ img.loader {
 }
 
 .resultsPane {
-	height: 100px;
+	height: 200px;
 	overflow-y: auto;
 }
 
@@ -392,4 +412,33 @@ a:link {
 
 a:visited {
 	color: #EE3;
+}
+
+.esriAttributeInspector {width:100%; z-index: 99;}
+.esriAttributeInspector .atiLayerName {margin:5px auto;font-weight:bold;border-bottom:1px solid #A9A9A9;}
+.esriAttributeInspector .atiField {margin:1px;}
+.esriAttributeInspector .atiRichTextField {margin:5px auto;}
+.esriAttributeInspector .atiTextAreaField {}
+.esriAttributeInspector .atiLabel {margin:1px;padding-right:5px;}
+.esriAttributeInspector .atiTooltip {}
+.esriAttributeInspector .atiNavMessage {float:left;margin:5px 5px auto auto;}
+.esriAttributeInspector .atiButtons {margin:5px auto;padding-top:5px;border-top:1px solid #A9A9A9;}
+.esriAttributeInspector .atiNavButtons {float:right;}
+.esriAttributeInspector .atiButton {margin:0px;width:16px; height:16px;background-image:url(../images/attribute_inspector_sprite.png)}
+.esriAttributeInspector .atiPrevIcon {background-position : -32px 0px;}
+.esriAttributeInspector .atiNextIcon {background-position : -48px 0px;}
+.esriAttributeInspector .atiFirstIcon {background-position : -16px 0px;}
+.esriAttributeInspector .atiLastIcon {background-position : 0px 0px;}
+.esriAttributeInspector .atiDeleteButton {float:left;}
+.esriAttributeInspector .atiAttachmentEditor {padding:10px;}
+.esriAttributeInspector .dijitTextBoxDisabled input{color:black;}
+.dj_ie7 .dijitButtonNode > BUTTON.dijitButtonContents > * {position:static;}
+
+.esriAttributeInspector .dijitTextBox {
+	width: 100px;
+}
+
+.saveButton{
+	padding-left:45px;
+   margin:0px;width:16px; height:16px;
 }

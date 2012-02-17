@@ -16,7 +16,7 @@
 		[
 			{
 				name: "Mốc trọng lực",
-				url: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandomoc/MapServer/1",
+				url: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandomoc/FeatureServer/1",
 				expression: "SoHieu = '[value]'",
 				textSearchField: "SoHieu",
 				textSearchSampleValue: "QTB.526",
@@ -26,11 +26,11 @@
 				linkField: "",
 				districtSearch: true,	
 				bufferSearch:true,
-				rowPerPage: 10			
+				rowPerPage: 10						
 			},
 			{
 				name: "Mốc toạ độ",
-				url: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandomoc/MapServer/2",
+				url: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandomoc/FeatureServer/2",
 				expression: "SoHieu = '[value]'",
 				textSearchField: "SoHieu",
 				textSearchSampleValue: "HCM06",
@@ -40,11 +40,11 @@
 				linkField: "",
 				districtSearch: true,
 				bufferSearch:true,
-				rowPerPage: 10				
+				rowPerPage: 10			
 			},
 			{
 				name: "Mốc độ cao",
-				url: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandomoc/MapServer/3",
+				url: "http://127.0.0.1/ArcGIS/rest/services/QLDD/bandomoc/FeatureServer/3",
 				expression: "SoHieu = '[value]'",
 				textSearchField: "SoHieu",
 				textSearchSampleValue: "QTB.526",
@@ -54,14 +54,29 @@
 				linkField: "",
 				districtSearch: true,
 				bufferSearch:true,
-				rowPerPage: 10				
-			}
+				rowPerPage: 10,	
+			}			
 		],
 		zoomScale: 10000,
 		pinIcon: "assets/images/icons/i_pinblue.png",
 		districtLayer: "http://127.0.0.1/ArcGIS/rest/services/QLDD/quan/MapServer/2",
 		geometryService:"http://127.0.0.1/ArcGIS/rest/services/QLDD/Geometry/GeometryServer",
 		bufferWKID: 102113,
+		layerInfo: 
+					{
+					showAttachments:false,
+			        isEditable: true,
+			        fieldInfos: 
+					[
+			           {fieldName: 'SoHieu', isEditable:false, tooltip: 'Số hiệu', label:'Số hiệu:'},
+			           {fieldName: 'CapHang', isEditable:false, tooltip: 'Cấp hạng', label:'Cấp hạng:'},
+			           {fieldName: 'LoaiMoc', isEditable:false, tooltip: 'Loại mốc',label:'Loại mốc:'},
+					   {fieldName: 'HeQuyChieu', isEditable:false, tooltip: 'Hệ quy chiếu',label:'Hệ quy chiếu:'},
+					   {fieldName: 'TinhTrang', isEditable:true, tooltip: 'Tình trạng',label:'Tình trạng:'},
+					   {fieldName: 'NamThanhLap', isEditable:false, tooltip: 'Năm thành lập',label:'Năm thành lập:'}
+					   
+			        ]
+					}	
 				
 	}
 }

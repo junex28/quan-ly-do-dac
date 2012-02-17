@@ -14,7 +14,6 @@ dojo.provide("com.esri.solutions.jsviewer.widgets.BookmarkWidget");
 
 dojo.require("com.esri.solutions.jsviewer._BaseWidget");
 dojo.require("com.esri.solutions.jsviewer._MapGraphicsMaintainer");
-
 // I18N
 dojo.require("dojo.string");
 dojo.require("dojo.i18n");
@@ -160,12 +159,13 @@ dojo.declare(
 			var ext = this.map.extent;
 			var sd = com.esri.solutions.jsviewer.util.significantDigits;
 			var b = {
-				name: this.widgets.bookmarkName.getValue(),
+				name: this.widgets.bookmarkName.get("value"),
 				coords: [sd(ext.xmin, 5), sd(ext.ymin, 5), sd(ext.xmax, 5), sd(ext.ymax, 5)],
 				extent: ext
 			};
 			this.bookmarks.push(b);
-			
+			console.log("extent nay");
+			console.log(b);
 			// Add it to the results
 			var list = this.widgets.results;
 			list.add({
