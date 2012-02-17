@@ -43,7 +43,12 @@ namespace GIS.Models.Repository
 
         public ThamDinh GetThamDinhByGPID(int id)
         {
-            return db.ThamDinhs.SingleOrDefault(d => d.MaHoSo == id);
+            var list = from td in db.ThamDinhs
+                           where td.MaHoSo == id
+                           select td;
+            if (list != null && list.Count()!= 0)
+                return list.ToList()[0];
+            return null;
         }
         public ThamDinh GetThamDinhByGP(HoSoGiayPhep hs)
         {
@@ -67,15 +72,6 @@ namespace GIS.Models.Repository
             ThamDinh td = q.FirstOrDefault();
             return td;
         }      
-
-        //public ThamDinh GetThamDinhHoatDongById(int id)
-        //{
-        //    var td = from t in db.ThamDinhs
-        //             where t.MaGiayPhepHoatDong == id
-        //             group t by t.MaGiayPhepHoatDong into g
-        //             select new { MaGiayPhepHoatDong = g.Key, NgayThamDinh = g.Max(t => t.NgayThamDinh) };
-        //    return (ThamDinh)td;
-        //}
 
         public void Add(ThamDinh thamdinh)
         {

@@ -16,7 +16,7 @@ namespace GIS.Models
             if (strSearch != null)
             {
                 var list = from gp in db.HoSoGiayPheps
-                       where gp.ThongTinChung.TenToChuc.ToUpper().Contains(strSearch.ToUpper())
+                       where gp.SoGiayPhep.ToUpper().Contains(strSearch.ToUpper())
                        select gp;
                 return list;
             }
@@ -25,9 +25,9 @@ namespace GIS.Models
 
         public IQueryable<HoSoGiayPhep> GetGPHDByTinhTrang(int Id, string strSearch)
         {
-            if (strSearch != null)
+            if (strSearch != null && strSearch != "")
                 return from gp in db.HoSoGiayPheps
-                       where gp.ThongTinChung.TenToChuc.ToUpper().Contains(strSearch.ToUpper()) && gp.TinhTrang == Id
+                       where gp.SoGiayPhep.ToUpper().Contains(strSearch.ToUpper()) && gp.TinhTrang == Id
                        select gp;
             return from gp in db.HoSoGiayPheps
                    where gp.TinhTrang == Id
@@ -42,6 +42,19 @@ namespace GIS.Models
                       select g).ToList() ;
             return hs;
         }
+        public HoSoGiayPhep GetHSGPByToChucId(int tcId)
+        {
+            var list = (from g in db.HoSoGiayPheps
+                        where g.MaToChuc == tcId && (g.TinhTrang == 1 || g.TinhTrang == 4 || g.TinhTrang == 6 || g.TinhTrang == 9)
+                        orderby g.MaHoSo descending
+                        select g);
+            if (list != null && list.Count() != 0)
+            {
+                return list.ToList()[0];
+            }
+            return null;
+        }
+
         // lấy all hs có mã tc
         public List<HoSoGiayPhep> GetHSListByTCID(int tcId)
         {
@@ -50,6 +63,16 @@ namespace GIS.Models
                      orderby hs.MaHoSo descending
                      select hs).ToList();
             return m;
+        }
+
+        public HoSoGiayPhep GetHSListBySoGP(string sogp)
+        {
+            var m = (from hs in db.HoSoGiayPheps
+                     where hs.SoGiayPhep == sogp && hs.TinhTrang == 5
+                     select hs).ToList();
+            if(m!= null && m.Count !=0)
+                return m[0];
+            return null;
         }
         public HoSoGiayPhep GetHoSoGiayPhepByID(int id)
         {
