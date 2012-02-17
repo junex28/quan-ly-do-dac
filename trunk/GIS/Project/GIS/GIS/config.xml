@@ -15,7 +15,7 @@
 <configuration>
 	<userinterface>
 		<banner>visible</banner>
-		<title>Quản lý Đo Đạc và Bản Đồ  </title>
+		<title>Quản lý Đo Đạc và Bản Đồ</title>
 		<subtitle>Powered by ArcGIS Server</subtitle>
 		<logo>assets/images/logo.png</logo>
 		<stylesheet></stylesheet>
@@ -27,43 +27,49 @@
   		</menus>
 	</userinterface>
 	<!--<map initialExtent="-122.2 24.89 -70.59 46.92" fullExtent="-150 -50 150 50">-->
-    <map initialExtent="105.384 10.310 108.157 11.322" fullExtent="106.36 10.38 107.02 11.15">
+    <map initialExtent="106.67 10.758 106.73 10.788" fullExtent="106.36 10.38 107.02 11.15">
 
       <basemaps menu="menuMap">
 			<mapservice label="Bản đồ nền" type="tiled" visible="true" alpha="1" icon="assets/images/icons/i_highway.png">http://127.0.0.1/ArcGIS/rest/services/QLDD/bandonen/MapServer</mapservice>
 			<!--<mapservice label="Satellite Map" type="tiled" visible="false" alpha="1" icon="assets/images/icons/i_shuttle.png">http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_Imagery_World_2D/MapServer</mapservice>-->
 		</basemaps>
 		<livemaps>
-			<mapservice label="Bản đồ động" type="dynamic" visible="false" alpha="0.4">http://127.0.0.1/ArcGIS/rest/services/QLDD/bandodong/MapServer</mapservice>
-			<!--<mapservice label="Portland Map" type="dynamic" visible="true" alpha="0.4">http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Portland/Portland_ESRI_LandBase_AGO/MapServer</mapservice>-->
+			<!--<mapservice label="Bản đồ động" type="dynamic" visible="false" alpha="0.4">http://127.0.0.1/ArcGIS/rest/services/QLDD/bandodong/MapServer</mapservice>-->
+			<mapservice label="Mốc" type="dynamic" visible="false" alpha="0.7">http://127.0.0.1/ArcGIS/rest/services/QLDD/bandodong/MapServer</mapservice>
 		</livemaps>
+		<extents>
+			<extent id="quan1">106.67 10.758 106.73 10.788</extent>
+		</extents>
 	</map>
 	<navtools>
 		<navtool label="Phóng to" icon="assets/images/icons/i_zoomin.png" menu="menuNav">zoomin</navtool>
 		<navtool label="Thu nhỏ" icon="assets/images/icons/i_zoomout.png" menu="menuNav">zoomout</navtool>
-		<navtool label="Kích thước đủ" icon="assets/images/icons/i_zoomfull.png" menu="menuNav">zoomfull</navtool>
-		<navtool label="Di chuyển" icon="assets/images/icons/i_pan.png" menu="menuNav">pan</navtool>
-    <navtool label="Công cụ Identify" icon="assets/images/icons/i_identify.png" menu="menuNav">identify</navtool>
+		<navtool label="Toàn bản đồ" icon="assets/images/icons/i_zoomfull.png" menu="menuNav">zoomfull</navtool>
+		<navtool label="Di chuyển" icon="assets/images/icons/i_pan.png" menu="menuNav">pan</navtool>   
   </navtools>
 	<widgets>
 		<widget label="Bản đồ động" icon="assets/images/icons/i_folder.png" menu="menuMap">com.esri.solutions.jsviewer.widgets.LiveMapsWidget</widget>
-		<widget label="Tổng quan" icon="assets/images/icons/i_overview.png" menu="menuMap" config="widgets/config/OverviewWidget.json">com.esri.solutions.jsviewer.widgets.OverviewWidget</widget>
-		<widget label="Bookmarks" icon="assets/images/icons/i_bookmark.png" menu="menuMap" config="widgets/config/BookmarkWidget.json">com.esri.solutions.jsviewer.widgets.BookmarkWidget</widget>
+		<widget label="Tổng quan" icon="assets/images/icons/i_overview.png" menu="menuMap" config="/../../../../../GIS/OverviewWidget">com.esri.solutions.jsviewer.widgets.OverviewWidget</widget>
+		<widget label="Bookmarks" icon="assets/images/icons/i_bookmark.png" menu="menuMap" config="/../../../../../GIS/BookmarkWidget">com.esri.solutions.jsviewer.widgets.BookmarkWidget</widget>
 		<!--<widget label="Earthquakes" icon="assets/images/icons/i_rss.png" menu="menuWidgets" config="widgets/config/EarthquakeWidget.json">com.esri.solutions.jsviewer.widgets.GeoRSSWidget</widget>-->
-		<widget label="Locate" icon="assets/images/icons/i_pushpin.png" menu="menuWidgets" config="widgets/config/LocateWidget.json">com.esri.solutions.jsviewer.widgets.LocateWidget</widget>
+		<widget label="Locate" icon="assets/images/icons/i_pushpin.png" menu="menuWidgets" config="/../../../../../GIS/LocateWidget">com.esri.solutions.jsviewer.widgets.LocateWidget</widget>
 		<!--<widget label="Police Facilities" icon="assets/images/icons/i_policestation.png" menu="menuWidgets" config="widgets/config/LiveLayerWidget2.json">com.esri.solutions.jsviewer.widgets.LiveLayerWidget</widget>
 		<widget label="Traffic Cameras" icon="assets/images/icons/i_camera.png" menu="menuWidgets" config="widgets/config/TrafficCameraWidget.json">com.esri.solutions.jsviewer.widgets.LiveLayerWidget</widget>-->
-		<widget label="Mốc trọng lực" icon="assets/images/icons/i_circleblue.png" menu="menuWidgets" config="widgets/config/MocTrongLucWidget.json">com.esri.solutions.jsviewer.widgets.MocLayerWidget</widget>
-		<widget label="Mốc toạ độ" icon="assets/images/icons/i_circleorange.png" menu="menuWidgets" config="widgets/config/MocToaDoWidget.json">com.esri.solutions.jsviewer.widgets.MocLayerWidget</widget>
-		<widget label="Mốc độ cao" icon="assets/images/icons/i_circlered.png" menu="menuWidgets" config="widgets/config/MocDoCaoWidget.json">com.esri.solutions.jsviewer.widgets.MocLayerWidget</widget>
-		<widget label="Tìm kiếm" icon="assets/images/icons/i_search.png" menu="menuWidgets" config="widgets/config/SearchWidget.json">com.esri.solutions.jsviewer.widgets.SearchWidget</widget>
-		<widget label="Draw" icon="assets/images/icons/i_draw.png" menu="menuWidgets" config="widgets/config/DrawWidget.json">com.esri.solutions.jsviewer.widgets.DrawWidget</widget>
+		<widget label="Mốc trọng lực" icon="assets/images/icons/i_circleblue.png" menu="menuWidgets" config="/../../../../../GIS/MocTrongLucWidget">com.esri.solutions.jsviewer.widgets.MocLayerWidget</widget>
+		<widget label="Mốc toạ độ" icon="assets/images/icons/i_circleorange.png" menu="menuWidgets" config="/../../../../../GIS/MocToaDoWidget">com.esri.solutions.jsviewer.widgets.MocLayerWidget</widget>
+		<widget label="Mốc độ cao" icon="assets/images/icons/i_circlered.png" menu="menuWidgets" config="/../../../../../GIS/MocDoCaoWidget">com.esri.solutions.jsviewer.widgets.MocLayerWidget</widget>
+		<!--<widget label="Test" icon="assets/images/icons/i_circlered.png" menu="menuWidgets" config="widgets/config/TestWidget.json">com.esri.solutions.jsviewer.widgets.TestWidget</widget>
+		<widget label="Edit" icon="assets/images/icons/i_circlered.png" menu="menuWidgets" config="widgets/config/EditWidget.json">com.esri.solutions.jsviewer.widgets.EditWidget</widget>-->
+		<widget label="Tìm kiếm" icon="assets/images/icons/i_search.png" menu="menuWidgets" config="/../../../../../GIS/SearchWidget">com.esri.solutions.jsviewer.widgets.SearchWidget</widget>
+		<widget label="Cập nhật" icon="assets/images/icons/i_draw.png" menu="menuWidgets" config="/../../../../../GIS/EditSearchWidget">com.esri.solutions.jsviewer.widgets.EditSearchWidget</widget>
+		<widget label="Đo đạc" icon="assets/images/icons/i_measure.png" menu="menuWidgets" config="/../../../../../GIS/DrawWidget">com.esri.solutions.jsviewer.widgets.DrawWidget</widget>
 		<!--<widget label="Service Areas" icon="assets/images/icons/i_servicearea.png" menu="menuWidgets" config="widgets/config/ServiceAreaWidget.json">com.esri.solutions.jsviewer.widgets.ServiceAreaWidget</widget>-->
-		<widget label="Liên hệ" icon="assets/images/icons/i_about.png" menu="menuHelp" config="widgets/config/AboutWidget.xml">com.esri.solutions.jsviewer.widgets.AboutWidget</widget>		
+		<widget label="Liên hệ" icon="assets/images/icons/i_about.png" menu="menuHelp" config="widgets/config/AboutWidget.xml">com.esri.solutions.jsviewer.widgets.AboutWidget</widget>	
+		<widget label="Identify" icon="assets/images/icons/i_identify.png" menu="menuNav" config="/../../../../../GIS/IdentifyWidget">com.esri.solutions.jsviewer.widgets.IdentifyWidget</widget>	
 	</widgets>
 	<links>
-		<link label="Giúp đỡ" icon="assets/images/icons/i_help.png" menu="menuHelp">help.html</link>
-		<link label="Trang chủ" icon="assets/images/icons/i_home.png" menu="menuHelp">http://www.esri.com</link>
+		<link label="Giúp đỡ" icon="assets/images/icons/i_help.png" menu="menuHelp">http://www.esri.com</link>
+		<link label="Trang chủ" icon="assets/images/icons/i_home.png" menu="menuHelp">http://localhost:1379/trangchu/index</link>
 		<link label="Tài nguyên" icon="assets/images/icons/i_folder2.png" menu="menuHelp">http://resources.esri.com</link>
 	</links>
 	<proxytype>asp</proxytype> <!-- jsp|asp|php -->
